@@ -1,48 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka+One&display=swap');
 
 :root {
-    /* Light theme variables */
-    --primary-color: #FF6B6B;                  
-    --secondary-color: #4ECDC4;
-    --accent-color: #FFE66D;
+    /* Light theme variables - Blue Theme */
+    --primary-color: #1E88E5;                  
+    --secondary-color: #64B5F6;
+    --accent-color: #90CAF9;
     --text-color: #2C3E50;
     --bg-color: #fff;
-    --card-bg: #f8f9fa;
+    --card-bg: #F5F9FF;
     --header-bg: rgba(255, 255, 255, 0.95);
-    --footer-bg: #f8f9fa;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --footer-bg: #F5F9FF;
+    --shadow-color: rgba(30, 136, 229, 0.1);
     --transition: all 0.3s ease;
-    --gradient-primary: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-    --gradient-secondary: linear-gradient(135deg, #4ECDC4, #45B7AF);
+    --gradient-primary: linear-gradient(135deg, #1E88E5, #64B5F6);
+    --gradient-secondary: linear-gradient(135deg, #64B5F6, #90CAF9);
     --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --border-color: #dee2e6;
+    --bg-secondary: #F5F9FF;
+    --text-primary: #2C3E50;
+    --text-secondary: #546E7A;
+    --border-color: #E3F2FD;
     --navbar-bg: rgba(255, 255, 255, 0.95);
     --input-bg: #ffffff;
-    --input-border: #dee2e6;
-    --input-text: #333333;
+    --input-border: #E3F2FD;
+    --input-text: #2C3E50;
 }
 
 [data-theme="dark"] {
-    --primary-color: #FF6B6B;
-    --secondary-color: #4ECDC4;
-    --accent-color: #FFE66D;
+    --primary-color: #2196F3;
+    --secondary-color: #64B5F6;
+    --accent-color: #90CAF9;
     --text-color: #ECF0F1;
-    --bg-color: #1a1a1a;
-    --card-bg: #2d2d2d;
-    --header-bg: rgba(26, 26, 26, 0.95);
-    --footer-bg: #1a1a1a;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
+    --bg-color: #0A1929;
+    --card-bg: #102A43;
+    --header-bg: rgba(10, 25, 41, 0.95);
+    --footer-bg: #0A1929;
+    --shadow-color: rgba(33, 150, 243, 0.3);
+    --bg-primary: #0A1929;
+    --bg-secondary: #102A43;
     --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --border-color: #404040;
-    --navbar-bg: rgba(26, 26, 26, 0.95);
-    --input-bg: #2d2d2d;
-    --input-border: #404040;
+    --text-secondary: #B0BEC5;
+    --border-color: #1E4976;
+    --navbar-bg: rgba(10, 25, 41, 0.95);
+    --input-bg: #102A43;
+    --input-border: #1E4976;
     --input-text: #ffffff;
 }
 
@@ -433,18 +433,13 @@ section {
 
 .feature-card {
     background: var(--card-bg);
-    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
     padding: 2rem;
-    text-align: center;
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 6px var(--shadow-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .feature-card::before {
@@ -474,21 +469,19 @@ section {
 }
 
 .feature-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
     background: var(--gradient-primary);
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 1.5rem;
 }
 
 .feature-icon i {
-    font-size: 2rem;
     color: white;
+    font-size: 1.5rem;
 }
 
 .feature-card h3 {
@@ -529,33 +522,34 @@ section {
 }
 
 .language-card {
-    height: auto;
-    padding: 2rem;
-    margin-bottom: 1rem;
-    background-color: var(--card-bg);
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
-    box-shadow: 0 4px 6px var(--shadow-color);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: var(--transition);
+    text-align: center;
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .language-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px var(--shadow-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
 }
 
 .language-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 1.5rem;
     background: var(--gradient-primary);
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 1.5rem;
 }
 
 .language-icon i {
-    font-size: 3rem;
     color: white;
+    font-size: 2rem;
 }
 
 .language-features {
@@ -875,35 +869,37 @@ section {
 
 /* Button Styles */
 .btn-primary {
-    background: var(--gradient-primary) !important;
+    background: var(--gradient-primary);
     border: none;
-    color: white !important;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
+    color: white;
     font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
     transition: var(--transition);
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .btn-outline-primary {
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color) !important;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: var(--transition);
     background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
 }
 
 .btn-outline-primary:hover {
     background: var(--gradient-primary);
-    color: white !important;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 /* Update form controls for dark mode */
