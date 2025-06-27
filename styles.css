@@ -6,56 +6,46 @@
     --primary-hover: #ff4444;
     --secondary-color: #ff4d4d;
     
-    /* Colores de fondo */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #242424;
-    --bg-tertiary: #2a2a2a;
-    
-    /* Colores de texto */
-    --text-primary: #e0e0e0;
-    --text-secondary: #b0b0b0;
-    
-    /* Colores de borde */
-    --border-color: rgba(255, 255, 255, 0.1);
-    
-    /* Sombras */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
-    
-    /* Light theme variables */
-    --accent-color: #FFE66D;
-    --bg-color: #fff;
-    --card-bg: #f8f9fa;
-    --header-bg: #ffffff;
+    /* Light theme variables mejoradas */
+    --accent-color: #ff1a1a;
+    --bg-primary: #f6f6f8;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f0f3;
+    --card-bg: #fff;
+    --header-bg: #fff;
     --footer-bg: #f8f9fa;
-    --transition: all 0.3s ease;
-    --text-color: #2C3E50;
-    --navbar-bg: #ffffff;
-    --input-bg: #ffffff;
-    --input-border: #dee2e6;
-    --input-text: #333333;
+    --navbar-bg: #fff;
+    --shadow-color: rgba(0,0,0,0.07);
+    --text-primary: #232323;
+    --text-secondary: #666;
+    --text-color: #232323;
+    --border-color: #e0e0e0;
+    --input-bg: #fff;
+    --input-border: #e0e0e0;
+    --input-text: #232323;
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 [data-theme="dark"] {
     --primary-color: #ff1a1a;
     --secondary-color: #ff4d4d;
     --accent-color: #FFE66D;
-    --text-color: #ECF0F1;
-    --bg-color: #1a1a1a;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-tertiary: #2a2a2a;
     --card-bg: #2d2d2d;
     --header-bg: #1a1a1a;
     --footer-bg: #1a1a1a;
-    --shadow-color: rgba(0, 0, 0, 0.2);
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --border-color: #404040;
     --navbar-bg: #1a1a1a;
+    --shadow-color: rgba(0,0,0,0.2);
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-color: #ECF0F1;
+    --border-color: #404040;
     --input-bg: #2d2d2d;
     --input-border: #404040;
-    --input-text: #ffffff;
+    --input-text: #fff;
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 * {
@@ -66,10 +56,11 @@
 
 body {
     font-family: 'Quicksand', sans-serif;
-    background-color: var(--bg-primary);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 50%, var(--bg-primary) 100%);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -107,7 +98,7 @@ section {
 }
 
 .navbar-brand {
-    color: var(--text-primary) !important;
+    color: var(--primary-color) !important;
     font-family: 'Fredoka One', cursive;
     font-size: 1.8rem;
     font-weight: bold;
@@ -282,13 +273,14 @@ section {
 .btn-primary {
     background-color: var(--primary-color);
     border: none;
-    color: white;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255, 26, 26, 0.08);
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    background-color: var(--primary-hover);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255, 26, 26, 0.15);
 }
 
 .btn-outline-primary {
@@ -299,16 +291,14 @@ section {
 
 .btn-outline-primary:hover {
     background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    color: #fff;
 }
 
 /* Form Controls */
 .form-control {
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
-    color: var(--input-text);
+    color: var(--input-text) !important;
     padding: 0.8rem 1rem;
     border-radius: 10px;
     transition: var(--transition);
@@ -316,8 +306,24 @@ section {
 
 .form-control:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.08);
     background-color: var(--input-bg);
+    color: var(--input-text) !important;
+}
+
+.form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.08);
+    background-color: var(--input-bg);
+    color: var(--input-text);
 }
 
 /* Cards */
@@ -326,6 +332,7 @@ section {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     transition: var(--transition);
+    box-shadow: 0 2px 12px var(--shadow-color);
 }
 
 .card:hover {
@@ -459,5 +466,62 @@ section {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-secondary);
+    background: var(--primary-color);
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.18;
+    background: radial-gradient(circle at center, var(--primary-color) 0%, transparent 70%);
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--primary-color);
+    filter: blur(35px);
+    mix-blend-mode: screen;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card, .auth-card, .feature-card, .language-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition: var(--transition);
+    box-shadow: 0 2px 12px var(--shadow-color);
+}
+
+.card:hover, .auth-card:hover, .feature-card:hover, .language-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.navbar, .auth-navbar {
+    background-color: var(--navbar-bg) !important;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.footer {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Forzar header de autenticación siempre oscuro */
+.auth-navbar, .auth-navbar .navbar-brand, .auth-navbar .navbar-brand i, .auth-navbar .nav-link {
+    background-color: #242424 !important;
+    color: #ff1a1a !important;
+    border-bottom: 1px solid #333 !important;
+}
+.auth-navbar .navbar-brand span {
+    color: #ff1a1a !important;
+}
+.auth-navbar .navbar-brand i {
+    color: #ff1a1a !important;
 }

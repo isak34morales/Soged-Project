@@ -22,22 +22,24 @@ class DashboardManager {
     loadUserData() {
         const userData = JSON.parse(localStorage.getItem('user'));
         
-        if (!userData) {
-            // Redirect to login if no user data is found
-            window.location.href = 'login.html';
-            return;
-        }
+        // Eliminada la redirección al login para permitir acceso sin usuario
+        // if (!userData) {
+        //     window.location.href = 'login.html';
+        //     return;
+        // }
 
         // Update user information in the dashboard
-        if (this.userName) {
+        if (this.userName && userData) {
             this.userName.textContent = `${userData.firstName || userData.name} ${userData.lastName || ''}`;
         }
-        if (this.userEmail) {
+        if (this.userEmail && userData) {
             this.userEmail.textContent = userData.email;
         }
 
         // Update course progress based on user's language preference
-        this.updateCourseProgress(userData.languagePreference);
+        if (userData) {
+            this.updateCourseProgress(userData.languagePreference);
+        }
     }
 
     updateCourseProgress(languagePreference) {

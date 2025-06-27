@@ -36,8 +36,8 @@ class AuthManager {
                 localStorage.setItem('rememberMe', 'true');
             }
 
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            // Redirect to index
+            window.location.href = 'index.html';
         } catch (error) {
             this.showError('Invalid email or password');
         }
@@ -78,9 +78,9 @@ class AuthManager {
             // Show success message
             this.showSuccess('Registration successful! Redirecting to dashboard...');
 
-            // Redirect to dashboard after a short delay
+            // Redirect to index after a short delay
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             }, 1500);
         } catch (error) {
             this.showError('Registration failed. Please try again.');
