@@ -23,7 +23,7 @@
             flex-direction: column;
             background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         .background-animation {
             position: fixed;
@@ -551,10 +551,11 @@
                         Remember me
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
-                </button>
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-primary" type="submit">Log In</button>
+                    <a href="register.html" class="btn btn-outline-primary">Sign Up</a>
+                    <a href="guest.html" class="btn btn-secondary">Continue as Guest</a>
+                </div>
                 <div class="auth-links">
                     <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
                     <p>Don't have an account? <a href="register.html">Sign Up</a></p>
