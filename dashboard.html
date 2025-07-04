@@ -428,11 +428,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="profile-section">
-            <div class="profile-image">
-                <img src="https://via.placeholder.com/120" alt="Profile">
+            <div class="profile-image d-flex align-items-center justify-content-center" style="background: var(--card-bg);">
+                <i class="fas fa-user" style="font-size: 3rem; color: var(--primary-color);"></i>
             </div>
-            <div class="profile-name">John Doe</div>
-            <div class="profile-level">Level 5 - Advanced</div>
+            <div class="profile-name" id="userName">New User</div>
+            <div class="profile-level">Level 1</div>
         </div>
         <nav class="nav-menu">
             <a href="dashboard.html" class="nav-item active">
@@ -527,19 +527,16 @@
                 <div class="course-info">
                     <h1>Guna Language Basics</h1>
                     <p>Master the fundamentals of Guna language and culture</p>
-                    <div class="course-progress">
+                    <div class="course-progress" style="background: var(--bg-tertiary);">
                         <div class="progress-header">
-                            <span>Course Progress</span>
-                            <span>75%</span>
+                            <span>Progress</span>
+                            <span id="course-progress-label">0%</span>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
+                        <div class="progress-bar" style="background: var(--bg-secondary);">
+                            <div class="progress-fill" id="course-progress-fill" style="width: 0%; background: var(--primary-color);"></div>
                         </div>
                     </div>
-                    <button class="continue-btn">
-                        <i class="fas fa-play"></i>
-                        Continue Learning
-                    </button>
+                    <button class="continue-btn mt-3" style="background: var(--primary-color); color: #fff;" id="begin-learning-btn"><i class="fas fa-play"></i>Begin Learning</button>
                 </div>
             </div>
         </div>
@@ -618,5 +615,33 @@
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/dashboard.js"></script>
+    <script>
+    // Reset all progress, XP, streaks, and achievements for a new user
+    window.addEventListener('DOMContentLoaded', function() {
+        // XP Progress
+        var xpBar = document.getElementById('xp-progress-bar');
+        if (xpBar) {
+            xpBar.style.width = '0%';
+            xpBar.setAttribute('aria-valuenow', '0');
+            xpBar.textContent = '0 XP';
+        }
+        var xpLevel = document.getElementById('xp-level-label');
+        if (xpLevel) xpLevel.textContent = 'Level 1';
+        // Streak
+        var streak = document.getElementById('streak-count');
+        if (streak) streak.textContent = '0';
+        // Certification
+        var cert = document.getElementById('certification-status');
+        if (cert) cert.textContent = 'Not eligible';
+        // Achievements
+        var achList = document.getElementById('achievements-list');
+        if (achList) achList.innerHTML = '';
+        // Course Progress
+        var courseFill = document.getElementById('course-progress-fill');
+        var courseLabel = document.getElementById('course-progress-label');
+        if (courseFill) courseFill.style.width = '0%';
+        if (courseLabel) courseLabel.textContent = '0%';
+    });
+    </script>
 </body>
 </html> 
