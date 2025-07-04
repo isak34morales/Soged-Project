@@ -3,46 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Language Learning Platform</title>
+    <title>Soged - Preserving Indigenous Languages</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header Component -->
     <div id="header-component"></div>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <h1>Learn Languages Online</h1>
-                        <p class="lead">Discover and learn languages at your own pace with interactive lessons</p>
-                        <div class="hero-buttons">
-                            <button class="btn btn-primary btn-lg" onclick="window.location.href='start-learning.html'">Start Free</button>
-                            <button class="btn btn-outline-primary btn-lg" onclick="window.location.href='lessons.html'">View Lessons</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="hero-image-container">
-                        <div class="hero-image-wrapper">
-                            <div class="hero-image">
-                                <div class="image-circle"></div>
-                                <div class="image-dots"></div>
-                                <div class="image-shapes">
-                                    <div class="shape shape-1"></div>
-                                    <div class="shape shape-2"></div>
-                                    <div class="shape shape-3"></div>
-                                </div>
-                                <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="Language Learning" class="main-image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="hero text-center" id="home">
+        <div class="container py-5">
+            <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="Indigenous Languages" style="width:110px; margin-bottom:1.5rem;">
+            <h1 style="font-weight:800; font-size:2.5rem; color:#ff1a1a;">Preserve. Learn. Connect.</h1>
+            <p class="lead" style="max-width:600px; margin:1rem auto 2rem auto; color:#a33; font-size:1.2rem;">Soged es la app para aprender y preservar los idiomas indígenas de Panamá de forma moderna, sencilla y divertida.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#languages" class="btn btn-primary">Ver Idiomas</a>
+                <a href="#mission" class="btn btn-outline-primary">Nuestra Misión</a>
             </div>
         </div>
     </section>
@@ -51,223 +28,75 @@
     <section class="languages" id="languages">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Our Languages</h2>
-                <p class="lead">Explore our diverse language offerings</p>
+                <h2>Nuestros Idiomas</h2>
+                <p class="lead">Aprende, practica y ayuda a preservar la riqueza lingüística de Panamá.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="language-card">
-                        <div class="language-icon">
-                            <i class="fas fa-feather-alt"></i>
-                        </div>
-                        <h3>Language 1</h3>
-                        <p>Discover the rich culture and traditions</p>
+                        <div class="language-icon"><i class="fas fa-feather-alt"></i></div>
+                        <h3>Ngäbe</h3>
                         <ul class="language-features">
-                            <li><i class="fas fa-check"></i> Basic vocabulary</li>
-                            <li><i class="fas fa-check"></i> Native pronunciation</li>
-                            <li><i class="fas fa-check"></i> Culture and traditions</li>
+                            <li><i class="fas fa-check"></i> Lecciones interactivas</li>
+                            <li><i class="fas fa-check"></i> Audio nativo</li>
+                            <li><i class="fas fa-check"></i> Certificación</li>
                         </ul>
-                        <button class="btn btn-primary w-100">Learn More</button>
+                        <button class="btn btn-primary w-100">Aprender Ngäbe</button>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="language-card">
-                        <div class="language-icon">
-                            <i class="fas fa-drum"></i>
-                        </div>
-                        <h3>Language 2</h3>
-                        <p>Explore fascinating language and customs</p>
+                        <div class="language-icon"><i class="fas fa-drum"></i></div>
+                        <h3>Bokota</h3>
                         <ul class="language-features">
-                            <li><i class="fas fa-check"></i> Common phrases</li>
-                            <li><i class="fas fa-check"></i> Basic conversation</li>
-                            <li><i class="fas fa-check"></i> History and art</li>
+                            <li><i class="fas fa-check"></i> Escritura</li>
+                            <li><i class="fas fa-check"></i> Pronunciación</li>
+                            <li><i class="fas fa-check"></i> Cultura</li>
                         </ul>
-                        <button class="btn btn-primary w-100">Learn More</button>
+                        <button class="btn btn-primary w-100">Aprender Bokota</button>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="language-card">
-                        <div class="language-icon">
-                            <i class="fas fa-mountain"></i>
-                        </div>
-                        <h3>Language 3</h3>
-                        <p>Immerse yourself in culture and language</p>
+                        <div class="language-icon"><i class="fas fa-mountain"></i></div>
+                        <h3>Guna</h3>
                         <ul class="language-features">
-                            <li><i class="fas fa-check"></i> Basic grammar</li>
-                            <li><i class="fas fa-check"></i> Practical exercises</li>
-                            <li><i class="fas fa-check"></i> Local customs</li>
+                            <li><i class="fas fa-check"></i> Lectura</li>
+                            <li><i class="fas fa-check"></i> Audio nativo</li>
+                            <li><i class="fas fa-check"></i> Certificación</li>
                         </ul>
-                        <button class="btn btn-primary w-100">Learn More</button>
+                        <button class="btn btn-primary w-100">Aprender Guna</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="language-card">
+                        <div class="language-icon"><i class="fas fa-leaf"></i></div>
+                        <h3>Bri-Bri</h3>
+                        <ul class="language-features">
+                            <li><i class="fas fa-check"></i> Práctica</li>
+                            <li><i class="fas fa-check"></i> Certificación</li>
+                            <li><i class="fas fa-check"></i> Comunidad</li>
+                        </ul>
+                        <button class="btn btn-primary w-100">Aprender Bri-Bri</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Why Choose Our Platform?</h2>
-                <p class="lead">Learn at your own pace with our proven method</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <h3>Gamified Learning</h3>
-                        <p>Learn while earning points and unlocking levels</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-microphone-alt"></i>
-                        </div>
-                        <h3>Native Audio</h3>
-                        <p>Listen and practice with authentic pronunciation</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Personal Progress</h3>
-                        <p>Track your progress and improve continuously</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <h3>Achievements</h3>
-                        <p>Earn badges and certify your level</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Mission Section -->
+    <section class="about" id="mission">
+        <div class="container text-center py-5">
+            <h2 style="color:#ff1a1a; font-weight:700;">Nuestra Misión</h2>
+            <p class="lead" style="max-width:600px; margin:1rem auto; color:#a33;">Preservar y promover los idiomas indígenas de Panamá a través de la tecnología y la educación. Aprende a tu ritmo, con recursos auténticos y una comunidad que te apoya.</p>
+            <a href="#languages" class="btn btn-primary mt-3">¡Empieza a aprender!</a>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="about-content">
-                        <div class="section-header">
-                            <h2>Our Mission</h2>
-                            <p class="lead">Preserving Languages Through Technology</p>
-                        </div>
-                        <p>Our platform is dedicated to preserving and promoting languages through innovative technology and engaging learning methods. We combine traditional knowledge with modern educational techniques to make language learning accessible and enjoyable.</p>
-                        <div class="about-features">
-                            <div class="about-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Cultural Preservation</span>
-                            </div>
-                            <div class="about-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Community Engagement</span>
-                            </div>
-                            <div class="about-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Educational Innovation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="about-image">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2436/2436874.png" alt="About Us" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="contact-content">
-                        <div class="section-header">
-                            <h2>Get in Touch</h2>
-                            <p class="lead">We're here to help you learn</p>
-                        </div>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <div>
-                                    <h3>Email</h3>
-                                    <p>support@indilingo.com</p>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-phone"></i>
-                                <div>
-                                    <h3>Phone</h3>
-                                    <p>+507 123-4567</p>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div>
-                                    <h3>Location</h3>
-                                    <p>Panama City, Panama</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="contact-form">
-                        <form>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Your Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2>Stay Updated</h2>
-                    <p class="lead">Subscribe to our newsletter for the latest updates and learning tips</p>
-                    <form class="newsletter-form">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Enter your email" required>
-                            <button class="btn btn-primary" type="submit">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer Component -->
     <div id="footer-component"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
-    <script src="main.js"></script>
 </body>
 </html>
+
