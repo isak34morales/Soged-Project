@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Soged - Indigenous Language Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/resources.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <div id="header-component"></div>
+
+    <!-- Hero Section -->
+    <section class="resources-hero">
+        <div class="container">
+            <div class="resources-hero-content text-center">
+                <h1 class="hero-title text-white">Learning Resources</h1>
+                <p class="hero-subtitle">Discover comprehensive materials to master indigenous languages</p>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search resources, vocabulary, grammar...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i>
+                        All
+                    </button>
+                    <button class="category-btn" data-category="vocabulary">
+                        <i class="fas fa-book"></i>
+                        Vocabulary
+                    </button>
+                    <button class="category-btn" data-category="grammar">
+                        <i class="fas fa-language"></i>
+                        Grammar
+                    </button>
+                    <button class="category-btn" data-category="audio">
+                        <i class="fas fa-volume-up"></i>
+                        Audio
+                    </button>
+                    <button class="category-btn" data-category="video">
+                        <i class="fas fa-play-circle"></i>
+                        Video
+                    </button>
+                    <button class="category-btn" data-category="docs">
+                        <i class="fas fa-file-alt"></i>
+                        Documents
+                    </button>
+                    <button class="category-btn" data-category="culture">
+                        <i class="fas fa-heart"></i>
+                        Culture
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Grid -->
+    <section class="resources-section">
+        <div class="container">
+            <div class="resources-grid" id="resourcesGrid">
+                <!-- Vocabulary Resources -->
+                <div class="resource-card" data-category="vocabulary" data-search="ngäbe words basic vocabulary">
+                    <div class="resource-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Vocabulary</div>
+                        <h3 class="resource-title">Basic Ngäbe Vocabulary</h3>
+                        <p class="resource-description">Essential words and phrases for everyday conversations in Ngäbe language.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Beginner</span>
+                            <span class="resource-time">15 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Practice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="vocabulary" data-search="bokota phrases common expressions">
+                    <div class="resource-image">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Vocabulary</div>
+                        <h3 class="resource-title">Common Bokota Phrases</h3>
+                        <p class="resource-description">Learn the most frequently used phrases and expressions in Bokota language.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Intermediate</span>
+                            <span class="resource-time">20 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Practice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grammar Resources -->
+                <div class="resource-card" data-category="grammar" data-search="guna grammar rules structure">
+                    <div class="resource-image">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Grammar</div>
+                        <h3 class="resource-title">Guna Grammar Fundamentals</h3>
+                        <p class="resource-description">Complete guide to Guna language grammar structure and rules.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Advanced</span>
+                            <span class="resource-time">45 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Practice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="grammar" data-search="bribri sentence structure">
+                    <div class="resource-image">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Grammar</div>
+                        <h3 class="resource-title">Bri-Bri Sentence Structure</h3>
+                        <p class="resource-description">Understanding the unique sentence patterns and word order in Bri-Bri.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Intermediate</span>
+                            <span class="resource-time">30 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Practice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio Resources -->
+                <div class="resource-card" data-category="audio" data-search="ngäbe pronunciation audio lessons">
+                    <div class="resource-image">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Audio</div>
+                        <h3 class="resource-title">Ngäbe Pronunciation Guide</h3>
+                        <p class="resource-description">Audio lessons with native speakers teaching proper Ngäbe pronunciation.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">All Levels</span>
+                            <span class="resource-time">60 min audio</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Listen
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="audio" data-search="bokota songs traditional music">
+                    <div class="resource-image">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Audio</div>
+                        <h3 class="resource-title">Traditional Bokota Songs</h3>
+                        <p class="resource-description">Learn Bokota through traditional songs and cultural music.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Beginner</span>
+                            <span class="resource-time">45 min audio</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Listen
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Resources -->
+                <div class="resource-card" data-category="video" data-search="guna culture video lessons">
+                    <div class="resource-image">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Video</div>
+                        <h3 class="resource-title">Guna Cultural Stories</h3>
+                        <p class="resource-description">Video series exploring Guna culture through storytelling and language.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">All Levels</span>
+                            <span class="resource-time">25 min video</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Watch
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-heart"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="video" data-search="bribri cooking traditional recipes">
+                    <div class="resource-image">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Video</div>
+                        <h3 class="resource-title">Bri-Bri Cooking Terms</h3>
+                        <p class="resource-description">Learn Bri-Bri vocabulary through traditional cooking and recipes.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Intermediate</span>
+                            <span class="resource-time">35 min video</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Watch
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-heart"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Resources -->
+                <div class="resource-card" data-category="docs" data-search="ngäbe grammar pdf document">
+                    <div class="resource-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Documents</div>
+                        <h3 class="resource-title">Complete Ngäbe Grammar PDF</h3>
+                        <p class="resource-description">Comprehensive grammar reference with examples and exercises.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Advanced</span>
+                            <span class="resource-time">PDF - 150 pages</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="docs" data-search="bokota dictionary reference">
+                    <div class="resource-image">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Documents</div>
+                        <h3 class="resource-title">Bokota-English Dictionary</h3>
+                        <p class="resource-description">Complete bilingual dictionary with pronunciation guides.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">All Levels</span>
+                            <span class="resource-time">PDF - 300 pages</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Culture Resources -->
+                <div class="resource-card" data-category="culture" data-search="guna molas traditional art">
+                    <div class="resource-image">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Culture</div>
+                        <h3 class="resource-title">Guna Molas: Art & Language</h3>
+                        <p class="resource-description">Explore Guna culture through traditional mola art and language.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">All Levels</span>
+                            <span class="resource-time">40 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Explore
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-heart"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card" data-category="culture" data-search="bribri ceremonies traditions">
+                    <div class="resource-image">
+                        <i class="fas fa-drum"></i>
+                    </div>
+                    <div class="resource-content">
+                        <div class="resource-category">Culture</div>
+                        <h3 class="resource-title">Bri-Bri Ceremonial Language</h3>
+                        <p class="resource-description">Learn about Bri-Bri traditions and ceremonial vocabulary.</p>
+                        <div class="resource-meta">
+                            <span class="resource-level">Advanced</span>
+                            <span class="resource-time">50 min read</span>
+                        </div>
+                        <div class="resource-actions">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-play"></i>
+                                Explore
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-heart"></i>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button class="btn btn-outline-primary btn-lg" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i>
+                    Load More Resources
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Component -->
+    <div id="footer-component"></div>
+    <div id="auth-modal-root"></div>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/components.js"></script>
+</body>
+</html> 
