@@ -450,6 +450,85 @@
                 console.log('Carousel manager initialized');
             }
         });
+        
+        // Make modal functions globally available
+        window.showAuthModal = function(type = 'login') {
+            const overlay = document.getElementById('auth-modal-overlay');
+            if (!overlay) {
+                console.error('Modal overlay not found');
+                return;
+            }
+            
+            console.log('Opening modal:', type);
+            
+            // Ocultar todos los formularios primero
+            overlay.querySelectorAll('.auth-form').forEach(f => {
+                f.style.display = 'none';
+                f.style.opacity = '0';
+            });
+            
+            // Mostrar el formulario correcto con animación
+            let targetForm;
+            if (type === 'login') {
+                targetForm = overlay.querySelector('.auth-login-form');
+            } else if (type === 'register') {
+                targetForm = overlay.querySelector('.auth-register-form');
+            } else if (type === 'forgot') {
+                targetForm = overlay.querySelector('.auth-forgot-form');
+            }
+            
+            if (targetForm) {
+                targetForm.style.display = 'block';
+                setTimeout(() => {
+                    targetForm.style.opacity = '1';
+                }, 10);
+            }
+            
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Focus en el primer input del formulario
+            setTimeout(() => {
+                const firstInput = targetForm?.querySelector('input');
+                if (firstInput) firstInput.focus();
+            }, 100);
+        };
+        
+        window.hideAuthModal = function() {
+            const overlay = document.getElementById('auth-modal-overlay');
+            if (!overlay) {
+                console.error('Modal overlay not found for hiding');
+                return;
+            }
+            
+            console.log('Hiding modal');
+            
+            // Animación de salida
+            const modal = overlay.querySelector('.auth-modal');
+            if (modal) {
+                modal.style.transform = 'scale(0.95)';
+                modal.style.opacity = '0';
+            }
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+                if (modal) {
+                    modal.style.transform = '';
+                    modal.style.opacity = '';
+                }
+            }, 200);
+        };
+        
+        // ESC key handler
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('auth-modal-overlay');
+                if (overlay && overlay.style.display === 'flex') {
+                    hideAuthModal();
+                }
+            }
+        });
     </script>
 </body>
 </html>

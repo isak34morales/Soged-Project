@@ -4,6 +4,7 @@ async function loadComponent(elementId, componentPath) {
         const response = await fetch(componentPath);
         const html = await response.text();
         document.getElementById(elementId).innerHTML = html;
+        
         // Si es el header, asignar eventos a los botones de login/register
         if (elementId === 'header-component') {
             setTimeout(() => {
@@ -20,6 +21,13 @@ async function loadComponent(elementId, componentPath) {
                     });
                 });
             }, 0);
+        }
+        
+        // Si es el modal de auth, configurar eventos después de cargar
+        if (elementId === 'auth-modal-root') {
+            setTimeout(() => {
+                setupModalEvents();
+            }, 100);
         }
     } catch (error) {
         console.error('Error loading component:', error);
@@ -54,28 +62,72 @@ document.addEventListener('DOMContentLoaded', () => {
 // === AUTH MODAL LOGIC ===
 function showAuthModal(type = 'login') {
     const overlay = document.getElementById('auth-modal-overlay');
-    if (!overlay) return;
+    if (!overlay) {
+        console.error('Modal overlay not found');
+        return;
+    }
+    
+    console.log('Opening modal:', type);
+    
+    // Ocultar todos los formularios primero
+    overlay.querySelectorAll('.auth-form').forEach(f => {
+        f.style.display = 'none';
+        f.style.opacity = '0';
+    });
+    
+    // Mostrar el formulario correcto con animación
+    let targetForm;
+    if (type === 'login') {
+        targetForm = overlay.querySelector('.auth-login-form');
+    } else if (type === 'register') {
+        targetForm = overlay.querySelector('.auth-register-form');
+    } else if (type === 'forgot') {
+        targetForm = overlay.querySelector('.auth-forgot-form');
+    }
+    
+    if (targetForm) {
+        targetForm.style.display = 'block';
+        setTimeout(() => {
+            targetForm.style.opacity = '1';
+        }, 10);
+    }
+    
     overlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    // Mostrar el formulario correcto
-    overlay.querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
-    if (type === 'login') {
-        overlay.querySelector('.auth-login-form').style.display = 'block';
-    } else if (type === 'register') {
-        overlay.querySelector('.auth-register-form').style.display = 'block';
-    } else if (type === 'forgot') {
-        overlay.querySelector('.auth-forgot-form').style.display = 'block';
-    }
+    
+    // Focus en el primer input del formulario
     setTimeout(() => {
-        overlay.querySelector('.auth-modal').focus();
+        const firstInput = targetForm?.querySelector('input');
+        if (firstInput) firstInput.focus();
     }, 100);
 }
+
 function hideAuthModal() {
     const overlay = document.getElementById('auth-modal-overlay');
-    if (!overlay) return;
-    overlay.style.display = 'none';
-    document.body.style.overflow = '';
+    if (!overlay) {
+        console.error('Modal overlay not found for hiding');
+        return;
+    }
+    
+    console.log('Hiding modal');
+    
+    // Animación de salida
+    const modal = overlay.querySelector('.auth-modal');
+    if (modal) {
+        modal.style.transform = 'scale(0.95)';
+        modal.style.opacity = '0';
+    }
+    
+    setTimeout(() => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+        if (modal) {
+            modal.style.transform = '';
+            modal.style.opacity = '';
+        }
+    }, 200);
 }
+
 // Eventos globales para abrir modal desde header
 window.addEventListener('DOMContentLoaded', () => {
     // Botones del header
@@ -91,26 +143,103 @@ window.addEventListener('DOMContentLoaded', () => {
             showAuthModal('register');
         });
     });
-    // Cerrar modal
+    
+    // Verificar si el modal ya existe y configurar eventos
+    setTimeout(() => {
+        const overlay = document.getElementById('auth-modal-overlay');
+        if (overlay) {
+            setupModalEvents();
+        }
+    }, 500);
+});
+
+function setupModalEvents() {
     const overlay = document.getElementById('auth-modal-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', e => {
-            if (e.target === overlay) hideAuthModal();
-        });
-        const closeBtn = document.getElementById('auth-modal-close');
-        if (closeBtn) closeBtn.addEventListener('click', hideAuthModal);
-        // ESC para cerrar
-        document.addEventListener('keydown', e => {
-            if (overlay.style.display === 'flex' && e.key === 'Escape') hideAuthModal();
-        });
-        // Cambiar entre formularios
-        const toRegister = overlay.querySelector('#auth-to-register');
-        if (toRegister) toRegister.addEventListener('click', e => { e.preventDefault(); showAuthModal('register'); });
-        const toLogin = overlay.querySelector('#auth-to-login');
-        if (toLogin) toLogin.addEventListener('click', e => { e.preventDefault(); showAuthModal('login'); });
-        const forgot = overlay.querySelector('#auth-forgot-link');
-        if (forgot) forgot.addEventListener('click', e => { e.preventDefault(); showAuthModal('forgot'); });
-        const backLogin = overlay.querySelector('#auth-back-login');
-        if (backLogin) backLogin.addEventListener('click', e => { e.preventDefault(); showAuthModal('login'); });
+    if (!overlay) {
+        console.error('Modal overlay not found for event setup');
+        return;
     }
-}); 
+    
+    console.log('Setting up modal events');
+    
+    // Cerrar modal al hacer click fuera
+    overlay.addEventListener('click', e => {
+        if (e.target === overlay) {
+            console.log('Click outside modal - closing');
+            hideAuthModal();
+        }
+    });
+    
+    // Botón de cerrar
+    const closeBtn = document.getElementById('auth-modal-close');
+    if (closeBtn) {
+        console.log('Close button found, adding event listener');
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Close button clicked');
+            hideAuthModal();
+        });
+    } else {
+        console.error('Close button not found');
+    }
+    
+    // ESC para cerrar
+    document.addEventListener('keydown', e => {
+        if (overlay.style.display === 'flex' && e.key === 'Escape') {
+            console.log('ESC pressed - closing modal');
+            hideAuthModal();
+        }
+    });
+    
+    // Navegación entre formularios
+    const toRegister = overlay.querySelector('#auth-to-register');
+    if (toRegister) {
+        toRegister.addEventListener('click', e => {
+            e.preventDefault();
+            showAuthModal('register');
+        });
+    }
+    
+    const toLogin = overlay.querySelector('#auth-to-login');
+    if (toLogin) {
+        toLogin.addEventListener('click', e => {
+            e.preventDefault();
+            showAuthModal('login');
+        });
+    }
+    
+    const forgot = overlay.querySelector('#auth-forgot-link');
+    if (forgot) {
+        forgot.addEventListener('click', e => {
+            e.preventDefault();
+            showAuthModal('forgot');
+        });
+    }
+    
+    const backLogin = overlay.querySelector('#auth-back-login');
+    if (backLogin) {
+        backLogin.addEventListener('click', e => {
+            e.preventDefault();
+            showAuthModal('login');
+        });
+    }
+    
+    // Prevenir que el modal se cierre al hacer click dentro
+    const modal = overlay.querySelector('.auth-modal');
+    if (modal) {
+        modal.addEventListener('click', e => {
+            e.stopPropagation();
+        });
+    }
+    
+    // También configurar eventos para botones sociales
+    const socialButtons = overlay.querySelectorAll('.btn-social');
+    socialButtons.forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            console.log('Social button clicked:', btn.classList.contains('btn-google') ? 'Google' : 'Microsoft');
+            // Aquí puedes agregar la lógica de autenticación social
+        });
+    });
+} 
