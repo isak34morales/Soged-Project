@@ -9,22 +9,50 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="header-component"></div>
-
-    <!-- Hero Section -->
+    <!-- Navbar actualizado -->
+    <header class="main-header py-3 px-4 d-flex justify-content-between align-items-center" style="background: var(--header-bg); box-shadow: 0 2px 10px var(--shadow-color);">
+        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 me-4" style="color: var(--primary-color); font-family: 'Fredoka One', cursive; font-size: 1.7rem; text-decoration: none;">
+            <i class="fas fa-language"></i> Soged
+        </a>
+        <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+            <nav class="d-none d-md-flex align-items-center gap-4">
+                <a href="index.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">Home</a>
+                <a href="languages.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">Languages</a>
+                <a href="features.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">Features</a>
+                <a href="contact.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">Contact</a>
+                <a href="about.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">About</a>
+                <a href="dashboard.html" class="nav-link" style="color: var(--text-primary); font-weight: 600;">Dashboard</a>
+            </nav>
+        </div>
+        <div class="d-none d-md-flex align-items-center gap-2 ms-auto" style="margin-right: 1rem;">
+            <a href="login.html" class="btn btn-outline-primary">Login</a>
+            <a href="register.html" class="btn btn-primary">Register</a>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="achievements.html"><i class="fas fa-trophy me-2"></i>Achievements</a></li>
+                <li><a class="dropdown-item" href="progress.html"><i class="fas fa-chart-line me-2"></i>Progress</a></li>
+                <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="login.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <!-- Resto del contenido original -->
     <section class="hero text-center" id="home">
-        <div class="container py-5">
-            <img src="Images/Turttle.png" alt="Tortuga" style="width:110px; margin-bottom:1.5rem;">
-            <h1 style="font-weight:800; font-size:2.5rem; color:#ff1a1a;">Preserve. Learn. Connect.</h1>
-            <p class="lead" style="max-width:600px; margin:1rem auto 2rem auto; color:#a33; font-size:1.2rem;">Soged es la app para aprender y preservar los idiomas indígenas de Panamá de forma moderna, sencilla y divertida.</p>
+        <div class="container">
+            <img src="Images/Turttle.png" alt="Tortuga" class="hero-img-turtle">
+            <h1 class="hero-title">Preserve. Learn. Connect.</h1>
+            <p class="lead hero-lead">Soged es la app para aprender y preservar los idiomas indígenas de Panamá de forma moderna, sencilla y divertida.</p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <a href="#languages" class="btn btn-primary">Ver Idiomas</a>
                 <a href="#mission" class="btn btn-outline-primary">Nuestra Misión</a>
             </div>
         </div>
     </section>
-
-    <!-- Languages Section -->
     <section class="languages" id="languages">
         <div class="container">
             <div class="section-header text-center">
@@ -47,13 +75,13 @@
                 <div class="col-md-3">
                     <div class="language-card">
                         <div class="language-icon"><i class="fas fa-drum"></i></div>
-                        <h3>Bokota</h3>
+                        <h3>Naso</h3>
                         <ul class="language-features">
                             <li><i class="fas fa-check"></i> Escritura</li>
                             <li><i class="fas fa-check"></i> Pronunciación</li>
                             <li><i class="fas fa-check"></i> Cultura</li>
                         </ul>
-                        <button class="btn btn-primary w-100">Aprender Bokota</button>
+                        <button class="btn btn-primary w-100">Aprender Naso</button>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -83,8 +111,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Mission Section -->
     <section class="about" id="mission">
         <div class="container text-center py-5">
             <h2 style="color:#ff1a1a; font-weight:700;">Nuestra Misión</h2>
@@ -92,11 +118,26 @@
             <a href="#languages" class="btn btn-primary mt-3">¡Empieza a aprender!</a>
         </div>
     </section>
-
     <div id="footer-component"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
+    <script>
+    // Animaciones posibles para la tortuga
+    const turtle = document.querySelector('.hero-img-turtle');
+    const animations = [
+        'turtle-anim-bounce',
+        'turtle-anim-spin',
+        'turtle-anim-shake',
+        'turtle-anim-flip',
+        'turtle-anim-wobble'
+    ];
+    turtle.addEventListener('mouseenter', () => {
+        const anim = animations[Math.floor(Math.random() * animations.length)];
+        turtle.classList.add(anim);
+        setTimeout(() => turtle.classList.remove(anim), 900);
+    });
+    </script>
 </body>
 </html>
 

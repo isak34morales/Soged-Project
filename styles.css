@@ -56,7 +56,7 @@
 
 body {
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 50%, var(--bg-primary) 100%);
+    background: #1a1a1a !important;
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -536,4 +536,154 @@ section {
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
+}
+
+.hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    background: #1a1a1a !important;
+    z-index: 1;
+}
+.hero .container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+.hero-img-turtle {
+    width: 320px !important;
+    max-width: 95vw;
+    margin-bottom: 0.1rem !important;
+    margin-top: -5rem !important;
+    transition: width 0.3s;
+}
+.hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-weight: 900;
+    font-size: 5.5rem !important;
+    color: var(--primary-color);
+    margin-bottom: 0.2rem;
+    letter-spacing: -1px;
+    text-shadow: none;
+    animation: none;
+    text-transform: lowercase;
+}
+.hero-lead {
+    font-size: 1.2rem !important;
+    font-weight: 500;
+    max-width: 700px;
+    margin: 0.05rem auto 0.2rem auto;
+    color: #b0b0b0;
+    text-transform: lowercase;
+}
+.d-flex.justify-content-center.gap-3.flex-wrap {
+    margin-top: 0.2rem !important;
+}
+@media (max-width: 600px) {
+    .hero-title { font-size: 2.5rem !important; }
+    .hero-img-turtle { width: 160px !important; }
+    .hero-lead { font-size: 1.1rem !important; }
+}
+.btn, .btn-primary, .btn-outline-primary {
+    font-family: 'Quicksand', sans-serif !important;
+    font-size: 1.1rem !important;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(255, 26, 26, 0.08);
+    border-width: 2px !important;
+    border-style: solid;
+    border-color: transparent;
+    transition: var(--transition);
+    outline: none !important;
+    letter-spacing: 0.2px;
+    text-shadow: none;
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+    color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-hover) !important;
+    color: #fff !important;
+    transform: none;
+    box-shadow: 0 4px 16px rgba(255, 26, 26, 0.15);
+}
+.btn-outline-primary {
+    background-color: transparent !important;
+    border: 2px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    border-color: var(--primary-hover) !important;
+    box-shadow: 0 4px 16px rgba(255, 26, 26, 0.15);
+}
+.language-card {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 12px var(--shadow-color) !important;
+    transition: var(--transition);
+}
+.language-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px var(--shadow-color) !important;
+}
+.language-card .btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1.1rem !important;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(255, 26, 26, 0.08);
+    transition: var(--transition);
+}
+.language-card .btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(255, 26, 26, 0.15);
+}
+
+.background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+.star {
+    position: absolute;
+    display: block;
+    background: radial-gradient(circle, #fff 0%, #fff2 60%, transparent 100%);
+    border-radius: 50%;
+    filter: blur(4px) brightness(1.5);
+    opacity: 0.45;
+    box-shadow: 0 0 32px 8px #fff3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero {
+    position: relative;
+    z-index: 1;
+}
+.hero .container {
+    position: relative;
+    z-index: 2;
 }
