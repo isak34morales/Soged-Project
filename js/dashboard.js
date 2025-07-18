@@ -192,7 +192,7 @@ function getSectionName(sectionId) {
         'practice': 'Práctica',
         'quizzes': 'Evaluaciones',
         'ngabe': 'Ngäbe',
-        'bokota': 'Bokota',
+        'naso': 'Naso',
         'guna': 'Guna',
         'bribri': 'Bri-Bri',
         'friends': 'Amigos',

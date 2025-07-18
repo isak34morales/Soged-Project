@@ -31,11 +31,11 @@ class ThemeManager {
 
     setupThemeSwitch() {
         // Set initial state
-        this.themeSwitch.checked = document.documentElement.getAttribute('data-theme') === 'dark';
+        this.themeSwitch.checked = document.documentElement.getAttribute('data-theme') === 'light';
 
         // Add event listener
         this.themeSwitch.addEventListener('change', () => {
-            const newTheme = this.themeSwitch.checked ? 'dark' : 'light';
+            const newTheme = this.themeSwitch.checked ? 'light' : 'dark';
             this.setTheme(newTheme);
         });
 

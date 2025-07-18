@@ -2415,9 +2415,9 @@ body.auth-page {
 .language-step.ngabe-blue .step-number,
 .language-step.ngabe-blue .lang-level { background: linear-gradient(90deg, #00A3E0 60%, #00C6AE 100%); }
 .language-step.ngabe-blue .step-icon { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); }
-.language-step.bokota-orange .step-number,
-.language-step.bokota-orange .lang-level { background: linear-gradient(90deg, #FF7A00 60%, #FFD600 100%); }
-.language-step.bokota-orange .step-icon { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
+.language-step.naso-orange .step-number,
+.language-step.naso-orange .lang-level { background: linear-gradient(90deg, #FF7A00 60%, #FFD600 100%); }
+.language-step.naso-orange .step-icon { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
 .language-step.guna-green .step-number,
 .language-step.guna-green .lang-level { background: linear-gradient(90deg, #00C6AE 60%, #A3E635 100%); }
 .language-step.guna-green .step-icon { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); }

@@ -366,7 +366,7 @@ class DashboardApp extends HTMLElement {
                 <div class="course-card">
                     <div class="course-header">
                         <span class="course-icon">🥁</span>
-                        <h3>Bokota</h3>
+                        <h3>Naso</h3>
                         <span class="status-badge available">Disponible</span>
                     </div>
                     <div class="course-progress">
@@ -481,7 +481,7 @@ class DashboardApp extends HTMLElement {
                                 <img src="https://ui-avatars.com/api/?name=Ana+García&background=4A90E2&color=fff&size=40" alt="Usuario">
                             </div>
                             <div class="activity-content">
-                                <p><strong>Ana García</strong> se unió al grupo "Estudiantes de Bokota"</p>
+                                <p><strong>Ana García</strong> se unió al grupo "Estudiantes de Naso"</p>
                                 <span class="activity-time">Hace 4 horas</span>
                             </div>
                         </div>
