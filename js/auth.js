@@ -45,6 +45,24 @@ class AuthManager {
                 this.toggleTheme();
             });
         }
+
+        // Login form
+        const loginForm = document.querySelector('.auth-login-form form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLogin();
+            });
+        }
+
+        // Register form
+        const registerForm = document.querySelector('.auth-register-form form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleRegister();
+            });
+        }
     }
 
     updateUI() {
@@ -74,6 +92,9 @@ class AuthManager {
         
         this.updateUI();
         this.showNotification('¡Bienvenido a Soged!', 'success');
+        
+        // Redirect to dashboard immediately after login
+        window.location.href = 'dashboard/dashboard-new.html';
     }
 
     logout() {
@@ -155,6 +176,74 @@ class AuthManager {
         if (!this.isAuthenticated) return;
         
         localStorage.setItem(`soged_progress_${language}`, JSON.stringify(progressData));
+    }
+
+    handleLogin() {
+        const email = document.getElementById('login-username')?.value || '';
+        const password = document.getElementById('login-password')?.value || '';
+        
+        if (!email || !password) {
+            this.showNotification('Por favor completa todos los campos', 'warning');
+            return;
+        }
+        
+        // Simular login exitoso con cualquier credencial
+        const userData = {
+            name: email.split('@')[0] || 'Usuario',
+            email: email,
+            role: 'user',
+            subscription: 'basic'
+        };
+        
+        this.login(userData);
+        
+        // Cerrar el modal después del login
+        setTimeout(() => {
+            const overlay = document.getElementById('auth-modal-overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }, 1000);
+    }
+
+    handleRegister() {
+        const firstName = document.getElementById('register-firstname')?.value || '';
+        const lastName = document.getElementById('register-lastname')?.value || '';
+        const username = document.getElementById('register-username')?.value || '';
+        const email = document.getElementById('register-email')?.value || '';
+        const password = document.getElementById('register-password')?.value || '';
+        const confirmPassword = document.getElementById('register-confirm-password')?.value || '';
+        
+        if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
+            this.showNotification('Por favor completa todos los campos', 'warning');
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            this.showNotification('Las contraseñas no coinciden', 'warning');
+            return;
+        }
+        
+        // Simular registro exitoso
+        const userData = {
+            name: `${firstName} ${lastName}`,
+            email: email,
+            username: username,
+            role: 'user',
+            subscription: 'basic'
+        };
+        
+        this.login(userData);
+        
+        // Cerrar el modal después del registro
+        setTimeout(() => {
+            const overlay = document.getElementById('auth-modal-overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }, 1000);
     }
 }
 

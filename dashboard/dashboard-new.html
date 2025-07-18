@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Soged</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="components/dashboard-styles.css">
+    
+    <!-- Web Components -->
+    <script src="components/sidebar-component.js"></script>
+    <script src="components/header-component.js"></script>
+    <script src="components/footer-component.js"></script>
+    <script src="components/dashboard-component.js"></script>
+    <script src="components/overview-section.js"></script>
+    <script src="components/courses-section.js"></script>
+    <script src="components/achievements-section.js"></script>
+    <script src="components/community-section.js"></script>
+    <script src="components/profile-section.js"></script>
+    <script src="components/settings-section.js"></script>
+</head>
+<body>
+    <dashboard-app id="dashboardApp"></dashboard-app>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dashboardApp = document.getElementById('dashboardApp');
+            
+            // Event listeners for dashboard events
+            dashboardApp.addEventListener('dashboardSidebarToggle', (e) => {
+                console.log('Sidebar toggled:', e.detail.collapsed);
+            });
+            
+            dashboardApp.addEventListener('sectionLoaded', (e) => {
+                console.log('Section loaded:', e.detail.section);
+            });
+            
+            // Example: Update stats
+            setTimeout(() => {
+                dashboardApp.updateStats({
+                    lives: 5,
+                    points: '1,250',
+                    achievements: 8
+                });
+            }, 1000);
+            
+            // Example: Update notifications
+            setTimeout(() => {
+                dashboardApp.updateNotifications(3);
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 

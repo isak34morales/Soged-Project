@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Components - Soged</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/course.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .test-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .test-section h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .test-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .component-demo {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .component-demo h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .test-button {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .test-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .test-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .test-section {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Component -->
+    <course-header 
+        course-name="Test Components"
+        course-description="Página de prueba para componentes"
+        course-icon="fas fa-flask"
+        streak="10"
+        level="5"
+        xp="1500">
+    </course-header>
+
+    <!-- Test Content -->
+    <div class="test-content">
+        <div class="test-section">
+            <h2>🧪 Test de Componentes</h2>
+            <p>Esta página prueba los componentes reutilizables de header y footer para las páginas de cursos.</p>
+            
+            <div class="component-demo">
+                <h3>📊 Estadísticas del Header</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-fire"></i>
+                        <div>10 días</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <div>Nivel 5</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-coins"></i>
+                        <div>1500 XP</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <h3>🎯 Funcionalidades Probadas</h3>
+                <ul>
+                    <li>✅ Header con información del curso</li>
+                    <li>✅ Estadísticas dinámicas (streak, nivel, XP)</li>
+                    <li>✅ Botón de regreso al dashboard</li>
+                    <li>✅ Dropdown de usuario con navegación</li>
+                    <li>✅ Footer con enlaces a todos los cursos</li>
+                    <li>✅ Navegación entre idiomas</li>
+                    <li>✅ Enlaces de redes sociales</li>
+                    <li>✅ Diseño responsive</li>
+                </ul>
+            </div>
+
+            <div class="component-demo">
+                <h3>🔧 Métodos Disponibles</h3>
+                <div class="button-group">
+                    <button class="test-button" onclick="updateHeaderStats()">
+                        Actualizar Stats
+                    </button>
+                    <button class="test-button" onclick="updateCourseInfo()">
+                        Cambiar Curso
+                    </button>
+                    <button class="test-button" onclick="updateFooterCourse()">
+                        Cambiar Footer
+                    </button>
+                    <button class="test-button" onclick="showNotification()">
+                        Mostrar Notificación
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎨 Características del Componente</h2>
+            <p>Los componentes están construidos como Web Components con Shadow DOM para encapsulación completa.</p>
+            
+            <div class="component-demo">
+                <h3>✨ Ventajas</h3>
+                <ul>
+                    <li>🔄 Reutilizables en todas las páginas de cursos</li>
+                    <li>🎨 Estilos encapsulados y consistentes</li>
+                    <li>⚡ Fácil mantenimiento y actualización</li>
+                    <li>📱 Responsive design integrado</li>
+                    <li>🎯 Funcionalidades completas del dashboard</li>
+                    <li>🔧 API simple para personalización</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Uso de los Componentes</h2>
+            <p>Para usar los componentes en cualquier página de curso:</p>
+            
+            <div class="component-demo">
+                <h3>📝 Código de Implementación</h3>
+                <pre style="background: rgba(0,0,0,0.1); padding: 1rem; border-radius: 8px; overflow-x: auto;">
+&lt;!-- Header Component --&gt;
+&lt;course-header 
+    course-name="Nombre del Curso"
+    course-description="Descripción del curso"
+    course-icon="fas fa-icon"
+    streak="7"
+    level="3"
+    xp="750"&gt;
+&lt;/course-header&gt;
+
+&lt;!-- Footer Component --&gt;
+&lt;course-footer current-course="ngabe"&gt;&lt;/course-footer&gt;
+
+&lt;!-- Scripts --&gt;
+&lt;script src="components/course-header.js"&gt;&lt;/script&gt;
+&lt;script src="components/course-footer.js"&gt;&lt;/script&gt;</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <course-footer current-course="test"></course-footer>
+
+    <!-- Scripts -->
+    <script src="components/course-header.js"></script>
+    <script src="components/course-footer.js"></script>
+    
+    <script>
+        // Test functions
+        function updateHeaderStats() {
+            const header = document.querySelector('course-header');
+            const newStreak = Math.floor(Math.random() * 20) + 1;
+            const newLevel = Math.floor(Math.random() * 10) + 1;
+            const newXP = Math.floor(Math.random() * 2000) + 100;
+            
+            header.updateStats(newStreak, newLevel, newXP);
+            showNotification(`Stats actualizadas: ${newStreak} días, Nivel ${newLevel}, ${newXP} XP`);
+        }
+
+        function updateCourseInfo() {
+            const header = document.querySelector('course-header');
+            const courses = [
+                { name: 'Ngäbe', icon: 'fas fa-leaf', desc: 'Lengua indígena de Panamá' },
+                { name: 'Emberá', icon: 'fas fa-tree', desc: 'Lengua indígena de Panamá' },
+                { name: 'Kuna', icon: 'fas fa-anchor', desc: 'Lengua indígena de Panamá' },
+                { name: 'Bribrí', icon: 'fas fa-feather', desc: 'Lengua indígena de Panamá' }
+            ];
+            
+            const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+            header.updateCourseInfo(randomCourse.name, randomCourse.desc, randomCourse.icon);
+            showNotification(`Curso cambiado a: ${randomCourse.name}`);
+        }
+
+        function updateFooterCourse() {
+            const footer = document.querySelector('course-footer');
+            const courses = ['ngabe', 'embera', 'kuna', 'bribri'];
+            const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+            
+            footer.setCurrentCourse(randomCourse);
+            showNotification(`Footer actualizado a: ${randomCourse}`);
+        }
+
+        function showNotification(message) {
+            // Create notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #4A90E2, #7B68EE);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

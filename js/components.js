@@ -27,6 +27,10 @@ async function loadComponent(elementId, componentPath) {
         if (elementId === 'auth-modal-root') {
             setTimeout(() => {
                 setupModalEvents();
+                // Configurar eventos de formulario si authManager existe
+                if (window.authManager) {
+                    window.authManager.setupEventListeners();
+                }
             }, 100);
         }
     } catch (error) {
@@ -39,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check which page we're on
     const path = window.location.pathname;
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
-    const isDashboardPage = path.includes('dashboard.html');
+            const isDashboardPage = path.includes('dashboard.html') || path.includes('dashboard-new.html');
     
     // Determine the base path for components
     const isInPagesFolder = path.includes('/pages/') || window.location.href.includes('/pages/');
@@ -99,6 +103,11 @@ function showAuthModal(type = 'login') {
     setTimeout(() => {
         const firstInput = targetForm?.querySelector('input');
         if (firstInput) firstInput.focus();
+        
+        // Configurar eventos de formulario si authManager existe
+        if (window.authManager) {
+            window.authManager.setupEventListeners();
+        }
     }, 100);
 }
 

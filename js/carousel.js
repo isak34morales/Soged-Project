@@ -105,7 +105,10 @@ class CarouselManager {
     updateFeaturesCarousel() {
         if (!this.featuresCarousel) return;
 
-        const cardWidth = this.featuresCarousel.querySelector('.feature-card').offsetWidth;
+        const featureCard = this.featuresCarousel.querySelector('.feature-card');
+        if (!featureCard) return;
+
+        const cardWidth = featureCard.offsetWidth;
         const gap = 32; // 2rem gap
         const translateX = -(this.currentFeaturesIndex * (cardWidth + gap));
         
@@ -136,7 +139,10 @@ class CarouselManager {
     updatePartnersCarousel() {
         if (!this.partnersCarousel) return;
 
-        const cardWidth = this.partnersCarousel.querySelector('.partner-card').offsetWidth;
+        const partnerCard = this.partnersCarousel.querySelector('.partner-card');
+        if (!partnerCard) return;
+
+        const cardWidth = partnerCard.offsetWidth;
         const gap = 32; // 2rem gap
         const translateX = -(this.currentPartnersIndex * (cardWidth + gap));
         

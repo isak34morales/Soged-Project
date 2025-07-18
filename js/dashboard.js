@@ -76,30 +76,47 @@ function setupEventListeners() {
     });
 }
 
-// Toggle sidebar
+// Toggle sidebar collapse
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
-    const main = document.querySelector('.dashboard-main');
-    const footer = document.querySelector('.dashboard-footer');
+    const toggleBtn = document.getElementById('sidebarToggle');
     
     if (sidebar) {
-        sidebar.classList.toggle('active');
+        const isCollapsing = !sidebar.classList.contains('collapsed');
+        sidebar.classList.toggle('collapsed');
+        
+        // If collapsing, close all section contents
+        if (isCollapsing) {
+            const sectionContents = document.querySelectorAll('.section-content');
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            
+            sectionContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            sectionHeaders.forEach(header => {
+                header.classList.remove('active');
+                const arrow = header.querySelector('.section-arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
         
         // Update toggle button icon
-        const toggleBtn = document.getElementById('sidebarToggle');
         if (toggleBtn) {
             const icon = toggleBtn.querySelector('i');
             if (icon) {
-                if (sidebar.classList.contains('active')) {
-                    icon.className = 'fas fa-times';
+                if (sidebar.classList.contains('collapsed')) {
+                    icon.className = 'fas fa-chevron-right';
                 } else {
-                    icon.className = 'fas fa-bars';
+                    icon.className = 'fas fa-chevron-left';
                 }
             }
         }
         
         // Show notification
-        showNotification(sidebar.classList.contains('active') ? 'Menú abierto' : 'Menú cerrado');
+        showNotification(sidebar.classList.contains('collapsed') ? 'Sidebar colapsado' : 'Sidebar expandido');
     }
 }
 
@@ -248,7 +265,7 @@ function showNotification(message) {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
             if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+                notification.remove();
             }
         }, 300);
     }, 3000);

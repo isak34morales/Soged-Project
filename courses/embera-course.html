@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emberá - Aprende la Lengua Indígena</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/course.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <course-header 
+        course-name="Emberá"
+        course-description="Lengua indígena de Panamá"
+        course-icon="fas fa-tree"
+        streak="5"
+        level="2"
+        xp="450">
+    </course-header>
+
+    <!-- Course Content -->
+    <main class="course-content">
+        <!-- Course Stats -->
+        <section class="course-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label">Días de Racha</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">2</span>
+                    <span class="stat-label">Nivel Actual</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">450</span>
+                    <span class="stat-label">XP Ganados</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path -->
+        <section class="learning-path">
+            <h2 class="section-title">Tu Camino de Aprendizaje</h2>
+            
+            <div class="path-container">
+                <!-- Level 1: Basics -->
+                <div class="level-section completed">
+                    <div class="level-header">
+                        <div class="level-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="level-info">
+                            <h3>Nivel 1: Fundamentos</h3>
+                            <p>Saludos y presentaciones básicas</p>
+                        </div>
+                        <div class="level-status">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="lessons-grid">
+                        <div class="lesson-card completed">
+                            <div class="lesson-icon">
+                                <i class="fas fa-hand-wave"></i>
+                            </div>
+                            <h4>Saludos</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-card completed">
+                            <div class="lesson-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4>Presentaciones</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-card completed">
+                            <div class="lesson-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h4>Familia</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 2: Current Level -->
+                <div class="level-section current">
+                    <div class="level-header">
+                        <div class="level-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="level-info">
+                            <h3>Nivel 2: Vida Diaria</h3>
+                            <p>Actividades cotidianas y rutinas</p>
+                        </div>
+                        <div class="level-status">
+                            <span class="current-badge">En Progreso</span>
+                        </div>
+                    </div>
+                    
+                    <div class="lessons-grid">
+                        <div class="lesson-card completed">
+                            <div class="lesson-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h4>Comida</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-card current">
+                            <div class="lesson-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4>Tiempo</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                                <span>60%</span>
+                            </div>
+                            <button class="continue-btn">
+                                <i class="fas fa-play"></i>
+                                Continuar
+                            </button>
+                        </div>
+                        
+                        <div class="lesson-card locked">
+                            <div class="lesson-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <h4>Compras</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span>0%</span>
+                            </div>
+                            <div class="lock-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 3: Future -->
+                <div class="level-section locked">
+                    <div class="level-header">
+                        <div class="level-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="level-info">
+                            <h3>Nivel 3: Naturaleza</h3>
+                            <p>Vocabulario sobre el entorno natural</p>
+                        </div>
+                        <div class="level-status">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="lessons-grid">
+                        <div class="lesson-card locked">
+                            <div class="lesson-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <h4>Montañas</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span>0%</span>
+                            </div>
+                            <div class="lock-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-card locked">
+                            <div class="lesson-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h4>Ríos</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span>0%</span>
+                            </div>
+                            <div class="lock-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-card locked">
+                            <div class="lesson-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Plantas</h4>
+                            <div class="lesson-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span>0%</span>
+                            </div>
+                            <div class="lock-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h2 class="section-title">Acciones Rápidas</h2>
+            
+            <div class="actions-grid">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <h4>Repasar</h4>
+                    <p>Refuerza lo aprendido</p>
+                    <button class="action-btn">Comenzar</button>
+                </div>
+                
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Desafío</h4>
+                    <p>Pon a prueba tus conocimientos</p>
+                    <button class="action-btn">Participar</button>
+                </div>
+                
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Práctica</h4>
+                    <p>Conversa con otros estudiantes</p>
+                    <button class="action-btn">Unirse</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Component -->
+    <course-footer current-course="embera"></course-footer>
+
+    <!-- Scripts -->
+    <script src="js/course.js"></script>
+    <script src="components/course-header.js"></script>
+    <script src="components/course-footer.js"></script>
+</body>
+</html> 
