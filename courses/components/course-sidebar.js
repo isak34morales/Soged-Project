@@ -11,7 +11,7 @@ class CourseSidebar extends HTMLElement {
     }
 
     render() {
-        const courseName = this.getAttribute('course-name') || 'Course';
+        const courseName = this.getAttribute('course-name') || 'Idioma';
         const currentSection = this.getAttribute('current-section') || 'overview';
         
         this.shadowRoot.innerHTML = `
@@ -38,11 +38,16 @@ class CourseSidebar extends HTMLElement {
                 }
 
                 .sidebar-header {
-                    padding: 30px 20px;
+                    padding: 30px 20px 20px 20px;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                     text-align: center;
                     position: relative;
                     background: rgba(0, 163, 224, 0.1);
+                    min-height: 80px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start;
                 }
 
                 .toggle-btn {
@@ -70,64 +75,36 @@ class CourseSidebar extends HTMLElement {
                     box-shadow: 0 0 15px rgba(0, 163, 224, 0.4);
                 }
 
-                .logo-container {
-                    margin-bottom: 25px;
-                }
-
-                .logo {
-                    width: 90px;
-                    height: 90px;
-                    background: linear-gradient(135deg, #00A3E0, #0088C7);
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 15px;
-                    font-size: 36px;
-                    box-shadow: 0 8px 25px rgba(0, 163, 224, 0.4);
-                    border: 3px solid rgba(255,255,255,0.2);
-                    transition: all 0.3s ease;
-                    position: relative;
+                .sidebar-language {
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    color: #00A3E0;
+                    margin-top: 40px;
+                    margin-bottom: 0;
+                    letter-spacing: 0.5px;
+                    text-align: center;
+                    width: 100%;
+                    white-space: nowrap;
                     overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
-                .logo::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-                    transform: rotate(45deg);
-                    animation: shine 3s infinite;
-                }
-
-                @keyframes shine {
-                    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-                    50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-                    100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-                }
-
-                .logo-text {
-                    font-size: 20px;
-                    font-weight: 800;
-                    margin: 0;
-                    transition: opacity 0.3s ease;
-                    background: linear-gradient(45deg, #00A3E0, #0088C7);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                }
-
-                :host(.collapsed) .logo-text {
-                    opacity: 0;
+                :host(.collapsed) .sidebar-language {
+                    font-size: 1.1rem;
+                    margin-top: 40px;
+                    margin-bottom: 0;
                 }
 
                 .nav-menu {
-                    padding: 25px 0;
+                    padding: 20px 0 20px 0;
                     list-style: none;
                     margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0;
+                    max-height: calc(100vh - 120px);
+                    overflow-y: auto;
+                    scrollbar-width: thin;
                 }
 
                 .nav-item {
@@ -137,7 +114,8 @@ class CourseSidebar extends HTMLElement {
                 .nav-link {
                     display: flex;
                     align-items: center;
-                    padding: 18px 25px;
+                    justify-content: flex-start;
+                    padding: 16px 18px;
                     color: rgba(30, 41, 59, 0.8);
                     text-decoration: none;
                     transition: all 0.3s ease;
@@ -145,8 +123,18 @@ class CourseSidebar extends HTMLElement {
                     position: relative;
                     font-weight: 600;
                     font-size: 15px;
-                    margin: 5px 15px;
+                    margin: 0 10px;
                     border-radius: 12px;
+                    min-height: 48px;
+                }
+
+                :host(.collapsed) .nav-link {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    justify-content: center;
+                    background: none !important;
+                    border-left: none !important;
+                    box-shadow: none !important;
                 }
 
                 .nav-link:hover {
@@ -154,6 +142,14 @@ class CourseSidebar extends HTMLElement {
                     border-left-color: #00A3E0;
                     color: #1E293B;
                     transform: translateX(5px);
+                }
+
+                :host(.collapsed) .nav-link:hover,
+                :host(.collapsed) .nav-link.active {
+                    background: none !important;
+                    border-left: none !important;
+                    box-shadow: none !important;
+                    color: #00A3E0;
                 }
 
                 .nav-link.active {
@@ -167,10 +163,20 @@ class CourseSidebar extends HTMLElement {
                     width: 28px;
                     margin-right: 18px;
                     text-align: center;
-                    font-size: 20px;
+                    font-size: 22px;
                     transition: all 0.3s ease;
                     color: #00A3E0;
                     flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                :host(.collapsed) .nav-icon {
+                    margin-right: 0;
+                    margin-left: 0;
+                    width: 28px;
+                    justify-content: center;
                 }
 
                 .nav-link:hover .nav-icon,
@@ -186,12 +192,6 @@ class CourseSidebar extends HTMLElement {
 
                 :host(.collapsed) .nav-text {
                     opacity: 0;
-                }
-
-                :host(.collapsed) .nav-icon {
-                    margin-right: 0;
-                    width: 24px;
-                    height: 24px;
                 }
 
                 .nav-badge {
@@ -264,6 +264,22 @@ class CourseSidebar extends HTMLElement {
                         width: 100%;
                         transform: translateX(-100%);
                     }
+
+                    .sidebar-header {
+                        min-height: 60px;
+                        padding: 20px 10px 10px 10px;
+                    }
+
+                    .sidebar-language {
+                        font-size: 1rem;
+                        margin-top: 30px;
+                    }
+
+                    .nav-link {
+                        min-height: 44px;
+                        font-size: 14px;
+                        padding: 12px 8px;
+                    }
                 }
             </style>
 
@@ -273,17 +289,7 @@ class CourseSidebar extends HTMLElement {
                         <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
                     </svg>
                 </button>
-                
-                <div class="logo-container">
-                    <div class="logo">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor"/>
-                            <path d="M19 15L19.74 12L22 11L19.74 10L19 7L18.26 10L16 11L18.26 12L19 15Z" fill="currentColor"/>
-                            <path d="M5 15L5.74 12L8 11L5.74 10L5 7L4.26 10L2 11L4.26 12L5 15Z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <h3 class="logo-text">SOGED</h3>
-                </div>
+                <div class="sidebar-language" id="sidebarLanguage"></div>
             </div>
 
             <nav class="nav-menu">
@@ -294,6 +300,28 @@ class CourseSidebar extends HTMLElement {
                             <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" stroke="currentColor" stroke-width="2" fill="none"/>
                         </svg>
                         <span class="nav-text">Overview</span>
+                        <div class="progress-indicator"></div>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="#chat" class="nav-link ${currentSection === 'chat' ? 'active' : ''}" data-section="chat">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span class="nav-text">Chat AI</span>
+                        <div class="progress-indicator"></div>
+                    </a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="#daily-speaking" class="nav-link ${currentSection === 'daily-speaking' ? 'active' : ''}" data-section="daily-speaking">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M9 9v6l5-3-5-3z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M15 9v6" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                        <span class="nav-text">Daily Speaking</span>
                         <div class="progress-indicator"></div>
                     </a>
                 </div>
@@ -315,7 +343,7 @@ class CourseSidebar extends HTMLElement {
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="2" fill="none"/>
                             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" stroke-width="2" fill="none"/>
                         </svg>
-                        <span class="nav-text">Cuentos</span>
+                        <span class="nav-text">Stories</span>
                         <div class="progress-indicator"></div>
                     </a>
                 </div>
@@ -363,12 +391,18 @@ class CourseSidebar extends HTMLElement {
                             <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/>
                             <path d="M16 10a4 4 0 0 1-8 0" stroke="currentColor" stroke-width="2" fill="none"/>
                         </svg>
-                        <span class="nav-text">Tienda</span>
+                        <span class="nav-text">Store</span>
                         <div class="progress-indicator"></div>
                     </a>
                 </div>
             </nav>
         `;
+
+        // Después de renderizar el HTML, actualiza el nombre del idioma
+        setTimeout(() => {
+            const langDiv = this.shadowRoot.getElementById('sidebarLanguage');
+            if (langDiv) langDiv.textContent = courseName;
+        }, 0);
     }
 
     setupEventListeners() {

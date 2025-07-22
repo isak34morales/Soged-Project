@@ -1429,4 +1429,188 @@ course-sidebar::part(sidebar) {
 
 .lesson-step.current {
     animation: pulse 2s infinite;
+}
+
+/* Ranking Section Styles */
+.ranking-container {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-dark);
+    padding: 40px 30px;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 18px 24px;
+    box-shadow: 0 2px 8px rgba(0,163,224,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+}
+
+.ranking-item.current {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 4px 16px rgba(0,163,224,0.15);
+    border: 2px solid var(--primary-color);
+}
+
+.rank-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: center;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.player-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.6rem;
+    box-shadow: 0 2px 8px rgba(0,163,224,0.15);
+}
+
+.player-details h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.player-details p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.player-score {
+    font-size: 1.3rem;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Chat IA Section */
+.chat-ia-container {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-dark);
+    padding: 40px 30px;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+.chat-window {
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,163,224,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+}
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    max-height: 250px;
+}
+.chat-input-row {
+    display: flex;
+    gap: 10px;
+}
+#chatInput {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(0,0,0,0.12);
+    font-size: 16px;
+    outline: none;
+}
+#sendChatBtn, #micChatBtn {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Daily Speaking Section */
+.daily-speaking-container {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-dark);
+    padding: 40px 30px;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+.daily-speaking-card {
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
+    box-shadow: 0 2px 8px rgba(0,163,224,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+.speaking-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+.speaking-prompt i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+.prompt-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-top: 8px;
+}
+.speaking-feedback {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    color: var(--success-color);
+    min-height: 24px;
+}
+#startSpeakingBtn {
+    min-width: 140px;
+    min-height: 44px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 } 

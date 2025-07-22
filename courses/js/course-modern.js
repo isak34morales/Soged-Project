@@ -150,6 +150,12 @@ class CourseManager {
             case 'store':
                 this.loadStore();
                 break;
+            case 'chat':
+                this.loadChat();
+                break;
+            case 'daily-speaking':
+                this.loadDailySpeaking();
+                break;
         }
     }
 
@@ -1032,6 +1038,53 @@ class CourseManager {
         if (confirm('Are you sure you want to logout?')) {
             window.location.href = '../index.html';
         }
+    }
+
+    loadChat() {
+        const mainContent = document.querySelector('.main-content');
+        const courseName = this.getCurrentCourseName();
+        mainContent.innerHTML = `
+            <div class="chat-ia-container">
+                <h2 class="section-title">Chat IA - Práctica de Speaking (${courseName})</h2>
+                <p class="section-subtitle">Habla con la IA y mejora tu pronunciación en <b>${courseName}</b>. Elige un tema o empieza a conversar.</p>
+                <div class="chat-window">
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input-row">
+                        <input type="text" id="chatInput" placeholder="Escribe tu mensaje o usa el micrófono..." />
+                        <button id="sendChatBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                        <button id="micChatBtn" class="btn btn-secondary"><i class="fas fa-microphone"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        // Aquí puedes agregar lógica para IA y reconocimiento de voz
+    }
+
+    loadDailySpeaking() {
+        const mainContent = document.querySelector('.main-content');
+        const courseName = this.getCurrentCourseName();
+        mainContent.innerHTML = `
+            <div class="daily-speaking-container">
+                <h2 class="section-title">Lección Diaria de Speaking (${courseName})</h2>
+                <p class="section-subtitle">Practica tu pronunciación con la IA. Recibe un reto diario y feedback instantáneo.</p>
+                <div class="daily-speaking-card">
+                    <div class="speaking-prompt">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Repite la siguiente frase en <b>${courseName}</b>:</span>
+                        <div class="prompt-text">"[Frase del día aquí]"</div>
+                    </div>
+                    <button class="btn btn-primary" id="startSpeakingBtn"><i class="fas fa-microphone"></i> Grabar</button>
+                    <div class="speaking-feedback" id="speakingFeedback"></div>
+                </div>
+            </div>
+        `;
+        // Aquí puedes agregar lógica para IA y reconocimiento de voz
+    }
+
+    getCurrentCourseName() {
+        // Puedes mejorar esto para obtener el nombre real del curso según el contexto
+        const sidebar = document.querySelector('course-sidebar');
+        return sidebar?.getAttribute('course-name') || 'Idioma';
     }
 }
 
