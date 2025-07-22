@@ -339,8 +339,8 @@ class SettingsSection extends HTMLElement {
             <div class="settings-container">
                 <!-- Settings Header -->
                 <div class="settings-header">
-                    <h1 class="settings-title">Configuración</h1>
-                    <p class="settings-subtitle">Personaliza tu experiencia de aprendizaje</p>
+                    <h1 class="settings-title">Settings</h1>
+                    <p class="settings-subtitle">Customize your learning experience</p>
                 </div>
 
                 <!-- Settings Grid -->
@@ -349,29 +349,29 @@ class SettingsSection extends HTMLElement {
                     <div class="settings-section">
                         <h3 class="section-title">
                             <i class="fas fa-bell"></i>
-                            Notificaciones
+                            Notifications
                         </h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Notificaciones Push</div>
-                                <div class="setting-description">Recibe notificaciones en tiempo real</div>
+                                <div class="setting-label">Notifications Push</div>
+                                <div class="setting-description">Recieve notifications in real time</div>
                             </div>
                             <div class="toggle-switch ${this.settings.notifications.push ? 'active' : ''}" data-setting="push"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Sonidos</div>
-                                <div class="setting-description">Efectos de sonido en la aplicación</div>
+                                <div class="setting-label">Sounds</div>
+                                <div class="setting-description">Sound effects in the application</div>
                             </div>
                             <div class="toggle-switch ${this.settings.notifications.sound ? 'active' : ''}" data-setting="sound"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Notificaciones por Email</div>
-                                <div class="setting-description">Recibe actualizaciones por correo</div>
+                                <div class="setting-label">Notifications by Email</div>
+                                <div class="setting-description">Receive updates by email</div>
                             </div>
                             <div class="toggle-switch ${this.settings.notifications.email ? 'active' : ''}" data-setting="email"></div>
                         </div>
@@ -381,13 +381,13 @@ class SettingsSection extends HTMLElement {
                     <div class="settings-section">
                         <h3 class="section-title">
                             <i class="fas fa-palette"></i>
-                            Apariencia
+                            Appearance
                         </h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Tema</div>
-                                <div class="setting-description">Elige el tema de la aplicación</div>
+                                <div class="setting-label">Theme</div>
+                                <div class="setting-description">Choose the theme of the application</div>
                             </div>
                             <div class="theme-preview">
                                 <div class="theme-option light ${this.settings.appearance.theme === 'light' ? 'active' : ''}" data-theme="light"></div>
@@ -398,23 +398,23 @@ class SettingsSection extends HTMLElement {
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Tamaño de Fuente</div>
-                                <div class="setting-description">Ajusta el tamaño del texto</div>
+                                <div class="setting-label">Font Size</div>
+                                <div class="setting-description">Adjust the text size</div>
                             </div>
                             <select class="select-dropdown" data-setting="fontSize">
-                                <option value="small" ${this.settings.appearance.fontSize === 'small' ? 'selected' : ''}>Pequeño</option>
-                                <option value="medium" ${this.settings.appearance.fontSize === 'medium' ? 'selected' : ''}>Mediano</option>
-                                <option value="large" ${this.settings.appearance.fontSize === 'large' ? 'selected' : ''}>Grande</option>
+                                <option value="small" ${this.settings.appearance.fontSize === 'small' ? 'selected' : ''}>Small</option>
+                                <option value="medium" ${this.settings.appearance.fontSize === 'medium' ? 'selected' : ''}>Medium</option>
+                                <option value="large" ${this.settings.appearance.fontSize === 'large' ? 'selected' : ''}>Large</option>
                             </select>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Idioma</div>
-                                <div class="setting-description">Lengua de la interfaz</div>
+                                <div class="setting-label">Language</div>
+                                <div class="setting-description">Language of the interface</div>
                             </div>
                             <select class="select-dropdown" data-setting="language">
-                                <option value="es" ${this.settings.appearance.language === 'es' ? 'selected' : ''}>Español</option>
+                                <option value="es" ${this.settings.appearance.language === 'es' ? 'selected' : ''}>Spanish</option>
                                 <option value="en" ${this.settings.appearance.language === 'en' ? 'selected' : ''}>English</option>
                             </select>
                         </div>
@@ -424,37 +424,37 @@ class SettingsSection extends HTMLElement {
                     <div class="settings-section">
                         <h3 class="section-title">
                             <i class="fas fa-shield-alt"></i>
-                            Privacidad
+                            Privacy
                         </h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Perfil Público</div>
-                                <div class="setting-description">Permite que otros vean tu perfil</div>
+                                <div class="setting-label">Public Profile</div>
+                                <div class="setting-description">Allow others to see your profile</div>
                             </div>
                             <div class="toggle-switch ${this.settings.privacy.publicProfile ? 'active' : ''}" data-setting="publicProfile"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Mostrar Progreso</div>
-                                <div class="setting-description">Comparte tu progreso con la comunidad</div>
+                                <div class="setting-label">Show Progress</div>
+                                <div class="setting-description">Share your progress with the community</div>
                             </div>
                             <div class="toggle-switch ${this.settings.privacy.showProgress ? 'active' : ''}" data-setting="showProgress"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Mostrar Logros</div>
-                                <div class="setting-description">Comparte tus logros con otros</div>
+                                <div class="setting-label">Show Achievements</div>
+                                <div class="setting-description">Share your achievements with others</div>
                             </div>
                             <div class="toggle-switch ${this.settings.privacy.showAchievements ? 'active' : ''}" data-setting="showAchievements"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Permitir Mensajes</div>
-                                <div class="setting-description">Recibe mensajes de otros usuarios</div>
+                                <div class="setting-label">Allow Messages</div>
+                                <div class="setting-description">Receive messages from other users</div>
                             </div>
                             <div class="toggle-switch ${this.settings.privacy.allowMessages ? 'active' : ''}" data-setting="allowMessages"></div>
                         </div>
@@ -464,37 +464,37 @@ class SettingsSection extends HTMLElement {
                     <div class="settings-section">
                         <h3 class="section-title">
                             <i class="fas fa-graduation-cap"></i>
-                            Estudio
+                            Study
                         </h3>
                         
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Meta Diaria (minutos)</div>
-                                <div class="setting-description">Tiempo objetivo de estudio por día</div>
+                                <div class="setting-label">Daily Goal (minutes)</div>
+                                <div class="setting-description">Set your daily study target</div>
                             </div>
                             <input type="number" class="number-input" value="${this.settings.study.dailyGoal}" min="10" max="120" data-setting="dailyGoal">
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Hora de Recordatorio</div>
-                                <div class="setting-description">Cuándo recibir recordatorios</div>
+                                <div class="setting-label">Reminder Time</div>
+                                <div class="setting-description">When to receive study reminders</div>
                             </div>
                             <input type="time" class="time-input" value="${this.settings.study.reminderTime}" data-setting="reminderTime">
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Reproducción Automática</div>
-                                <div class="setting-description">Continúa automáticamente a la siguiente lección</div>
+                                <div class="setting-label">Auto-Continue</div>
+                                <div class="setting-description">Automatically continue to the next lesson</div>
                             </div>
                             <div class="toggle-switch ${this.settings.study.autoPlay ? 'active' : ''}" data-setting="autoPlay"></div>
                         </div>
 
                         <div class="setting-item">
                             <div class="setting-info">
-                                <div class="setting-label">Mostrar Pistas</div>
-                                <div class="setting-description">Muestra pistas durante los ejercicios</div>
+                                <div class="setting-label">Show Hints</div>
+                                <div class="setting-description">Show hints during exercises</div>
                             </div>
                             <div class="toggle-switch ${this.settings.study.showHints ? 'active' : ''}" data-setting="showHints"></div>
                         </div>
@@ -505,11 +505,11 @@ class SettingsSection extends HTMLElement {
                 <div class="action-buttons">
                     <button class="action-btn primary" id="saveSettings">
                         <i class="fas fa-save"></i>
-                        Guardar Cambios
+                        Save Changes
                     </button>
                     <button class="action-btn secondary" id="resetSettings">
                         <i class="fas fa-undo"></i>
-                        Restaurar Predeterminados
+                        Restore Defaults
                     </button>
                 </div>
             </div>

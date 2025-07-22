@@ -53,30 +53,33 @@ class ProfileSection extends HTMLElement {
             achievements: [
                 {
                     id: 1,
-                    title: 'Primer Paso',
-                    description: 'Completa tu primera lección',
+                    title: 'First Steps',
+                    description: 'Complete your first lesson',
                     icon: 'fas fa-star',
-                    color: '#FFD700',
+                    color: '#FFD23F',
                     unlocked: true,
-                    date: '2024-01-15'
+                    date: '2024-01-15',
+                    xp: 50
                 },
                 {
                     id: 2,
-                    title: 'Racha de 7 días',
-                    description: 'Practica durante 7 días consecutivos',
+                    title: '7 Day Streak',
+                    description: 'Maintain a 7-day learning streak',
                     icon: 'fas fa-fire',
-                    color: '#FF6B6B',
+                    color: '#FF6B35',
                     unlocked: true,
-                    date: '2024-01-22'
+                    date: '2024-01-22',
+                    xp: 100
                 },
                 {
                     id: 3,
-                    title: 'Vocabulario Básico',
-                    description: 'Aprende 100 palabras básicas',
+                    title: 'Vocabulary Master',
+                    description: 'Learn 100 basic words',
                     icon: 'fas fa-book',
-                    color: '#4A90E2',
+                    color: '#2ECC71',
                     unlocked: false,
-                    progress: 85
+                    progress: 65,
+                    xp: 150
                 }
             ]
         };
@@ -680,8 +683,8 @@ class ProfileSection extends HTMLElement {
             <div class="profile-container">
                 <!-- Profile Header -->
                 <div class="profile-header">
-                    <h1 class="profile-title">Editar Perfil</h1>
-                    <p class="profile-subtitle">Personaliza tu información y configuración</p>
+                    <h1 class="profile-title">Edit Profile</h1>
+                    <p class="profile-subtitle">Customize your information and settings</p>
                 </div>
 
                 <!-- Profile Form -->
@@ -691,25 +694,23 @@ class ProfileSection extends HTMLElement {
                         <div class="avatar-section">
                             <h3 class="section-title">
                                 <i class="fas fa-user-circle"></i>
-                                Foto de Perfil
+                                Profile Photo
                             </h3>
                             <div class="avatar-upload">
                                 <div class="current-avatar">
-                                    <img src="${this.profileData.user.avatar}" alt="Avatar actual" id="currentAvatar">
+                                    <img src="${this.profileData.user.avatar}" alt="Profile Photo" id="currentAvatar">
                                     <div class="avatar-overlay">
                                         <i class="fas fa-camera"></i>
-                                        <span>Cambiar foto</span>
                                     </div>
                                 </div>
-                                <input type="file" id="avatarInput" accept="image/*" style="display: none;">
                                 <div class="avatar-options">
-                                    <button class="btn-upload" onclick="document.getElementById('avatarInput').click()">
+                                    <button class="btn-upload" id="uploadPhoto">
                                         <i class="fas fa-upload"></i>
-                                        Subir Foto
+                                        Upload Photo
                                     </button>
-                                    <button class="btn-remove">
+                                    <button class="btn-remove" id="removePhoto">
                                         <i class="fas fa-trash"></i>
-                                        Eliminar
+                                        Remove
                                     </button>
                                 </div>
                             </div>
@@ -719,31 +720,31 @@ class ProfileSection extends HTMLElement {
                         <div class="personal-info-section">
                             <h3 class="section-title">
                                 <i class="fas fa-user"></i>
-                                Información Personal
+                                Personal Information
                             </h3>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="firstName">Nombre</label>
+                                    <label for="firstName">First Name</label>
                                     <input type="text" id="firstName" value="${this.profileData.user.name.split(' ')[0]}" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName">Apellido</label>
+                                    <label for="lastName">Last Name</label>
                                     <input type="text" id="lastName" value="${this.profileData.user.name.split(' ')[1] || ''}" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Correo Electrónico</label>
+                                    <label for="email">Email</label>
                                     <input type="email" id="email" value="${this.profileData.user.email}" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="phone">Teléfono</label>
+                                    <label for="phone">Phone</label>
                                     <input type="tel" id="phone" value="+507 6123-4567" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="birthdate">Fecha de Nacimiento</label>
+                                    <label for="birthdate">Date of Birth</label>
                                     <input type="date" id="birthdate" value="1995-06-15" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="location">Ubicación</label>
+                                    <label for="location">Location</label>
                                     <input type="text" id="location" value="Panamá, Panamá" class="form-input">
                                 </div>
                             </div>
@@ -753,23 +754,23 @@ class ProfileSection extends HTMLElement {
                         <div class="account-section">
                             <h3 class="section-title">
                                 <i class="fas fa-shield-alt"></i>
-                                Configuración de Cuenta
+                                Account Settings
                             </h3>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="username">Nombre de Usuario</label>
+                                    <label for="username">Username</label>
                                     <input type="text" id="username" value="maria.santos" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="currentPassword">Contraseña Actual</label>
+                                    <label for="currentPassword">Current Password</label>
                                     <input type="password" id="currentPassword" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="newPassword">Nueva Contraseña</label>
+                                    <label for="newPassword">New Password</label>
                                     <input type="password" id="newPassword" class="form-input">
                                 </div>
                                 <div class="form-group">
-                                    <label for="confirmPassword">Confirmar Contraseña</label>
+                                    <label for="confirmPassword">Confirm Password</label>
                                     <input type="password" id="confirmPassword" class="form-input">
                                 </div>
                             </div>
@@ -779,36 +780,48 @@ class ProfileSection extends HTMLElement {
                         <div class="preferences-section">
                             <h3 class="section-title">
                                 <i class="fas fa-cog"></i>
-                                Preferencias
+                                Preferences
                             </h3>
                             <div class="preferences-grid">
                                 <div class="preference-item">
                                     <div class="preference-info">
-                                        <h4>Notificaciones por Email</h4>
-                                        <p>Recibe actualizaciones y recordatorios por correo</p>
+                                        <h4>Email Notifications</h4>
+                                        <p>Receive updates and reminders via email</p>
                                     </div>
-                                    <div class="toggle-switch active"></div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
                                 <div class="preference-item">
                                     <div class="preference-info">
-                                        <h4>Perfil Público</h4>
-                                        <p>Permite que otros usuarios vean tu perfil</p>
+                                        <h4>Public Profile</h4>
+                                        <p>Allow other users to see your profile</p>
                                     </div>
-                                    <div class="toggle-switch active"></div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
                                 <div class="preference-item">
                                     <div class="preference-info">
-                                        <h4>Mostrar Progreso</h4>
-                                        <p>Comparte tu progreso con la comunidad</p>
+                                        <h4>Push Notifications</h4>
+                                        <p>Get instant notifications on your device</p>
                                     </div>
-                                    <div class="toggle-switch active"></div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
                                 <div class="preference-item">
                                     <div class="preference-info">
-                                        <h4>Recordatorios Diarios</h4>
-                                        <p>Recibe recordatorios para estudiar</p>
+                                        <h4>Daily Reminders</h4>
+                                        <p>Receive reminders to study</p>
                                     </div>
-                                    <div class="toggle-switch"></div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -817,11 +830,11 @@ class ProfileSection extends HTMLElement {
                         <div class="action-buttons">
                             <button class="btn-save">
                                 <i class="fas fa-save"></i>
-                                Guardar Cambios
+                                Save Changes
                             </button>
                             <button class="btn-cancel">
                                 <i class="fas fa-times"></i>
-                                Cancelar
+                                Cancel
                             </button>
                         </div>
                     </div>
@@ -954,5 +967,4 @@ class ProfileSection extends HTMLElement {
     }
 }
 
-customElements.define('profile-section', ProfileSection); 
 customElements.define('profile-section', ProfileSection); 

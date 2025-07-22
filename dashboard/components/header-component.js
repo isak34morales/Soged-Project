@@ -41,37 +41,34 @@ class DashboardHeader extends HTMLElement {
                     gap: 1rem;
                 }
 
-                .dashboard-title {
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    color: #2c3e50;
-                    margin: 0;
-                }
-
                 .header-center {
                     flex: 1;
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                 }
 
                 .stats-container {
                     display: flex;
-                    gap: 2rem;
+                    gap: 1.5rem;
+                    align-items: center;
                 }
 
                 .stat-item {
                     display: flex;
                     align-items: center;
-                    gap: 0.8rem;
-                    padding: 0.8rem 1.2rem;
+                    gap: 0.6rem;
+                    padding: 0.7rem 1rem;
                     background: rgba(255, 255, 255, 0.9);
-                    border-radius: 20px;
+                    border-radius: 15px;
                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
                     border: 1px solid rgba(255, 255, 255, 0.3);
                     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                     cursor: pointer;
                     position: relative;
                     overflow: hidden;
+                    min-width: 120px;
+                    justify-content: center;
                 }
 
                 .stat-item::before {
@@ -90,20 +87,20 @@ class DashboardHeader extends HTMLElement {
                 }
 
                 .stat-item:hover {
-                    transform: translateY(-5px) scale(1.05);
+                    transform: translateY(-3px) scale(1.02);
                     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
                     background: rgba(255, 255, 255, 0.95);
                 }
 
                 .stat-item i {
-                    font-size: 1.3rem;
+                    font-size: 1.1rem;
                     transition: all 0.3s ease;
                     position: relative;
                     z-index: 2;
                 }
 
                 .stat-item:hover i {
-                    transform: scale(1.2) rotate(10deg);
+                    transform: scale(1.1);
                 }
 
                 .stat-item:nth-child(1) i {
@@ -118,33 +115,25 @@ class DashboardHeader extends HTMLElement {
                     color: #2ed573;
                 }
 
-                .stat-item:hover .stat-item:nth-child(1) i {
-                    color: #ff3742;
-                }
-
-                .stat-item:hover .stat-item:nth-child(2) i {
-                    color: #ff9500;
-                }
-
-                .stat-item:hover .stat-item:nth-child(3) i {
-                    color: #26d0ce;
+                .stat-item:nth-child(4) i {
+                    color: #3742fa;
                 }
 
                 .stat-value {
                     font-weight: 800;
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     transition: all 0.3s ease;
                     position: relative;
                     z-index: 2;
                 }
 
                 .stat-item:hover .stat-value {
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                     color: #4A90E2;
                 }
 
                 .stat-label {
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     color: #7f8c8d;
                     font-weight: 600;
                     transition: all 0.3s ease;
@@ -345,6 +334,202 @@ class DashboardHeader extends HTMLElement {
                     color: #ff4757;
                 }
 
+                /* Modal Styles */
+                .courses-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 2000;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                    backdrop-filter: blur(10px);
+                }
+
+                .courses-modal.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .modal-content {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    transform: scale(0.9);
+                    transition: transform 0.3s ease;
+                }
+
+                .courses-modal.active .modal-content {
+                    transform: scale(1);
+                }
+
+                .modal-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 1.5rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                }
+
+                .modal-title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #2c3e50;
+                    margin: 0;
+                }
+
+                .close-modal {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    color: #7f8c8d;
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    border-radius: 50%;
+                    transition: all 0.3s ease;
+                }
+
+                .close-modal:hover {
+                    background: rgba(0, 0, 0, 0.1);
+                    color: #2c3e50;
+                }
+
+                .languages-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 1rem;
+                    margin-top: 1rem;
+                }
+
+                .language-card {
+                    background: rgba(255, 255, 255, 0.8);
+                    border-radius: 15px;
+                    padding: 1.5rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    border: 2px solid transparent;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .language-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.1), transparent);
+                    transition: left 0.5s ease;
+                }
+
+                .language-card:hover::before {
+                    left: 100%;
+                }
+
+                .language-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
+                    border-color: #4A90E2;
+                }
+
+                .language-icon {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    color: white;
+                }
+
+                .language-card:nth-child(1) .language-icon {
+                    background: linear-gradient(135deg, #00A3E0, #0088C7);
+                }
+
+                .language-card:nth-child(2) .language-icon {
+                    background: linear-gradient(135deg, #FF6B35, #FF8A65);
+                }
+
+                .language-card:nth-child(3) .language-icon {
+                    background: linear-gradient(135deg, #2ECC71, #27AE60);
+                }
+
+                .language-card:nth-child(4) .language-icon {
+                    background: linear-gradient(135deg, #FFD23F, #FFA726);
+                }
+
+                .language-name {
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    color: #2c3e50;
+                    margin-bottom: 0.5rem;
+                }
+
+                .language-description {
+                    font-size: 0.9rem;
+                    color: #7f8c8d;
+                    margin-bottom: 1rem;
+                }
+
+                .language-stats {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.8rem;
+                    color: #7f8c8d;
+                }
+
+                .language-stats span {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.3rem;
+                }
+
+                /* Dark theme support for modal */
+                [data-theme="dark"] .modal-content {
+                    background: rgba(30, 41, 59, 0.95);
+                    border-color: rgba(255, 255, 255, 0.1);
+                }
+
+                [data-theme="dark"] .modal-title {
+                    color: #ecf0f1;
+                }
+
+                [data-theme="dark"] .language-card {
+                    background: rgba(30, 41, 59, 0.8);
+                    border-color: rgba(255, 255, 255, 0.1);
+                }
+
+                [data-theme="dark"] .language-card:hover {
+                    background: rgba(30, 41, 59, 0.9);
+                    border-color: #4A90E2;
+                }
+
+                [data-theme="dark"] .language-name {
+                    color: #ecf0f1;
+                }
+
+                [data-theme="dark"] .language-description,
+                [data-theme="dark"] .language-stats {
+                    color: #bdc3c7;
+                }
+
                 /* Responsive */
                 @media (max-width: 768px) {
                     .header-container {
@@ -353,12 +538,15 @@ class DashboardHeader extends HTMLElement {
                         gap: 1rem;
                     }
 
-                    .dashboard-title {
-                        font-size: 1.5rem;
+                    .stats-container {
+                        gap: 0.8rem;
+                        flex-wrap: wrap;
+                        justify-content: center;
                     }
 
-                    .stats-container {
-                        gap: 0.5rem;
+                    .stat-item {
+                        min-width: 100px;
+                        padding: 0.6rem 0.8rem;
                     }
 
                     .user-name {
@@ -376,6 +564,15 @@ class DashboardHeader extends HTMLElement {
 
                     .dropdown-item {
                         padding: 0.8rem 1rem;
+                    }
+
+                    .modal-content {
+                        padding: 1.5rem;
+                        margin: 1rem;
+                    }
+
+                    .languages-grid {
+                        grid-template-columns: 1fr;
                     }
                 }
 
@@ -448,26 +645,27 @@ class DashboardHeader extends HTMLElement {
             </style>
 
             <div class="header-container">
-                <div class="header-left">
-                    <h1 class="dashboard-title">Dashboard</h1>
-                </div>
-                
                 <div class="header-center">
                     <div class="stats-container">
                         <div class="stat-item">
-                            <i class="fas fa-heart text-danger"></i>
+                            <i class="fas fa-heart"></i>
                             <span class="stat-value">5</span>
-                            <span class="stat-label">Vidas</span>
+                            <span class="stat-label">Lives</span>
                         </div>
                         <div class="stat-item">
-                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star"></i>
                             <span class="stat-value">1,250</span>
-                            <span class="stat-label">Puntos</span>
+                            <span class="stat-label">Points</span>
                         </div>
                         <div class="stat-item">
-                            <i class="fas fa-trophy text-success"></i>
+                            <i class="fas fa-trophy"></i>
                             <span class="stat-value">8</span>
-                            <span class="stat-label">Logros</span>
+                            <span class="stat-label">Achievements</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fire"></i>
+                            <span class="stat-value">7</span>
+                            <span class="stat-label">Streak</span>
                         </div>
                     </div>
                 </div>
@@ -479,36 +677,88 @@ class DashboardHeader extends HTMLElement {
                     </div>
                     <div class="user-dropdown">
                         <div class="user-menu" id="userMenuBtn">
-                            <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=40&font-size=0.4" alt="Usuario" class="user-avatar">
-                            <span class="user-name">María Santos</span>
+                            <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=40&font-size=0.4" alt="User" class="user-avatar">
+                            <span class="user-name">Maria Santos</span>
                             <i class="fas fa-chevron-down dropdown-arrow"></i>
                         </div>
                         <div class="dropdown-menu" id="userDropdown">
                             <div class="dropdown-header">
-                                <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=50&font-size=0.4" alt="Usuario" class="dropdown-avatar">
+                                <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=50&font-size=0.4" alt="User" class="dropdown-avatar">
                                 <div class="dropdown-user-info">
-                                    <h4>María Santos</h4>
-                                    <span>Estudiante Avanzado</span>
+                                    <h4>Maria Santos</h4>
+                                    <span>Advanced Student</span>
                                 </div>
                             </div>
                             <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" data-action="courses">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Courses</span>
+                            </a>
                             <a href="#" class="dropdown-item" data-action="profile">
                                 <i class="fas fa-user"></i>
-                                <span>Mi Perfil</span>
+                                <span>My Profile</span>
                             </a>
                             <a href="#" class="dropdown-item" data-action="settings">
                                 <i class="fas fa-cog"></i>
-                                <span>Configuración</span>
+                                <span>Settings</span>
                             </a>
                             <a href="#" class="dropdown-item" data-action="help">
                                 <i class="fas fa-question-circle"></i>
-                                <span>Ayuda</span>
+                                <span>Help</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item" data-action="logout" id="logoutBtn">
                                 <i class="fas fa-sign-out-alt"></i>
-                                <span>Cerrar Sesión</span>
+                                <span>Logout</span>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Modal -->
+            <div class="courses-modal" id="coursesModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Choose Your Language</h2>
+                        <button class="close-modal" id="closeModal">&times;</button>
+                    </div>
+                    <div class="languages-grid">
+                        <div class="language-card" data-language="ngabe">
+                            <div class="language-icon">🌿</div>
+                            <div class="language-name">Ngäbe</div>
+                            <div class="language-description">Learn the language of the Ngäbe people, the largest indigenous group in Panama.</div>
+                            <div class="language-stats">
+                                <span><i class="fas fa-book"></i> 150 Lessons</span>
+                                <span><i class="fas fa-star"></i> Beginner</span>
+                            </div>
+                        </div>
+                        <div class="language-card" data-language="naso">
+                            <div class="language-icon">🥁</div>
+                            <div class="language-name">Naso</div>
+                            <div class="language-description">Discover the musical language of the Naso people with its unique rhythms.</div>
+                            <div class="language-stats">
+                                <span><i class="fas fa-book"></i> 120 Lessons</span>
+                                <span><i class="fas fa-star"></i> Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="language-card" data-language="guna">
+                            <div class="language-icon">🏔️</div>
+                            <div class="language-name">Guna</div>
+                            <div class="language-description">Master the language of the Guna people from the beautiful San Blas Islands.</div>
+                            <div class="language-stats">
+                                <span><i class="fas fa-book"></i> 200 Lessons</span>
+                                <span><i class="fas fa-star"></i> Advanced</span>
+                            </div>
+                        </div>
+                        <div class="language-card" data-language="embera">
+                            <div class="language-icon">🌱</div>
+                            <div class="language-name">Emberá</div>
+                            <div class="language-description">Explore the ancient language of the Emberá people and their traditions.</div>
+                            <div class="language-stats">
+                                <span><i class="fas fa-book"></i> 180 Lessons</span>
+                                <span><i class="fas fa-star"></i> Expert</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -521,6 +771,9 @@ class DashboardHeader extends HTMLElement {
         const userDropdown = this.shadowRoot.getElementById('userDropdown');
         const notifications = this.shadowRoot.querySelector('.notifications');
         const dropdownItems = this.shadowRoot.querySelectorAll('.dropdown-item');
+        const coursesModal = this.shadowRoot.getElementById('coursesModal');
+        const closeModal = this.shadowRoot.getElementById('closeModal');
+        const languageCards = this.shadowRoot.querySelectorAll('.language-card');
 
         // Toggle dropdown
         userMenuBtn.addEventListener('click', (e) => {
@@ -547,6 +800,12 @@ class DashboardHeader extends HTMLElement {
                 const userDropdownContainer = this.shadowRoot.querySelector('.user-dropdown');
                 userDropdownContainer.classList.remove('active');
                 
+                // Handle courses action
+                if (action === 'courses') {
+                    coursesModal.classList.add('active');
+                    return;
+                }
+                
                 // Dispatch event based on action
                 switch (action) {
                     case 'logout':
@@ -562,6 +821,31 @@ class DashboardHeader extends HTMLElement {
                         this.dispatchEvent(new CustomEvent('help'));
                         break;
                 }
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            coursesModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        coursesModal.addEventListener('click', (e) => {
+            if (e.target === coursesModal) {
+                coursesModal.classList.remove('active');
+            }
+        });
+
+        // Handle language selection
+        languageCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const language = card.getAttribute('data-language');
+                coursesModal.classList.remove('active');
+                
+                // Dispatch event with selected language
+                this.dispatchEvent(new CustomEvent('languageSelected', {
+                    detail: { language }
+                }));
             });
         });
 

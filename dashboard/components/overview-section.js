@@ -8,7 +8,7 @@ class OverviewSection extends HTMLElement {
             level: 8,
             lessonsCompleted: 24,
             accuracy: 87,
-            nextLesson: 'Lección 5: Conversaciones Básicas'
+            nextLesson: 'Lesson 5: Basic Conversations'
         };
     }
 
@@ -481,11 +481,11 @@ class OverviewSection extends HTMLElement {
             <div class="overview-container">
                 <!-- Welcome Header -->
                 <div class="welcome-header">
-                    <h1 class="welcome-title">¡Bienvenido de vuelta, María!</h1>
-                    <p class="welcome-subtitle">Continúa tu viaje de aprendizaje del idioma</p>
+                    <h1 class="welcome-title">Welcome back, Maria!</h1>
+                    <p class="welcome-subtitle">Ready to continue your language learning journey?</p>
                     <div class="streak-badge">
                         <i class="fas fa-fire"></i>
-                        <span>Racha de 7 días</span>
+                        <span>7 Day Streak</span>
                     </div>
                 </div>
 
@@ -524,7 +524,7 @@ class OverviewSection extends HTMLElement {
                             <i class="fas fa-coins"></i>
                         </div>
                         <div class="stat-value" id="totalPoints">1,250</div>
-                        <div class="stat-label">Puntos Totales</div>
+                        <div class="stat-label">Total Points</div>
                     </div>
 
                     <div class="stat-card level">
@@ -532,7 +532,7 @@ class OverviewSection extends HTMLElement {
                             <i class="fas fa-star"></i>
                         </div>
                         <div class="stat-value" id="currentLevel">8</div>
-                        <div class="stat-label">Nivel Actual</div>
+                        <div class="stat-label">Current Level</div>
                     </div>
 
                     <div class="stat-card lessons">
@@ -540,7 +540,7 @@ class OverviewSection extends HTMLElement {
                             <i class="fas fa-book"></i>
                         </div>
                         <div class="stat-value" id="lessonsCompleted">24</div>
-                        <div class="stat-label">Lecciones Completadas</div>
+                        <div class="stat-label">Lessons Completed</div>
                     </div>
 
                     <div class="stat-card accuracy">
@@ -548,14 +548,14 @@ class OverviewSection extends HTMLElement {
                             <i class="fas fa-bullseye"></i>
                         </div>
                         <div class="stat-value" id="accuracyRate">87%</div>
-                        <div class="stat-label">Precisión</div>
+                        <div class="stat-label">Accuracy</div>
                     </div>
                 </div>
 
                 <!-- Progress Section -->
                 <div class="progress-section">
                     <div class="progress-header">
-                        <h3 class="progress-title">Progreso del Nivel</h3>
+                        <h3 class="progress-title">Level Progress</h3>
                         <span class="progress-percentage">75%</span>
                     </div>
                     <div class="progress-bar">
@@ -567,11 +567,11 @@ class OverviewSection extends HTMLElement {
                 <div class="next-lesson-card">
                     <div class="next-lesson-content">
                         <div class="next-lesson-info">
-                            <h3>Próxima Lección</h3>
-                            <p>Lección 5: Conversaciones Básicas</p>
+                            <h3>Next Lesson</h3>
+                            <p>Lesson 5: Basic Conversations</p>
                         </div>
                         <button class="start-lesson-btn" id="startLessonBtn">
-                            <i class="fas fa-play"></i> Comenzar
+                            <i class="fas fa-play"></i> Start
                         </button>
                     </div>
                 </div>

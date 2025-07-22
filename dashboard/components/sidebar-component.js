@@ -387,57 +387,40 @@ class DashboardSidebar extends HTMLElement {
 
             <div class="sidebar-header">
                 <div class="user-profile">
-                    <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=80&font-size=0.3" alt="Perfil" class="profile-avatar">
-                    <div class="profile-info">
-                        <h4>María Santos</h4>
-                        <span class="user-level">Estudiante Avanzado</span>
+                    <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=80&font-size=0.3" alt="Profile" class="profile-avatar">
+                    <div class="user-info">
+                        <h3 class="user-name">Maria Santos</h3>
+                        <span class="user-level">Advanced Student</span>
                     </div>
                 </div>
             </div>
 
-                            <nav class="sidebar-nav">
-                    <div class="nav-section">
-                        <a href="#" class="nav-link active" data-section="overview" data-title="Overview">
-                            <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
-                            <span>Overview</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-section">
-                        <a href="#" class="nav-link" data-section="courses" data-title="Cursos">
-                            <i class="fas fa-book-open" aria-hidden="true"></i>
-                            <span>Cursos</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-section">
-                        <a href="#" class="nav-link" data-section="achievements" data-title="Logros">
-                            <i class="fas fa-medal" aria-hidden="true"></i>
-                            <span>Logros</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-section">
-                        <a href="#" class="nav-link" data-section="community" data-title="Comunidad">
-                            <i class="fas fa-users" aria-hidden="true"></i>
-                            <span>Comunidad</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-section">
-                        <a href="#" class="nav-link" data-section="profile" data-title="Perfil">
-                            <i class="fas fa-user-circle" aria-hidden="true"></i>
-                            <span>Perfil</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-section">
-                        <a href="#" class="nav-link" data-section="settings" data-title="Configuración">
-                            <i class="fas fa-sliders-h" aria-hidden="true"></i>
-                            <span>Configuración</span>
-                        </a>
-                    </div>
-                </nav>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-section="overview" data-title="Overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-link" data-section="courses" data-title="Courses">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" class="nav-link" data-section="community" data-title="Community">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+                <a href="#" class="nav-link" data-section="achievements" data-title="Achievements">
+                    <i class="fas fa-trophy"></i>
+                    <span>Achievements</span>
+                </a>
+                <a href="#" class="nav-link" data-section="profile" data-title="Profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="nav-link" data-section="settings" data-title="Settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
         `;
     }
 

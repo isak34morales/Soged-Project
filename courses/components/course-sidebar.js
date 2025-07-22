@@ -2,7 +2,6 @@ class CourseSidebar extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.isCollapsed = false;
     }
 
     connectedCallback() {
@@ -26,17 +25,12 @@ class CourseSidebar extends HTMLElement {
                     background: linear-gradient(180deg, #ffffff 0%, #F1F5F9 100%);
                     color: #1E293B;
                     z-index: 1000;
-                    transition: width 0.3s ease;
+                    transition: left 0.3s ease, width 0.3s ease;
                     box-shadow: 2px 0 20px rgba(0,0,0,0.1);
                     overflow: hidden;
                     border-right: 1px solid rgba(0, 0, 0, 0.1);
                     backdrop-filter: blur(20px);
                 }
-
-                :host(.collapsed) {
-                    width: var(--sidebar-collapsed-width, 80px);
-                }
-
                 .sidebar-header {
                     padding: 30px 20px 20px 20px;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -49,32 +43,6 @@ class CourseSidebar extends HTMLElement {
                     align-items: center;
                     justify-content: flex-start;
                 }
-
-                .toggle-btn {
-                    position: absolute;
-                    top: 25px;
-                    right: 20px;
-                    background: rgba(0, 163, 224, 0.2);
-                    border: none;
-                    color: #00A3E0;
-                    width: 35px;
-                    height: 35px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 14px;
-                    transition: all 0.3s ease;
-                    border: 1px solid rgba(0, 163, 224, 0.3);
-                }
-
-                .toggle-btn:hover {
-                    background: rgba(0, 163, 224, 0.3);
-                    transform: scale(1.1);
-                    box-shadow: 0 0 15px rgba(0, 163, 224, 0.4);
-                }
-
                 .sidebar-language {
                     font-size: 1.2rem;
                     font-weight: 700;
@@ -88,13 +56,6 @@ class CourseSidebar extends HTMLElement {
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
-
-                :host(.collapsed) .sidebar-language {
-                    font-size: 1.1rem;
-                    margin-top: 40px;
-                    margin-bottom: 0;
-                }
-
                 .nav-menu {
                     padding: 20px 0 20px 0;
                     list-style: none;
@@ -105,12 +66,20 @@ class CourseSidebar extends HTMLElement {
                     max-height: calc(100vh - 120px);
                     overflow-y: auto;
                     scrollbar-width: thin;
+                    scrollbar-color: #00A3E0 #F1F5F9;
                 }
-
+                .nav-menu::-webkit-scrollbar {
+                    width: 8px;
+                    background: #F1F5F9;
+                }
+                .nav-menu::-webkit-scrollbar-thumb {
+                    background: #00A3E0;
+                    border-radius: 6px;
+                }
                 .nav-item {
                     margin: 0;
+                    display: flex;
                 }
-
                 .nav-link {
                     display: flex;
                     align-items: center;
@@ -126,41 +95,11 @@ class CourseSidebar extends HTMLElement {
                     margin: 0 10px;
                     border-radius: 12px;
                     min-height: 48px;
+                    width: 100%;
                 }
-
-                :host(.collapsed) .nav-link {
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    justify-content: center;
-                    background: none !important;
-                    border-left: none !important;
-                    box-shadow: none !important;
-                }
-
-                .nav-link:hover {
-                    background: rgba(0, 163, 224, 0.15);
-                    border-left-color: #00A3E0;
-                    color: #1E293B;
-                    transform: translateX(5px);
-                }
-
-                :host(.collapsed) .nav-link:hover,
-                :host(.collapsed) .nav-link.active {
-                    background: none !important;
-                    border-left: none !important;
-                    box-shadow: none !important;
-                    color: #00A3E0;
-                }
-
-                .nav-link.active {
-                    background: linear-gradient(135deg, rgba(0, 163, 224, 0.2), rgba(0, 136, 199, 0.1));
-                    border-left-color: #00A3E0;
-                    color: #1E293B;
-                    box-shadow: 0 4px 15px rgba(0, 163, 224, 0.2);
-                }
-
                 .nav-icon {
                     width: 28px;
+                    height: 28px;
                     margin-right: 18px;
                     text-align: center;
                     font-size: 22px;
@@ -171,29 +110,10 @@ class CourseSidebar extends HTMLElement {
                     align-items: center;
                     justify-content: center;
                 }
-
-                :host(.collapsed) .nav-icon {
-                    margin-right: 0;
-                    margin-left: 0;
-                    width: 28px;
-                    justify-content: center;
-                }
-
-                .nav-link:hover .nav-icon,
-                .nav-link.active .nav-icon {
-                    color: #00A3E0;
-                    transform: scale(1.1);
-                }
-
                 .nav-text {
                     flex: 1;
                     transition: opacity 0.3s ease;
                 }
-
-                :host(.collapsed) .nav-text {
-                    opacity: 0;
-                }
-
                 .nav-badge {
                     background: #FF6B35;
                     color: white;
@@ -204,12 +124,6 @@ class CourseSidebar extends HTMLElement {
                     margin-left: 10px;
                     transition: opacity 0.3s ease;
                 }
-
-                :host(.collapsed) .nav-badge {
-                    opacity: 0;
-                }
-
-                /* Progress indicator */
                 .progress-indicator {
                     position: absolute;
                     right: 15px;
@@ -222,19 +136,15 @@ class CourseSidebar extends HTMLElement {
                     opacity: 0;
                     transition: opacity 0.3s ease;
                 }
-
                 .nav-link.active .progress-indicator {
                     opacity: 1;
                     animation: pulse 2s infinite;
                 }
-
                 @keyframes pulse {
                     0% { transform: translateY(-50%) scale(1); opacity: 1; }
                     50% { transform: translateY(-50%) scale(1.2); opacity: 0.7; }
                     100% { transform: translateY(-50%) scale(1); opacity: 1; }
                 }
-
-                /* Hover effects */
                 .nav-link::before {
                     content: '';
                     position: absolute;
@@ -245,53 +155,68 @@ class CourseSidebar extends HTMLElement {
                     background: linear-gradient(90deg, rgba(0, 163, 224, 0.1), transparent);
                     transition: width 0.3s ease;
                 }
-
                 .nav-link:hover::before {
                     width: 100%;
                 }
-
-                @media (max-width: 768px) {
+                @media (max-width: 1024px) {
                     :host {
-                        width: 100%;
-                        transform: translateX(-100%);
+                        left: -100vw;
+                        width: 260px;
+                        box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+                        transition: left 0.3s cubic-bezier(.4,0,.2,1);
                     }
-
                     :host(.open) {
-                        transform: translateX(0);
+                        left: 0;
+                        transition: left 0.3s cubic-bezier(.4,0,.2,1);
                     }
-
-                    :host(.collapsed) {
-                        width: 100%;
-                        transform: translateX(-100%);
-                    }
-
                     .sidebar-header {
                         min-height: 60px;
                         padding: 20px 10px 10px 10px;
                     }
-
                     .sidebar-language {
                         font-size: 1rem;
                         margin-top: 30px;
                     }
-
                     .nav-link {
                         min-height: 44px;
                         font-size: 14px;
                         padding: 12px 8px;
                     }
                 }
+                @media (max-width: 1024px) {
+                    .sidebar-toggle-btn {
+                        display: block;
+                        position: fixed;
+                        top: 18px;
+                        left: 18px;
+                        z-index: 2001;
+                        background: #00A3E0;
+                        color: #fff;
+                        border: none;
+                        border-radius: 50%;
+                        width: 44px;
+                        height: 44px;
+                        box-shadow: 0 2px 8px rgba(0,163,224,0.15);
+                        cursor: pointer;
+                        font-size: 1.5rem;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+                @media (min-width: 1025px) {
+                    .sidebar-toggle-btn {
+                        display: none;
+                    }
+                }
             </style>
-
+            <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Open sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
             <div class="sidebar-header">
-                <button class="toggle-btn" id="toggleBtn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
-                    </svg>
-                </button>
                 <div class="sidebar-language" id="sidebarLanguage"></div>
             </div>
-
             <nav class="nav-menu">
                 <div class="nav-item">
                     <a href="#overview" class="nav-link ${currentSection === 'overview' ? 'active' : ''}" data-section="overview">
@@ -407,7 +332,7 @@ class CourseSidebar extends HTMLElement {
 
     setupEventListeners() {
         const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
-        const toggleBtn = this.shadowRoot.querySelector('#toggleBtn');
+        const sidebarToggleBtn = this.shadowRoot.querySelector('#sidebarToggleBtn');
         
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -417,42 +342,18 @@ class CourseSidebar extends HTMLElement {
                     detail: { section },
                     bubbles: true
                 }));
+                // En móvil, cerrar el sidebar al seleccionar sección
+                if (window.innerWidth <= 1024) {
+                    this.classList.remove('open');
+                }
             });
         });
 
-        toggleBtn.addEventListener('click', () => {
-            this.toggleCollapse();
-        });
-    }
-
-    toggleCollapse() {
-        this.isCollapsed = !this.isCollapsed;
-        
-        if (this.isCollapsed) {
-            this.classList.add('collapsed');
-            this.shadowRoot.querySelector('#toggleBtn svg').innerHTML = `
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none"/>
-            `;
-        } else {
-            this.classList.remove('collapsed');
-            this.shadowRoot.querySelector('#toggleBtn svg').innerHTML = `
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
-            `;
+        if (sidebarToggleBtn) {
+            sidebarToggleBtn.addEventListener('click', () => {
+                this.classList.toggle('open');
+            });
         }
-
-        // Dispatch event to update main content
-        this.dispatchEvent(new CustomEvent('sidebarToggle', {
-            detail: { collapsed: this.isCollapsed },
-            bubbles: true
-        }));
-    }
-
-    open() {
-        this.classList.add('open');
-    }
-
-    close() {
-        this.classList.remove('open');
     }
 }
 

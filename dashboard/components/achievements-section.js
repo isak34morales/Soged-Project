@@ -5,93 +5,83 @@ class AchievementsSection extends HTMLElement {
         this.achievements = [
             {
                 id: 1,
-                title: 'Primer Paso',
-                description: 'Completa tu primera lección',
+                title: 'First Steps',
+                description: 'Complete your first lesson',
                 icon: 'fas fa-star',
-                color: '#FFD700',
-                progress: 100,
+                color: '#FFD23F',
                 unlocked: true,
-                date: '2024-01-15',
-                xp: 50,
-                rarity: 'common'
+                progress: 100,
+                xp: 50
             },
             {
                 id: 2,
-                title: 'Racha de 7 Días',
-                description: 'Practica durante 7 días consecutivos',
+                title: '7 Day Streak',
+                description: 'Maintain a 7-day learning streak',
                 icon: 'fas fa-fire',
-                color: '#FF6B6B',
-                progress: 100,
+                color: '#FF6B35',
                 unlocked: true,
-                date: '2024-01-22',
-                xp: 100,
-                rarity: 'rare'
+                progress: 100,
+                xp: 100
             },
             {
                 id: 3,
-                title: 'Vocabulario Básico',
-                description: 'Aprende 100 palabras básicas',
+                title: 'Vocabulary Master',
+                description: 'Learn 100 basic words',
                 icon: 'fas fa-book',
-                color: '#4A90E2',
-                progress: 85,
+                color: '#2ECC71',
                 unlocked: false,
-                xp: 150,
-                rarity: 'common'
+                progress: 65,
+                xp: 150
             },
             {
                 id: 4,
-                title: 'Conversador',
-                description: 'Completa 10 ejercicios de conversación',
+                title: 'Conversation Starter',
+                description: 'Complete 10 conversation lessons',
                 icon: 'fas fa-comments',
-                color: '#50C878',
-                progress: 60,
+                color: '#3498DB',
                 unlocked: false,
-                xp: 200,
-                rarity: 'uncommon'
+                progress: 40,
+                xp: 200
             },
             {
                 id: 5,
-                title: 'Perfeccionista',
-                description: 'Obtén 100% de precisión en 5 lecciones',
-                icon: 'fas fa-bullseye',
+                title: 'Level 10',
+                description: 'Reach level 10',
+                icon: 'fas fa-trophy',
                 color: '#9B59B6',
-                progress: 40,
                 unlocked: false,
-                xp: 300,
-                rarity: 'rare'
+                progress: 80,
+                xp: 300
             },
             {
                 id: 6,
-                title: 'Nivel 10',
-                description: 'Alcanza el nivel 10',
-                icon: 'fas fa-trophy',
-                color: '#F39C12',
-                progress: 80,
+                title: 'Dedicated Student',
+                description: 'Study for 30 consecutive days',
+                icon: 'fas fa-calendar-check',
+                color: '#E74C3C',
                 unlocked: false,
-                xp: 500,
-                rarity: 'epic'
+                progress: 20,
+                xp: 500
             },
             {
                 id: 7,
-                title: 'Políglota',
-                description: 'Completa 3 cursos diferentes',
-                icon: 'fas fa-globe',
-                color: '#E74C3C',
-                progress: 33,
+                title: 'Perfect Score',
+                description: 'Get 100% on any lesson',
+                icon: 'fas fa-percentage',
+                color: '#1ABC9C',
                 unlocked: false,
-                xp: 1000,
-                rarity: 'legendary'
+                progress: 0,
+                xp: 100
             },
             {
                 id: 8,
-                title: 'Estudiante Dedicado',
-                description: 'Practica durante 30 días consecutivos',
-                icon: 'fas fa-calendar-check',
-                color: '#1ABC9C',
-                progress: 23,
+                title: 'Language Explorer',
+                description: 'Complete lessons in all categories',
+                icon: 'fas fa-globe',
+                color: '#F39C12',
                 unlocked: false,
-                xp: 750,
-                rarity: 'epic'
+                progress: 25,
+                xp: 400
             }
         ];
     }
@@ -476,31 +466,26 @@ class AchievementsSection extends HTMLElement {
             <div class="achievements-container">
                 <!-- Header Section -->
                 <div class="achievements-header">
-                    <h1 class="achievements-title">Logros y Conquistas</h1>
-                    <p class="achievements-subtitle">Celebra tus éxitos y desbloquea nuevas recompensas</p>
-                    <div class="stats-row">
+                    <h1 class="achievements-title">Achievements & Conquests</h1>
+                    <div class="achievements-stats">
                         <div class="stat-item">
                             <i class="fas fa-trophy"></i>
-                            <span>2 de 8 logros desbloqueados</span>
+                            <span>2 of 8 achievements unlocked</span>
                         </div>
                         <div class="stat-item">
                             <i class="fas fa-star"></i>
-                            <span>150 XP de logros</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-percentage"></i>
-                            <span>25% completado</span>
+                            <span>150 XP from achievements</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Filter Tabs -->
                 <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">Todos</button>
-                    <button class="filter-tab" data-filter="unlocked">Desbloqueados</button>
-                    <button class="filter-tab" data-filter="locked">Bloqueados</button>
-                    <button class="filter-tab" data-filter="rare">Raros</button>
-                    <button class="filter-tab" data-filter="epic">Épicos</button>
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="unlocked">Unlocked</button>
+                    <button class="filter-tab" data-filter="locked">Locked</button>
+                    <button class="filter-tab" data-filter="rare">Rare</button>
+                    <button class="filter-tab" data-filter="epic">Epic</button>
                 </div>
 
                 <!-- Achievements Grid -->
@@ -538,7 +523,7 @@ class AchievementsSection extends HTMLElement {
 
                 <div class="progress-section">
                     <div class="progress-header">
-                        <span class="progress-text">Progreso</span>
+                        <span class="progress-text">Progress</span>
                         <span class="progress-percentage">${achievement.progress}%</span>
                     </div>
                     <div class="progress-bar">
@@ -549,11 +534,11 @@ class AchievementsSection extends HTMLElement {
                 <div class="achievement-status">
                     ${achievement.unlocked ? `
                         <i class="fas fa-check-circle status-unlocked"></i>
-                        <span class="status-unlocked">Desbloqueado</span>
+                        <span class="status-unlocked">Unlocked</span>
                         <span class="unlock-date">${this.formatDate(achievement.date)}</span>
                     ` : `
                         <i class="fas fa-lock status-locked"></i>
-                        <span class="status-locked">Bloqueado</span>
+                        <span class="status-locked">Locked</span>
                     `}
                 </div>
             </div>
@@ -562,18 +547,18 @@ class AchievementsSection extends HTMLElement {
 
     getRarityText(rarity) {
         const rarityMap = {
-            'common': 'Común',
-            'uncommon': 'Poco Común',
-            'rare': 'Raro',
-            'epic': 'Épico',
-            'legendary': 'Legendario'
+            'common': 'Common',
+            'uncommon': 'Uncommon',
+            'rare': 'Rare',
+            'epic': 'Epic',
+            'legendary': 'Legendary'
         };
         return rarityMap[rarity] || rarity;
     }
 
     formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
+        return date.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'

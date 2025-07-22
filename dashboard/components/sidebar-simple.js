@@ -161,10 +161,10 @@ class DashboardSidebarSimple extends HTMLElement {
 
             <div class="sidebar-header">
                 <div class="user-profile">
-                    <div class="profile-avatar"></div>
-                    <div class="profile-info">
-                        <h4>María Santos</h4>
-                        <span class="user-level">Estudiante Avanzado</span>
+                    <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=60&font-size=0.4" alt="Profile" class="profile-avatar">
+                    <div class="user-info">
+                        <h4 class="user-name">Maria Santos</h4>
+                        <span class="user-level">Advanced Student</span>
                     </div>
                 </div>
             </div>
@@ -172,43 +172,43 @@ class DashboardSidebarSimple extends HTMLElement {
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <a href="#" class="nav-link active" data-section="overview" data-title="Overview">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fas fa-home"></i>
                         <span>Overview</span>
                     </a>
                 </div>
 
                 <div class="nav-section">
-                    <a href="#" class="nav-link" data-section="courses" data-title="Cursos">
-                        <i class="fas fa-book-open"></i>
-                        <span>Cursos</span>
+                    <a href="#" class="nav-link" data-section="courses" data-title="Courses">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Courses</span>
                     </a>
                 </div>
 
                 <div class="nav-section">
-                    <a href="#" class="nav-link" data-section="achievements" data-title="Logros">
-                        <i class="fas fa-medal"></i>
-                        <span>Logros</span>
+                    <a href="#" class="nav-link" data-section="achievements" data-title="Achievements">
+                        <i class="fas fa-trophy"></i>
+                        <span>Achievements</span>
                     </a>
                 </div>
 
                 <div class="nav-section">
-                    <a href="#" class="nav-link" data-section="community" data-title="Comunidad">
+                    <a href="#" class="nav-link" data-section="community" data-title="Community">
                         <i class="fas fa-users"></i>
-                        <span>Comunidad</span>
+                        <span>Community</span>
                     </a>
                 </div>
 
                 <div class="nav-section">
-                    <a href="#" class="nav-link" data-section="profile" data-title="Perfil">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Perfil</span>
+                    <a href="#" class="nav-link" data-section="profile" data-title="Profile">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
                     </a>
                 </div>
 
                 <div class="nav-section">
-                    <a href="#" class="nav-link" data-section="settings" data-title="Configuración">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>Configuración</span>
+                    <a href="#" class="nav-link" data-section="settings" data-title="Settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
                     </a>
                 </div>
             </nav>
