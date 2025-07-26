@@ -6,8 +6,8 @@ class ThemeManager {
     }
 
     init() {
-        // Check for saved theme preference or use system preference
-        const savedTheme = localStorage.getItem('theme') || this.getSystemTheme();
+        // Always start with light theme by default
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
         
         // Initialize theme switch after component is loaded
@@ -15,7 +15,8 @@ class ThemeManager {
     }
 
     getSystemTheme() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        // Always return light theme as default
+        return 'light';
     }
 
     initializeThemeSwitch() {
@@ -30,19 +31,19 @@ class ThemeManager {
     }
 
     setupThemeSwitch() {
-        // Set initial state
-        this.themeSwitch.checked = document.documentElement.getAttribute('data-theme') === 'light';
+        // Set initial state - when checked = dark mode, when unchecked = light mode
+        this.themeSwitch.checked = document.documentElement.getAttribute('data-theme') === 'dark';
 
         // Add event listener
         this.themeSwitch.addEventListener('change', () => {
-            const newTheme = this.themeSwitch.checked ? 'light' : 'dark';
+            const newTheme = this.themeSwitch.checked ? 'dark' : 'light';
             this.setTheme(newTheme);
         });
 
-        // Listen for system theme changes
+        // Listen for system theme changes (but default to light)
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
-                this.setTheme(e.matches ? 'dark' : 'light');
+                this.setTheme('light'); // Always default to light
             }
         });
     }

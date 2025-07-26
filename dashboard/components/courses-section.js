@@ -6,11 +6,11 @@ class CoursesSection extends HTMLElement {
             {
                 id: 1,
                 title: 'Ngäbe',
-                description: 'Lengua indígena de Panamá - Aprende la cultura y tradiciones ngäbe',
+                description: 'Indigenous language of Panama - Learn Ngäbe culture and traditions',
                 progress: 75,
                 lessons: 60,
                 completed: 45,
-                difficulty: 'Intermedio',
+                difficulty: 'Intermediate',
                 color: '#4A90E2',
                 icon: 'fas fa-leaf',
                 status: 'in-progress',
@@ -20,11 +20,11 @@ class CoursesSection extends HTMLElement {
             {
                 id: 2,
                 title: 'Emberá',
-                description: 'Lengua indígena de Panamá - Descubre la riqueza cultural emberá',
+                description: 'Indigenous language of Panama - Discover Emberá cultural richness',
                 progress: 45,
                 lessons: 60,
                 completed: 27,
-                difficulty: 'Principiante',
+                difficulty: 'Beginner',
                 color: '#50C878',
                 icon: 'fas fa-tree',
                 status: 'in-progress',
@@ -34,11 +34,11 @@ class CoursesSection extends HTMLElement {
             {
                 id: 3,
                 title: 'Guna',
-                description: 'Lengua indígena de Panamá - Explora la cultura guna',
+                description: 'Indigenous language of Panama - Explore Guna culture',
                 progress: 30,
                 lessons: 60,
                 completed: 18,
-                difficulty: 'Principiante',
+                difficulty: 'Beginner',
                 color: '#FF6B6B',
                 icon: 'fas fa-mountain',
                 status: 'in-progress',
@@ -48,11 +48,11 @@ class CoursesSection extends HTMLElement {
             {
                 id: 4,
                 title: 'Naso',
-                description: 'Lengua indígena de Panamá - Conoce la cultura naso',
+                description: 'Indigenous language of Panama - Learn Naso culture',
                 progress: 0,
                 lessons: 60,
                 completed: 0,
-                difficulty: 'Principiante',
+                difficulty: 'Beginner',
                 color: '#9B59B6',
                 icon: 'fas fa-water',
                 status: 'locked',
@@ -444,12 +444,12 @@ class CoursesSection extends HTMLElement {
             <div class="courses-container">
                 <!-- Header Section -->
                 <div class="courses-header">
-                    <h1 class="courses-title">Tus Cursos</h1>
-                    <p class="courses-subtitle">Continúa tu progreso y desbloquea nuevos cursos</p>
+                    <h1 class="courses-title">Your Current Course</h1>
+                    <p class="courses-subtitle">Continue your learning journey</p>
                     <div class="stats-row">
                         <div class="stat-item">
                             <i class="fas fa-book"></i>
-                            <span>2 de 6 cursos completados</span>
+                            <span>2 of 6 courses completed</span>
                         </div>
                         <div class="stat-item">
                             <i class="fas fa-star"></i>
@@ -457,7 +457,7 @@ class CoursesSection extends HTMLElement {
                         </div>
                         <div class="stat-item">
                             <i class="fas fa-trophy"></i>
-                            <span>Nivel 8 alcanzado</span>
+                            <span>Level 8 reached</span>
                         </div>
                     </div>
                 </div>
@@ -498,7 +498,7 @@ class CoursesSection extends HTMLElement {
 
                 <div class="progress-section">
                     <div class="progress-header">
-                        <span class="progress-text">${course.completed} de ${course.lessons} lecciones</span>
+                        <span class="progress-text">${course.completed} of ${course.lessons} lessons</span>
                         <span class="progress-percentage">${course.progress}%</span>
                     </div>
                     <div class="progress-bar">
@@ -517,28 +517,28 @@ class CoursesSection extends HTMLElement {
         if (course.status === 'completed') {
             return `
                 <button class="action-btn secondary" data-action="review">
-                    <i class="fas fa-redo"></i> Repasar
+                    <i class="fas fa-redo"></i> Review
                 </button>
                 <button class="action-btn primary" data-action="certificate">
-                    <i class="fas fa-certificate"></i> Certificado
+                    <i class="fas fa-certificate"></i> Certificate
                 </button>
             `;
         } else if (course.status === 'in-progress') {
             return `
                 <button class="action-btn secondary" data-action="review">
-                    <i class="fas fa-redo"></i> Repasar
+                    <i class="fas fa-redo"></i> Review
                 </button>
                 <button class="action-btn primary" data-action="continue">
-                    <i class="fas fa-play"></i> Continuar
+                    <i class="fas fa-play"></i> Continue
                 </button>
             `;
         } else {
             return `
                 <button class="action-btn locked" data-action="locked">
-                    <i class="fas fa-lock"></i> Bloqueado
+                    <i class="fas fa-lock"></i> Locked
                 </button>
                 <button class="action-btn locked" data-action="requirements">
-                    <i class="fas fa-info-circle"></i> Requisitos
+                    <i class="fas fa-info-circle"></i> Requirements
                 </button>
             `;
         }
