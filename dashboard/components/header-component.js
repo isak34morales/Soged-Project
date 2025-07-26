@@ -764,6 +764,35 @@ class DashboardHeader extends HTMLElement {
                 </div>
             </div>
         `;
+        // Switch decorativo igual al del index
+        const themeSwitch = document.createElement('div');
+        themeSwitch.innerHTML = `
+  <div class="theme-toggle" style="display:inline-block; margin-right:1.5rem;">
+    <input type="checkbox" id="dashboard-theme-switch" class="theme-switch-input" disabled style="display:none;">
+    <label for="dashboard-theme-switch" class="theme-switch" style="width: 65px; height: 35px; background: linear-gradient(135deg, #fff 0%, #f1f5f9 100%); border-radius: 20px; position: relative; cursor: not-allowed; display: flex; align-items: center; padding: 0 8px; border: 2px solid #e2e8f0; overflow: hidden; opacity: 0.7;">
+      <i class="fas fa-sun" style="color: #FFD600; opacity: 1; margin-left: 2px; z-index: 2; font-size: 1.2rem; position: relative;"></i>
+      <span style="width: 27px; height: 27px; background: linear-gradient(135deg, #FFD600 0%, #FFB300 100%); border-radius: 50%; position: absolute; left: 4px; transition: 0.3s; box-shadow: 0 2px 8px #FFD60033; z-index: 1;"></span>
+      <i class="fas fa-moon" style="color: #64748B; opacity: 0.7; margin-left: auto; margin-right: 2px; z-index: 2; font-size: 1.2rem; position: relative;"></i>
+    </label>
+  </div>
+`;
+        this.shadowRoot.querySelector('.header-right').prepend(themeSwitch);
+
+        const themeInput = this.shadowRoot.getElementById('dashboard-theme-switch');
+        if (themeInput) {
+            themeInput.addEventListener('change', () => {
+                const html = document.documentElement;
+                const isDark = themeInput.checked;
+                html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                localStorage.setItem('dashboard_theme', isDark ? 'dark' : 'light');
+            });
+            // Set initial state from localStorage
+            const savedTheme = localStorage.getItem('dashboard_theme');
+            if (savedTheme === 'dark') {
+                themeInput.checked = true;
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
     }
 
     setupEventListeners() {

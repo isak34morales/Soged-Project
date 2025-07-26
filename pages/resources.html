@@ -250,26 +250,24 @@
                     </div>
                 </div>
 
-                <div class="resource-card" data-category="video" data-search="bribri cooking traditional recipes">
+                <div class="resource-card" data-category="audio" data-search="guna greeting audio">
                     <div class="resource-image">
-                        <i class="fas fa-utensils"></i>
+                        <i class="fas fa-volume-up"></i>
                     </div>
                     <div class="resource-content">
-                        <div class="resource-category">Video</div>
-                        <h3 class="resource-title">Bri-Bri Cooking Terms</h3>
-                        <p class="resource-description">Learn Bri-Bri vocabulary through traditional cooking and recipes.</p>
+                        <div class="resource-category">Audio</div>
+                        <h3 class="resource-title">Guna Greeting Example</h3>
+                        <p class="resource-description">Learn how to greet in Guna.</p>
                         <div class="resource-meta">
-                            <span class="resource-level">Intermediate</span>
-                            <span class="resource-time">35 min video</span>
+                            <span class="resource-level">All Levels</span>
+                            <span class="resource-time">Short audio</span>
                         </div>
                         <div class="resource-actions">
-                            <button class="btn btn-primary btn-sm">
-                                <i class="fas fa-play"></i>
-                                Watch
+                            <button class="btn btn-primary btn-sm" style="background: linear-gradient(90deg, #FFD600, #FFB300); color: #222; border: 2px solid #FFD600; font-weight: 700;" onclick="openListeningModal()">
+                                <i class="fas fa-headphones"></i> Listening
                             </button>
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-heart"></i>
-                                Save
+                            <button class="btn btn-outline-primary btn-sm" style="border: 2px solid #FFD600; color: #FFD600; font-weight: 700; margin-left: 0.5rem;">
+                                <i class="fas fa-heart"></i> Save
                             </button>
                         </div>
                     </div>
@@ -387,6 +385,35 @@
             </div>
         </div>
     </section>
+
+    <!-- Botón Listening de ejemplo -->
+    <div style="text-align:center; margin: 2rem 0;">
+      <button class="btn btn-primary btn-lg">Listening</button>
+    </div>
+
+    <!-- Modal Listening flotante -->
+    <div id="listening-modal-overlay" class="auth-modal-overlay" style="display:none;">
+      <div class="auth-modal glass-card" id="listening-modal" tabindex="-1" style="max-width:600px;">
+        <button class="auth-modal-close" aria-label="Close" onclick="closeListeningModal();">&times;</button>
+        <div style="width:100%; max-width:600px; min-height:350px; padding:2.5rem 2.5rem 2rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <!-- Aquí puedes poner el contenido que quieras -->
+        </div>
+      </div>
+    </div>
+    <script>
+    function openListeningModal() {
+      var overlay = document.getElementById('listening-modal-overlay');
+      if (overlay) {
+        overlay.style.display = 'flex';
+      }
+    }
+    function closeListeningModal() {
+      var overlay = document.getElementById('listening-modal-overlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+    }
+    </script>
 
     <!-- Footer Component -->
     <div id="footer-component"></div>

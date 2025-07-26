@@ -2,7 +2,7 @@
 
 :root {
     /* Colores principales inspirados en Panamá */
-    --primary-color: #00A3E0; /* Azul del mar de Panamá */
+    --primary-color: #FFD600; /* Azul del mar de Panamá */
     --primary-hover: #0088C7;
     --secondary-color: #FF6B35; /* Naranja vibrante */
     --accent-color: #FFD23F; /* Amarillo del sol tropical */
@@ -29,7 +29,7 @@
     --transition: all 0.3s cubic-bezier(.4,0,.2,1);
     
     /* Colores adicionales para elementos interactivos */
-    --gradient-primary: linear-gradient(135deg, #00A3E0 0%, #0088C7 100%);
+    --gradient-primary: linear-gradient(135deg, #FFD600 0%, #FFB300 100%);
     --gradient-secondary: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
     --gradient-accent: linear-gradient(135deg, #FFD23F 0%, #FFA726 100%);
     --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);

@@ -105,12 +105,9 @@ section {
     margin-bottom: 4rem;
 }
 
-.section-title {
-    color: var(--text-primary);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    background: var(--gradient-primary);
+.section-title, .hero-title, .feature-title, .about-title, .why-soged-bg h2, .section-header h2 {
+    color: #FFD600 !important;
+    background: linear-gradient(90deg, #FFD600 0%, #FFB300 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -203,13 +200,14 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--gradient-primary);
-    color: white;
+    background: linear-gradient(90deg, #FFD600 60%, #FFB300 100%) !important;
+    color: #333 !important;
     padding: 0.5rem 1rem;
     border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 2rem;
+    border: none !important;
 }
 
 .hero-title {
@@ -221,7 +219,7 @@ section {
 }
 
 .gradient-text {
-    background: var(--gradient-primary);
+    background: linear-gradient(90deg, #FFD600 0%, #FFB300 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -376,16 +374,20 @@ section {
     transform: rotate(360deg);
 }
 
-.navbar-brand {
-    color: var(--primary-color) !important;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.8rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    overflow: hidden;
+.navbar-brand, .navbar-brand span {
+    color: #FFD600 !important;
+    background: linear-gradient(90deg, #FFD600 0%, #FFB300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-brand:hover, .navbar-brand:hover span, .navbar-brand:hover i {
+    color: #FFD600 !important;
+    background: linear-gradient(90deg, #FFD600 0%, #FFB300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .navbar-brand::before {
@@ -406,7 +408,7 @@ section {
 
 .navbar-brand i {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: #FFD600 !important;
     transition: var(--transition);
 }
 
@@ -692,7 +694,7 @@ section {
     }
 
     .nav-link:hover {
-        color: var(--primary-color) !important;
+        color: #00A3E0 !important;
     }
 
     .nav-link::after {
@@ -776,47 +778,28 @@ section {
     gap: 0.5rem;
 }
 
-.btn-primary {
-    background: var(--gradient-primary);
-    border: none;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 163, 224, 0.15);
-    position: relative;
-    overflow: hidden;
+.btn-primary, .btn-primary:focus, .btn-primary:active {
+    background: linear-gradient(90deg, #FFD600 0%, #FFB300 100%) !important;
+    border-color: #FFD600 !important;
+    color: #333 !important;
 }
 
 .btn-primary:hover {
-    background: var(--gradient-primary);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 163, 224, 0.25);
-    transform: translateY(-2px);
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn-primary:hover::before {
-    left: 100%;
+    background: linear-gradient(90deg, #FFB300 0%, #FFD600 100%) !important;
+    border-color: #FFB300 !important;
+    color: #333 !important;
 }
 
 .btn-outline-primary {
     background-color: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+    border: 2px solid #FFD600 !important;
+    color: #FFD600 !important;
 }
 
 .btn-outline-primary:hover {
-    background: var(--gradient-primary);
-    color: #fff;
-    transform: translateY(-2px);
+    background: #FFD600 !important;
+    color: #333 !important;
+    border-color: #FFB300 !important;
 }
 
 /* Nuevos estilos de botones */
@@ -2126,11 +2109,12 @@ section {
 .auth-navbar .navbar-brand, 
 .auth-navbar .navbar-brand i, 
 .auth-navbar .nav-link {
-    color: white !important;
+    color: #FFD600 !important;
+    background: none !important;
 }
 
 .auth-navbar .navbar-brand span {
-    color: white !important;
+    color: #FFD600 !important;
 }
 
 .auth-navbar .navbar-brand i {
@@ -2231,7 +2215,7 @@ body.auth-page {
     letter-spacing: 1px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.badge-blue { background: linear-gradient(90deg, #00A3E0 60%, #00C6AE 100%); }
+.badge-blue { background: linear-gradient(90deg, #FFD600 60%, #FFB300 100%); }
 .badge-orange { background: linear-gradient(90deg, #FF7A00 60%, #FFD600 100%); }
 .badge-green { background: linear-gradient(90deg, #00C6AE 60%, #A3E635 100%); }
 .badge-yellow { background: linear-gradient(90deg, #FFD600 60%, #FF7A00 100%); }
@@ -2252,7 +2236,7 @@ body.auth-page {
     z-index: 1;
     animation: floatIcon 3.5s ease-in-out infinite;
 }
-.icon-bg-blue { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); }
+.icon-bg-blue { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); }
 .icon-bg-orange { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
 .icon-bg-green { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); }
 .icon-bg-yellow { background: linear-gradient(135deg, #FFD600 60%, #FF7A00 100%); }
@@ -2368,7 +2352,7 @@ body.auth-page {
     z-index: 1;
     animation: floatIcon 3.5s ease-in-out infinite;
 }
-.icon-bg-blue { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); }
+.icon-bg-blue { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); }
 .icon-bg-orange { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
 .icon-bg-green { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); }
 .icon-bg-yellow { background: linear-gradient(135deg, #FFD600 60%, #FF7A00 100%); }
@@ -2413,8 +2397,8 @@ body.auth-page {
 
 /* Colores por idioma */
 .language-step.ngabe-blue .step-number,
-.language-step.ngabe-blue .lang-level { background: linear-gradient(90deg, #00A3E0 60%, #00C6AE 100%); }
-.language-step.ngabe-blue .step-icon { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); }
+.language-step.ngabe-blue .lang-level { background: linear-gradient(90deg, #FFD600 60%, #FFB300 100%); }
+.language-step.ngabe-blue .step-icon { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); }
 .language-step.naso-orange .step-number,
 .language-step.naso-orange .lang-level { background: linear-gradient(90deg, #FF7A00 60%, #FFD600 100%); }
 .language-step.naso-orange .step-icon { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
@@ -2440,12 +2424,12 @@ body.auth-page {
 }
 
 /* Colores de pasos How It Works */
-.circle-blue { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); color: #fff; }
+.circle-blue { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); color: #fff; }
 .circle-orange { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); color: #fff; }
 .circle-green { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); color: #fff; }
 .circle-yellow { background: linear-gradient(135deg, #FFD600 60%, #FF7A00 100%); color: #fff; }
 
-.icon-bg-blue { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); color: #fff; }
+.icon-bg-blue { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); color: #fff; }
 .icon-bg-orange { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); color: #fff; }
 .icon-bg-green { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); color: #fff; }
 .icon-bg-yellow { background: linear-gradient(135deg, #FFD600 60%, #FF7A00 100%); color: #fff; }
@@ -2515,11 +2499,11 @@ body.auth-page {
 }
 
 /* Colores de marca para badges e iconos */
-.badge-blue { background: linear-gradient(90deg, #00A3E0 60%, #00C6AE 100%); }
+.badge-blue { background: linear-gradient(90deg, #FFD600 60%, #FFB300 100%); }
 .badge-orange { background: linear-gradient(90deg, #FF7A00 60%, #FFD600 100%); }
 .badge-green { background: linear-gradient(90deg, #00C6AE 60%, #A3E635 100%); }
 .badge-yellow { background: linear-gradient(90deg, #FFD600 60%, #FF7A00 100%); }
-.icon-bg-blue { background: linear-gradient(135deg, #00A3E0 60%, #00C6AE 100%); }
+.icon-bg-blue { background: linear-gradient(135deg, #FFD600 60%, #FFB300 100%); }
 .icon-bg-orange { background: linear-gradient(135deg, #FF7A00 60%, #FFD600 100%); }
 .icon-bg-green { background: linear-gradient(135deg, #00C6AE 60%, #A3E635 100%); }
 .icon-bg-yellow { background: linear-gradient(135deg, #FFD600 60%, #FF7A00 100%); }
@@ -2845,11 +2829,18 @@ body.auth-page {
   width: 400px !important;
   max-width: 98vw;
   filter: brightness(1.7) contrast(1.5) saturate(1.7) drop-shadow(0 0 16px #00b894cc) drop-shadow(0 8px 32px #00b89488);
+  transform: scaleX(-1);
+}
+
+@media (max-width: 991px) {
+    .hero-img-turtle {
+        transform: none;
+    }
 }
 
 /* Efecto 1: Resplandor azul intenso */
 .turtle-glow-blue {
-  filter: brightness(1.18) contrast(1.25) saturate(1.1) drop-shadow(0 0 32px #7fdfff88) drop-shadow(0 8px 24px #00b89444);
+  filter: brightness(1.18) contrast(1.25) saturate(1.1) drop-shadow(0 0 32px #ffe06688) drop-shadow(0 8px 24px #ffd60044);
 }
 
 /* Efecto 2: Resplandor blanco suave */
@@ -2877,7 +2868,7 @@ body.auth-page {
   z-index: 0;
   pointer-events: none;
   border-radius: 50%;
-  background: radial-gradient(circle, #b3eaff 0%, #e0f7fa 60%, transparent 100%);
+  background: radial-gradient(circle, #ffe066 0%, #fffde7 60%, transparent 100%);
   opacity: 0.65;
   animation: turtle-bg-glow 5s ease-in-out infinite alternate;
   filter: blur(32px);

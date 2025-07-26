@@ -272,11 +272,25 @@ class DashboardApp extends HTMLElement {
         return container;
     }
 
+    getWelcomeContent() {
+        return `
+            <div class="welcome-section" style="background: #fffbe6; border-radius: 18px; box-shadow: 0 2px 12px #ffd60033; padding: 2rem 2.5rem; margin-bottom: 2.5rem;">
+                <h2 style="color: #FFD600; font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Welcome!</h2>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 0.7rem;">
+                    Once you log in as a student, you will see your profile and your lesson progress.<br><br>
+                    On the left side, you’ll find the Dashboard. This shows your class hours, days in progress, completed lessons, and your activity history.<br><br>
+                    At the top of the screen, you can switch between dark and light mode or log out of your account.<br><br>
+                    <span style="font-weight: 600; color: #888;">Nayeli/Isaac</span>
+                </p>
+            </div>
+        `;
+    }
+
     getOverviewContent() {
         return `
             <div class="section-header">
                 <h2>Overview</h2>
-                <p>Tu progreso general y estadísticas</p>
+                <p>Your overall progress and statistics</p>
             </div>
             
             <div class="row g-4">
@@ -286,11 +300,11 @@ class DashboardApp extends HTMLElement {
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Progreso Total</h3>
+                            <h3>Total Progress</h3>
                             <div class="progress-circle">
                                 <div class="progress-value">65%</div>
                             </div>
-                            <p>Completado de todas las lecciones</p>
+                            <p>All lessons completed</p>
                         </div>
                     </div>
                 </div>
@@ -301,9 +315,9 @@ class DashboardApp extends HTMLElement {
                             <i class="fas fa-fire"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Racha Actual</h3>
-                            <div class="streak-value">12 días</div>
-                            <p>¡Mantén tu racha!</p>
+                            <h3>Current Streak</h3>
+                            <div class="streak-value">12 days</div>
+                            <p>Keep your streak!</p>
                         </div>
                     </div>
                 </div>
@@ -314,9 +328,9 @@ class DashboardApp extends HTMLElement {
                             <i class="fas fa-trophy"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Logros</h3>
+                            <h3>Achievements</h3>
                             <div class="achievements-count">8/15</div>
-                            <p>Logros desbloqueados</p>
+                            <p>Achievements unlocked</p>
                         </div>
                     </div>
                 </div>
@@ -327,9 +341,9 @@ class DashboardApp extends HTMLElement {
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Tiempo de Estudio</h3>
+                            <h3>Study Time</h3>
                             <div class="study-time">2h 30m</div>
-                            <p>Esta semana</p>
+                            <p>This week</p>
                         </div>
                     </div>
                 </div>
@@ -340,8 +354,8 @@ class DashboardApp extends HTMLElement {
     getCoursesContent() {
         return `
             <div class="section-header">
-                <h2>Cursos Disponibles</h2>
-                <p>Explora y gestiona tus cursos</p>
+                <h2>Your Current Course</h2>
+                <p>Continue your learning journey</p>
             </div>
             
             <div class="courses-grid">
@@ -349,35 +363,38 @@ class DashboardApp extends HTMLElement {
                     <div class="course-header">
                         <span class="course-icon">🌿</span>
                         <h3>Ngäbe</h3>
-                        <span class="status-badge">En Curso</span>
+                        <span class="course-desc">Indigenous language of Panama</span>
+                        <span class="status-badge">In Progress</span>
                     </div>
                     <div class="course-progress">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 75%"></div>
                         </div>
-                        <span class="progress-text">75% completado</span>
+                        <span class="progress-text">75% completed</span>
                     </div>
                     <div class="course-stats">
-                        <span>45/60 lecciones</span>
-                        <span>Nivel 3</span>
+                        <span>45/60 lessons</span>
+                        <span>Level 3</span>
                     </div>
+                    <button class="action-btn primary" style="position:absolute;top:50%;right:2.5rem;transform:translateY(-50%);">Continue</button>
                 </div>
                 
                 <div class="course-card">
                     <div class="course-header">
                         <span class="course-icon">🥁</span>
                         <h3>Naso</h3>
-                        <span class="status-badge available">Disponible</span>
+                        <span class="course-desc">Indigenous language of Panama</span>
+                        <span class="status-badge available">Available</span>
                     </div>
                     <div class="course-progress">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 45%"></div>
                         </div>
-                        <span class="progress-text">45% completado</span>
+                        <span class="progress-text">45% completed</span>
                     </div>
                     <div class="course-stats">
-                        <span>27/60 lecciones</span>
-                        <span>Nivel 2</span>
+                        <span>27/60 lessons</span>
+                        <span>Level 2</span>
                     </div>
                 </div>
                 
@@ -385,17 +402,18 @@ class DashboardApp extends HTMLElement {
                     <div class="course-header">
                         <span class="course-icon">🏔️</span>
                         <h3>Guna</h3>
-                        <span class="status-badge available">Disponible</span>
+                        <span class="course-desc">Indigenous language of Panama</span>
+                        <span class="status-badge available">Available</span>
                     </div>
                     <div class="course-progress">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 30%"></div>
                         </div>
-                        <span class="progress-text">30% completado</span>
+                        <span class="progress-text">30% completed</span>
                     </div>
                     <div class="course-stats">
-                        <span>18/60 lecciones</span>
-                        <span>Nivel 1</span>
+                        <span>18/60 lessons</span>
+                        <span>Level 1</span>
                     </div>
                 </div>
             </div>
@@ -405,8 +423,8 @@ class DashboardApp extends HTMLElement {
     getAchievementsContent() {
         return `
             <div class="section-header">
-                <h2>Logros</h2>
-                <p>Tus conquistas y recompensas</p>
+                <h2>Achievements</h2>
+                <p>Your accomplishments and rewards</p>
             </div>
             
             <div class="achievements-grid">
@@ -414,27 +432,27 @@ class DashboardApp extends HTMLElement {
                     <div class="achievement-icon">
                         <i class="fas fa-fire"></i>
                     </div>
-                    <h3>Racha de 7 días</h3>
-                    <p>Completa 7 días consecutivos de estudio</p>
-                    <span class="achievement-date">Desbloqueado hace 2 días</span>
+                    <h3>7-Day Streak</h3>
+                    <p>Complete 7 consecutive study days</p>
+                    <span class="achievement-date">Unlocked 2 days ago</span>
                 </div>
                 
                 <div class="achievement-card unlocked">
                     <div class="achievement-icon">
                         <i class="fas fa-star"></i>
                     </div>
-                    <h3>Primer Curso</h3>
-                    <p>Completa tu primer curso de idioma</p>
-                    <span class="achievement-date">Desbloqueado hace 1 semana</span>
+                    <h3>First Course</h3>
+                    <p>Complete your first language course</p>
+                    <span class="achievement-date">Unlocked 1 week ago</span>
                 </div>
                 
                 <div class="achievement-card locked">
                     <div class="achievement-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <h3>Maestro de Idiomas</h3>
-                    <p>Completa 5 cursos diferentes</p>
-                    <span class="achievement-progress">3/5 cursos completados</span>
+                    <h3>Language Master</h3>
+                    <p>Complete 5 different courses</p>
+                    <span class="achievement-progress">3/5 courses completed</span>
                 </div>
             </div>
         `;
@@ -443,46 +461,46 @@ class DashboardApp extends HTMLElement {
     getCommunityContent() {
         return `
             <div class="section-header">
-                <h2>Comunidad</h2>
-                <p>Conecta con otros estudiantes</p>
+                <h2>Community</h2>
+                <p>Connect with other learners</p>
             </div>
             
             <div class="community-content">
                 <div class="community-stats">
                     <div class="stat-card">
                         <h3>1,247</h3>
-                        <p>Estudiantes activos</p>
+                        <p>Active learners</p>
                     </div>
                     <div class="stat-card">
                         <h3>89</h3>
-                        <p>Grupos de estudio</p>
+                        <p>Study groups</p>
                     </div>
                     <div class="stat-card">
                         <h3>15</h3>
-                        <p>Eventos este mes</p>
+                        <p>Events this month</p>
                     </div>
                 </div>
                 
                 <div class="recent-activity">
-                    <h3>Actividad Reciente</h3>
+                    <h3>Recent Activity</h3>
                     <div class="activity-list">
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://ui-avatars.com/api/?name=Juan+Pérez&background=4A90E2&color=fff&size=40" alt="Usuario">
+                                <img src="https://ui-avatars.com/api/?name=Juan+Pérez&background=4A90E2&color=fff&size=40" alt="User">
                             </div>
                             <div class="activity-content">
-                                <p><strong>Juan Pérez</strong> completó la lección 15 de Ngäbe</p>
-                                <span class="activity-time">Hace 2 horas</span>
+                                <p><strong>Juan Pérez</strong> completed lesson 15 of Ngäbe</p>
+                                <span class="activity-time">2 hours ago</span>
                             </div>
                         </div>
                         
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://ui-avatars.com/api/?name=Ana+García&background=4A90E2&color=fff&size=40" alt="Usuario">
+                                <img src="https://ui-avatars.com/api/?name=Ana+García&background=4A90E2&color=fff&size=40" alt="User">
                             </div>
                             <div class="activity-content">
-                                <p><strong>Ana García</strong> se unió al grupo "Estudiantes de Naso"</p>
-                                <span class="activity-time">Hace 4 horas</span>
+                                <p><strong>Ana García</strong> joined the group "Naso Learners"</p>
+                                <span class="activity-time">4 hours ago</span>
                             </div>
                         </div>
                     </div>
@@ -494,33 +512,33 @@ class DashboardApp extends HTMLElement {
     getProfileContent() {
         return `
             <div class="section-header">
-                <h2>Perfil</h2>
-                <p>Gestiona tu información personal</p>
+                <h2>Profile</h2>
+                <p>Manage your personal information</p>
             </div>
             
             <div class="profile-content">
                 <div class="profile-card">
                     <div class="profile-header">
-                        <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=120" alt="Perfil" class="profile-avatar">
+                        <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=120" alt="Profile" class="profile-avatar">
                         <div class="profile-info">
-                            <h3>María Santos</h3>
-                            <p>Estudiante Avanzado</p>
-                            <span class="member-since">Miembro desde Enero 2024</span>
+                            <h3>Maria Santos</h3>
+                            <p>Advanced Student</p>
+                            <span class="member-since">Member since January 2024</span>
                         </div>
                     </div>
                     
                     <div class="profile-stats">
                         <div class="stat-item">
                             <span class="stat-number">65%</span>
-                            <span class="stat-label">Progreso Total</span>
+                            <span class="stat-label">Total Progress</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">12</span>
-                            <span class="stat-label">Días de Racha</span>
+                            <span class="stat-label">Streak Days</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">8</span>
-                            <span class="stat-label">Logros</span>
+                            <span class="stat-label">Achievements</span>
                         </div>
                     </div>
                 </div>
@@ -531,35 +549,35 @@ class DashboardApp extends HTMLElement {
     getSettingsContent() {
         return `
             <div class="section-header">
-                <h2>Configuración</h2>
-                <p>Personaliza tu experiencia</p>
+                <h2>Settings</h2>
+                <p>Customize your experience</p>
             </div>
             
             <div class="settings-content">
                 <div class="settings-section">
-                    <h3>Preferencias</h3>
+                    <h3>Preferences</h3>
                     <div class="setting-item">
-                        <label>Notificaciones</label>
+                        <label>Notifications</label>
                         <input type="checkbox" checked>
                     </div>
                     <div class="setting-item">
-                        <label>Sonidos</label>
+                        <label>Sounds</label>
                         <input type="checkbox" checked>
                     </div>
                     <div class="setting-item">
-                        <label>Tema Oscuro</label>
+                        <label>Dark Theme</label>
                         <input type="checkbox">
                     </div>
                 </div>
                 
                 <div class="settings-section">
-                    <h3>Privacidad</h3>
+                    <h3>Privacy</h3>
                     <div class="setting-item">
-                        <label>Perfil Público</label>
+                        <label>Public Profile</label>
                         <input type="checkbox" checked>
                     </div>
                     <div class="setting-item">
-                        <label>Mostrar Progreso</label>
+                        <label>Show Progress</label>
                         <input type="checkbox" checked>
                     </div>
                 </div>

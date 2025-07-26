@@ -116,7 +116,7 @@
 }
 
 .nav-link:hover {
-    color: var(--primary-color) !important;
+    color: #FFD600 !important;
 }
 
 .nav-link::after {
@@ -140,7 +140,7 @@
 .nav-link.active,
 .nav-link:hover,
 .nav-link:focus {
-    color: #00A3E0 !important;
+    color: #FFD600 !important;
     font-weight: 700;
 }
 
@@ -148,7 +148,7 @@
 .nav-link:hover::after,
 .nav-link:focus::after {
     width: 80%;
-    background: #00A3E0 !important;
+    background: #FFD600 !important;
     height: 4px;
 }
 
@@ -389,7 +389,7 @@
     }
 
     .nav-link:hover {
-        color: var(--primary-color) !important;
+        color: #FFD600 !important;
     }
 
     .nav-link::after {

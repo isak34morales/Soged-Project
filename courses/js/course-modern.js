@@ -310,38 +310,38 @@ class CourseManager {
         const mainContent = document.querySelector('.main-content');
         mainContent.innerHTML = `
             <div class="stories-container">
-                <h2 class="section-title">Cuentos Indígenas</h2>
-                <p class="section-subtitle">Descubre las historias y leyendas de las comunidades indígenas</p>
+                <h2 class="section-title">Indigenous Stories</h2>
+                <p class="section-subtitle">Discover the stories and legends of indigenous communities</p>
                 <div class="stories-grid">
                     <div class="story-card">
-                        <h3>La Tortuga y el Conejo</h3>
-                        <p>Una historia tradicional ngäbe sobre la sabiduría y la paciencia.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The Turtle and the Rabbit</h3>
+                        <p>A traditional Ngäbe story about wisdom and patience.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                     <div class="story-card">
-                        <h3>El Árbol Sagrado</h3>
-                        <p>Leyenda sobre la conexión entre la naturaleza y el espíritu.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The Sacred Tree</h3>
+                        <p>Legend about the connection between nature and spirit.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                     <div class="story-card">
-                        <h3>Los Guardianes del Bosque</h3>
-                        <p>Historia sobre los protectores ancestrales de la selva.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The Guardians of the Forest</h3>
+                        <p>Story about the ancestral protectors of the jungle.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                     <div class="story-card">
-                        <h3>El Río de la Vida</h3>
-                        <p>Cuento sobre el ciclo de la vida y la importancia del agua.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The River of Life</h3>
+                        <p>Story about the cycle of life and the importance of water.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                     <div class="story-card">
-                        <h3>La Danza de la Luna</h3>
-                        <p>Historia sobre los rituales y celebraciones tradicionales.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The Dance of the Moon</h3>
+                        <p>Story about traditional rituals and celebrations.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                     <div class="story-card">
-                        <h3>El Mensajero del Viento</h3>
-                        <p>Leyenda sobre la comunicación entre comunidades.</p>
-                        <button class="btn btn-primary">Leer Historia</button>
+                        <h3>The Messenger of the Wind</h3>
+                        <p>Legend about communication between communities.</p>
+                        <button class="btn btn-primary">Read Story</button>
                     </div>
                 </div>
             </div>
@@ -510,55 +510,55 @@ class CourseManager {
         const mainContent = document.querySelector('.main-content');
         mainContent.innerHTML = `
             <div class="store-container">
-                <h2 class="section-title">Tienda de SOGED</h2>
-                <p class="section-subtitle">Compra elementos especiales para tu avatar</p>
+                <h2 class="section-title">SOGED Store</h2>
+                <p class="section-subtitle">Buy special items for your avatar</p>
                 <div class="store-items">
                     <div class="store-item">
-                        <h3>Traje Tradicional</h3>
-                        <p>Vestimenta auténtica de las comunidades indígenas.</p>
+                        <h3>Traditional Outfit</h3>
+                        <p>Authentic clothing from indigenous communities.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">500 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                     <div class="store-item">
-                        <h3>Collares Sagrados</h3>
-                        <p>Accesorios con significado espiritual y cultural.</p>
+                        <h3>Sacred Necklaces</h3>
+                        <p>Accessories with spiritual and cultural meaning.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">300 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                     <div class="store-item">
-                        <h3>Sombrero de Paja</h3>
-                        <p>Sombrero tradicional tejido a mano.</p>
+                        <h3>Straw Hat</h3>
+                        <p>Traditional hand-woven hat.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">200 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                     <div class="store-item">
-                        <h3>Pintura Corporal</h3>
-                        <p>Diseños tradicionales para el avatar.</p>
+                        <h3>Body Paint</h3>
+                        <p>Traditional designs for the avatar.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">400 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                     <div class="store-item">
-                        <h3>Mochila Artesanal</h3>
-                        <p>Bolso tejido con técnicas ancestrales.</p>
+                        <h3>Handmade Backpack</h3>
+                        <p>Bag woven with ancestral techniques.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">350 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                     <div class="store-item">
-                        <h3>Instrumento Musical</h3>
-                        <p>Instrumento tradicional para tu colección.</p>
+                        <h3>Musical Instrument</h3>
+                        <p>Traditional instrument for your collection.</p>
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span style="color: var(--accent-color); font-weight: 600;">600 XP</span>
-                            <button class="btn btn-primary">Comprar</button>
+                            <button class="btn btn-primary">Buy</button>
                         </div>
                     </div>
                 </div>
@@ -1045,12 +1045,12 @@ class CourseManager {
         const courseName = this.getCurrentCourseName();
         mainContent.innerHTML = `
             <div class="chat-ia-container">
-                <h2 class="section-title">Chat IA - Práctica de Speaking (${courseName})</h2>
-                <p class="section-subtitle">Habla con la IA y mejora tu pronunciación en <b>${courseName}</b>. Elige un tema o empieza a conversar.</p>
+                <h2 class="section-title">AI Chat - Speaking Practice (${courseName})</h2>
+                <p class="section-subtitle">Talk to the AI and improve your pronunciation in <b>${courseName}</b>. Choose a topic or start a conversation.</p>
                 <div class="chat-window">
                     <div class="chat-messages" id="chatMessages"></div>
                     <div class="chat-input-row">
-                        <input type="text" id="chatInput" placeholder="Escribe tu mensaje o usa el micrófono..." />
+                        <input type="text" id="chatInput" placeholder="Type your message or use the microphone..." />
                         <button id="sendChatBtn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
                         <button id="micChatBtn" class="btn btn-secondary"><i class="fas fa-microphone"></i></button>
                     </div>
@@ -1065,15 +1065,15 @@ class CourseManager {
         const courseName = this.getCurrentCourseName();
         mainContent.innerHTML = `
             <div class="daily-speaking-container">
-                <h2 class="section-title">Lección Diaria de Speaking (${courseName})</h2>
-                <p class="section-subtitle">Practica tu pronunciación con la IA. Recibe un reto diario y feedback instantáneo.</p>
+                <h2 class="section-title">Daily Speaking Lesson (${courseName})</h2>
+                <p class="section-subtitle">Practice your pronunciation with the AI. Receive a daily challenge and instant feedback.</p>
                 <div class="daily-speaking-card">
                     <div class="speaking-prompt">
                         <i class="fas fa-volume-up"></i>
-                        <span>Repite la siguiente frase en <b>${courseName}</b>:</span>
-                        <div class="prompt-text">"[Frase del día aquí]"</div>
+                        <span>Repeat the following phrase in <b>${courseName}</b>:</span>
+                        <div class="prompt-text">"[Phrase of the day here]"</div>
                     </div>
-                    <button class="btn btn-primary" id="startSpeakingBtn"><i class="fas fa-microphone"></i> Grabar</button>
+                    <button class="btn btn-primary" id="startSpeakingBtn"><i class="fas fa-microphone"></i> Record</button>
                     <div class="speaking-feedback" id="speakingFeedback"></div>
                 </div>
             </div>
