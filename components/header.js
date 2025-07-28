@@ -149,8 +149,21 @@ class SogedHeader extends HTMLElement {
                     transition: var(--transition);
                 }
 
+                .logo-image {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 10px;
+                    border-radius: 8px;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+                
+                .logo-image:hover {
+                    transform: scale(1.1);
+                }
+
                 .logo-container:hover {
-                    background: linear-gradient(135deg, rgba(0, 163, 224, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
+                    background: transparent !important;
                     transform: translateY(-2px);
                 }
 
@@ -528,7 +541,7 @@ class SogedHeader extends HTMLElement {
                     <div class="header-left">
                         <a href="index.html" class="navbar-brand">
                             <div class="logo-container">
-                                <i class="fas fa-language"></i>
+                                <img src="Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 40px; height: 40px; margin-right: 10px;">
                                 <span class="logo-text">Soged</span>
                             </div>
                         </a>
