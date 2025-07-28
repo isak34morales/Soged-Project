@@ -42,7 +42,6 @@
 }
 
 .logo-container:hover {
-    background: linear-gradient(135deg, rgba(0, 163, 224, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
     transform: translateY(-2px);
 }
 

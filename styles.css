@@ -277,6 +277,9 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 500px;
+    padding: 20px;
+    overflow: visible;
 }
 
 .language-cards {
@@ -2838,8 +2841,8 @@ body.auth-page {
   will-change: transform, filter;
   width: 400px !important;
   max-width: 98vw;
-  filter: brightness(1.7) contrast(1.5) saturate(1.7) drop-shadow(0 0 16px #00b894cc) drop-shadow(0 8px 32px #00b89488);
-  transform: scaleX(-1);
+  object-fit: contain;
+  object-position: center;
 }
 
 @media (max-width: 991px) {
@@ -2887,5 +2890,8 @@ body.auth-page {
 @keyframes turtle-bg-glow {
   0% { opacity: 0.55; filter: blur(32px); }
   50% { opacity: 0.85; filter: blur(48px); }
+  100% { opacity: 0.65; filter: blur(32px); }
+}
+
   100% { opacity: 0.65; filter: blur(32px); }
 }
