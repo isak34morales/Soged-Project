@@ -171,7 +171,7 @@ class SogedHeader extends HTMLElement {
                     font-family: 'Fredoka One', cursive;
                     font-size: 1.8rem;
                     font-weight: bold;
-                    background: var(--gradient-primary);
+                    background: #28a745;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
@@ -197,7 +197,7 @@ class SogedHeader extends HTMLElement {
                     left: 0;
                     width: 100%;
                     height: 2px;
-                    background: var(--gradient-primary);
+                    background: linear-gradient(90deg, #007bff, #28a745);
                     transform: scaleX(0);
                     transition: transform 0.3s ease;
                 }
@@ -274,31 +274,33 @@ class SogedHeader extends HTMLElement {
                 }
 
                 .nav-link {
-                    color: var(--text-primary) !important;
+                    color: #333 !important;
                     font-weight: 600;
                     padding: 0.8rem 1.2rem;
                     position: relative;
-                    transition: var(--transition);
-                    font-size: 0.95rem;
+                    transition: all 0.3s ease;
+                    font-size: 1.1rem;
                     text-align: center;
-                    margin: 0;
+                    margin: 0 0.2rem;
                     text-decoration: none;
-                    display: block;
-                    border-radius: 15px;
-                    letter-spacing: 0.3px;
                 }
 
-                /* Simple underline effect on hover */
+                .nav-link:hover {
+                    color: #007bff !important;
+                    transform: translateY(-2px);
+                }
+
                 .nav-link::after {
                     content: '';
                     position: absolute;
                     bottom: 0;
                     left: 50%;
                     width: 0;
-                    height: 2px;
-                    background: var(--primary-color);
+                    height: 3px;
+                    background: linear-gradient(90deg, #007bff, #28a745);
                     transition: all 0.3s ease;
                     transform: translateX(-50%);
+                    border-radius: 2px;
                 }
 
                 .nav-link:hover::after {

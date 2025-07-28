@@ -35,12 +35,218 @@
         box-shadow: none !important;
     }
     
+    /* Logo con colores específicos */
+    .logo-text {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.8rem;
+        font-weight: bold;
+        background: #28a745;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Menú superior con hover azul/verde */
+    .nav-link {
+        color: #333 !important;
+        font-weight: 600;
+        padding: 0.8rem 1.2rem;
+        position: relative;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        text-align: center;
+        margin: 0 0.2rem;
+        text-decoration: none;
+    }
+    
+    .nav-link:hover {
+        color: #007bff !important;
+        transform: translateY(-2px);
+    }
+    
+    /* Subrayado animado mejorado en azul */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #007bff, #28a745);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: translateX(-50%);
+        border-radius: 2px;
+        opacity: 0;
+    }
+    
+    .nav-link:hover::after {
+        width: 90%;
+        opacity: 1;
+    }
+    
+    .nav-link:active::after {
+        width: 100%;
+    }
+    
+    /* Menú dropdown con colores */
+    .dropdown-item {
+        color: #333;
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-item:hover {
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.1);
+        transform: translateX(5px);
+    }
+    
     @media (max-width: 768px) {
         .logo-image {
             width: 35px;
             height: 35px;
             margin-right: 8px;
         }
+    }
+    
+    /* Estilos para el toggle de tema */
+    .theme-toggle {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+    }
+    
+    .theme-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+        background: linear-gradient(135deg, #ffd23f, #ffb300);
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        overflow: hidden;
+    }
+    
+    .theme-switch::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 22px;
+        height: 22px;
+        background: #fff;
+        border-radius: 50%;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 2;
+    }
+    
+    .theme-switch i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+    
+    .theme-switch .fa-sun {
+        left: 8px;
+        color: #ff6b35;
+    }
+    
+    .theme-switch .fa-moon {
+        right: 8px;
+        color: #1e293b;
+    }
+    
+    /* Estado activo (modo oscuro) - toggle en posición derecha */
+    #theme-switch:checked + .theme-switch {
+        background: linear-gradient(135deg, #1e293b, #334155);
+    }
+    
+    #theme-switch:checked + .theme-switch::before {
+        transform: translateX(30px);
+    }
+    
+    #theme-switch:checked + .theme-switch .fa-sun {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+    
+    #theme-switch:checked + .theme-switch .fa-moon {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        color: #f1f5f9;
+    }
+    
+    /* Estado inactivo (modo claro) - toggle en posición izquierda */
+    .theme-switch {
+        background: linear-gradient(135deg, #ffd23f, #ffb300);
+    }
+    
+    .theme-switch::before {
+        transform: translateX(0);
+    }
+    
+    .theme-switch .fa-sun {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        color: #ff6b35;
+    }
+    
+    .theme-switch .fa-moon {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.8);
+    }
+    
+    /* Hover effects */
+    .theme-switch:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    /* Ocultar el checkbox real */
+    #theme-switch {
+        display: none;
+    }
+    
+    /* Estilos para dropdown en modo oscuro */
+    [data-theme="dark"] .dropdown-menu {
+        background: #1E293B !important;
+        border: 1px solid #334155 !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    [data-theme="dark"] .dropdown-item {
+        color: #F1F5F9 !important;
+        background: transparent !important;
+    }
+    
+    [data-theme="dark"] .dropdown-item:hover {
+        color: #3498DB !important;
+        background: rgba(52, 152, 219, 0.1) !important;
+    }
+    
+    [data-theme="dark"] .dropdown-toggle::after {
+        border-top-color: #F1F5F9 !important;
+    }
+    
+    [data-theme="dark"] .dropdown-toggle:hover::after {
+        border-top-color: #3498DB !important;
+    }
+    
+    /* Estilos para dropdown animado en modo oscuro */
+    [data-theme="dark"] .animated-dropdown {
+        background: #1E293B !important;
+        border: 1px solid #334155 !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    [data-theme="dark"] .language-dropdown:hover .dropdown-menu {
+        background: #1E293B !important;
     }
 </style>
 
