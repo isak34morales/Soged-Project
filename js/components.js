@@ -57,7 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadComponent('header-component', basePath + 'dashboard-header.html');
     } else {
         // Load regular header and footer for other pages
-        loadComponent('header-component', basePath + 'header.html');
+        // Use Web Component header.js for non-logged users
+        const headerScript = document.createElement('script');
+        headerScript.src = basePath + 'header.js';
+        document.head.appendChild(headerScript);
+        
+        // Add the Web Component to the page
+        const headerElement = document.createElement('soged-header');
+        document.getElementById('header-component').appendChild(headerElement);
+        
         loadComponent('footer-component', basePath + 'footer.html');
         loadComponent('auth-modal-root', basePath + 'auth-modal.html');
     }

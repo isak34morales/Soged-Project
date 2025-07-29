@@ -141,7 +141,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Fredoka', sans-serif;
     line-height: 1.2;
 }
 
@@ -777,7 +777,7 @@ body {
 }
 
 .about-title {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Fredoka', sans-serif;
     font-size: 4rem;
     font-weight: 900;
     color: var(--primary-color);

@@ -95,9 +95,9 @@ class SogedHeader extends HTMLElement {
                 .navbar {
                     background-color: var(--navbar-bg) !important;
                     box-shadow: 0 2px 10px var(--shadow-color);
-                    padding: 0.8rem 0;
+                    padding: 1.2rem 0;
                     transition: var(--transition);
-                    height: 80px;
+                    height: 90px;
                     border-bottom: 1px solid var(--border-color);
                 }
 
@@ -112,12 +112,16 @@ class SogedHeader extends HTMLElement {
                     justify-content: space-between;
                     width: 100%;
                     padding: 0 5rem;
+                    height: 100%;
                 }
 
                 .header-left {
                     display: flex;
                     align-items: center;
                     flex: 0 0 auto;
+                    padding-right: 1.5rem;
+                    min-width: 180px;
+                    height: 100%;
                 }
 
                 .header-center {
@@ -125,34 +129,39 @@ class SogedHeader extends HTMLElement {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    height: 100%;
                 }
 
                 .header-right {
                     display: flex;
                     align-items: center;
-                    gap: 0.8rem;
+                    gap: 1rem;
                     flex: 0 0 auto;
+                    padding-left: 1.5rem;
+                    min-width: 180px;
+                    height: 100%;
                 }
 
                 .navbar-collapse {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    height: 100%;
                 }
 
                 .logo-container {
                     display: flex;
                     align-items: center;
-                    gap: 0.8rem;
-                    padding: 0.5rem;
+                    gap: 1rem;
+                    padding: 0.8rem 1rem;
                     border-radius: 12px;
                     transition: var(--transition);
                 }
 
                 .logo-image {
-                    width: 40px;
-                    height: 40px;
-                    margin-right: 10px;
+                    width: 45px;
+                    height: 45px;
+                    margin-right: 12px;
                     border-radius: 8px;
                     object-fit: cover;
                     transition: transform 0.3s ease;
@@ -167,11 +176,11 @@ class SogedHeader extends HTMLElement {
                     transform: translateY(-2px);
                 }
 
-                .logo-text {
-                    font-family: 'Fredoka One', cursive;
-                    font-size: 1.8rem;
+                                                         .logo-text {
+                    font-family: 'Fredoka', sans-serif;
+                    font-size: 2rem;
                     font-weight: bold;
-                    background: #28a745;
+                    background: var(--logo-green);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
@@ -179,7 +188,7 @@ class SogedHeader extends HTMLElement {
 
                 .navbar-brand {
                     color: var(--primary-color) !important;
-                    font-family: 'Fredoka One', cursive;
+                    font-family: 'Fredoka', sans-serif;
                     font-size: 1.8rem;
                     font-weight: bold;
                     display: flex;
@@ -263,14 +272,19 @@ class SogedHeader extends HTMLElement {
                     align-items: center;
                     justify-content: center;
                     gap: 0.2rem;
+                    height: 100%;
                 }
 
                 .navbar-nav.mx-auto .nav-item {
                     margin: 0 0.1rem;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
                 }
 
                 .nav-item {
                     position: relative;
+                    height: 100%;
                 }
 
                 .nav-link {
@@ -281,23 +295,27 @@ class SogedHeader extends HTMLElement {
                     transition: all 0.3s ease;
                     font-size: 1.1rem;
                     text-align: center;
-                    margin: 0 0.2rem;
+                    margin: 0 0.1rem;
                     text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    border-bottom: 3px solid transparent;
                 }
 
                 .nav-link:hover {
-                    color: #007bff !important;
+                    color: var(--primary-color) !important;
                     transform: translateY(-2px);
                 }
 
                 .nav-link::after {
                     content: '';
                     position: absolute;
-                    bottom: 0;
+                    bottom: -1.5rem;
                     left: 50%;
                     width: 0;
                     height: 3px;
-                    background: linear-gradient(90deg, #007bff, #28a745);
+                    background: var(--gradient-primary);
                     transition: all 0.3s ease;
                     transform: translateX(-50%);
                     border-radius: 2px;
@@ -392,7 +410,7 @@ class SogedHeader extends HTMLElement {
                 }
 
                 .btn {
-                    padding: 0.6rem 1.2rem;
+                    padding: 0.7rem 1.3rem;
                     border-radius: 12px;
                     font-weight: 600;
                     text-decoration: none;
@@ -418,15 +436,15 @@ class SogedHeader extends HTMLElement {
 
                 .btn-outline-primary {
                     background: transparent;
-                    color: var(--primary-color);
-                    border-color: var(--primary-color);
+                    color: var(--secondary-color);
+                    border-color: var(--secondary-color);
                 }
 
                 .btn-outline-primary:hover {
-                    background: var(--primary-color);
-                    color: white;
+                    background: var(--secondary-color);
+                    color: #333;
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 12px rgba(0, 163, 224, 0.3);
+                    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
                 }
 
                 /* Responsive */
@@ -543,45 +561,39 @@ class SogedHeader extends HTMLElement {
                     <div class="header-left">
                         <a href="index.html" class="navbar-brand">
                             <div class="logo-container">
-                                <img src="Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <img src="Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 45px; height: 45px; margin-right: 12px;">
                                 <span class="logo-text">Soged</span>
                             </div>
                         </a>
                     </div>
                     <div class="header-center">
                         <div class="navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav mx-auto">
-                                <!-- Home -->
-                                <li class="nav-item">
-                                    <a href="index.html" class="nav-link">
-                                        <span>Home</span>
-                                    </a>
-                                </li>
-                                <!-- Learn -->
-                                <li class="nav-item">
-                                    <a href="languages.html" class="nav-link">
-                                        <span>Learn</span>
-                                    </a>
-                                </li>
-                                <!-- Resources -->
-                                <li class="nav-item">
-                                    <a href="resources.html" class="nav-link">
-                                        <span>Resources</span>
-                                    </a>
-                                </li>
-                                <!-- About Us -->
-                                <li class="nav-item">
-                                    <a href="about.html" class="nav-link">
-                                        <span>About Us</span>
-                                    </a>
-                                </li>
-                                <!-- Contact -->
-                                <li class="nav-item">
-                                    <a href="contact.html" class="nav-link">
-                                        <span>Contact</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                                         <ul class="navbar-nav mx-auto">
+                                 <!-- Home -->
+                                 <li class="nav-item">
+                                     <a href="index.html" class="nav-link">
+                                         <span>Home</span>
+                                     </a>
+                                 </li>
+                                 <!-- Learn -->
+                                 <li class="nav-item">
+                                     <a href="languages.html" class="nav-link">
+                                         <span>Learn</span>
+                                     </a>
+                                 </li>
+                                 <!-- Resources -->
+                                 <li class="nav-item">
+                                     <a href="resources.html" class="nav-link">
+                                         <span>Resources</span>
+                                     </a>
+                                 </li>
+                                 <!-- About Us -->
+                                 <li class="nav-item">
+                                     <a href="about.html" class="nav-link">
+                                         <span>About Us</span>
+                                     </a>
+                                 </li>
+                             </ul>
                         </div>
                     </div>
                     <div class="header-right">
@@ -602,7 +614,7 @@ class SogedHeader extends HTMLElement {
             </nav>
 
             <!-- Spacer for fixed navbar -->
-            <div style="height: 80px;"></div>
+            <div style="height: 90px;"></div>
         `;
     }
 

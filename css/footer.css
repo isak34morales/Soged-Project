@@ -34,7 +34,7 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-primary);
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Fredoka', sans-serif;
 }
 
 .footer-description {

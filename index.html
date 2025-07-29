@@ -8,786 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Bordes visibles con las imágenes */
-        
-        /* Bordes de sección más visibles */
-        .hero-section {
-            position: relative;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        /* Círculos decorativos semitransparentes con animación */
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            right: 10%;
-            width: 150px;
-            height: 150px;
-            background: rgba(0, 123, 255, 0.1);
-            border-radius: 50%;
-            z-index: 1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: 20%;
-            left: 5%;
-            width: 100px;
-            height: 100px;
-            background: rgba(40, 167, 69, 0.1);
-            border-radius: 50%;
-            z-index: 1;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        /* Sombras azules/verdes mejoradas para el personaje */
-        .turtle-glow-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 123, 255, 0.3) 0%, rgba(40, 167, 69, 0.2) 50%, transparent 100%);
-            border-radius: 50%;
-            filter: blur(25px);
-            z-index: 0;
-            animation: glow 4s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            0% { opacity: 0.7; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.1); }
-        }
-        
-        /* Botones con colores específicos */
-        .btn-primary {
-            background: linear-gradient(135deg, #ffc107, #ffb300) !important;
-            border: none !important;
-            color: #333 !important;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #ffb300, #ffa000) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
-        }
-        
-        .btn-outline-primary {
-            background: linear-gradient(135deg, #28a745, #20c997) !important;
-            border: none !important;
-            color: white !important;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-primary:hover {
-            background: linear-gradient(135deg, #20c997, #17a2b8) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
-        }
-        
-        /* Palabras clave en rojo/verde */
-        .keyword-red {
-            color: #dc3545;
-            font-weight: 700;
-        }
-        
-        .keyword-green {
-            color: #28a745;
-            font-weight: 700;
-        }
-        
-        .keyword-blue {
-            color: #007bff;
-            font-weight: 700;
-        }
-        
-        .features-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .features-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Amarillo.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.8;
-        }
-        
-        .languages-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .languages-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Verde.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.8;
-        }
-        
-        .how-it-works-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .how-it-works-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Rojo.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.8;
-        }
-        
-        .testimonials-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .testimonials-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Azul.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.6;
-        }
-        
-        .cta-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Amarillo.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.8;
-        }
-        
-        .partners-section {
-            position: relative;
-            border: 4px solid transparent;
-            background-clip: padding-box;
-            margin: 20px 0;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .partners-section::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: url('Images/Verde.png') center/cover;
-            border-radius: 15px;
-            z-index: -1;
-            opacity: 0.6;
-        }
-        
-        /* Bordes visibles para las tarjetas */
-        .feature-card {
-            position: relative;
-            border-top: 3px solid transparent;
-            background-clip: padding-box;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: top center;
-            opacity: 1;
-        }
-        
-        .feature-card:nth-child(1)::before {
-            background-image: url('Images/Azul.png');
-        }
-        
-        .feature-card:nth-child(2)::before {
-            background-image: url('Images/Amarillo.png');
-        }
-        
-        .feature-card:nth-child(3)::before {
-            background-image: url('Images/Verde.png');
-        }
-        
-        .feature-card:nth-child(4)::before {
-            background-image: url('Images/Rojo.png');
-        }
-        
-        /* Bordes visibles para las tarjetas de idiomas */
-        .language-step {
-            position: relative;
-            border-top: 3px solid transparent;
-            background-clip: padding-box;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-        
-        .language-step::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: top center;
-            opacity: 1;
-        }
-        
-        .language-step.ngabe-blue::before {
-            background-image: url('Images/Azul.png');
-        }
-        
-        .language-step.naso-orange::before {
-            background-image: url('Images/Amarillo.png');
-        }
-        
-        .language-step.guna-green::before {
-            background-image: url('Images/Verde.png');
-        }
-        
-        .language-step.bribri-yellow::before {
-            background-image: url('Images/Rojo.png');
-        }
-        
-        /* Bordes visibles para las tarjetas de pasos */
-        .step-card {
-            position: relative;
-            border-top: 3px solid transparent;
-            background-clip: padding-box;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-        
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: top center;
-            opacity: 1;
-        }
-        
-        .step-card.step-blue::before {
-            background-image: url('Images/Azul.png');
-        }
-        
-        .step-card.step-orange::before {
-            background-image: url('Images/Amarillo.png');
-        }
-        
-        .step-card.step-green::before {
-            background-image: url('Images/Verde.png');
-        }
-        
-        .step-card.step-yellow::before {
-            background-image: url('Images/Rojo.png');
-        }
-        
-        /* Bordes visibles para testimonios */
-        .testimonial-card {
-            position: relative;
-            border-top: 3px solid transparent;
-            background-clip: padding-box;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-        
-        .testimonial-card::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-image: url('Images/Azul.png');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: top center;
-            opacity: 1;
-        }
-        
-        .testimonial-card:nth-child(2)::before {
-            background-image: url('Images/Amarillo.png');
-        }
-        
-        .testimonial-card:nth-child(3)::before {
-            background-image: url('Images/Verde.png');
-        }
-        
-        /* Efectos de hover suaves */
-        .feature-card:hover,
-        .language-step:hover,
-        .step-card:hover,
-        .testimonial-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            transition: all 0.3s ease;
-        }
-        
-        /* Espaciado interno para las secciones */
-        .hero-section .container,
-        .features-section .container,
-        .languages-section .container,
-        .how-it-works-section .container,
-        .testimonials-section .container,
-        .cta-section .container,
-        .partners-section .container {
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* Bordes de página visibles */
-        body {
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, 
-                url('Images/Azul.png') 0% 25%,
-                url('Images/Amarillo.png') 25% 50%,
-                url('Images/Verde.png') 50% 75%,
-                url('Images/Rojo.png') 75% 100%);
-            background-size: 25% 100%;
-            background-repeat: no-repeat;
-            z-index: 1000;
-            opacity: 0.8;
-        }
-        
-        /* Bordes laterales visibles */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100vh;
-            background: linear-gradient(180deg, 
-                url('Images/Azul.png') 0% 25%,
-                url('Images/Amarillo.png') 25% 50%,
-                url('Images/Verde.png') 50% 75%,
-                url('Images/Rojo.png') 75% 100%);
-            background-size: 100% 25%;
-            background-repeat: no-repeat;
-            z-index: 1000;
-            opacity: 0.8;
-        }
-        
-        /* Ajuste para el contenido principal */
-        .container {
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* Eliminar borde del navbar */
-        .navbar {
-            border-bottom: none;
-        }
-        
-        /* Eliminar elemento decorativo del header */
-        .navbar::before,
-        .navbar::after {
-            display: none !important;
-        }
-        
-        /* Eliminar cualquier elemento decorativo en el header */
-        .header-component::before,
-        .header-component::after {
-            display: none !important;
-        }
-        
-        /* Bordes de footer visibles */
-        .footer {
-            border-top: 4px solid;
-            border-image: linear-gradient(90deg, 
-                url('Images/Azul.png') 0% 25%,
-                url('Images/Amarillo.png') 25% 50%,
-                url('Images/Verde.png') 50% 75%,
-                url('Images/Rojo.png') 75% 100%) 1;
-            opacity: 0.8;
-        }
-        
-        /* Responsive para bordes visibles */
-        @media (max-width: 768px) {
-            .hero-section,
-            .features-section,
-            .languages-section,
-            .how-it-works-section,
-            .testimonials-section,
-            .cta-section,
-            .partners-section {
-                border-width: 2px;
-            }
-            
-            .hero-section::before,
-            .features-section::before,
-            .languages-section::before,
-            .how-it-works-section::before,
-            .testimonials-section::before,
-            .cta-section::before,
-            .partners-section::before {
-                top: -2px;
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-            }
-            
-            body::before {
-                height: 4px;
-            }
-            
-            body::after {
-                width: 4px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero-section,
-            .features-section,
-            .languages-section,
-            .how-it-works-section,
-            .testimonials-section,
-            .cta-section,
-            .partners-section {
-                border-width: 2px;
-            }
-            
-            .hero-section::before,
-            .features-section::before,
-            .languages-section::before,
-            .how-it-works-section::before,
-            .testimonials-section::before,
-            .cta-section::before,
-            .partners-section::before {
-                top: -2px;
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-            }
-            
-            body::before {
-                height: 3px;
-            }
-            
-            body::after {
-                width: 3px;
-            }
-        }
 
-        /* Micro-interacciones para la tortuga */
-        .hero-img-turtle {
-            transition: all 0.3s ease;
-            animation: turtle-breathe 3s ease-in-out infinite;
-        }
-        
-        .hero-img-turtle:hover {
-            transform: scale(1.05) rotate(2deg);
-            filter: brightness(1.1);
-        }
-        
-        @keyframes turtle-breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        
-        /* Mejores estados hover para botones */
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #ffb300, #ffa000) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
-        }
-        
-        .btn-outline-primary:hover {
-            background: linear-gradient(135deg, #20c997, #17a2b8) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.5);
-        }
-
-        /* Patrones indígenas sutiles */
-        .hero-section .container::before {
-            content: '';
-            position: absolute;
-            top: 5%;
-            right: 15%;
-            width: 60px;
-            height: 60px;
-            background: 
-                linear-gradient(45deg, transparent 40%, rgba(40, 167, 69, 0.1) 40%, rgba(40, 167, 69, 0.1) 60%, transparent 60%),
-                linear-gradient(-45deg, transparent 40%, rgba(0, 123, 255, 0.1) 40%, rgba(0, 123, 255, 0.1) 60%, transparent 60%);
-            border-radius: 50%;
-            z-index: 1;
-            animation: pattern-rotate 20s linear infinite;
-        }
-        
-        @keyframes pattern-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Mejorar espaciado de línea para legibilidad */
-        .hero-description {
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-        
-        .section-subtitle {
-            line-height: 1.6;
-        }
-
-        /* Estilos para modo oscuro */
-        [data-theme="dark"] {
-            --bg-primary: #0F172A !important;
-            --bg-secondary: #1E293B !important;
-            --text-primary: #F1F5F9 !important;
-            --text-secondary: #94A3B8 !important;
-            --border-color: #334155 !important;
-        }
-        
-        [data-theme="dark"] body {
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .hero-section {
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-        }
-        
-        [data-theme="dark"] .hero-title {
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .hero-description {
-            color: #CBD5E1 !important;
-        }
-        
-        [data-theme="dark"] .feature-card {
-            background: #1E293B !important;
-            border-color: #334155 !important;
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .step-card {
-            background: #1E293B !important;
-            border-color: #334155 !important;
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .testimonial-card {
-            background: #1E293B !important;
-            border-color: #334155 !important;
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .section-title {
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .section-subtitle {
-            color: #CBD5E1 !important;
-        }
-        
-        [data-theme="dark"] .keyword-green {
-            color: #2ECC71 !important;
-        }
-        
-        [data-theme="dark"] .keyword-blue {
-            color: #3498DB !important;
-        }
-        
-        [data-theme="dark"] .keyword-red {
-            color: #E74C3C !important;
-        }
-        
-        [data-theme="dark"] .navbar {
-            background: #0F172A !important;
-            border-bottom: 1px solid #334155 !important;
-        }
-        
-        [data-theme="dark"] .navbar-brand {
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .nav-link {
-            color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .nav-link:hover {
-            color: #3498DB !important;
-        }
-        
-        /* Mejorar contraste y visibilidad del texto en modo oscuro */
-        [data-theme="dark"] p {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] h1, 
-        [data-theme="dark"] h2, 
-        [data-theme="dark"] h3, 
-        [data-theme="dark"] h4, 
-        [data-theme="dark"] h5, 
-        [data-theme="dark"] h6 {
-            color: #FFFFFF !important;
-        }
-        
-        [data-theme="dark"] .feature-card p,
-        [data-theme="dark"] .step-card p,
-        [data-theme="dark"] .testimonial-card p {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] .feature-title,
-        [data-theme="dark"] .step-title {
-            color: #FFFFFF !important;
-        }
-        
-        [data-theme="dark"] .testimonial-content p {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] .testimonial-author h4 {
-            color: #FFFFFF !important;
-        }
-        
-        [data-theme="dark"] .testimonial-author span {
-            color: #CBD5E1 !important;
-        }
-        
-        [data-theme="dark"] .cta-content h2 {
-            color: #FFFFFF !important;
-        }
-        
-        [data-theme="dark"] .cta-content p {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] .partner-logo-item {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] .partner-logo-item span {
-            color: #E2E8F0 !important;
-        }
-        
-        [data-theme="dark"] .partner-logo-item i {
-            color: #3498DB !important;
-        }
-        
-        /* Estilos para dropdown en modo oscuro */
-        [data-theme="dark"] .dropdown-menu {
-            background: #1E293B !important;
-            border: 1px solid #334155 !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-        }
-        
-        [data-theme="dark"] .dropdown-item {
-            color: #F1F5F9 !important;
-            background: transparent !important;
-        }
-        
-        [data-theme="dark"] .dropdown-item:hover {
-            color: #3498DB !important;
-            background: rgba(52, 152, 219, 0.1) !important;
-        }
-        
-        [data-theme="dark"] .dropdown-toggle::after {
-            border-top-color: #F1F5F9 !important;
-        }
-        
-        [data-theme="dark"] .dropdown-toggle:hover::after {
-            border-top-color: #3498DB !important;
-        }
-    </style>
 </head>
 <body>
     <div id="header-component"></div>
@@ -805,23 +26,19 @@
         
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="hero-content">
-                        <div class="hero-badge">
-                            <i class="fas fa-star"></i>
-                            <span>Preserving Indigenous Languages</span>
-                        </div>
+                <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="hero-content" style="padding-top: 2rem;">
                         
                         <h1 class="hero-title">
-                            Learn the <span class="keyword-green">Indigenous Languages</span> of <span class="keyword-blue">Panama</span>
+                            Learn the <span class="keyword-secondary">Indigenous Languages</span> of <span class="keyword-blue">Panama</span>
                         </h1>
                         
                         <p class="hero-description">
-                            Discover and connect with <span class="keyword-blue">Panamanian culture</span> through interactive lessons and <span class="keyword-green">native speakers</span>.
+                            Discover and connect with Panamanian culture through interactive lessons and native speakers.
                         </p>
                         
                         <div class="hero-buttons">
-                            <a href="index.html" class="btn btn-primary btn-lg">
+                            <a href="index.html" class="btn btn-secondary btn-lg">
                                 <i class="fas fa-play"></i>
                                 Start Learning
                             </a>
@@ -833,10 +50,10 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="hero-visual d-flex justify-content-center align-items-center position-relative" style="min-height:350px;">
+                <div class="col-lg-5" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="hero-visual d-flex justify-content-center align-items-center position-relative" style="min-height:350px; padding-top: 1rem;">
                         <div class="turtle-glow-bg"></div>
-                        <img src="Images/Newturttle.png" alt="Soged Turtle Mascot" class="hero-img-turtle turtle-glow-blue" style="width: 520px; max-width: 98vw;">
+                        <img src="Images/Newturttle.png" alt="Soged Turtle Mascot" class="hero-img-turtle turtle-glow-blue" style="width: 480px; max-width: 98vw;">
                     </div>
                 </div>
             </div>
@@ -859,7 +76,7 @@
                                 <i class="fas fa-microphone"></i>
                             </div>
                             <h3 class="feature-title gradient-text">Native Speakers</h3>
-                            <p>Learn from <span class="keyword-green">authentic native speakers</span> who preserve the true pronunciation and <span class="keyword-blue">cultural context</span>.</p>
+                            <p>Learn from authentic native speakers who preserve the true pronunciation and cultural context.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
@@ -869,7 +86,7 @@
                                 <i class="fas fa-gamepad"></i>
                             </div>
                             <h3 class="feature-title gradient-text">Interactive Learning</h3>
-                            <p>Engage with <span class="keyword-blue">gamified lessons</span>, quizzes, and interactive exercises that make learning <span class="keyword-green">fun</span>.</p>
+                            <p>Engage with gamified lessons, quizzes, and interactive exercises that make learning fun.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
@@ -879,7 +96,7 @@
                                 <i class="fas fa-mobile-alt"></i>
                             </div>
                             <h3 class="feature-title gradient-text">Learn Anywhere</h3>
-                            <p>Access your lessons on <span class="keyword-blue">any device</span>, anytime. Continue learning <span class="keyword-green">on the go</span>.</p>
+                            <p>Access your lessons on any device, anytime. Continue learning on the go.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
@@ -889,7 +106,7 @@
                                 <i class="fas fa-trophy"></i>
                             </div>
                             <h3 class="feature-title gradient-text">Earn Certificates</h3>
-                            <p>Get <span class="keyword-red">recognized</span> for your progress with <span class="keyword-green">official certificates</span> and achievements.</p>
+                            <p>Get recognized for your progress with official certificates and achievements.</p>
                         </div>
                     </div>
                 </div>
@@ -1025,7 +242,7 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-                            <p>"Soged helped me connect with my <span class="keyword-green">Ngäbe</span> roots. The native speakers make all the difference!"</p>
+                            <p>"Soged helped me connect with my Ngäbe roots. The native speakers make all the difference!"</p>
                         </div>
                         <div class="testimonial-author">
                             <div class="author-avatar">👩‍🎓</div>
@@ -1040,7 +257,7 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-                            <p>"The interactive lessons and games make learning <span class="keyword-green">Guna</span> so much fun. Highly recommended!"</p>
+                            <p>"The interactive lessons and games make learning Guna so much fun. Highly recommended!"</p>
                         </div>
                         <div class="testimonial-author">
                             <div class="author-avatar">👨‍💼</div>
@@ -1170,14 +387,14 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content text-center" data-aos="zoom-in">
-                <h2>Ready to Start Your <span class="keyword-green">Language Journey</span>?</h2>
-                <p>Join thousands of learners and preserve the <span class="keyword-red">indigenous languages</span> of <span class="keyword-blue">Panama</span></p>
+                <h2>Ready to Start Your Language Journey?</h2>
+                <p>Join thousands of learners and preserve the indigenous languages of Panama</p>
                 <div class="cta-buttons">
-                    <a href="register.html" class="btn btn-primary btn-lg">
+                    <a href="register.html" class="btn btn-secondary btn-lg">
                         <i class="fas fa-rocket"></i>
                         Get Started Free
                     </a>
-                    <a href="about.html" class="btn btn-outline-primary btn-lg">
+                    <a href="about.html" class="btn btn-outline-secondary btn-lg">
                         <i class="fas fa-info-circle"></i>
                         Learn More
                     </a>
