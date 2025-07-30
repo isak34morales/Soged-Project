@@ -606,8 +606,8 @@ class SogedHeader extends HTMLElement {
                             </span>
                         </label>
                         <div class="nav-buttons">
-                            <a href="login.html" class="btn btn-outline-primary">Login</a>
-                            <a href="register.html" class="btn btn-primary">Register</a>
+                            <a href="auth/login.html" class="btn btn-outline-primary">Login</a>
+                            <a href="auth/register.html" class="btn btn-primary">Register</a>
                         </div>
                     </div>
                 </div>
