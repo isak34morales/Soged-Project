@@ -491,7 +491,7 @@ class OverviewSection extends HTMLElement {
 
                 <!-- Current Course Section -->
                 <div class="current-course-section">
-                    <h3 class="section-title">Tu Curso Actual</h3>
+                    <h3 class="section-title">Your Current Course</h3>
                     <div class="course-card">
                         <div class="course-info">
                             <div class="course-icon">
@@ -499,19 +499,19 @@ class OverviewSection extends HTMLElement {
                             </div>
                             <div class="course-details">
                                 <h4>Ngäbe</h4>
-                                <p>Lengua indígena de Panamá</p>
+                                <p>Indigenous language of Panama</p>
                                 <div class="course-progress">
                                     <div class="progress-bar">
                                         <div class="progress-fill" style="width: 75%"></div>
                                     </div>
-                                    <span class="progress-text">75% completado</span>
+                                    <span class="progress-text">75% completed</span>
                                 </div>
                             </div>
                         </div>
                         <div class="course-actions">
                             <button class="continue-btn">
                                 <i class="fas fa-play"></i>
-                                Continuar
+                                Continue
                             </button>
                         </div>
                     </div>
