@@ -319,6 +319,96 @@
             color: #FF6B35;
         }
 
+        /* Back to Home Button Styles */
+        .back-home-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .back-home-btn:hover {
+            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        .back-home-btn i {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-home-btn:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* Close Button Styles (Duolingo Style) */
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .close-btn a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .close-btn a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn i {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .close-btn {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .close-btn a {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .close-btn i {
+                font-size: 1rem;
+            }
+        }
+
         .loading-spinner {
             display: none;
             animation: spin 1s linear infinite;
@@ -373,6 +463,13 @@
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
         <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Close Button (Duolingo Style) -->
+    <div class="close-btn">
+        <a href="index.html" title="Back to Home">
+            <i class="fas fa-times"></i>
+        </a>
     </div>
 
     <!-- Login Container -->
@@ -441,6 +538,8 @@
             <div class="register-link">
                 <p>Don't have an account? <a href="register.html">Sign up now</a></p>
             </div>
+            
+
         </div>
     </div>
 
