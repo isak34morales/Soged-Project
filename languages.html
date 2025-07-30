@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Languages - Soged</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .language-card {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .language-card.locked {
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+        
+        .language-card.locked::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: inherit;
+        }
+        
+        .lock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .language-card.locked .lock-overlay {
+            display: block;
+        }
+        
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .language-card.locked:hover {
+            filter: grayscale(80%);
+            opacity: 0.8;
+        }
+        
+        .login-prompt {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stat-item i {
+            margin-right: 5px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-component"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="min-height: 40vh; padding-top: 120px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h1 class="hero-title">
+                        Explore <span class="keyword-secondary">Indigenous Languages</span> of <span class="keyword-blue">Panama</span>
+                    </h1>
+                    <p class="hero-description">
+                        Discover the rich cultural heritage through interactive learning experiences with native speakers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Prompt -->
+    <section class="py-4">
+        <div class="container">
+            <div class="login-prompt text-center" data-aos="fade-up">
+                <h3><i class="fas fa-lock me-2"></i>Login Required</h3>
+                <p class="mb-3">Sign in to access all language courses and start your learning journey!</p>
+                <a href="login.html" class="btn btn-light me-2">Login</a>
+                <a href="register.html" class="btn btn-outline-light">Register</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Grid -->
+    <section class="languages-section py-5" id="languages">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Available Languages</h2>
+                <p class="section-subtitle">Click on any language to start learning (login required)</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Ngäbe Language -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="language-card glass-card h-100 locked" id="ngabe-card">
+                        <div class="lock-overlay">
+                            <i class="fas fa-lock me-2"></i>Login to Access
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="language-icon mb-3">
+                                    <img src="Images/Ngabe.png" alt="Ngäbe Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="language-title gradient-text">Ngäbe</h3>
+                                <span class="badge badge-blue mb-2">Beginner Friendly</span>
+                                <p class="language-description">
+                                    Learn the language of the Ngäbe people, the largest indigenous group in Panama. 
+                                    Discover their traditions, customs, and way of life through interactive lessons.
+                                </p>
+                                <div class="language-stats mb-3">
+                                    <span class="stat-item"><i class="fas fa-book"></i> 150 Lessons</span>
+                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
+                                    <span class="stat-item"><i class="fas fa-users"></i> 50,000+ Speakers</span>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Ngäbe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Naso Language -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="language-card glass-card h-100 locked" id="naso-card">
+                        <div class="lock-overlay">
+                            <i class="fas fa-lock me-2"></i>Login to Access
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="language-icon mb-3">
+                                    <img src="Images/Naso.gif" alt="Naso Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="language-title gradient-text">Naso</h3>
+                                <span class="badge badge-orange mb-2">Intermediate</span>
+                                <p class="language-description">
+                                    Discover the musical language of the Naso people with its unique rhythms and 
+                                    cultural expressions. Learn about their spiritual traditions and connection to nature.
+                                </p>
+                                <div class="language-stats mb-3">
+                                    <span class="stat-item"><i class="fas fa-book"></i> 120 Lessons</span>
+                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 4 Levels</span>
+                                    <span class="stat-item"><i class="fas fa-users"></i> 3,000+ Speakers</span>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Naso</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guna Language -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="language-card glass-card h-100 locked" id="guna-card">
+                        <div class="lock-overlay">
+                            <i class="fas fa-lock me-2"></i>Login to Access
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="language-icon mb-3">
+                                    <img src="Images/Guna.png" alt="Guna Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="language-title gradient-text">Guna</h3>
+                                <span class="badge badge-green mb-2">Advanced</span>
+                                <p class="language-description">
+                                    Master the language of the Guna people from the beautiful San Blas Islands. 
+                                    Explore their rich maritime culture and traditional governance systems.
+                                </p>
+                                <div class="language-stats mb-3">
+                                    <span class="stat-item"><i class="fas fa-book"></i> 200 Lessons</span>
+                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 6 Levels</span>
+                                    <span class="stat-item"><i class="fas fa-users"></i> 60,000+ Speakers</span>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Guna</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emberá Language -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="language-card glass-card h-100 locked" id="embera-card">
+                        <div class="lock-overlay">
+                            <i class="fas fa-lock me-2"></i>Login to Access
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center">
+                                <div class="language-icon mb-3">
+                                    <img src="Images/Embera.png" alt="Emberá Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="language-title gradient-text">Emberá</h3>
+                                <span class="badge badge-yellow mb-2">Expert</span>
+                                <p class="language-description">
+                                    Explore the ancient language of the Emberá people and their deep-rooted traditions. 
+                                    Learn about their spiritual practices and connection to the rainforest.
+                                </p>
+                                <div class="language-stats mb-3">
+                                    <span class="stat-item"><i class="fas fa-book"></i> 180 Lessons</span>
+                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
+                                    <span class="stat-item"><i class="fas fa-users"></i> 25,000+ Speakers</span>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Emberá</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-component"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 600,
+            offset: 50
+        });
+
+        // Function to require login
+        function requireLogin() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (!isLoggedIn) {
+                // Show login prompt
+                const result = confirm('You need to login to access this course. Would you like to go to the login page?');
+                if (result) {
+                    window.location.href = 'login.html';
+                }
+            } else {
+                // User is logged in, allow access
+                unlockCourses();
+            }
+        }
+
+        // Function to unlock courses (for logged in users)
+        function unlockCourses() {
+            const cards = document.querySelectorAll('.language-card');
+            cards.forEach(card => {
+                card.classList.remove('locked');
+                const button = card.querySelector('button');
+                if (button) {
+                    button.onclick = function() {
+                        // Redirect to appropriate course
+                        const language = card.id.replace('-card', '');
+                        window.location.href = `courses/${language}-course.html`;
+                    };
+                }
+            });
+        }
+
+        // Check if user is logged in on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
+                unlockCourses();
+            }
+        });
+
+        // Add click handlers to cards
+        document.querySelectorAll('.language-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+                    requireLogin();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
