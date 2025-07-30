@@ -589,7 +589,7 @@ class SogedHeader extends HTMLElement {
                                  </li>
                                  <!-- About Us -->
                                  <li class="nav-item">
-                                     <a href="about.html" class="nav-link">
+                                     <a href="pages/about.html" class="nav-link">
                                          <span>About Us</span>
                                      </a>
                                  </li>
