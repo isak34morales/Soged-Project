@@ -95,9 +95,9 @@ class DashboardFooter extends HTMLElement {
                     <p>&copy; 2024 Soged. Todos los derechos reservados.</p>
                 </div>
                 <div class="footer-right">
-                    <a href="#" class="footer-link" data-link="privacy">Política de Privacidad</a>
-                    <a href="#" class="footer-link" data-link="terms">Términos de Servicio</a>
-                    <a href="#" class="footer-link" data-link="help">Ayuda</a>
+                                    <a href="#" class="footer-link" data-link="privacy">Privacy Policy</a>
+                <a href="#" class="footer-link" data-link="terms">Terms of Service</a>
+                    <a href="#" class="footer-link" data-link="help">Help</a>
                 </div>
             </div>
         `;

@@ -4,9 +4,9 @@ class ProfileSection extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.profileData = {
             user: {
-                name: 'María Santos',
+                name: 'Maria Santos',
                 email: 'maria.santos@email.com',
-                avatar: 'https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=120',
+                avatar: 'https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=120',
                 level: 8,
                 totalXP: 1250,
                 memberSince: '2024-01-15',
@@ -745,7 +745,7 @@ class ProfileSection extends HTMLElement {
                                 </div>
                                 <div class="form-group">
                                     <label for="location">Location</label>
-                                    <input type="text" id="location" value="Panamá, Panamá" class="form-input">
+                                    <input type="text" id="location" value="Panama City, Panama" class="form-input">
                                 </div>
                             </div>
                         </div>

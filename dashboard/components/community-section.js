@@ -9,8 +9,8 @@ class CommunitySection extends HTMLElement {
             recentActivity: [
                 {
                     id: 1,
-                    user: 'Juan Pérez',
-                    action: 'completó la lección 15 de Ngäbe',
+                                user: 'Juan Perez',
+            action: 'completed lesson 15 of Ngäbe',
                     time: 'Hace 2 horas',
                     avatar: 'https://ui-avatars.com/api/?name=Juan+Pérez&background=4A90E2&color=fff&size=40',
                     course: 'Ngäbe',
@@ -18,8 +18,8 @@ class CommunitySection extends HTMLElement {
                 },
                 {
                     id: 2,
-                    user: 'Ana García',
-                    action: 'se unió al grupo "Estudiantes de Emberá"',
+                                user: 'Ana Garcia',
+            action: 'joined the group "Emberá Students"',
                     time: 'Hace 4 horas',
                     avatar: 'https://ui-avatars.com/api/?name=Ana+García&background=50C878&color=fff&size=40',
                     course: 'Emberá',
@@ -27,8 +27,8 @@ class CommunitySection extends HTMLElement {
                 },
                 {
                     id: 3,
-                    user: 'Carlos López',
-                    action: 'alcanzó el nivel 5 en Guna',
+                                user: 'Carlos Lopez',
+            action: 'reached level 5 in Guna',
                     time: 'Hace 6 horas',
                     avatar: 'https://ui-avatars.com/api/?name=Carlos+López&background=FF6B6B&color=fff&size=40',
                     course: 'Guna',
@@ -36,8 +36,8 @@ class CommunitySection extends HTMLElement {
                 },
                 {
                     id: 4,
-                    user: 'María Rodríguez',
-                    action: 'completó 7 días de racha',
+                                user: 'Maria Rodriguez',
+            action: 'completed 7 day streak',
                     time: 'Hace 8 horas',
                     avatar: 'https://ui-avatars.com/api/?name=María+Rodríguez&background=9B59B6&color=fff&size=40',
                     course: 'Ngäbe',
@@ -61,7 +61,7 @@ class CommunitySection extends HTMLElement {
                     course: 'Emberá',
                     color: '#50C878',
                     icon: 'fas fa-tree',
-                    description: 'Grupo para principiantes de Emberá'
+                    description: 'Group for Emberá beginners'
                 },
                 {
                     id: 3,
@@ -85,7 +85,7 @@ class CommunitySection extends HTMLElement {
             upcomingEvents: [
                 {
                     id: 1,
-                    title: 'Conversación en Ngäbe',
+                    title: 'Ngäbe Conversation',
                     date: '2024-01-25',
                     time: '19:00',
                     participants: 23,
@@ -94,7 +94,7 @@ class CommunitySection extends HTMLElement {
                 },
                 {
                     id: 2,
-                    title: 'Taller de Cultura Emberá',
+                    title: 'Emberá Culture Workshop',
                     date: '2024-01-28',
                     time: '15:00',
                     participants: 45,
@@ -103,7 +103,7 @@ class CommunitySection extends HTMLElement {
                 },
                 {
                     id: 3,
-                    title: 'Práctica de Guna',
+                    title: 'Guna Practice',
                     date: '2024-01-30',
                     time: '18:00',
                     participants: 18,
@@ -535,7 +535,7 @@ class CommunitySection extends HTMLElement {
                         <div class="events-section">
                             <h3 class="section-title">
                                 <i class="fas fa-calendar-alt"></i>
-                                Próximos Eventos
+                                Upcoming Events
                             </h3>
                             ${this.communityData.upcomingEvents.map(event => `
                                 <div class="event-card" data-event-id="${event.id}">

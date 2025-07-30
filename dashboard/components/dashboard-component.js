@@ -486,20 +486,20 @@ class DashboardApp extends HTMLElement {
                     <div class="activity-list">
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://ui-avatars.com/api/?name=Juan+Pérez&background=4A90E2&color=fff&size=40" alt="User">
+                                <img src="https://ui-avatars.com/api/?name=Juan+Perez&background=4A90E2&color=fff&size=40" alt="User">
                             </div>
                             <div class="activity-content">
-                                <p><strong>Juan Pérez</strong> completed lesson 15 of Ngäbe</p>
+                                <p><strong>Juan Perez</strong> completed lesson 15 of Ngäbe</p>
                                 <span class="activity-time">2 hours ago</span>
                             </div>
                         </div>
                         
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://ui-avatars.com/api/?name=Ana+García&background=4A90E2&color=fff&size=40" alt="User">
+                                <img src="https://ui-avatars.com/api/?name=Ana+Garcia&background=4A90E2&color=fff&size=40" alt="User">
                             </div>
                             <div class="activity-content">
-                                <p><strong>Ana García</strong> joined the group "Naso Learners"</p>
+                                <p><strong>Ana Garcia</strong> joined the group "Naso Learners"</p>
                                 <span class="activity-time">4 hours ago</span>
                             </div>
                         </div>
@@ -519,7 +519,7 @@ class DashboardApp extends HTMLElement {
             <div class="profile-content">
                 <div class="profile-card">
                     <div class="profile-header">
-                        <img src="https://ui-avatars.com/api/?name=María+Santos&background=4A90E2&color=fff&size=120" alt="Profile" class="profile-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=4A90E2&color=fff&size=120" alt="Profile" class="profile-avatar">
                         <div class="profile-info">
                             <h3>Maria Santos</h3>
                             <p>Advanced Student</p>
@@ -604,7 +604,7 @@ class DashboardApp extends HTMLElement {
         // Implementar lógica de ayuda
         console.log('Help clicked');
         // Aquí podrías mostrar un modal de ayuda o redirigir a una página de ayuda
-        alert('¡Centro de Ayuda!\n\nAquí encontrarás:\n• Guías de uso\n• Preguntas frecuentes\n• Contacto de soporte\n• Tutoriales');
+                        alert('Help Center!\n\nHere you will find:\n• Usage guides\n• Frequently asked questions\n• Support contact\n• Tutorials');
     }
 
     handleStatClick(statType) {
@@ -612,12 +612,12 @@ class DashboardApp extends HTMLElement {
         console.log('Stat clicked:', statType);
         
         const messages = {
-            lives: '¡Tienes 5 vidas disponibles!\n\nUsa tus vidas sabiamente para completar lecciones y ganar más.',
-            points: '¡Has acumulado 1,250 puntos!\n\nLos puntos se ganan completando lecciones y manteniendo rachas.',
-            achievements: '¡Has desbloqueado 8 logros!\n\nContinúa aprendiendo para desbloquear más logros.'
+            lives: 'You have 5 lives available!\n\nUse your lives wisely to complete lessons and earn more.',
+            points: 'You have accumulated 1,250 points!\n\nPoints are earned by completing lessons and maintaining streaks.',
+            achievements: 'You have unlocked 8 achievements!\n\nKeep learning to unlock more achievements.'
         };
         
-        alert(messages[statType] || 'Estadística clickeada');
+                    alert(messages[statType] || 'Statistics clicked');
     }
 
     // Public methods
