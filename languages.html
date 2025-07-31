@@ -16,7 +16,13 @@
         
         .language-card.locked {
             filter: grayscale(100%);
-            opacity: 0.7;
+            opacity: 0.6;
+            pointer-events: none !important;
+            cursor: not-allowed;
+        }
+        
+        .language-card.locked * {
+            pointer-events: none !important;
         }
         
         .language-card.locked::before {
@@ -26,8 +32,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.1);
-            z-index: 1;
+            background: rgba(0,0,0,0.3);
+            z-index: 10;
             border-radius: inherit;
         }
         
@@ -36,17 +42,25 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
-            background: rgba(0,0,0,0.8);
+            z-index: 15;
+            background: rgba(0,0,0,0.9);
             color: white;
-            padding: 10px 20px;
+            padding: 15px 25px;
             border-radius: 25px;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 600;
             display: none;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         
         .language-card.locked .lock-overlay {
             display: block;
+        }
+        
+        .language-card.locked button {
+            opacity: 0.3;
+            pointer-events: none;
         }
         
         .language-card:hover {
@@ -105,8 +119,8 @@
             <div class="login-prompt text-center" data-aos="fade-up">
                 <h3><i class="fas fa-lock me-2"></i>Login Required</h3>
                 <p class="mb-3">Sign in to access all language courses and start your learning journey!</p>
-                <a href="login.html" class="btn btn-light me-2">Login</a>
-                <a href="register.html" class="btn btn-outline-light">Register</a>
+                <a href="auth/login.html" class="btn btn-light me-2">Login</a>
+                <a href="auth/register.html" class="btn btn-outline-light">Register</a>
             </div>
         </div>
     </section>
@@ -116,7 +130,7 @@
         <div class="container">
             <div class="section-header text-center mb-5" data-aos="fade-up">
                 <h2 class="section-title">Available Languages</h2>
-                <p class="section-subtitle">Click on any language to start learning (login required)</p>
+                <p class="section-subtitle" style="color: #374151 !important; font-weight: 600 !important; font-size: 1.1rem !important;">Click on any language to start learning (login required)</p>
             </div>
             
             <div class="row g-4">
@@ -124,7 +138,7 @@
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="language-card glass-card h-100 locked" id="ngabe-card">
                         <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login to Access
+                            <i class="fas fa-lock me-2"></i>Login Required
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
@@ -154,7 +168,7 @@
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="language-card glass-card h-100 locked" id="naso-card">
                         <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login to Access
+                            <i class="fas fa-lock me-2"></i>Login Required
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
@@ -184,7 +198,7 @@
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="language-card glass-card h-100 locked" id="guna-card">
                         <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login to Access
+                            <i class="fas fa-lock me-2"></i>Login Required
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
@@ -214,7 +228,7 @@
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="language-card glass-card h-100 locked" id="embera-card">
                         <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login to Access
+                            <i class="fas fa-lock me-2"></i>Login Required
                         </div>
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
@@ -253,58 +267,64 @@
     <script src="main.js"></script>
     
     <script>
+        // Add the Web Component to the page (same as index.html)
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerElement = document.createElement('soged-header');
+            document.getElementById('header-component').appendChild(headerElement);
+            
+            // Ensure navigation links work properly
+            setTimeout(() => {
+                const header = document.querySelector('soged-header');
+                if (header && header.shadowRoot) {
+                    const navLinks = header.shadowRoot.querySelectorAll('.nav-link');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            const href = this.getAttribute('href');
+                            if (href) {
+                                // Navigate to the correct page
+                                window.location.href = href;
+                            }
+                        });
+                    });
+                }
+            }, 100);
+        });
+    </script>
+    
+    <script>
         // Initialize AOS
         AOS.init({
             duration: 600,
             offset: 50
         });
 
-        // Function to require login
+        // Function to require login - DIRECT REDIRECT
         function requireLogin() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            
-            if (!isLoggedIn) {
-                // Show login prompt
-                const result = confirm('You need to login to access this course. Would you like to go to the login page?');
-                if (result) {
-                    window.location.href = 'login.html';
-                }
-            } else {
-                // User is logged in, allow access
-                unlockCourses();
-            }
+            // Always redirect to register page, no confirmation
+            window.location.href = 'auth/register.html';
         }
 
-        // Function to unlock courses (for logged in users)
-        function unlockCourses() {
-            const cards = document.querySelectorAll('.language-card');
-            cards.forEach(card => {
-                card.classList.remove('locked');
-                const button = card.querySelector('button');
-                if (button) {
-                    button.onclick = function() {
-                        // Redirect to appropriate course
-                        const language = card.id.replace('-card', '');
-                        window.location.href = `courses/${language}-course.html`;
-                    };
-                }
-            });
-        }
+        // ALWAYS KEEP CARDS LOCKED - NO UNLOCKING
+        // Cards stay locked regardless of login status
 
-        // Check if user is logged in on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn) {
-                unlockCourses();
-            }
-        });
-
-        // Add click handlers to cards
+        // Add click handlers to cards - BLOCK ALL INTERACTIONS
         document.querySelectorAll('.language-card').forEach(card => {
             card.addEventListener('click', function(e) {
-                if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+                e.preventDefault();
+                e.stopPropagation();
+                requireLogin();
+                return false;
+            });
+            
+            // Block all child elements
+            const allElements = card.querySelectorAll('*');
+            allElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     requireLogin();
-                }
+                    return false;
+                });
             });
         });
     </script>

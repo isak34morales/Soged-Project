@@ -8,6 +8,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Locked course styles */
+        .step-card.locked {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            pointer-events: none !important;
+            cursor: not-allowed;
+        }
+        
+        .step-card.locked * {
+            pointer-events: none !important;
+        }
+        
+        .step-card.locked::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 10;
+            border-radius: inherit;
+        }
+        
+        .step-card.locked .lock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 15;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .step-card.locked button {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    </style>
 
 </head>
 <body>
@@ -38,11 +85,11 @@
                         </p>
                         
                         <div class="hero-buttons">
-                            <a href="index.html" class="btn btn-secondary btn-lg">
+                            <a href="auth/register.html" class="btn btn-secondary btn-lg">
                                 <i class="fas fa-play"></i>
                                 Start Learning
                             </a>
-                            <a href="index.html" class="btn btn-outline-primary btn-lg">
+                            <a href="#how-it-works" class="btn btn-outline-primary btn-lg">
                                 <i class="fas fa-info-circle"></i>
                                 How It Works
                             </a>
@@ -65,7 +112,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2 class="section-title">Why Choose Soged?</h2>
-                <p class="section-subtitle">Experience the most effective way to learn indigenous languages</p>
+                <p class="section-subtitle">Experience the most effective way to learn indigenous languages.</p>
             </div>
             <div class="why-soged-bg position-relative">
                 <div class="row g-4 justify-content-center">
@@ -118,14 +165,18 @@
     <section class="languages-section" id="languages">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
-                <h2 class="section-title">Explore Our Languages</h2>
-                <p class="section-subtitle">Each language carries the wisdom and culture of its people</p>
+                <h2 class="section-title">Explore our Languages</h2>
+                <p class="section-subtitle">Each language carries the wisdom and culture of its people.</p>
+                <p class="section-subtitle" style="color: #374151 !important; font-weight: 600 !important; font-size: 1.1rem !important; margin-top: 0.5rem;">Click on any language to start learning (login required)</p>
             </div>
             
             <div class="languages-bg position-relative">
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="step-card language-step ngabe-blue h-100">
+                        <div class="step-card language-step ngabe-blue h-100 locked">
+                            <div class="lock-overlay">
+                                <i class="fas fa-lock me-2"></i>Login Required
+                            </div>
                             <div class="step-icon icon-bg-blue">
                                 <img src="Images/Ngabe.png" alt="Ngäbe Language" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </div>
@@ -135,11 +186,14 @@
                             <div class="lang-stats">
                                 <span class="stat-value">150</span> <span class="stat-label">Lessons</span> | <span class="stat-value">5</span> <span class="stat-label">Levels</span>
                             </div>
-                            <a href="languages.html#ngabe" class="btn btn-primary w-100 mt-3">Start Learning</a>
+                            <button onclick="requireLogin()" class="btn btn-primary w-100 mt-3">Start Learning</button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="step-card language-step naso-orange h-100">
+                        <div class="step-card language-step naso-orange h-100 locked">
+                            <div class="lock-overlay">
+                                <i class="fas fa-lock me-2"></i>Login Required
+                            </div>
                             <div class="step-icon icon-bg-orange">
                                 <img src="Images/Naso.gif" alt="Naso Language" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </div>
@@ -149,11 +203,14 @@
                             <div class="lang-stats">
                                 <span class="stat-value">120</span> <span class="stat-label">Lessons</span> | <span class="stat-value">4</span> <span class="stat-label">Levels</span>
                             </div>
-                            <a href="languages.html#naso" class="btn btn-primary w-100 mt-3">Start Learning</a>
+                            <button onclick="requireLogin()" class="btn btn-primary w-100 mt-3">Start Learning</button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="600">
-                        <div class="step-card language-step guna-green h-100">
+                        <div class="step-card language-step guna-green h-100 locked">
+                            <div class="lock-overlay">
+                                <i class="fas fa-lock me-2"></i>Login Required
+                            </div>
                             <div class="step-icon icon-bg-green">
                                 <img src="Images/Guna.png" alt="Guna Language" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </div>
@@ -163,11 +220,14 @@
                             <div class="lang-stats">
                                 <span class="stat-value">200</span> <span class="stat-label">Lessons</span> | <span class="stat-value">6</span> <span class="stat-label">Levels</span>
                             </div>
-                            <a href="languages.html#guna" class="btn btn-primary w-100 mt-3">Start Learning</a>
+                            <button onclick="requireLogin()" class="btn btn-primary w-100 mt-3">Start Learning</button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="800">
-                        <div class="step-card language-step bribri-yellow h-100">
+                        <div class="step-card language-step bribri-yellow h-100 locked">
+                            <div class="lock-overlay">
+                                <i class="fas fa-lock me-2"></i>Login Required
+                            </div>
                             <div class="step-icon icon-bg-yellow">
                                 <img src="Images/Embera.png" alt="Emberá Language" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </div>
@@ -177,7 +237,7 @@
                             <div class="lang-stats">
                                 <span class="stat-value">180</span> <span class="stat-label">Lessons</span> | <span class="stat-value">5</span> <span class="stat-label">Levels</span>
                             </div>
-                            <a href="languages.html#embera" class="btn btn-primary w-100 mt-3">Start Learning</a>
+                            <button onclick="requireLogin()" class="btn btn-primary w-100 mt-3">Start Learning</button>
                         </div>
                     </div>
                 </div>
@@ -190,7 +250,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Your journey to fluency in 4 simple steps</p>
+                <p class="section-subtitle">Your journey to fluency in 4 simple steps.</p>
             </div>
             
             <div class="row g-4">
@@ -234,8 +294,8 @@
     <section class="testimonials-section">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
-                <h2 class="section-title">What Our Students Say</h2>
-                <p class="section-subtitle">Join thousands of learners who have discovered the beauty of indigenous languages</p>
+                <h2 class="section-title">What our Students Say</h2>
+                <p class="section-subtitle">Join thousands of learners who have discovered the beauty of indigenous languages.</p>
             </div>
             
             <div class="row g-4">
@@ -247,7 +307,7 @@
                         <div class="testimonial-author">
                             <div class="author-avatar">👩‍🎓</div>
                             <div class="author-info">
-                                <h4>Maria Santos</h4>
+                                <h4>María Santos</h4>
                                 <span>Ngäbe Student</span>
                             </div>
                         </div>
@@ -262,7 +322,7 @@
                         <div class="testimonial-author">
                             <div class="author-avatar">👨‍💼</div>
                             <div class="author-info">
-                                <h4>Carlos Rodriguez</h4>
+                                <h4>Carlos Rodríguez</h4>
                                 <span>Guna Student</span>
                             </div>
                         </div>
@@ -277,7 +337,7 @@
                         <div class="testimonial-author">
                             <div class="author-avatar">👩‍🏫</div>
                             <div class="author-info">
-                                <h4>Ana Martinez</h4>
+                                <h4>Ana Martínez</h4>
                                 <span>Bokota Teacher</span>
                             </div>
                         </div>
@@ -292,7 +352,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2 class="section-title">Our Partners</h2>
-                <p class="section-subtitle">Working together to preserve indigenous languages and cultures</p>
+                <p class="section-subtitle">Working together to preserve indigenous languages and cultures.</p>
             </div>
             
             <div class="partners-carousel-container">
@@ -388,9 +448,9 @@
         <div class="container">
             <div class="cta-content text-center" data-aos="zoom-in">
                 <h2>Ready to Start Your Language Journey?</h2>
-                <p>Join thousands of learners and preserve the indigenous languages of Panama</p>
+                <p>Join thousands of learners and preserve the indigenous languages of Panama.</p>
                 <div class="cta-buttons">
-                                                <a href="auth/register.html" class="btn btn-secondary btn-lg">
+                    <a href="auth/register.html" class="btn btn-secondary btn-lg">
                         <i class="fas fa-rocket"></i>
                         Get Started Free
                     </a>
@@ -675,6 +735,36 @@
                 bodyColor: document.body.style.color
             });
         };
+
+        // Function to require login - DIRECT REDIRECT
+        function requireLogin() {
+            // Always redirect to register page, no confirmation
+            window.location.href = 'auth/register.html';
+        }
+
+        // Block all interactions with locked cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const lockedCards = document.querySelectorAll('.step-card.locked');
+            lockedCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    requireLogin();
+                    return false;
+                });
+                
+                // Block all child elements
+                const allElements = card.querySelectorAll('*');
+                allElements.forEach(element => {
+                    element.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        requireLogin();
+                        return false;
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>

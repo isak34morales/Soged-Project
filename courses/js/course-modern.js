@@ -352,38 +352,38 @@ class CourseManager {
         const mainContent = document.querySelector('.main-content');
         mainContent.innerHTML = `
             <div class="music-container">
-                <h2 class="section-title">Música Indígena</h2>
-                <p class="section-subtitle">Escucha y aprende las melodías tradicionales</p>
+                <h2 class="section-title">Indigenous Music</h2>
+                <p class="section-subtitle">Listen and learn traditional melodies</p>
                 <div class="music-grid">
                     <div class="song-card">
-                        <h3>Canto de Bienvenida</h3>
-                        <p>Melodía tradicional para recibir visitantes.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Welcome Song</h3>
+                        <p>Traditional melody to welcome visitors.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                     <div class="song-card">
-                        <h3>Danza del Sol</h3>
-                        <p>Ritmo ceremonial para celebrar el amanecer.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Sun Dance</h3>
+                        <p>Ceremonial rhythm to celebrate sunrise.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                     <div class="song-card">
-                        <h3>Canción de la Lluvia</h3>
-                        <p>Melodía para invocar las bendiciones del agua.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Rain Song</h3>
+                        <p>Melody to invoke water blessings.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                     <div class="song-card">
-                        <h3>Ritmo de la Tierra</h3>
-                        <p>Tambores tradicionales para conectar con la madre tierra.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Earth Rhythm</h3>
+                        <p>Traditional drums to connect with mother earth.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                     <div class="song-card">
-                        <h3>Canto de Curación</h3>
-                        <p>Melodía sagrada para el bienestar espiritual.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Healing Song</h3>
+                        <p>Sacred melody for spiritual well-being.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                     <div class="song-card">
-                        <h3>Himno de Gratitud</h3>
-                        <p>Canción de agradecimiento a los ancestros.</p>
-                        <button class="btn btn-primary">Escuchar</button>
+                        <h3>Gratitude Hymn</h3>
+                        <p>Song of gratitude to ancestors.</p>
+                        <button class="btn btn-primary">Listen</button>
                     </div>
                 </div>
             </div>
@@ -448,8 +448,8 @@ class CourseManager {
         const mainContent = document.querySelector('.main-content');
         mainContent.innerHTML = `
             <div class="player-container">
-                <h2 class="section-title">Personalización del Jugador</h2>
-                <p class="section-subtitle">Personaliza tu avatar y configuración</p>
+                <h2 class="section-title">Player Customization</h2>
+                <p class="section-subtitle">Customize your avatar and settings</p>
                 <div class="player-customization">
                     <div class="player-preview">
                         <div class="player-avatar-large">
@@ -458,31 +458,31 @@ class CourseManager {
                                 <path d="M20 21C20 16.58 16.42 13 12 13s-8 3.58-8 8" stroke="currentColor" stroke-width="2" fill="none"/>
                             </svg>
                         </div>
-                        <h3>Mi Avatar</h3>
-                        <p>Nivel 15 - Explorador</p>
+                        <h3>My Avatar</h3>
+                        <p>Level 15 - Explorer</p>
                     </div>
                     <div class="customization-options">
-                        <h3>Opciones de Personalización</h3>
+                        <h3>Customization Options</h3>
                         <div class="option-group">
-                            <label>Color de Pelo</label>
+                            <label>Hair Color</label>
                             <select>
-                                <option>Negro</option>
-                                <option>Marrón</option>
-                                <option>Rubio</option>
-                                <option>Rojo</option>
+                                <option>Black</option>
+                                <option>Brown</option>
+                                <option>Blonde</option>
+                                <option>Red</option>
                             </select>
                         </div>
                         <div class="option-group">
-                            <label>Color de Ojos</label>
+                            <label>Eye Color</label>
                             <select>
-                                <option>Marrón</option>
-                                <option>Azul</option>
-                                <option>Verde</option>
-                                <option>Gris</option>
+                                <option>Brown</option>
+                                <option>Blue</option>
+                                <option>Green</option>
+                                <option>Gray</option>
                             </select>
                         </div>
                         <div class="option-group">
-                            <label>Color de Piel</label>
+                            <label>Skin Color</label>
                             <div class="color-options">
                                 <div class="color-option" style="background: #FFDBB4;"></div>
                                 <div class="color-option" style="background: #EDB98A;"></div>
@@ -492,12 +492,12 @@ class CourseManager {
                             </div>
                         </div>
                         <div class="option-group">
-                            <label>Accesorios</label>
+                            <label>Accessories</label>
                             <select>
-                                <option>Ninguno</option>
-                                <option>Gafas</option>
-                                <option>Sombrero</option>
-                                <option>Collares</option>
+                                <option>None</option>
+                                <option>Glasses</option>
+                                <option>Hat</option>
+                                <option>Necklaces</option>
                             </select>
                         </div>
                     </div>
@@ -763,7 +763,7 @@ class CourseManager {
                             <label>Language</label>
                             <select>
                                 <option>English</option>
-                                <option>Español</option>
+                                <option>Spanish</option>
                             </select>
                         </div>
                         <div class="settings-item">
@@ -1082,9 +1082,9 @@ class CourseManager {
     }
 
     getCurrentCourseName() {
-        // Puedes mejorar esto para obtener el nombre real del curso según el contexto
+        // You can improve this to get the real course name based on context
         const sidebar = document.querySelector('course-sidebar');
-        return sidebar?.getAttribute('course-name') || 'Idioma';
+        return sidebar?.getAttribute('course-name') || 'Language';
     }
 }
 
