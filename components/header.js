@@ -11,11 +11,27 @@ class SogedHeader extends HTMLElement {
     }
 
     render() {
+        // Determinar la ruta base según la ubicación de la página
+        const currentPath = window.location.pathname;
+        let basePath = '';
+        
+        if (currentPath.includes('/pages/')) {
+            basePath = '../';
+        } else if (currentPath.includes('/auth/')) {
+            basePath = '../';
+        } else if (currentPath.includes('/dashboard/')) {
+            basePath = '../';
+        } else if (currentPath.includes('/courses/')) {
+            basePath = '../';
+        } else {
+            basePath = './';
+        }
+
         this.shadowRoot.innerHTML = `
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka+One&display=swap');
                 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-                @import url('../css/header.css');
+                @import url('${basePath}css/header.css');
 
                 :host {
                     display: block;
@@ -54,6 +70,7 @@ class SogedHeader extends HTMLElement {
                     --gradient-secondary: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
                     --gradient-accent: linear-gradient(135deg, #FFD23F 0%, #FFA726 100%);
                     --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+                    --logo-green: linear-gradient(135deg, #28A745 0%, #20C997 100%);
                 }
 
                 [data-theme="dark"] {
@@ -176,7 +193,7 @@ class SogedHeader extends HTMLElement {
                     transform: translateY(-2px);
                 }
 
-                                                         .logo-text {
+                .logo-text {
                     font-family: 'Fredoka', sans-serif;
                     font-size: 2rem;
                     font-weight: bold;
@@ -420,6 +437,7 @@ class SogedHeader extends HTMLElement {
                     gap: 0.5rem;
                     font-size: 0.9rem;
                     border: 2px solid transparent;
+                    cursor: pointer;
                 }
 
                 .btn-primary {
@@ -559,41 +577,41 @@ class SogedHeader extends HTMLElement {
             <nav class="navbar navbar-expand-lg fixed-top">
                 <div class="container">
                     <div class="header-left">
-                        <a href="index.html" class="navbar-brand">
+                        <a href="${basePath}index.html" class="navbar-brand">
                             <div class="logo-container">
-                                <img src="Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 45px; height: 45px; margin-right: 12px;">
+                                <img src="${basePath}Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 45px; height: 45px; margin-right: 12px;">
                                 <span class="logo-text">Soged</span>
                             </div>
                         </a>
                     </div>
                     <div class="header-center">
                         <div class="navbar-collapse" id="navbarNav">
-                                                         <ul class="navbar-nav mx-auto">
-                                 <!-- Home -->
-                                 <li class="nav-item">
-                                     <a href="index.html" class="nav-link">
-                                         <span>Home</span>
-                                     </a>
-                                 </li>
-                                 <!-- Learn -->
-                                 <li class="nav-item">
-                                     <a href="languages.html" class="nav-link">
-                                         <span>Learn</span>
-                                     </a>
-                                 </li>
-                                 <!-- Resources -->
-                                 <li class="nav-item">
-                                     <a href="pages/resources.html" class="nav-link">
-                                         <span>Resources</span>
-                                     </a>
-                                 </li>
-                                 <!-- About Us -->
-                                 <li class="nav-item">
-                                     <a href="pages/about.html" class="nav-link">
-                                         <span>About Us</span>
-                                     </a>
-                                 </li>
-                             </ul>
+                            <ul class="navbar-nav mx-auto">
+                                <!-- Home -->
+                                <li class="nav-item">
+                                    <a href="${basePath}index.html" class="nav-link">
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+                                <!-- Learn -->
+                                <li class="nav-item">
+                                    <a href="${basePath}languages.html" class="nav-link">
+                                        <span>Learn</span>
+                                    </a>
+                                </li>
+                                <!-- Resources -->
+                                <li class="nav-item">
+                                    <a href="${basePath}pages/resources.html" class="nav-link">
+                                        <span>Resources</span>
+                                    </a>
+                                </li>
+                                <!-- About Us -->
+                                <li class="nav-item">
+                                    <a href="${basePath}pages/about.html" class="nav-link">
+                                        <span>About Us</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="header-right">
@@ -606,8 +624,8 @@ class SogedHeader extends HTMLElement {
                             </span>
                         </label>
                         <div class="nav-buttons">
-                            <a href="auth/login.html" class="btn btn-outline-primary">Login</a>
-                            <a href="auth/register.html" class="btn btn-primary">Register</a>
+                            <button class="btn btn-outline-primary nav-login-btn">Login</button>
+                            <button class="btn btn-primary nav-register-btn">Register</button>
                         </div>
                     </div>
                 </div>
@@ -639,6 +657,34 @@ class SogedHeader extends HTMLElement {
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        // Login and Register buttons
+        const loginBtn = shadow.querySelector('.nav-login-btn');
+        const registerBtn = shadow.querySelector('.nav-register-btn');
+        
+        if (loginBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Dispatch custom event to open login modal
+                this.dispatchEvent(new CustomEvent('openAuthModal', { 
+                    detail: { type: 'login' },
+                    bubbles: true,
+                    composed: true
+                }));
+            });
+        }
+        
+        if (registerBtn) {
+            registerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Dispatch custom event to open register modal
+                this.dispatchEvent(new CustomEvent('openAuthModal', { 
+                    detail: { type: 'register' },
+                    bubbles: true,
+                    composed: true
+                }));
             });
         }
 

@@ -331,7 +331,7 @@ class CourseManager {
                     <div class="story-card">
                         <h3>The River of Life</h3>
                         <p>Story about the cycle of life and the importance of water.</p>
-                        <button class="btn btn-primary">Read Story</button>
+                        <button class="btn btn-primary river-of-life-btn">Read Story</button>
                     </div>
                     <div class="story-card">
                         <h3>The Dance of the Moon</h3>
@@ -346,6 +346,14 @@ class CourseManager {
                 </div>
             </div>
         `;
+        
+        // Add event listener for The River of Life button
+        const riverOfLifeBtn = document.querySelector('.river-of-life-btn');
+        if (riverOfLifeBtn) {
+            riverOfLifeBtn.addEventListener('click', () => {
+                this.showRiverOfLifeImage();
+            });
+        }
     }
 
     loadMusic() {
@@ -1085,6 +1093,43 @@ class CourseManager {
         // You can improve this to get the real course name based on context
         const sidebar = document.querySelector('course-sidebar');
         return sidebar?.getAttribute('course-name') || 'Language';
+    }
+
+    showRiverOfLifeImage() {
+        const mainContent = document.querySelector('.main-content');
+        mainContent.innerHTML = `
+            <div class="river-of-life-container">
+                <div class="story-header">
+                    <button class="btn btn-secondary back-btn" onclick="courseManager.loadStories()">
+                        <i class="fas fa-arrow-left"></i> Back to Stories
+                    </button>
+                    <h2 class="section-title">The River of Life</h2>
+                    <p class="section-subtitle">Story about the cycle of life and the importance of water in Guna Yala</p>
+                </div>
+                
+                <div class="story-content">
+                    <div class="story-image">
+                        <img src="../Images/Gunayalaa.png" alt="Guna Yala River of Life" style="width: 100%; max-width: 600px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                    </div>
+                    
+                    <div class="story-text">
+                        <h3>The River of Life</h3>
+                        <p>In the heart of Guna Yala, there flows a sacred river that tells the story of life itself. This river, known to the Guna people as the source of all wisdom, carries with it the memories of generations past and the hopes of generations to come.</p>
+                        
+                        <p>The river teaches us that life, like water, flows in cycles. It reminds us that every drop of water is precious, just as every moment of life is sacred. The Guna people have learned to listen to the river's whispers, understanding that it speaks the language of the ancestors.</p>
+                        
+                        <p>When the river flows gently, it brings peace and abundance. When it flows with strength, it brings renewal and change. The river of life in Guna Yala is not just water—it is the living connection between the past, present, and future of the Guna people.</p>
+                        
+                        <div class="story-quote">
+                            <blockquote>
+                                "The river does not flow in vain. Every drop carries a message from our ancestors to our children."
+                                <cite>- Guna Elder Wisdom</cite>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 }
 

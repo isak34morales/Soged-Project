@@ -119,8 +119,8 @@
             <div class="login-prompt text-center" data-aos="fade-up">
                 <h3><i class="fas fa-lock me-2"></i>Login Required</h3>
                 <p class="mb-3">Sign in to access all language courses and start your learning journey!</p>
-                <a href="auth/login.html" class="btn btn-light me-2">Login</a>
-                <a href="auth/register.html" class="btn btn-outline-light">Register</a>
+                <button class="btn btn-light me-2" onclick="showAuthModal('login')">Login</button>
+                <button class="btn btn-outline-light" onclick="showAuthModal('register')">Register</button>
             </div>
         </div>
     </section>
@@ -158,7 +158,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 50,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Ngäbe</button>
+                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Ngäbe</button>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 4 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 3,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Naso</button>
+                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Naso</button>
                             </div>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 6 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 60,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Guna</button>
+                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Guna</button>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 25,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="requireLogin()">Start Learning Emberá</button>
+                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Emberá</button>
                             </div>
                         </div>
                     </div>
@@ -258,13 +258,16 @@
     </section>
 
     <div id="footer-component"></div>
+    <div id="auth-modal-root"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="components/header.js"></script>
-    <script src="components/footer.js"></script>
-    <script src="main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/carousel.js"></script>
     
     <script>
         // Add the Web Component to the page (same as index.html)
@@ -298,10 +301,10 @@
             offset: 50
         });
 
-        // Function to require login - DIRECT REDIRECT
+        // Function to require login - OPEN MODAL INSTEAD OF REDIRECT
         function requireLogin() {
-            // Always redirect to register page, no confirmation
-            window.location.href = 'auth/register.html';
+            // Open register modal instead of redirecting
+            showAuthModal('register');
         }
 
         // ALWAYS KEEP CARDS LOCKED - NO UNLOCKING

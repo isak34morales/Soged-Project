@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -136,15 +136,110 @@
         }
         
         .header {
-            background: var(--bg-secondary);
-            border-bottom: 2px solid var(--border-color);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(40, 167, 69, 0.05) 100%);
+            border-bottom: 2px solid var(--primary-color);
             padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 20px rgba(40, 167, 69, 0.08);
+            box-shadow: 0 4px 20px rgba(40, 167, 69, 0.15);
             margin-bottom: 2rem;
+        }
+        
+        .header-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 25px;
+            padding: 0.8rem 1.2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-icon {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-right: 0.8rem;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-btn {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.4);
+        }
+        
+        .theme-toggle-btn {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.25);
+        }
+        
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.35);
+        }
+        
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1.5rem;
         }
         
         .stats-container {
@@ -154,20 +249,20 @@
         
         .stat-item {
             padding: 0.8rem 1.2rem;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            color: var(--text-primary);
+            background: var(--gradient-primary);
+            border: 2px solid var(--primary-color);
+            color: white;
             font-weight: 600;
             font-size: 0.9rem;
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.08);
+            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.25);
             transition: all 0.3s ease;
         }
         
         .stat-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
-            border-color: var(--primary-color);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.35);
+            border-color: var(--primary-hover);
         }
         
         .card {
@@ -218,12 +313,12 @@
         }
         
         .btn-secondary {
-            background: var(--gradient-secondary);
-            box-shadow: 0 4px 16px rgba(255, 179, 0, 0.25);
+            background: var(--gradient-primary);
+            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.25);
         }
         
         .btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.35);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.35);
         }
         
         .content-section {
@@ -356,18 +451,331 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 200px;
+            min-height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .course-card:hover::before {
+            transform: scaleX(1);
         }
         
         .course-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.15);
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.25);
             border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(40, 167, 69, 0.05) 100%);
         }
         
         .course-card .btn {
             margin-top: auto;
             align-self: center;
+        }
+        
+        /* Dashboard Stats Grid */
+        .dashboard-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-stat-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .dashboard-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.25);
+            border-color: var(--primary-color);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .stat-content {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .stat-number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Profile Styles */
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(40, 167, 69, 0.05);
+            border-radius: 16px;
+        }
+        
+        .profile-avatar {
+            flex-shrink: 0;
+        }
+        
+        .profile-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .profile-details p {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .profile-stat {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .profile-stat .stat-number {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-stat .stat-label {
+            font-size: 0.8rem;
+        }
+        
+        /* Lesson Progress Styles */
+        .lesson-progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .lesson-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .lesson-header h4 {
+            color: var(--primary-color);
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+        }
+        
+        .lesson-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .lesson-status.completed {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .lesson-status.in-progress {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .lesson-status.pending {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .lesson-progress {
+            margin: 1rem 0;
+        }
+        
+        .lesson-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Activity Timeline Styles */
+        .activity-timeline {
+            position: relative;
+        }
+        
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+        
+        .activity-content {
+            flex: 1;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .activity-content h5 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .activity-content p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+        }
+        
+        .course-progress {
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .course-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .course-stat i {
+            color: var(--primary-color);
         }
         
         .coming-soon-card {
@@ -443,7 +851,9 @@
         
         .achievement-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.15);
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.25);
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(40, 167, 69, 0.05) 100%);
         }
         
         .achievement-icon {
@@ -465,7 +875,7 @@
         }
         
         .ai-tutor-card {
-            background: var(--gradient-info);
+            background: var(--gradient-primary);
             color: white;
             border: none;
         }
@@ -562,6 +972,7 @@
         
         .user-message .message-avatar {
             background: var(--gradient-primary);
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
         }
         
         .typing-indicator {
@@ -624,6 +1035,7 @@
         .quick-action-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
         
         .input-group {
@@ -668,7 +1080,7 @@
         
         .send-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 4px 16px rgba(40, 167, 69, 0.4);
         }
         
         @keyframes fadeInUp {
@@ -761,6 +1173,118 @@
                 height: 50px;
             }
         }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #ffffff;
+        }
+        
+        body.dark-mode .sidebar {
+            background: #2d2d2d;
+            border-right-color: #404040;
+        }
+        
+        body.dark-mode .main-content {
+            background: #1a1a1a;
+        }
+        
+        body.dark-mode .card {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: #ffffff;
+        }
+        
+        body.dark-mode .header {
+            background: linear-gradient(135deg, #2d2d2d 0%, rgba(40, 167, 69, 0.1) 100%);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        body.dark-mode .search-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        body.dark-mode .search-input {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        body.dark-mode .course-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        
+        body.dark-mode .course-card:hover {
+            background: linear-gradient(135deg, #2d2d2d 0%, rgba(40, 167, 69, 0.1) 100%);
+        }
+        
+        body.dark-mode .achievement-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        
+        body.dark-mode .achievement-card:hover {
+            background: linear-gradient(135deg, #2d2d2d 0%, rgba(40, 167, 69, 0.1) 100%);
+        }
+        
+        body.dark-mode .coming-soon-card {
+            background: #1a1a1a;
+            border-color: #404040;
+        }
+        
+        body.dark-mode .coming-soon-card .course-title {
+            color: #888888;
+        }
+        
+        body.dark-mode .coming-soon-card .course-level {
+            color: #666666;
+        }
+        
+        body.dark-mode .progress-bar {
+            background: rgba(40, 167, 69, 0.2);
+        }
+        
+        body.dark-mode .progress-text {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .course-stats {
+            color: #cccccc;
+        }
+        
+        body.dark-mode .course-stat i {
+            color: var(--primary-color);
+        }
+        
+        /* Responsive Dark Mode */
+        @media (max-width: 768px) {
+            body.dark-mode .header {
+                background: linear-gradient(135deg, #2d2d2d 0%, rgba(40, 167, 69, 0.1) 100%);
+            }
+            
+            .course-grid, .achievement-grid, .dashboard-stats-grid, .lesson-progress-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .dashboard-stat-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stat-content {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -770,7 +1294,7 @@
             <div class="loading-logo">
                 <img src="../Images/Newturttle.png" alt="Soged Turtle" style="width: 120px; height: 120px; object-fit: contain;">
             </div>
-            <div class="loading-text">CARGANDO SOGED...</div>
+            <div class="loading-text">LOADING SOGED...</div>
         </div>
     </div>
 
@@ -787,35 +1311,35 @@
             
             <nav>
                 <div class="nav-item">
-                    <a href="#" class="nav-link active" data-section="overview">
+                    <a href="#" class="nav-link active" data-section="dashboard">
                         <div class="nav-icon">
                             <i class="fas fa-chart-line"></i>
                         </div>
-                        <span>Overview</span>
+                        <span>Dashboard</span>
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link" data-section="courses">
+                    <a href="#" class="nav-link" data-section="profile">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-section="lessons">
                         <div class="nav-icon">
                             <i class="fas fa-book-open"></i>
                         </div>
-                        <span>Courses</span>
+                        <span>Lessons</span>
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link" data-section="achievements">
+                    <a href="#" class="nav-link" data-section="activity">
                         <div class="nav-icon">
-                            <i class="fas fa-trophy"></i>
+                            <i class="fas fa-history"></i>
                         </div>
-                        <span>Achievements</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-section="ai-tutor">
-                        <div class="nav-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <span>AI Tutor</span>
+                        <span>Activity History</span>
                     </a>
                 </div>
             </nav>
@@ -825,36 +1349,101 @@
         <div class="main-content">
             <!-- Header -->
             <div class="header">
-                <div class="stats-container">
-                    <div class="stat-item">
-                        <i class="fas fa-heart"></i> 5 Lives
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-star"></i> 1,250 Points
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-trophy"></i> 8 Achievements
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-fire"></i> 7 Streak
+                <div class="header-left">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" placeholder="Search courses, lessons, achievements..." class="search-input">
+                            <button class="search-btn" onclick="performSearch()">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <button class="btn" onclick="logout()">
+                
+                <div class="header-center">
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <i class="fas fa-heart"></i> 5 Lives
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-star"></i> 1,250 Points
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-trophy"></i> 8 Achievements
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fire"></i> 7 Streak
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Change theme">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="btn btn-secondary" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Log Out
                     </button>
                 </div>
             </div>
             
             <!-- Content Sections -->
-            <div id="overviewSection" class="content-section active">
+            <div id="dashboardSection" class="content-section active">
                 <div class="card welcome-card">
                     <div class="card-header">Welcome back, Maria! 🎉</div>
                     <div class="card-content">
                         <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Ready to continue your language learning journey?</p>
-                        <button class="btn btn-secondary" onclick="showStreakInfo()">
+                        <button class="btn" onclick="showStreakInfo()">
                             <i class="fas fa-fire"></i> 7-Day Streak
                         </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">Dashboard Overview</div>
+                    <div class="card-content">
+                        <div class="dashboard-stats-grid">
+                            <div class="dashboard-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">24</div>
+                                    <div class="stat-label">Class Hours</div>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">7</div>
+                                    <div class="stat-label">Days in Progress</div>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">15</div>
+                                    <div class="stat-label">Completed Lessons</div>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">85%</div>
+                                    <div class="stat-label">Progress Rate</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -863,12 +1452,144 @@
                     <div class="card-content">
                         <div class="course-grid">
                             <div class="course-card">
+                                <div class="course-badge">In Progress</div>
                                 <div class="course-icon">
                                     <img src="../Images/Ngabe.png" alt="Ngäbe" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="course-title">Ngäbe</div>
                                 <div class="course-level">Level: Intermediate</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <div class="progress-text">75% Completed</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>15/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>2h 30m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>850 XP</span>
+                                    </div>
+                                </div>
+                                
                                 <button class="btn" onclick="window.location.href='../courses/ngabe-course.html'">Continue</button>
+                            </div>
+                            
+                            <div class="course-card">
+                                <div class="course-badge">Available</div>
+                                <div class="course-icon">
+                                    <img src="../Images/Embera.png" alt="Emberá" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="course-title">Emberá</div>
+                                <div class="course-level">Level: Beginner</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completed</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/embera-course.html'">Start</button>
+                            </div>
+                            
+                            <div class="course-card">
+                                <div class="course-badge">Available</div>
+                                <div class="course-icon">
+                                    <img src="../Images/Guna.png" alt="Guna" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="course-title">Guna</div>
+                                <div class="course-level">Level: Beginner</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completed</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/guna-course.html'">Start</button>
+                            </div>
+                            
+                            <div class="course-card">
+                                <div class="course-badge">Available</div>
+                                <div class="course-icon">
+                                    <img src="../Images/Naso.gif" alt="Naso" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="course-title">Naso</div>
+                                <div class="course-level">Level: Beginner</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completed</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/naso-course.html'">Start</button>
+                            </div>
+                            
+                            <div class="course-card coming-soon-card">
+                                <div class="course-icon coming-soon-icon">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="course-title">More Courses</div>
+                                <div class="course-level">Coming Soon</div>
+                                <button class="btn btn-disabled" disabled>Coming Soon</button>
                             </div>
                         </div>
                     </div>
@@ -881,44 +1602,314 @@
                     <div class="card-content">
                         <div class="course-grid">
                             <div class="course-card">
+                                <div class="course-badge">En Progreso</div>
                                 <div class="course-icon">
                                     <img src="../Images/Ngabe.png" alt="Ngäbe" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="course-title">Ngäbe</div>
-                                <div class="course-level">Level: Intermediate</div>
-                                <button class="btn" onclick="window.location.href='../courses/ngabe-course.html'">Continue</button>
+                                <div class="course-level">Nivel: Intermedio</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <div class="progress-text">75% Completado</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>15/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>2h 30m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>850 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/ngabe-course.html'">Continuar</button>
                             </div>
+                            
                             <div class="course-card">
+                                <div class="course-badge">Disponible</div>
                                 <div class="course-icon">
                                     <img src="../Images/Embera.png" alt="Emberá" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="course-title">Emberá</div>
-                                <div class="course-level">Level: Beginner</div>
-                                <button class="btn" onclick="window.location.href='../courses/embera-course.html'">Start</button>
+                                <div class="course-level">Nivel: Principiante</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completado</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/embera-course.html'">Comenzar</button>
                             </div>
+                            
                             <div class="course-card">
+                                <div class="course-badge">Disponible</div>
                                 <div class="course-icon">
                                     <img src="../Images/Guna.png" alt="Guna" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="course-title">Guna</div>
-                                <div class="course-level">Level: Beginner</div>
-                                <button class="btn" onclick="window.location.href='../courses/guna-course.html'">Start</button>
+                                <div class="course-level">Nivel: Principiante</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completado</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/guna-course.html'">Comenzar</button>
                             </div>
+                            
                             <div class="course-card">
+                                <div class="course-badge">Disponible</div>
                                 <div class="course-icon">
                                     <img src="../Images/Naso.gif" alt="Naso" style="width: 100%; height: 100%; object-fit: contain;">
                                 </div>
                                 <div class="course-title">Naso</div>
-                                <div class="course-level">Level: Beginner</div>
-                                <button class="btn" onclick="window.location.href='../courses/naso-course.html'">Start</button>
+                                <div class="course-level">Nivel: Principiante</div>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="progress-text">0% Completado</div>
+                                </div>
+                                
+                                <div class="course-stats">
+                                    <div class="course-stat">
+                                        <i class="fas fa-play-circle"></i>
+                                        <span>0/20</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-clock"></i>
+                                        <span>0h 0m</span>
+                                    </div>
+                                    <div class="course-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>0 XP</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn" onclick="window.location.href='../courses/naso-course.html'">Comenzar</button>
                             </div>
+                            
                             <div class="course-card coming-soon-card">
                                 <div class="course-icon coming-soon-icon">
                                     <i class="fas fa-plus"></i>
                                 </div>
-                                <div class="course-title">More Courses</div>
-                                <div class="course-level">Coming Soon</div>
-                                <button class="btn btn-disabled" disabled>Coming Soon</button>
+                                <div class="course-title">Más Cursos</div>
+                                <div class="course-level">Próximamente</div>
+                                <button class="btn btn-disabled" disabled>Próximamente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="profileSection" class="content-section">
+                <div class="card">
+                    <div class="card-header">Student Profile</div>
+                    <div class="card-content">
+                        <div class="profile-info">
+                            <div class="profile-avatar">
+                                <img src="../Images/logoo.png" alt="Student Avatar" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                            </div>
+                            <div class="profile-details">
+                                <h3>Maria Rodriguez</h3>
+                                <p><strong>Student ID:</strong> STU-2024-001</p>
+                                <p><strong>Email:</strong> maria.rodriguez@email.com</p>
+                                <p><strong>Join Date:</strong> January 15, 2024</p>
+                                <p><strong>Current Level:</strong> Intermediate</p>
+                                <p><strong>Favorite Language:</strong> Ngäbe</p>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="stat-number">24</div>
+                                <div class="stat-label">Total Hours</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-number">15</div>
+                                <div class="stat-label">Lessons Completed</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-number">7</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="stat-number">1,250</div>
+                                <div class="stat-label">Total Points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="lessonsSection" class="content-section">
+                <div class="card">
+                    <div class="card-header">Lesson Progress</div>
+                    <div class="card-content">
+                        <div class="lesson-progress-grid">
+                            <div class="lesson-card">
+                                <div class="lesson-header">
+                                    <h4>Ngäbe - Lesson 1</h4>
+                                    <span class="lesson-status completed">Completed</span>
+                                </div>
+                                <div class="lesson-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span>100% Complete</span>
+                                </div>
+                                <div class="lesson-stats">
+                                    <span><i class="fas fa-clock"></i> 45 min</span>
+                                    <span><i class="fas fa-star"></i> 95% Score</span>
+                                </div>
+                            </div>
+                            
+                            <div class="lesson-card">
+                                <div class="lesson-header">
+                                    <h4>Ngäbe - Lesson 2</h4>
+                                    <span class="lesson-status completed">Completed</span>
+                                </div>
+                                <div class="lesson-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span>100% Complete</span>
+                                </div>
+                                <div class="lesson-stats">
+                                    <span><i class="fas fa-clock"></i> 52 min</span>
+                                    <span><i class="fas fa-star"></i> 88% Score</span>
+                                </div>
+                            </div>
+                            
+                            <div class="lesson-card">
+                                <div class="lesson-header">
+                                    <h4>Ngäbe - Lesson 3</h4>
+                                    <span class="lesson-status in-progress">In Progress</span>
+                                </div>
+                                <div class="lesson-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%;"></div>
+                                    </div>
+                                    <span>75% Complete</span>
+                                </div>
+                                <div class="lesson-stats">
+                                    <span><i class="fas fa-clock"></i> 30 min</span>
+                                    <span><i class="fas fa-star"></i> --</span>
+                                </div>
+                            </div>
+                            
+                            <div class="lesson-card">
+                                <div class="lesson-header">
+                                    <h4>Ngäbe - Lesson 4</h4>
+                                    <span class="lesson-status pending">Pending</span>
+                                </div>
+                                <div class="lesson-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0% Complete</span>
+                                </div>
+                                <div class="lesson-stats">
+                                    <span><i class="fas fa-clock"></i> --</span>
+                                    <span><i class="fas fa-star"></i> --</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="activitySection" class="content-section">
+                <div class="card">
+                    <div class="card-header">Activity History</div>
+                    <div class="card-content">
+                        <div class="activity-timeline">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h5>Completed Ngäbe Lesson 2</h5>
+                                    <p>Finished lesson with 88% score</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h5>Maintained 7-day streak</h5>
+                                    <p>Continued daily learning habit</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h5>Earned "First Steps" achievement</h5>
+                                    <p>Completed your first lesson</p>
+                                    <span class="activity-time">3 days ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h5>Started Ngäbe course</h5>
+                                    <p>Began learning Ngäbe language</p>
+                                    <span class="activity-time">1 week ago</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1008,7 +1999,7 @@
                                 </div>
                                 
                                 <div class="input-group">
-                                    <input type="text" id="chatInput" placeholder="Write your message here..." class="chat-input">
+                                    <input type="text" id="chatInput" placeholder="Type your message here..." class="chat-input">
                                     <button onclick="sendMessage()" class="send-btn">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
@@ -1042,17 +2033,13 @@
                 const section = link.getAttribute('data-section');
                 document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
                 
-                // Handle special case for ai-tutor section
-                if (section === 'ai-tutor') {
-                    document.getElementById('aiTutorSection').classList.add('active');
-                } else {
-                    document.getElementById(section + 'Section').classList.add('active');
-                }
+                // Show corresponding section
+                document.getElementById(section + 'Section').classList.add('active');
             });
         });
         
         function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+            if (confirm('Are you sure you want to log out?')) {
                 window.location.href = '../auth/login.html';
             }
         }
@@ -1092,16 +2079,16 @@
             let message = '';
             switch(action) {
                 case 'traducción':
-                    message = '¿Puedes ayudarme con una traducción?';
+                    message = 'Can you help me with a translation?';
                     break;
                 case 'gramática':
-                    message = 'Necesito ayuda con la gramática';
+                    message = 'I need help with grammar';
                     break;
                 case 'cultura':
-                    message = 'Cuéntame sobre la cultura indígena';
+                    message = 'Tell me about indigenous culture';
                     break;
                 case 'ejercicio':
-                    message = 'Quiero hacer un ejercicio de práctica';
+                    message = 'I want to do a practice exercise';
                     break;
             }
             
@@ -1342,6 +2329,111 @@
         function showStreakInfo() {
             alert('Congratulations! You have completed 7 consecutive days of learning. Keep it up to maintain your streak!');
         }
+        
+        // Search functionality
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                alert('Por favor ingresa un término de búsqueda');
+                return;
+            }
+            
+            // Search through courses, achievements, and content
+            const searchResults = [];
+            
+            // Search in courses
+            const courses = [
+                { name: 'Ngäbe', level: 'Intermedio', progress: 75 },
+                { name: 'Emberá', level: 'Principiante', progress: 0 },
+                { name: 'Guna', level: 'Principiante', progress: 0 },
+                { name: 'Naso', level: 'Principiante', progress: 0 }
+            ];
+            
+            courses.forEach(course => {
+                if (course.name.toLowerCase().includes(searchTerm) || 
+                    course.level.toLowerCase().includes(searchTerm)) {
+                    searchResults.push({
+                        type: 'course',
+                        title: course.name,
+                        subtitle: `Nivel: ${course.level}`,
+                        progress: course.progress
+                    });
+                }
+            });
+            
+            // Search in achievements
+            const achievements = [
+                'First Steps', '7-Day Streak', 'Dedicated Student', 'Goal Achieved'
+            ];
+            
+            achievements.forEach(achievement => {
+                if (achievement.toLowerCase().includes(searchTerm)) {
+                    searchResults.push({
+                        type: 'achievement',
+                        title: achievement,
+                        subtitle: 'Logro desbloqueado'
+                    });
+                }
+            });
+            
+            // Show search results
+            showSearchResults(searchResults, searchTerm);
+        }
+        
+        function showSearchResults(results, searchTerm) {
+            if (results.length === 0) {
+                alert(`No se encontraron resultados para "${searchTerm}"`);
+                return;
+            }
+            
+            let message = `Resultados para "${searchTerm}":\n\n`;
+            results.forEach((result, index) => {
+                message += `${index + 1}. ${result.title} - ${result.subtitle}\n`;
+            });
+            
+            alert(message);
+        }
+        
+        // Dark mode functionality
+        let isDarkMode = false;
+        
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('sogedTheme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('sogedTheme', 'light');
+            }
+        }
+        
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('sogedTheme');
+            if (savedTheme === 'dark') {
+                isDarkMode = true;
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        });
+        
+        // Add Enter key support for search
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html> 

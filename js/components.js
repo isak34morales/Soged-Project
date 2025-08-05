@@ -5,6 +5,18 @@ async function loadComponent(elementId, componentPath) {
         const html = await response.text();
         document.getElementById(elementId).innerHTML = html;
         
+        // Si es el modal de auth, configurar eventos después de cargar
+        if (elementId === 'auth-modal-root') {
+            console.log('Auth modal loaded, setting up events...');
+            setTimeout(() => {
+                setupModalEvents();
+                // Configurar eventos de formulario si authManager existe
+                if (window.authManager) {
+                    window.authManager.setupEventListeners();
+                }
+            }, 100);
+        }
+        
         // Si es el header, asignar eventos a los botones de login/register
         if (elementId === 'header-component') {
             setTimeout(() => {
@@ -22,17 +34,6 @@ async function loadComponent(elementId, componentPath) {
                 });
             }, 0);
         }
-        
-        // Si es el modal de auth, configurar eventos después de cargar
-        if (elementId === 'auth-modal-root') {
-            setTimeout(() => {
-                setupModalEvents();
-                // Configurar eventos de formulario si authManager existe
-                if (window.authManager) {
-                    window.authManager.setupEventListeners();
-                }
-            }, 100);
-        }
     } catch (error) {
         console.error('Error loading component:', error);
     }
@@ -43,11 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check which page we're on
     const path = window.location.pathname;
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
-            const isDashboardPage = path.includes('dashboard.html') || path.includes('dashboard-new.html');
+    const isDashboardPage = path.includes('dashboard.html') || path.includes('dashboard-new.html');
+    const isPagesFolder = path.includes('/pages/') || window.location.href.includes('/pages/');
+    const isCoursesFolder = path.includes('/courses/') || window.location.href.includes('/courses/');
     
     // Determine the base path for components
-    const isInPagesFolder = path.includes('/pages/') || window.location.href.includes('/pages/');
-    const basePath = isInPagesFolder ? '../components/' : 'components/';
+    let basePath = '';
+    if (isPagesFolder || isAuthPage || isDashboardPage || isCoursesFolder) {
+        basePath = '../components/';
+    } else {
+        basePath = 'components/';
+    }
 
     if (isAuthPage) {
         // Load auth header for login and register pages
@@ -69,6 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
         loadComponent('footer-component', basePath + 'footer.html');
         loadComponent('auth-modal-root', basePath + 'auth-modal.html');
     }
+    
+    // Listen for auth modal events from the header
+    document.addEventListener('openAuthModal', (e) => {
+        console.log('Received openAuthModal event:', e.detail);
+        showAuthModal(e.detail.type);
+    });
+    
+    // Initialize modal after a short delay to ensure everything is loaded
+    setTimeout(() => {
+        initializeAuthModal();
+    }, 500);
 });
 
 // === AUTH MODAL LOGIC ===
@@ -80,6 +98,10 @@ function showAuthModal(type = 'login') {
     }
     
     console.log('Opening modal:', type);
+    
+    // Mostrar el overlay primero
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
     
     // Ocultar todos los formularios primero
     overlay.querySelectorAll('.auth-form').forEach(f => {
@@ -99,24 +121,16 @@ function showAuthModal(type = 'login') {
     
     if (targetForm) {
         targetForm.style.display = 'block';
+        // Pequeño delay para asegurar que el display se aplique
         setTimeout(() => {
             targetForm.style.opacity = '1';
-        }, 10);
+            // Focus en el primer input del formulario
+            const firstInput = targetForm.querySelector('input');
+            if (firstInput) firstInput.focus();
+        }, 50);
+    } else {
+        console.error('Target form not found for type:', type);
     }
-    
-    overlay.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    
-    // Focus en el primer input del formulario
-    setTimeout(() => {
-        const firstInput = targetForm?.querySelector('input');
-        if (firstInput) firstInput.focus();
-        
-        // Configurar eventos de formulario si authManager existe
-        if (window.authManager) {
-            window.authManager.setupEventListeners();
-        }
-    }, 100);
 }
 
 function hideAuthModal() {
@@ -145,118 +159,184 @@ function hideAuthModal() {
     }, 200);
 }
 
-// Eventos globales para abrir modal desde header
-window.addEventListener('DOMContentLoaded', () => {
-    // Botones del header
-    document.querySelectorAll('.nav-login-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            showAuthModal('login');
-        });
-    });
-    document.querySelectorAll('.nav-register-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            showAuthModal('register');
-        });
-    });
-    
-    // Verificar si el modal ya existe y configurar eventos
-    setTimeout(() => {
-        const overlay = document.getElementById('auth-modal-overlay');
-        if (overlay) {
-            setupModalEvents();
-        }
-    }, 500);
-});
-
 function setupModalEvents() {
     const overlay = document.getElementById('auth-modal-overlay');
-    if (!overlay) {
-        console.error('Modal overlay not found for event setup');
-        return;
-    }
+    if (!overlay) return;
     
-    console.log('Setting up modal events');
-    
-    // Cerrar modal al hacer click fuera
-    overlay.addEventListener('click', e => {
+    // Close modal when clicking overlay
+    overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
-            console.log('Click outside modal - closing');
             hideAuthModal();
         }
     });
     
-    // Botón de cerrar
-    const closeBtn = document.getElementById('auth-modal-close');
-    if (closeBtn) {
-        console.log('Close button found, adding event listener');
-        closeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Close button clicked');
-            hideAuthModal();
-        });
-    } else {
-        console.error('Close button not found');
-    }
-    
-    // ESC para cerrar
-    document.addEventListener('keydown', e => {
-        if (overlay.style.display === 'flex' && e.key === 'Escape') {
-            console.log('ESC pressed - closing modal');
-            hideAuthModal();
-        }
+    // Close modal with close button
+    const closeButtons = overlay.querySelectorAll('.close-modal');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', hideAuthModal);
     });
     
-    // Navegación entre formularios
-    const toRegister = overlay.querySelector('#auth-to-register');
-    if (toRegister) {
-        toRegister.addEventListener('click', e => {
+    // Switch between login and register forms
+    const switchToRegister = overlay.querySelector('.switch-to-register');
+    const switchToLogin = overlay.querySelector('.switch-to-login');
+    const switchToForgot = overlay.querySelector('.switch-to-forgot');
+    const backToLogin = overlay.querySelector('.back-to-login');
+    
+    if (switchToRegister) {
+        switchToRegister.addEventListener('click', (e) => {
             e.preventDefault();
             showAuthModal('register');
         });
     }
     
-    const toLogin = overlay.querySelector('#auth-to-login');
-    if (toLogin) {
-        toLogin.addEventListener('click', e => {
+    if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
             e.preventDefault();
             showAuthModal('login');
         });
     }
     
-    const forgot = overlay.querySelector('#auth-forgot-link');
-    if (forgot) {
-        forgot.addEventListener('click', e => {
+    if (switchToForgot) {
+        switchToForgot.addEventListener('click', (e) => {
             e.preventDefault();
             showAuthModal('forgot');
         });
     }
     
-    const backLogin = overlay.querySelector('#auth-back-login');
-    if (backLogin) {
-        backLogin.addEventListener('click', e => {
+    if (backToLogin) {
+        backToLogin.addEventListener('click', (e) => {
             e.preventDefault();
             showAuthModal('login');
         });
     }
     
-    // Prevenir que el modal se cierre al hacer click dentro
-    const modal = overlay.querySelector('.auth-modal');
-    if (modal) {
-        modal.addEventListener('click', e => {
-            e.stopPropagation();
-        });
+    // Handle form submissions
+    const loginForm = overlay.querySelector('.auth-login-form form');
+    const registerForm = overlay.querySelector('.auth-register-form form');
+    const forgotForm = overlay.querySelector('.auth-forgot-form form');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
     }
     
-    // También configurar eventos para botones sociales
-    const socialButtons = overlay.querySelectorAll('.btn-social');
-    socialButtons.forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            console.log('Social button clicked:', btn.classList.contains('btn-google') ? 'Google' : 'Microsoft');
-            // Aquí puedes agregar la lógica de autenticación social
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
+    
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', handleForgotPassword);
+    }
+    
+    // Add hover effects to buttons
+    const buttons = overlay.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.transform = 'translateY(-2px)';
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translateY(0)';
         });
     });
+    
+    // Add focus effects to inputs
+    const inputs = overlay.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.style.borderColor = '#28A745';
+            input.style.boxShadow = '0 0 0 3px rgba(40, 167, 69, 0.1)';
+        });
+        input.addEventListener('blur', () => {
+            input.style.borderColor = '#e1e5e9';
+            input.style.boxShadow = 'none';
+        });
+    });
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get('email') || document.getElementById('login-email')?.value;
+    const password = formData.get('password') || document.getElementById('login-password')?.value;
+    
+    console.log('Login attempt:', { email, password });
+    
+    // Aquí iría la lógica de autenticación real
+    // Por ahora, simulamos un login exitoso
+    setTimeout(() => {
+        hideAuthModal();
+        // Redirigir al dashboard
+        window.location.href = 'dashboard/dashboard-new.html';
+    }, 1000);
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const name = formData.get('name') || document.getElementById('register-firstname')?.value;
+    const email = formData.get('email') || document.getElementById('register-email')?.value;
+    const password = formData.get('password') || document.getElementById('register-password')?.value;
+    
+    console.log('Register attempt:', { name, email, password });
+    
+    // Aquí iría la lógica de registro real
+    // Por ahora, simulamos un registro exitoso
+    setTimeout(() => {
+        hideAuthModal();
+        // Redirigir al dashboard
+        window.location.href = 'dashboard/dashboard-new.html';
+    }, 1000);
+}
+
+function handleForgotPassword(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get('email') || document.getElementById('forgot-email')?.value;
+    
+    console.log('Forgot password attempt:', { email });
+    
+    // Show success message in the form
+    const forgotForm = e.target;
+    const submitButton = forgotForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
+    
+    // Change button to show success state
+    submitButton.innerHTML = '<i class="fas fa-check me-2"></i>Form Sent!';
+    submitButton.style.background = 'linear-gradient(135deg, #28A745 0%, #20C997 100%)';
+    submitButton.disabled = true;
+    
+    // Disable the email input
+    const emailInput = document.getElementById('forgot-email');
+    emailInput.disabled = true;
+    
+    // Aquí iría la lógica de recuperación de contraseña
+    // Por ahora, simulamos un envío exitoso
+    setTimeout(() => {
+        hideAuthModal();
+        // Reset button and input after modal is hidden
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
+        emailInput.disabled = false;
+    }, 2000);
+}
+
+// Make modal functions globally available
+window.showAuthModal = showAuthModal;
+window.hideAuthModal = hideAuthModal; 
+
+// Initialize auth modal
+function initializeAuthModal() {
+    const overlay = document.getElementById('auth-modal-overlay');
+    if (overlay) {
+        console.log('Initializing auth modal...');
+        setupModalEvents();
+        
+        // Ensure modal is hidden initially
+        overlay.style.display = 'none';
+        
+        // Hide all forms initially
+        overlay.querySelectorAll('.auth-form').forEach(f => {
+            f.style.display = 'none';
+            f.style.opacity = '0';
+        });
+    }
 } 

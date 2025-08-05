@@ -2,6 +2,14 @@ class CourseSidebar extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        
+        // Mapeo de idiomas a imágenes de bandera
+        this.flagMapping = {
+            'Guna': '../Images/Guna.png',
+            'Ngäbe': '../Images/Ngabe.png',
+            'Emberá': '../Images/Embera.png',
+            'Naso': '../Images/Naso.gif'
+        };
     }
 
     connectedCallback() {
@@ -12,6 +20,7 @@ class CourseSidebar extends HTMLElement {
     render() {
         const courseName = this.getAttribute('course-name') || 'Idioma';
         const currentSection = this.getAttribute('current-section') || 'overview';
+        const flagSrc = this.flagMapping[courseName] || '../Images/logoo.png'; // fallback al logo principal
         
         this.shadowRoot.innerHTML = `
             <style>
@@ -36,22 +45,36 @@ class CourseSidebar extends HTMLElement {
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                     text-align: center;
                     position: relative;
-                    background: rgba(0, 163, 224, 0.1);
+                    background: rgba(40, 167, 69, 0.1);
                     min-height: 80px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: flex-start;
                 }
+                .language-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+                }
+                .flag-image {
+                    width: 32px;
+                    height: 24px;
+                    object-fit: cover;
+                    border-radius: 4px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                }
                 .sidebar-language {
                     font-size: 1.2rem;
                     font-weight: 700;
-                    color: #00A3E0;
-                    margin-top: 40px;
-                    margin-bottom: 0;
+                    color: #28A745;
+                    margin: 0;
                     letter-spacing: 0.5px;
                     text-align: center;
-                    width: 100%;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -66,14 +89,14 @@ class CourseSidebar extends HTMLElement {
                     max-height: calc(100vh - 120px);
                     overflow-y: auto;
                     scrollbar-width: thin;
-                    scrollbar-color: #00A3E0 #F1F5F9;
+                    scrollbar-color: #28A745 #F1F5F9;
                 }
                 .nav-menu::-webkit-scrollbar {
                     width: 8px;
                     background: #F1F5F9;
                 }
                 .nav-menu::-webkit-scrollbar-thumb {
-                    background: #00A3E0;
+                    background: #28A745;
                     border-radius: 6px;
                 }
                 .nav-item {
@@ -104,7 +127,7 @@ class CourseSidebar extends HTMLElement {
                     text-align: center;
                     font-size: 22px;
                     transition: all 0.3s ease;
-                    color: #00A3E0;
+                    color: #28A745;
                     flex-shrink: 0;
                     display: flex;
                     align-items: center;
@@ -132,7 +155,7 @@ class CourseSidebar extends HTMLElement {
                     width: 8px;
                     height: 8px;
                     border-radius: 50%;
-                    background: #00A3E0;
+                    background: #28A745;
                     opacity: 0;
                     transition: opacity 0.3s ease;
                 }
@@ -152,7 +175,7 @@ class CourseSidebar extends HTMLElement {
                     top: 0;
                     bottom: 0;
                     width: 0;
-                    background: linear-gradient(90deg, rgba(0, 163, 224, 0.1), transparent);
+                    background: linear-gradient(90deg, rgba(40, 167, 69, 0.1), transparent);
                     transition: width 0.3s ease;
                 }
                 .nav-link:hover::before {
@@ -173,9 +196,16 @@ class CourseSidebar extends HTMLElement {
                         min-height: 60px;
                         padding: 20px 10px 10px 10px;
                     }
+                    .language-container {
+                        margin-top: 15px;
+                        gap: 10px;
+                    }
+                    .flag-image {
+                        width: 28px;
+                        height: 21px;
+                    }
                     .sidebar-language {
                         font-size: 1rem;
-                        margin-top: 30px;
                     }
                     .nav-link {
                         min-height: 44px;
@@ -190,13 +220,13 @@ class CourseSidebar extends HTMLElement {
                         top: 18px;
                         left: 18px;
                         z-index: 2001;
-                        background: #00A3E0;
+                        background: #28A745;
                         color: #fff;
                         border: none;
                         border-radius: 50%;
                         width: 44px;
                         height: 44px;
-                        box-shadow: 0 2px 8px rgba(0,163,224,0.15);
+                        box-shadow: 0 2px 8px rgba(40,167,69,0.15);
                         cursor: pointer;
                         font-size: 1.5rem;
                         align-items: center;
@@ -215,7 +245,10 @@ class CourseSidebar extends HTMLElement {
                 </svg>
             </button>
             <div class="sidebar-header">
-                <div class="sidebar-language" id="sidebarLanguage"></div>
+                <div class="language-container">
+                    <img src="${flagSrc}" alt="Bandera ${courseName}" class="flag-image" id="flagImage">
+                    <div class="sidebar-language" id="sidebarLanguage">${courseName}</div>
+                </div>
             </div>
             <nav class="nav-menu">
                 <div class="nav-item">
@@ -322,12 +355,6 @@ class CourseSidebar extends HTMLElement {
                 </div>
             </nav>
         `;
-
-        // Después de renderizar el HTML, actualiza el nombre del idioma
-        setTimeout(() => {
-            const langDiv = this.shadowRoot.getElementById('sidebarLanguage');
-            if (langDiv) langDiv.textContent = courseName;
-        }, 0);
     }
 
     setupEventListeners() {
