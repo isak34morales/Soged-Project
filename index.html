@@ -443,25 +443,8 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content text-center" data-aos="zoom-in">
-                <h2>Ready to Start Your Language Journey?</h2>
-                <p>Join thousands of learners and preserve the indigenous languages of Panama.</p>
-                <div class="cta-buttons">
-                    <a href="auth/register.html" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-rocket"></i>
-                        Get Started Free
-                    </a>
-                    <a href="pages/about.html" class="btn btn-outline-secondary btn-lg">
-                        <i class="fas fa-info-circle"></i>
-                        Learn More
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- CTA Section Component -->
+    <cta-section id="main-cta"></cta-section>
 
     <div id="footer-component"></div>
     
@@ -474,6 +457,7 @@
     <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/carousel.js"></script>
+    <script src="components/cta-section.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
@@ -511,6 +495,21 @@
         // Inicializar precarga de imágenes
         document.addEventListener('DOMContentLoaded', () => {
             preloadImages();
+            
+            // Configure CTA component
+            const ctaComponent = document.getElementById('main-cta');
+            if (ctaComponent) {
+                // Update content
+                ctaComponent.updateContent({
+                    title: 'Ready to Start Your Language Journey?',
+                    subtitle: 'Join thousands of learners and preserve the indigenous languages of Panama.',
+                    primaryButton: 'Get Started Free',
+                    secondaryButton: 'Learn More'
+                });
+                
+                // Set button URLs
+                ctaComponent.setButtonUrls('auth/register.html', 'pages/about.html');
+            }
         });
         
         // Make modal functions globally available

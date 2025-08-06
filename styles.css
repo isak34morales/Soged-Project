@@ -15,7 +15,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
-    padding-top: 90px; /* Compensate for fixed navbar */
+    padding-top: 60px; /* Remove padding to eliminate gap */
 }
 
 h1, .section-title {
@@ -42,7 +42,7 @@ section {
 }
 
 .hero-section {
-    padding: 0 0 48px 0;
+    padding: 90px 0 48px 0; /* Add top padding to account for fixed header */
     min-height: 70vh;
 }
 
@@ -57,7 +57,6 @@ section {
 
 @media (max-width: 991px) {
     section,
-    .hero-section,
     .features-section,
     .languages-section,
     .how-it-works-section,
@@ -66,11 +65,14 @@ section {
     .partners-section {
         padding: 16px 0;
     }
+    
+    .hero-section {
+        padding: 80px 0 32px 0; /* Slightly less padding for tablets */
+    }
 }
 
 @media (max-width: 576px) {
     section,
-    .hero-section,
     .features-section,
     .languages-section,
     .how-it-works-section,
@@ -78,6 +80,10 @@ section {
     .cta-section,
     .partners-section {
         padding: 40px 0;
+    }
+    
+    .hero-section {
+        padding: 70px 0 24px 0; /* Less padding for mobile */
     }
 }
 
@@ -843,60 +849,7 @@ section {
     animation-play-state: paused;
 }
 
-/* CTA Section */
-.cta-section {
-    background: var(--gradient-primary);
-    color: white;
-    text-align: center;
-    padding: 80px 0 0 0;
-    margin-bottom: 0;
-}
-
-.cta-content h2 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: white;
-}
-
-.cta-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.cta-buttons .btn {
-    padding: 1.2rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 200px;
-    justify-content: center;
-}
-
-.cta-buttons .btn-outline-secondary {
-    background: white;
-    border: 2px solid white;
-    color: var(--primary-color);
-}
-
-.cta-buttons .btn-outline-secondary:hover {
-    background: var(--bg-secondary);
-    border: 2px solid var(--bg-secondary);
-    color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-}
+/* CTA Section - Now handled by web component */
 
 /* Responsive Design */
 @media (max-width: 991px) {
@@ -959,23 +912,7 @@ section {
         font-size: 1rem;
     }
     
-    .cta-content h2 {
-        font-size: 2rem;
-    }
-    
-    .cta-content p {
-        font-size: 1rem;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .cta-buttons .btn {
-        width: 100%;
-        max-width: 300px;
-    }
+    /* CTA styles now handled by web component */
     
     .why-soged-bg { border-radius: 1.2rem; }
     .feature-card { margin-bottom: 1.5rem; }
@@ -1092,7 +1029,6 @@ section {
 .languages-section,
 .how-it-works-section,
 .testimonials-section,
-.cta-section,
 .partners-section {
     position: relative;
     border: 4px solid transparent;
@@ -1107,7 +1043,6 @@ section {
 .languages-section::before,
 .how-it-works-section::before,
 .testimonials-section::before,
-.cta-section::before,
 .partners-section::before {
     content: '';
     position: absolute;
@@ -1141,9 +1076,7 @@ section {
     opacity: 0.6;
 }
 
-.cta-section::before {
-    background: url('Images/Amarillo.png') center/cover;
-}
+/* CTA section now handled by web component */
 
 .partners-section::before {
     background: url('Images/Verde.png') center/cover;
@@ -1402,7 +1335,6 @@ body::after {
     .languages-section,
     .how-it-works-section,
     .testimonials-section,
-    .cta-section,
     .partners-section {
         border-width: 2px;
     }
@@ -1412,7 +1344,6 @@ body::after {
     .languages-section::before,
     .how-it-works-section::before,
     .testimonials-section::before,
-    .cta-section::before,
     .partners-section::before {
         top: -2px;
         left: -2px;
@@ -1435,7 +1366,6 @@ body::after {
     .languages-section,
     .how-it-works-section,
     .testimonials-section,
-    .cta-section,
     .partners-section {
         border-width: 2px;
     }
@@ -1445,7 +1375,6 @@ body::after {
     .languages-section::before,
     .how-it-works-section::before,
     .testimonials-section::before,
-    .cta-section::before,
     .partners-section::before {
         top: -2px;
         left: -2px;
