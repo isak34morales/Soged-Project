@@ -12,73 +12,12 @@
         .language-card {
             transition: all 0.3s ease;
             position: relative;
-        }
-        
-        .language-card.locked {
-            filter: grayscale(100%);
-            opacity: 0.6;
-            pointer-events: none !important;
-            cursor: not-allowed;
-        }
-        
-        .language-card.locked * {
-            pointer-events: none !important;
-        }
-        
-        .language-card.locked::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.3);
-            z-index: 10;
-            border-radius: inherit;
-        }
-        
-        .lock-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 15;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            display: none;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        
-        .language-card.locked .lock-overlay {
-            display: block;
-        }
-        
-        .language-card.locked button {
-            opacity: 0.3;
-            pointer-events: none;
+            padding: 2rem;
         }
         
         .language-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .language-card.locked:hover {
-            filter: grayscale(80%);
-            opacity: 0.8;
-        }
-        
-        .login-prompt {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
         }
         
         .stat-item {
@@ -90,7 +29,24 @@
         
         .stat-item i {
             margin-right: 5px;
-            color: #007bff;
+            color: #28a745;
+        }
+        
+        .language-description {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .language-stats {
+            margin: 1.5rem 0;
+        }
+        
+        .language-title {
+            margin-bottom: 1rem;
+        }
+        
+        .badge {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -98,29 +54,17 @@
     <div id="header-component"></div>
 
     <!-- Hero Section -->
-    <section class="hero-section" style="min-height: 40vh; padding-top: 120px;">
+    <section class="hero-section text-center" style="min-height: 40vh; padding-top: 120px;">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
                     <h1 class="hero-title">
                         Explore <span class="keyword-secondary">Indigenous Languages</span> of <span class="keyword-blue">Panama</span>
                     </h1>
-                    <p class="hero-description">
-                        Discover the rich cultural heritage through interactive learning experiences with native speakers.
+                    <p class="hero-description" style="margin: 0 auto !important;">
+                        Click on any language to start learning.
                     </p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Login Prompt -->
-    <section class="py-4">
-        <div class="container">
-            <div class="login-prompt text-center" data-aos="fade-up">
-                <h3><i class="fas fa-lock me-2"></i>Login Required</h3>
-                <p class="mb-3">Sign in to access all language courses and start your learning journey!</p>
-                <button class="btn btn-light me-2" onclick="showAuthModal('login')">Login</button>
-                <button class="btn btn-outline-light" onclick="showAuthModal('register')">Register</button>
             </div>
         </div>
     </section>
@@ -128,18 +72,11 @@
     <!-- Languages Grid -->
     <section class="languages-section py-5" id="languages">
         <div class="container">
-            <div class="section-header text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Available Languages</h2>
-                <p class="section-subtitle" style="color: #374151 !important; font-weight: 600 !important; font-size: 1.1rem !important;">Click on any language to start learning (login required)</p>
-            </div>
             
             <div class="row g-4">
                 <!-- Ngäbe Language -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="language-card glass-card h-100 locked" id="ngabe-card">
-                        <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login Required
-                        </div>
+                    <div class="language-card glass-card h-100" id="ngabe-card">
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class="language-icon mb-3">
@@ -148,7 +85,6 @@
                             </div>
                             <div class="col-md-8">
                                 <h3 class="language-title gradient-text">Ngäbe</h3>
-                                <span class="badge badge-blue mb-2">Beginner Friendly</span>
                                 <p class="language-description">
                                     Learn the language of the Ngäbe people, the largest indigenous group in Panama. 
                                     Discover their traditions, customs, and way of life through interactive lessons.
@@ -158,7 +94,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 50,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Ngäbe</button>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/ngabe-course.html'">Start Learning Ngäbe</button>
                             </div>
                         </div>
                     </div>
@@ -166,10 +102,7 @@
 
                 <!-- Naso Language -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="language-card glass-card h-100 locked" id="naso-card">
-                        <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login Required
-                        </div>
+                    <div class="language-card glass-card h-100" id="naso-card">
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class="language-icon mb-3">
@@ -178,7 +111,6 @@
                             </div>
                             <div class="col-md-8">
                                 <h3 class="language-title gradient-text">Naso</h3>
-                                <span class="badge badge-orange mb-2">Intermediate</span>
                                 <p class="language-description">
                                     Discover the musical language of the Naso people with its unique rhythms and 
                                     cultural expressions. Learn about their spiritual traditions and connection to nature.
@@ -188,7 +120,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 4 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 3,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Naso</button>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/naso-course.html'">Start Learning Naso</button>
                             </div>
                         </div>
                     </div>
@@ -196,10 +128,7 @@
 
                 <!-- Guna Language -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="language-card glass-card h-100 locked" id="guna-card">
-                        <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login Required
-                        </div>
+                    <div class="language-card glass-card h-100" id="guna-card">
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class="language-icon mb-3">
@@ -208,7 +137,6 @@
                             </div>
                             <div class="col-md-8">
                                 <h3 class="language-title gradient-text">Guna</h3>
-                                <span class="badge badge-green mb-2">Advanced</span>
                                 <p class="language-description">
                                     Master the language of the Guna people from the beautiful San Blas Islands. 
                                     Explore their rich maritime culture and traditional governance systems.
@@ -218,7 +146,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 6 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 60,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Guna</button>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/guna-course.html'">Start Learning Guna</button>
                             </div>
                         </div>
                     </div>
@@ -226,10 +154,7 @@
 
                 <!-- Emberá Language -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="language-card glass-card h-100 locked" id="embera-card">
-                        <div class="lock-overlay">
-                            <i class="fas fa-lock me-2"></i>Login Required
-                        </div>
+                    <div class="language-card glass-card h-100" id="embera-card">
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class="language-icon mb-3">
@@ -238,7 +163,6 @@
                             </div>
                             <div class="col-md-8">
                                 <h3 class="language-title gradient-text">Emberá</h3>
-                                <span class="badge badge-yellow mb-2">Expert</span>
                                 <p class="language-description">
                                     Explore the ancient language of the Emberá people and their deep-rooted traditions. 
                                     Learn about their spiritual practices and connection to the rainforest.
@@ -248,7 +172,7 @@
                                     <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
                                     <span class="stat-item"><i class="fas fa-users"></i> 25,000+ Speakers</span>
                                 </div>
-                                <button class="btn btn-primary w-100" onclick="showAuthModal('register')">Start Learning Emberá</button>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/embera-course.html'">Start Learning Emberá</button>
                             </div>
                         </div>
                     </div>
@@ -299,36 +223,6 @@
         AOS.init({
             duration: 600,
             offset: 50
-        });
-
-        // Function to require login - OPEN MODAL INSTEAD OF REDIRECT
-        function requireLogin() {
-            // Open register modal instead of redirecting
-            showAuthModal('register');
-        }
-
-        // ALWAYS KEEP CARDS LOCKED - NO UNLOCKING
-        // Cards stay locked regardless of login status
-
-        // Add click handlers to cards - BLOCK ALL INTERACTIONS
-        document.querySelectorAll('.language-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                requireLogin();
-                return false;
-            });
-            
-            // Block all child elements
-            const allElements = card.querySelectorAll('*');
-            allElements.forEach(element => {
-                element.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    requireLogin();
-                    return false;
-                });
-            });
         });
     </script>
 </body>

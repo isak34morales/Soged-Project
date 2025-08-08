@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soged Learning Platform</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/course-modern.css">
+    
+    <style>
+        /* Loading States */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e9ecef;
+            border-top: 3px solid #28A745;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Route Transitions */
+        .route-transition {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .route-transition.entering {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .route-transition.entered {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .route-transition.exiting {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        /* Course Navigation */
+        .course-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: none;
+        }
+        
+        .course-nav.show {
+            display: block;
+        }
+        
+        .course-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+        }
+        
+        .course-nav-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .course-nav-item.active {
+            background: #28A745;
+            color: white;
+        }
+        
+        .course-nav-item img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Course Navigation -->
+    <div class="course-nav" id="courseNav">
+        <div class="course-nav-item" data-course="ngabe">
+            <img src="../Images/Ngabe.png" alt="Ngäbe">
+            <span>Ngäbe</span>
+        </div>
+        <div class="course-nav-item" data-course="naso">
+            <img src="../Images/Naso.gif" alt="Naso">
+            <span>Naso</span>
+        </div>
+        <div class="course-nav-item" data-course="guna">
+            <img src="../Images/Guna.png" alt="Guna">
+            <span>Guna</span>
+        </div>
+        <div class="course-nav-item" data-course="embera">
+            <img src="../Images/Embera.png" alt="Emberá">
+            <span>Emberá</span>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/course-state-manager.js"></script>
+    <script src="components/course-components.js"></script>
+    <script src="components/course-sidebar.js"></script>
+    <script src="js/course-modern.js"></script>
+    
+    <script>
+        // Modern Course Router
+        class CourseRouter {
+            constructor() {
+                this.routes = {
+                    'ngabe': { title: 'Ngäbe', icon: '../Images/Ngabe.png' },
+                    'naso': { title: 'Naso', icon: '../Images/Naso.gif' },
+                    'guna': { title: 'Guna', icon: '../Images/Guna.png' },
+                    'embera': { title: 'Emberá', icon: '../Images/Embera.png' }
+                };
+                
+                this.currentCourse = null;
+                this.init();
+            }
+            
+            init() {
+                // Get course from URL or localStorage
+                const urlParams = new URLSearchParams(window.location.search);
+                const courseFromUrl = urlParams.get('course');
+                const courseFromStorage = localStorage.getItem('selectedCourse');
+                
+                const initialCourse = courseFromUrl || courseFromStorage || 'ngabe';
+                this.navigateToCourse(initialCourse);
+                
+                // Setup navigation
+                this.setupNavigation();
+                
+                // Hide loading after initialization
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 1000);
+            }
+            
+            setupNavigation() {
+                const courseNav = document.getElementById('courseNav');
+                const navItems = courseNav.querySelectorAll('.course-nav-item');
+                
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const course = item.dataset.course;
+                        this.navigateToCourse(course);
+                    });
+                });
+                
+                // Show course nav on hover
+                document.addEventListener('mouseenter', (e) => {
+                    if (e.target.closest('.course-nav')) {
+                        courseNav.classList.add('show');
+                    }
+                });
+                
+                document.addEventListener('mouseleave', (e) => {
+                    if (e.target.closest('.course-nav')) {
+                        setTimeout(() => {
+                            courseNav.classList.remove('show');
+                        }, 1000);
+                    }
+                });
+            }
+            
+            async navigateToCourse(courseId) {
+                if (!this.routes[courseId]) {
+                    console.error('Course not found:', courseId);
+                    return;
+                }
+                
+                // Show loading
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                
+                // Update active state
+                this.updateActiveCourse(courseId);
+                
+                // Update URL without reload
+                const url = new URL(window.location);
+                url.searchParams.set('course', courseId);
+                window.history.pushState({ course: courseId }, '', url);
+                
+                // Store in localStorage
+                localStorage.setItem('selectedCourse', courseId);
+                
+                // Load course content
+                await this.loadCourseContent(courseId);
+                
+                // Hide loading
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+            }
+            
+            updateActiveCourse(courseId) {
+                const navItems = document.querySelectorAll('.course-nav-item');
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.course === courseId) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                this.currentCourse = courseId;
+            }
+            
+            async loadCourseContent(courseId) {
+                const app = document.getElementById('app');
+                const route = this.routes[courseId];
+                
+                // Create course template
+                const courseTemplate = `
+                    <!-- Sidebar Toggle Button -->
+                    <button class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <!-- Sidebar Component -->
+                    <course-sidebar 
+                        course-name="${route.title}"
+                        current-section="overview">
+                    </course-sidebar>
+
+                    <!-- Header -->
+                    <header class="course-header">
+                        <div class="header-content">
+                            <!-- Header Left - Course Info -->
+                            <div class="header-left">
+                                <div class="course-icon">
+                                    <img src="${route.icon}" alt="${route.title}" style="width: 40px; height: 40px; border-radius: 50%;">
+                                </div>
+                                <div class="course-info">
+                                    <h1>${route.title}</h1>
+                                    <p>Indigenous language of Panama</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Header Center - Game Stats -->
+                            <div class="header-center">
+                                <div class="game-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-star"></i>
+                                        <span class="stat-value">1250</span>
+                                        <span class="stat-label">Score</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-heart"></i>
+                                        <span class="stat-value">3</span>
+                                        <span class="stat-label">Lives</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-trophy"></i>
+                                        <span class="stat-value">5</span>
+                                        <span class="stat-label">Level</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Header Right - User Profile -->
+                            <div class="header-right">
+                                <div class="user-profile">
+                                    <div class="user-avatar" id="userAvatar">
+                                        <i class="fas fa-user"></i>
+                                        <span class="user-name">User</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    
+                                    <!-- User Dropdown -->
+                                    <div class="user-dropdown" id="userDropdown">
+                                        <div class="dropdown-item" data-modal="profile">
+                                            <i class="fas fa-user"></i>
+                                            <span>Profile</span>
+                                        </div>
+                                        <div class="dropdown-item" data-modal="settings">
+                                            <i class="fas fa-cog"></i>
+                                            <span>Settings</span>
+                                        </div>
+                                        <div class="dropdown-item" data-modal="notifications">
+                                            <i class="fas fa-bell"></i>
+                                            <span>Notifications</span>
+                                        </div>
+                                        <div class="dropdown-item" onclick="logout()">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            <span>Logout</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Main Content -->
+                    <main class="main-content">
+                        <div class="content-area">
+                            <div class="welcome-section">
+                                <h2>Welcome to ${route.title} Course!</h2>
+                                <p>Start your journey to learn this beautiful indigenous language.</p>
+                                
+                                <div class="course-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 25%"></div>
+                                    </div>
+                                    <span class="progress-text">25% Complete</span>
+                                </div>
+                                
+                                <div class="course-actions">
+                                    <button class="btn btn-primary" onclick="startLesson()">
+                                        <i class="fas fa-play"></i>
+                                        Start Lesson
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="viewProgress()">
+                                        <i class="fas fa-chart-line"></i>
+                                        View Progress
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                `;
+                
+                // Add transition class
+                app.classList.add('route-transition', 'entering');
+                
+                // Update content
+                app.innerHTML = courseTemplate;
+                
+                // Trigger transition
+                setTimeout(() => {
+                    app.classList.remove('entering');
+                    app.classList.add('entered');
+                }, 50);
+                
+                // Initialize course-specific functionality
+                this.initializeCourseFunctionality(courseId);
+            }
+            
+            initializeCourseFunctionality(courseId) {
+                // Initialize sidebar
+                if (window.initializeSidebar) {
+                    window.initializeSidebar();
+                }
+                
+                // Initialize course-specific features
+                console.log(`Initialized ${courseId} course functionality`);
+            }
+        }
+        
+        // Utility functions
+        function startLesson() {
+            console.log('Starting lesson...');
+            // Implement lesson start logic
+        }
+        
+        function viewProgress() {
+            console.log('Viewing progress...');
+            // Implement progress view logic
+        }
+        
+        function logout() {
+            localStorage.removeItem('selectedCourse');
+            window.location.href = '../index.html';
+        }
+        
+        // Initialize router when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new CourseRouter();
+        });
+        
+        // Handle browser back/forward
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.course) {
+                const router = window.courseRouter;
+                if (router) {
+                    router.navigateToCourse(event.state.course);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

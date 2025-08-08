@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Soged - Let's Get Started</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            background: rgba(255, 214, 0, 0.15);
+        }
+
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            background: rgba(0, 163, 224, 0.15);
+        }
+
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            background: rgba(255, 107, 53, 0.15);
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            right: 30%;
+            animation-delay: 1s;
+            background: rgba(40, 167, 69, 0.15);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .survey-container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .survey-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .survey-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #28A745, #FF6B35, #FFD600, #00A3E0);
+            background-size: 400% 100%;
+            animation: gradient-shift 4s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 25% 50%; }
+            50% { background-position: 50% 50%; }
+            75% { background-position: 75% 50%; }
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-header h1 {
+            background: linear-gradient(135deg, #28A745, #20C997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #28A745, #20C997);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .question-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            border-color: #28A745;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2);
+        }
+
+        .option-card.selected {
+            border-color: #28A745;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .option-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #28A745;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .option-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e9ecef;
+        }
+
+        .language-info {
+            flex: 1;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #28A745, #20C997);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .nav-btn.back {
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .time-option {
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-option:hover {
+            border-color: #28A745;
+            transform: translateY(-2px);
+        }
+
+        .time-option.selected {
+            border-color: #28A745;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+        }
+
+        .time-option i {
+            font-size: 2rem;
+            color: #28A745;
+            margin-bottom: 10px;
+        }
+
+        .time-option .time-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .time-option .time-description {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .native-language-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .native-language-select:focus {
+            outline: none;
+            border-color: #28A745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .completion-message i {
+            font-size: 4rem;
+            color: #28A745;
+            margin-bottom: 20px;
+        }
+
+        .completion-message h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .completion-message p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 576px) {
+            .survey-card {
+                padding: 30px 20px;
+            }
+
+            .welcome-header h1 {
+                font-size: 2rem;
+            }
+
+            .question-title {
+                font-size: 1.3rem;
+            }
+
+            .time-options {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <!-- Survey Container -->
+    <div class="survey-container">
+        <div class="survey-card" data-aos="fade-up" data-aos-duration="1000">
+            <!-- Welcome Header -->
+            <div class="welcome-header">
+                <h1>Welcome to Soged!</h1>
+                <p>Let's personalize your learning experience</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <!-- Question 1: What do you want to learn? -->
+            <div class="question-section active" id="question1">
+                <h2 class="question-title">What language would you like to learn?</h2>
+                <div class="option-card language-option" data-value="ngabe">
+                    <img src="../Images/Ngabe.png" alt="Ngäbe" class="language-icon">
+                    <div class="language-info">
+                        <div class="option-title">Ngäbe</div>
+                        <div class="option-description">The largest indigenous group in Panama</div>
+                    </div>
+                </div>
+                <div class="option-card language-option" data-value="naso">
+                    <img src="../Images/Naso.gif" alt="Naso" class="language-icon">
+                    <div class="language-info">
+                        <div class="option-title">Naso</div>
+                        <div class="option-description">Musical language with unique rhythms</div>
+                    </div>
+                </div>
+                <div class="option-card language-option" data-value="guna">
+                    <img src="../Images/Guna.png" alt="Guna" class="language-icon">
+                    <div class="language-info">
+                        <div class="option-title">Guna</div>
+                        <div class="option-description">Rich maritime culture from San Blas Islands</div>
+                    </div>
+                </div>
+                <div class="option-card language-option" data-value="embera">
+                    <img src="../Images/Embera.png" alt="Emberá" class="language-icon">
+                    <div class="language-info">
+                        <div class="option-title">Emberá</div>
+                        <div class="option-description">Ancient language with deep-rooted traditions</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2: Native Language -->
+            <div class="question-section" id="question2">
+                <h2 class="question-title">What's your native language?</h2>
+                <select class="native-language-select" id="nativeLanguage">
+                    <option value="">Select your native language</option>
+                    <option value="english">English</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="french">French</option>
+                    <option value="portuguese">Portuguese</option>
+                    <option value="german">German</option>
+                    <option value="italian">Italian</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="korean">Korean</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="russian">Russian</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Question 3: Learning Time -->
+            <div class="question-section" id="question3">
+                <h2 class="question-title">How much time can you dedicate to learning?</h2>
+                <div class="time-options">
+                    <div class="time-option" data-value="5-10">
+                        <i class="fas fa-clock"></i>
+                        <div class="time-title">5-10 minutes</div>
+                        <div class="time-description">Quick daily practice</div>
+                    </div>
+                    <div class="time-option" data-value="15-30">
+                        <i class="fas fa-hourglass-half"></i>
+                        <div class="time-title">15-30 minutes</div>
+                        <div class="time-description">Moderate daily study</div>
+                    </div>
+                    <div class="time-option" data-value="30-60">
+                        <i class="fas fa-hourglass-end"></i>
+                        <div class="time-title">30-60 minutes</div>
+                        <div class="time-description">Intensive learning</div>
+                    </div>
+                    <div class="time-option" data-value="60+">
+                        <i class="fas fa-hourglass"></i>
+                        <div class="time-title">60+ minutes</div>
+                        <div class="time-description">Deep immersion</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4: Learning Goal -->
+            <div class="question-section" id="question4">
+                <h2 class="question-title">What's your main learning goal?</h2>
+                <div class="option-card" data-value="cultural">
+                    <div class="option-title">Cultural Understanding</div>
+                    <div class="option-description">Learn about indigenous cultures and traditions</div>
+                </div>
+                <div class="option-card" data-value="communication">
+                    <div class="option-title">Basic Communication</div>
+                    <div class="option-description">Speak with native speakers</div>
+                </div>
+                <div class="option-card" data-value="academic">
+                    <div class="option-title">Academic Research</div>
+                    <div class="option-description">Study for research or academic purposes</div>
+                </div>
+                <div class="option-card" data-value="personal">
+                    <div class="option-title">Personal Interest</div>
+                    <div class="option-description">Learn for personal enrichment</div>
+                </div>
+            </div>
+
+            <!-- Completion Message -->
+            <div class="question-section" id="completion">
+                <div class="completion-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>Perfect! Let's start your journey</h2>
+                    <p>We're setting up your personalized learning experience...</p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons" id="navButtons">
+                <button class="nav-btn back" id="backBtn" style="display: none;">Back</button>
+                <button class="nav-btn" id="nextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            offset: 50
+        });
+
+        // Survey state
+        let currentQuestion = 1;
+        const totalQuestions = 4;
+        const surveyData = {};
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Show question
+        function showQuestion(questionNumber) {
+            // Hide all questions
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show current question
+            document.getElementById(`question${questionNumber}`).classList.add('active');
+
+            // Update navigation buttons
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (questionNumber === 1) {
+                backBtn.style.display = 'none';
+            } else {
+                backBtn.style.display = 'block';
+            }
+
+            if (questionNumber === totalQuestions) {
+                nextBtn.textContent = 'Complete';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+
+            updateProgress();
+        }
+
+        // Handle option selection
+        function handleOptionSelection(questionNumber) {
+            const options = document.querySelectorAll(`#question${questionNumber} .option-card, #question${questionNumber} .time-option`);
+            
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove previous selections
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Select current option
+                    this.classList.add('selected');
+                    
+                    // Store the value
+                    const value = this.getAttribute('data-value');
+                    surveyData[`question${questionNumber}`] = value;
+                });
+            });
+        }
+
+        // Handle native language selection
+        function handleNativeLanguageSelection() {
+            const select = document.getElementById('nativeLanguage');
+            select.addEventListener('change', function() {
+                surveyData.question2 = this.value;
+            });
+        }
+
+        // Navigation
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            // Validate current question
+            if (!validateCurrentQuestion()) {
+                return;
+            }
+
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                // Complete survey
+                completeSurvey();
+            }
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        // Validate current question
+        function validateCurrentQuestion() {
+            const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+            
+            if (currentQuestion === 2) {
+                const select = document.getElementById('nativeLanguage');
+                if (!select.value) {
+                    alert('Please select your native language');
+                    return false;
+                }
+            } else {
+                const selected = currentQuestionElement.querySelector('.selected');
+                if (!selected) {
+                    alert('Please select an option');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // Complete survey
+        function completeSurvey() {
+            // Store survey data
+            localStorage.setItem('surveyData', JSON.stringify(surveyData));
+            
+            // Show completion message
+            document.querySelectorAll('.question-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('completion').classList.add('active');
+            document.getElementById('navButtons').style.display = 'none';
+            
+            // Redirect to the selected course after 3 seconds
+            setTimeout(() => {
+                const selectedLanguage = surveyData.question1;
+                let courseUrl = '';
+                
+                switch(selectedLanguage) {
+                    case 'ngabe':
+                        courseUrl = '/courses/course-app.html?course=ngabe';
+                        break;
+                    case 'naso':
+                        courseUrl = '/courses/course-app.html?course=naso';
+                        break;
+                    case 'guna':
+                        courseUrl = '/courses/course-app.html?course=guna';
+                        break;
+                    case 'embera':
+                        courseUrl = '/courses/course-app.html?course=embera';
+                        break;
+                    default:
+                        courseUrl = '/courses/course-app.html?course=ngabe'; // Default to Ngäbe course
+                }
+                
+                window.location.href = courseUrl;
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up option selections
+            handleOptionSelection(1);
+            handleOptionSelection(3);
+            handleOptionSelection(4);
+            handleNativeLanguageSelection();
+            
+            // Initialize progress
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
