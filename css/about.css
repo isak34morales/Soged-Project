@@ -5,6 +5,10 @@
 
 /* Variables CSS - SOGED Brand Colors */
 :root {
+<<<<<<< HEAD
+=======
+    /* Usar paleta global de variables.css (verde principal) */
+>>>>>>> 316f88a1f83da57613f97ebe47895bd2d16b0293
     --primary-color: #28A745;
     --secondary-color: #FFB300;
     --accent-color: #FF6B35;
@@ -401,6 +405,197 @@ body {
     font-size: 1rem;
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+/* Values Section - Roadmap Design */
+.value-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.value-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--secondary-color);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2);
+}
+
+.value-media {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.value-media--placeholder {
+    color: var(--secondary-color);
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-body {
+    padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+}
+
+.values-grid .value-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Roadmap container */
+.values-roadmap {
+    position: relative;
+    min-height: 900px;
+}
+
+.roadmap-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+.milestone {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1;
+}
+
+.milestone.right { grid-template-columns: 1fr 120px; }
+
+.milestone-dot {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.milestone-dot img { width: 100%; height: 100%; object-fit: cover; }
+
+.milestone-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    min-width: 260px;
+    max-width: 420px;
+}
+
+.milestone-card h3 { margin: 0 0 0.4rem 0; font-size: 1.1rem; font-weight: 800; color: var(--text-primary); }
+.milestone-card p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+
+.milestone-connector {
+    display: none;
+}
+
+@media (max-width: 1100px) {
+    .values-roadmap { min-height: 900px; }
+}
+
+@media (max-width: 768px) {
+    .values-roadmap { min-height: 1100px; }
+    .milestone { grid-template-columns: 1fr; text-align: center; }
+    .milestone.right { grid-template-columns: 1fr; }
+    .milestone-card { min-width: 0; }
+}
+
+.values-zigzag {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.value-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.value-row.reverse { grid-template-columns: 1fr 1.2fr; }
+.value-row.reverse .value-image { order: 2; }
+.value-row.reverse .value-text { order: 1; text-align: right; }
+
+.value-image {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.value-image img { width: 100%; height: auto; display: block; }
+
+.value-text h3 { font-size: 1.6rem; font-weight: 800; margin: 0 0 0.5rem 0; color: var(--text-primary); }
+.value-text p { margin: 0; color: var(--text-secondary); }
+
+@media (max-width: 991px) {
+    .value-row { grid-template-columns: 1fr; }
+    .value-row.reverse .value-text { text-align: left; }
+}
+
+/* Overlay variation */
+.value-card--overlay {
+    position: relative;
+    border: none;
+}
+
+.value-card--overlay .value-media {
+    aspect-ratio: 4 / 3;
+}
+
+.value-card--overlay .value-body {
+    position: absolute;
+    inset: 0;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.15), rgba(0,0,0,0));
+    color: #fff;
+    opacity: 0.0;
+    transition: var(--transition);
+}
+
+.value-card--overlay:hover .value-body {
+    opacity: 1.0;
+}
+
+.value-card--overlay .value-title,
+.value-card--overlay .value-description {
+    color: #fff;
+}
+
+.value-card--overlay .value-title {
+    margin-bottom: 0.4rem;
 }
 
 /* Team Section - Auto Carousel */
@@ -1038,6 +1233,67 @@ body {
     padding: 140px 0 60px 0;
     background: #f8fbfd;
     position: relative;
+}
+
+.about-hero-group {
+    max-width: 1100px;
+    position: relative;
+}
+
+.about-group-img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    object-fit: cover;
+}
+
+.responsive-hero {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.responsive-hero .about-group-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-hero-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0.05), rgba(0,0,0,0));
+    color: #fff;
+}
+
+.overlay-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.overlay-subtitle {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.about-hero-overlay .cta-btn {
+    margin-top: 8px;
+    border-color: rgba(255,255,255,0.9);
+    color: #fff;
+}
+
+.about-hero-overlay .cta-btn:hover {
+    background: #fff;
+    color: var(--primary-color);
 }
 
 .about-badge {

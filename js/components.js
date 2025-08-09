@@ -264,8 +264,10 @@ function handleLogin(e) {
     // Por ahora, simulamos un login exitoso
     setTimeout(() => {
         hideAuthModal();
-        // Redirigir al dashboard
-        window.location.href = 'dashboard/dashboard-new.html';
+        // Redirigir al dashboard (ajustar ruta según carpeta actual)
+        const inSubfolder = window.location.pathname.includes('/pages/') || window.location.pathname.includes('/auth/') || window.location.pathname.includes('/courses/');
+        const dashboardUrl = (inSubfolder ? '../' : './') + 'dashboard/dashboard-new.html';
+        window.location.href = dashboardUrl;
     }, 1000);
 }
 
@@ -282,8 +284,10 @@ function handleRegister(e) {
     // Por ahora, simulamos un registro exitoso
     setTimeout(() => {
         hideAuthModal();
-        // Redirigir al dashboard
-        window.location.href = 'dashboard/dashboard-new.html';
+        // Redirigir al dashboard (ajustar ruta según carpeta actual)
+        const inSubfolder = window.location.pathname.includes('/pages/') || window.location.pathname.includes('/auth/') || window.location.pathname.includes('/courses/');
+        const dashboardUrl = (inSubfolder ? '../' : './') + 'dashboard/dashboard-new.html';
+        window.location.href = dashboardUrl;
     }, 1000);
 }
 
