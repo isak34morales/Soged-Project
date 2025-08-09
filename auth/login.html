@@ -600,10 +600,12 @@
                 // Show success message
                 showNotification('Login successful! Redirecting...', 'success');
                 
-                // Redirect after animation
-                setTimeout(() => {
-                    window.location.href = 'dashboard/dashboard-new.html';
-                }, 1500);
+                    // Redirect after animation (respect folder levels)
+                    setTimeout(() => {
+                        const inSubfolder = window.location.pathname.includes('/auth/');
+                        const dashboardUrl = (inSubfolder ? '../' : './') + 'dashboard/dashboard-new.html';
+                        window.location.href = dashboardUrl;
+                    }, 1500);
                 
             }, 2000);
         });
