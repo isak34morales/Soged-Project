@@ -169,8 +169,8 @@ class SogedHeader extends HTMLElement {
                 .logo-container {
                     display: flex;
                     align-items: center;
-                    gap: 1rem;
-                    padding: 0.8rem 1rem;
+                    gap: 0.5rem;
+                    padding: 0.5rem 0.8rem;
                     border-radius: 12px;
                     transition: var(--transition);
                 }
@@ -572,6 +572,258 @@ class SogedHeader extends HTMLElement {
                         height: 24px;
                     }
                 }
+                /* Mobile Menu Toggle */
+                .mobile-menu-toggle {
+                    display: none;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    height: 40px;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    margin-left: 1rem;
+                    border-radius: 8px;
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+
+                .mobile-menu-toggle:hover {
+                    background: rgba(40, 167, 69, 0.1);
+                }
+
+                .hamburger-line {
+                    width: 25px;
+                    height: 3px;
+                    background: var(--primary-color);
+                    margin: 3px 0;
+                    transition: all 0.3s ease;
+                    border-radius: 2px;
+                }
+
+                /* Hamburger Animation */
+                .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+                    transform: rotate(45deg) translate(6px, 6px);
+                }
+
+                .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+                    transform: rotate(-45deg) translate(6px, -6px);
+                }
+
+                /* Mobile Menu Overlay */
+                .mobile-menu-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100vh;
+                    background: linear-gradient(135deg, 
+                        rgba(40, 167, 69, 0.95) 0%, 
+                        rgba(32, 201, 151, 0.95) 50%, 
+                        rgba(255, 179, 0, 0.95) 100%
+                    );
+                    backdrop-filter: blur(10px);
+                    z-index: 9999;
+                    display: none;
+                    opacity: 0;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .mobile-menu-overlay.active {
+                    display: flex;
+                    opacity: 1;
+                }
+
+                .mobile-menu-content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    padding: 2rem;
+                    position: relative;
+                }
+
+                .mobile-menu-close {
+                    position: absolute;
+                    top: 2rem;
+                    right: 2rem;
+                    width: 50px;
+                    height: 50px;
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    color: white;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(10px);
+                }
+
+                .mobile-menu-close:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: rotate(90deg) scale(1.1);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                }
+
+                .mobile-nav-items {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    text-align: center;
+                }
+
+                .mobile-nav-item {
+                    margin: 1.5rem 0;
+                    transform: translateY(30px);
+                    opacity: 0;
+                }
+
+                .mobile-menu-overlay.active .mobile-nav-item {
+                    animation: slideInUp 0.6s ease forwards;
+                }
+
+                .mobile-menu-overlay.active .mobile-nav-item:nth-child(1) { animation-delay: 0.1s; }
+                .mobile-menu-overlay.active .mobile-nav-item:nth-child(2) { animation-delay: 0.2s; }
+                .mobile-menu-overlay.active .mobile-nav-item:nth-child(3) { animation-delay: 0.3s; }
+                .mobile-menu-overlay.active .mobile-nav-item:nth-child(4) { animation-delay: 0.4s; }
+
+                .mobile-nav-link {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 2rem;
+                    font-weight: 600;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    transition: all 0.3s ease;
+                    display: block;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .mobile-nav-link::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(255, 255, 255, 0.2);
+                    transition: left 0.3s ease;
+                }
+
+                .mobile-nav-link:hover::before {
+                    left: 0;
+                }
+
+                .mobile-nav-link:hover {
+                    transform: translateY(-5px);
+                    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+                }
+
+                .mobile-nav-buttons {
+                    margin-top: 3rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                    width: 100%;
+                    max-width: 300px;
+                }
+
+                .mobile-nav-btn {
+                    padding: 1rem 2rem;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    text-align: center;
+                    display: block;
+                }
+
+                .mobile-nav-btn.login {
+                    background: transparent;
+                    color: white;
+                    border: 2px solid white;
+                }
+
+                .mobile-nav-btn.register {
+                    background: white;
+                    color: var(--primary-color);
+                }
+
+                .mobile-nav-btn:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+                }
+
+                @keyframes slideInUp {
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+
+                /* Responsive breakpoints */
+                @media (max-width: 991px) {
+                    .mobile-menu-toggle {
+                        display: flex;
+                    }
+                    
+                    .header-center,
+                    .header-right {
+                        display: none;
+                    }
+                    
+                    .header-left {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .navbar .container {
+                        padding: 0 1rem;
+                    }
+                    
+                    .logo-text {
+                        font-size: 1.8rem;
+                    }
+                    
+                    .mobile-nav-link {
+                        font-size: 1.8rem;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .logo-text {
+                        font-size: 1.6rem;
+                    }
+                    
+                    .mobile-nav-link {
+                        font-size: 1.6rem;
+                    }
+                    
+                    .mobile-menu-content {
+                        padding: 1rem;
+                    }
+                }
+
             </style>
 
             <nav class="navbar navbar-expand-lg fixed-top">
@@ -579,10 +831,16 @@ class SogedHeader extends HTMLElement {
                     <div class="header-left">
                         <a href="${basePath}index.html" class="navbar-brand">
                             <div class="logo-container">
-                                <img src="${basePath}Images/logoo.png" alt="Soged Logo" class="logo-image" style="width: 45px; height: 45px; margin-right: 12px;">
+                                <img src="${basePath}Images/Newturttle.png" alt="SOGED Mascot" class="logo-image" style="width: 55px; height: 55px; margin-right: 8px; object-fit: contain;">
                                 <span class="logo-text">Soged</span>
                             </div>
                         </a>
+                        <!-- Mobile Menu Toggle -->
+                        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </button>
                     </div>
                     <div class="header-center">
                         <div class="navbar-collapse" id="navbarNav">
@@ -631,6 +889,35 @@ class SogedHeader extends HTMLElement {
                 </div>
             </nav>
 
+            <!-- Mobile Menu Overlay -->
+            <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+                <div class="mobile-menu-content">
+                    <!-- Close Button -->
+                    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <ul class="mobile-nav-items">
+                        <li class="mobile-nav-item">
+                            <a href="${basePath}index.html" class="mobile-nav-link">Home</a>
+                        </li>
+                        <li class="mobile-nav-item">
+                            <a href="${basePath}languages.html" class="mobile-nav-link">Learn</a>
+                        </li>
+                        <li class="mobile-nav-item">
+                            <a href="${basePath}pages/resources.html" class="mobile-nav-link">Resources</a>
+                        </li>
+                        <li class="mobile-nav-item">
+                            <a href="${basePath}pages/about.html" class="mobile-nav-link">About Us</a>
+                        </li>
+                    </ul>
+                    <div class="mobile-nav-buttons">
+                        <a href="${basePath}auth/login.html" class="mobile-nav-btn login">Login</a>
+                        <a href="${basePath}auth/register.html" class="mobile-nav-btn register">Register</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Spacer for fixed navbar -->
             <div style="height: 90px;"></div>
         `;
@@ -640,12 +927,46 @@ class SogedHeader extends HTMLElement {
         const shadow = this.shadowRoot;
         
         // Mobile menu toggle
-        const toggler = shadow.querySelector('.navbar-toggler');
-        const collapse = shadow.querySelector('.navbar-collapse');
+        const mobileToggle = shadow.querySelector('#mobileMenuToggle');
+        const mobileOverlay = shadow.querySelector('#mobileMenuOverlay');
+        const mobileClose = shadow.querySelector('#mobileMenuClose');
         
-        if (toggler && collapse) {
-            toggler.addEventListener('click', () => {
-                collapse.classList.toggle('show');
+        const closeMobileMenu = () => {
+            mobileToggle.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        if (mobileToggle && mobileOverlay) {
+            // Open menu
+            mobileToggle.addEventListener('click', () => {
+                mobileToggle.classList.toggle('active');
+                mobileOverlay.classList.toggle('active');
+                
+                // Prevent body scroll when menu is open
+                if (mobileOverlay.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Close button
+            if (mobileClose) {
+                mobileClose.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Close menu when clicking on overlay
+            mobileOverlay.addEventListener('click', (e) => {
+                if (e.target === mobileOverlay) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close menu when clicking on nav links
+            const mobileNavLinks = shadow.querySelectorAll('.mobile-nav-link, .mobile-nav-btn');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
             });
         }
 

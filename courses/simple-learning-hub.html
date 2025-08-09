@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOGED - Learning Hub</title>
+    
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/dashboard-modern.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="../Images/Newturttle.png" alt="SOGED Mascot" class="loading-logo">
+            <h2>SOGED Learning Hub</h2>
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <p>Loading your learning journey...</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <img src="../Images/logoo.png" alt="SOGED" class="sidebar-logo">
+                <div class="logo-text">
+                    <h2 class="sidebar-title">SOGED</h2>
+                    <p class="sidebar-subtitle">Learning Hub</p>
+                </div>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- User Profile -->
+        <div class="user-profile">
+            <div class="profile-avatar">
+                <img src="../Images/Newturttle.png" alt="Avatar" class="avatar-img">
+                <div class="level-badge">5</div>
+            </div>
+            <div class="profile-info">
+                <h3 class="username">Explorer</h3>
+                <div class="xp-info">
+                    <span class="xp-current">1,250 XP</span>
+                    <div class="xp-bar">
+                        <div class="xp-fill" style="width: 65%"></div>
+                    </div>
+                    <span class="xp-next">Next: 2,000 XP</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+            <!-- Main Dashboard -->
+            <div class="nav-section">
+                <a href="#overview" class="nav-item active" data-section="overview">
+                    <div class="nav-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Overview</span>
+                        <div class="nav-meta">
+                            <span class="overview-desc">Your learning hub</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Learning Section -->
+            <div class="nav-section">
+                <h4 class="nav-section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="title-text">Learning</span>
+                </h4>
+                
+                <a href="#learn" class="nav-item" data-section="learn">
+                    <div class="nav-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Learning Path</span>
+                        <div class="nav-progress">
+                            <div class="progress-bar" style="width: 35%"></div>
+                            <span class="progress-text">World 2 of 5</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#stories" class="nav-item" data-section="stories">
+                    <div class="nav-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Stories</span>
+                        <div class="nav-meta">
+                            <span class="story-count">12 available</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#chat" class="nav-item" data-section="chat">
+                    <div class="nav-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">AI Tutor</span>
+                        <div class="nav-meta">
+                            <div class="ai-status online">
+                                <i class="fas fa-circle"></i>
+                                <span class="status-text">Speaking practice</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Social & Progress Section -->
+            <div class="nav-section secondary">
+                <h4 class="nav-section-title">
+                    <i class="fas fa-users"></i>
+                    <span class="title-text">Community</span>
+                </h4>
+                
+                <a href="#leaderboard" class="nav-item" data-section="leaderboard">
+                    <div class="nav-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Leaderboard</span>
+                        <div class="nav-meta">
+                            <span class="rank-info">#12 this week</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#achievements" class="nav-item" data-section="achievements">
+                    <div class="nav-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Achievements</span>
+                        <div class="nav-meta">
+                            <span class="achievement-count">7 of 20</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Course Selector -->
+        <div class="course-selector">
+            <div class="current-course">
+                <div class="course-flag">🏔️</div>
+                <div class="course-info">
+                    <span class="course-name">Ngäbe</span>
+                    <span class="course-desc">Mountain People</span>
+                </div>
+                <button class="course-dropdown-btn" id="courseDropdownBtn">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            
+            <div class="course-dropdown" id="courseDropdown">
+                <div class="course-option active" data-course="ngabe">
+                    <span class="option-flag">🏔️</span>
+                    <div class="option-info">
+                        <span class="option-name">Ngäbe</span>
+                        <span class="option-progress">12/50 lessons</span>
+                    </div>
+                </div>
+                <div class="course-option" data-course="guna">
+                    <span class="option-flag">🏝️</span>
+                    <div class="option-info">
+                        <span class="option-name">Guna</span>
+                        <span class="option-progress">8/50 lessons</span>
+                    </div>
+                </div>
+                <div class="course-option" data-course="embera">
+                    <span class="option-flag">🌊</span>
+                    <div class="option-info">
+                        <span class="option-name">Emberá</span>
+                        <span class="option-progress">5/50 lessons</span>
+                    </div>
+                </div>
+                <div class="course-option" data-course="naso">
+                    <span class="option-flag">🦋</span>
+                    <div class="option-info">
+                        <span class="option-name">Naso</span>
+                        <span class="option-progress">3/50 lessons</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item active">Dashboard</span>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <!-- Espacio limpio sin indicador de idioma -->
+            </div>
+
+            <div class="header-right">
+                <div class="user-stats">
+                    <div class="stat-item streak">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">7</span>
+                            <span class="stat-label">streak</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item lives">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">lives</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item seeds">
+                        <div class="stat-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">1,250</span>
+                            <span class="stat-label">semillas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-menu-container">
+                    <button class="user-avatar-btn" id="userAvatarBtn">
+                        <img src="../Images/Newturttle.png" alt="User Avatar" class="header-avatar">
+                        <div class="user-level-badge">5</div>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-header">
+                            <img src="../Images/Newturttle.png" alt="Avatar" class="dropdown-avatar">
+                            <div class="dropdown-user-info">
+                                <span class="dropdown-username">Language Explorer</span>
+                                <span class="dropdown-user-level">Level 5 • 1,250 XP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item active" data-action="dashboard">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </button>
+                            <button class="dropdown-item" data-action="profile">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </button>
+                            <button class="dropdown-item" data-action="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout" data-action="logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Container -->
+        <div class="content-container" id="contentContainer">
+            <!-- Default: Overview Dashboard will load here -->
+            <div class="overview-dashboard" id="overviewDashboard">
+                <!-- Overview content will be loaded by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-user"></i>
+                    Your Profile
+                </h2>
+                <button class="modal-close" data-modal="profileModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="profile-section">
+                    <div class="profile-avatar-section">
+                        <div class="large-avatar">
+                            <img src="../Images/Newturttle.png" alt="Avatar" class="profile-avatar-img">
+                            <button class="change-avatar-btn">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="avatar-info">
+                            <h3 class="profile-username">Language Explorer</h3>
+                            <div class="profile-level">Level 5 • Cultural Ambassador</div>
+                            <div class="profile-xp">1,250 / 2,000 XP to next level</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" value="Language Explorer" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="explorer@soged.org" class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" class="form-textarea" rows="3" placeholder="Tell us about your language learning journey...">Passionate about preserving indigenous languages and cultures of Panama.</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Learning Goals</label>
+                            <div class="goals-grid">
+                                <label class="goal-checkbox">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="goal-text">Cultural Understanding</span>
+                                </label>
+                                <label class="goal-checkbox">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    <span class="goal-text">Fluent Conversation</span>
+                                </label>
+                                <label class="goal-checkbox">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="goal-text">Teaching Others</span>
+                                </label>
+                                <label class="goal-checkbox">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    <span class="goal-text">Academic Research</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" data-modal="profileModal">Cancel</button>
+                <button class="btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </h2>
+                <button class="modal-close" data-modal="settingsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-palette"></i>
+                        Appearance
+                    </h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Theme</label>
+                            <span class="setting-desc">Choose your preferred theme</span>
+                        </div>
+                        <select class="setting-select">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="auto">Auto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Language Interface</label>
+                            <span class="setting-desc">Interface language</span>
+                        </div>
+                        <select class="setting-select">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Daily Reminders</label>
+                            <span class="setting-desc">Get reminded to practice daily</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Achievement Notifications</label>
+                            <span class="setting-desc">Celebrate your milestones</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Streak Reminders</label>
+                            <span class="setting-desc">Don't break your streak</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-volume-up"></i>
+                        Audio & Speech
+                    </h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Audio Playback</label>
+                            <span class="setting-desc">Automatic pronunciation playback</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Speech Recognition</label>
+                            <span class="setting-desc">Enable voice practice</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Learning
+                    </h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Daily Goal</label>
+                            <span class="setting-desc">XP target per day</span>
+                        </div>
+                        <select class="setting-select">
+                            <option value="50">50 XP (Casual)</option>
+                            <option value="100" selected>100 XP (Regular)</option>
+                            <option value="200">200 XP (Serious)</option>
+                            <option value="300">300 XP (Intense)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <label class="setting-label">Difficulty Level</label>
+                            <span class="setting-desc">Learning pace preference</span>
+                        </div>
+                        <select class="setting-select">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate" selected>Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" data-modal="settingsModal">Cancel</button>
+                <button class="btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Web Components -->
+    <script src="components/learning-section.js"></script>
+    <script src="components/practice-section.js"></script>
+    <script src="components/stories-section.js"></script>
+    
+    <!-- Main App Script -->
+    <script src="js/simple-learning-hub.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 600,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
