@@ -690,13 +690,26 @@ body {
 
 .mobile-menu-toggle {
     display: none;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border: none;
     background: var(--bg-tertiary);
     border-radius: var(--border-radius-sm);
     cursor: pointer;
     color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: scale(1.05);
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.95);
 }
 
 .breadcrumb {
@@ -1691,6 +1704,11 @@ input:checked + .toggle-slider:before {
     
     .mobile-menu-toggle {
         display: flex;
+    }
+    
+    /* Hide sidebar toggle on mobile/tablet - only hamburger menu should control sidebar */
+    .sidebar-toggle {
+        display: none;
     }
     
     .main-header {

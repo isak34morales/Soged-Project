@@ -4,34 +4,7 @@ AOS.init({
     offset: 50
 });
 
-// Theme Toggle
-const themeSwitch = document.getElementById('theme-switch');
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-// Get current theme from localStorage or system preference
-function getCurrentTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        return savedTheme;
-    }
-    return prefersDarkScheme.matches ? 'dark' : 'light';
-}
-
-// Apply theme
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    themeSwitch.checked = theme === 'dark';
-    localStorage.setItem('theme', theme);
-}
-
-// Initialize theme
-applyTheme(getCurrentTheme());
-
-// Theme switch event listener
-themeSwitch.addEventListener('change', (e) => {
-    const theme = e.target.checked ? 'dark' : 'light';
-    applyTheme(theme);
-});
+// Theme management is now handled by ThemeManager in js/theme.js
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -104,3 +77,49 @@ document.querySelectorAll('.btn').forEach(button => {
         }
     });
 });
+
+// CTA Component Customization
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for CTA components to be loaded
+    setTimeout(() => {
+        customizeCTAs();
+    }, 100);
+});
+
+function customizeCTAs() {
+    // Main page CTA
+    const mainCta = document.getElementById('main-cta');
+    if (mainCta) {
+        mainCta.updateContent({
+            title: 'Ready to Start Your Language Journey?',
+            subtitle: 'Join thousands of learners discovering the rich indigenous languages of Panama. Start your free trial today!',
+            primaryButton: 'Start Free Trial',
+            secondaryButton: 'Learn More'
+        });
+        mainCta.setButtonUrls('#', '#');
+    }
+
+    // About page CTA
+    const aboutCta = document.getElementById('about-cta');
+    if (aboutCta) {
+        aboutCta.updateContent({
+            title: 'Join Our Mission',
+            subtitle: 'Be part of the movement to preserve Panama\'s indigenous languages. Start your learning journey today and help us protect these precious cultural treasures for future generations.',
+            primaryButton: 'Start Learning',
+            secondaryButton: 'Get in Touch'
+        });
+        aboutCta.setButtonUrls('../index.html', 'contact.html');
+    }
+
+    // Resources page CTA
+    const resourcesCta = document.getElementById('resources-cta');
+    if (resourcesCta) {
+        resourcesCta.updateContent({
+            title: 'Explore Our Learning Resources',
+            subtitle: 'Discover a comprehensive collection of materials to help you master indigenous languages. From audio lessons to cultural insights, everything you need is here.',
+            primaryButton: 'Browse Resources',
+            secondaryButton: 'Get Started'
+        });
+        resourcesCta.setButtonUrls('#', '../index.html');
+    }
+}

@@ -32,6 +32,7 @@ class SogedHeader extends HTMLElement {
                 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka+One&display=swap');
                 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
                 @import url('${basePath}css/header.css');
+                @import url('${basePath}css/variables.css');
 
                 :host {
                     display: block;
@@ -42,66 +43,7 @@ class SogedHeader extends HTMLElement {
                     z-index: 1030;
                 }
 
-                :root {
-                    --primary-color: #00A3E0;
-                    --primary-hover: #0088C7;
-                    --secondary-color: #FF6B35;
-                    --accent-color: #FFD23F;
-                    --success-color: #2ECC71;
-                    --warning-color: #F39C12;
-                    --info-color: #3498DB;
-                    --bg-primary: #F8FAFC;
-                    --bg-secondary: #ffffff;
-                    --bg-tertiary: #F1F5F9;
-                    --card-bg: #fff;
-                    --header-bg: #fff;
-                    --footer-bg: #F8FAFC;
-                    --navbar-bg: #fff;
-                    --shadow-color: rgba(0, 163, 224, 0.08);
-                    --text-primary: #1E293B;
-                    --text-secondary: #64748B;
-                    --text-color: #1E293B;
-                    --border-color: #E2E8F0;
-                    --input-bg: #fff;
-                    --input-border: #CBD5E1;
-                    --input-text: #1E293B;
-                    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
-                    --gradient-primary: linear-gradient(135deg, #00A3E0 0%, #0088C7 100%);
-                    --gradient-secondary: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
-                    --gradient-accent: linear-gradient(135deg, #FFD23F 0%, #FFA726 100%);
-                    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
-                    --logo-green: linear-gradient(135deg, #28A745 0%, #20C997 100%);
-                }
-
-                [data-theme="dark"] {
-                    --primary-color: #00A3E0;
-                    --primary-hover: #0088C7;
-                    --secondary-color: #FF6B35;
-                    --accent-color: #FFD23F;
-                    --success-color: #2ECC71;
-                    --warning-color: #F39C12;
-                    --info-color: #3498DB;
-                    --bg-primary: #0F172A;
-                    --bg-secondary: #1E293B;
-                    --bg-tertiary: #334155;
-                    --card-bg: #1E293B;
-                    --header-bg: #0F172A;
-                    --footer-bg: #0F172A;
-                    --navbar-bg: #0F172A;
-                    --shadow-color: rgba(0, 163, 224, 0.15);
-                    --text-primary: #F1F5F9;
-                    --text-secondary: #94A3B8;
-                    --text-color: #F1F5F9;
-                    --border-color: #334155;
-                    --input-bg: #1E293B;
-                    --input-border: #475569;
-                    --input-text: #F1F5F9;
-                    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
-                    --gradient-primary: linear-gradient(135deg, #00A3E0 0%, #0088C7 100%);
-                    --gradient-secondary: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
-                    --gradient-accent: linear-gradient(135deg, #FFD23F 0%, #FFA726 100%);
-                    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
-                }
+                /* CSS Variables are now imported from css/variables.css */
 
                 * {
                     margin: 0;
@@ -201,6 +143,7 @@ class SogedHeader extends HTMLElement {
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
+                    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
                 }
 
                 .navbar-brand {
@@ -305,7 +248,7 @@ class SogedHeader extends HTMLElement {
                 }
 
                 .nav-link {
-                    color: #333 !important;
+                    color: var(--text-primary) !important;
                     font-weight: 600;
                     padding: 0.8rem 1.2rem;
                     position: relative;
@@ -371,6 +314,7 @@ class SogedHeader extends HTMLElement {
                     cursor: pointer;
                     transition: var(--transition);
                     border: 2px solid var(--border-color);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
                 }
 
                 .theme-switch::before {
@@ -383,7 +327,7 @@ class SogedHeader extends HTMLElement {
                     background: var(--primary-color);
                     border-radius: 50%;
                     transition: var(--transition);
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
                 }
 
                 #theme-switch:checked + .theme-switch::before {
@@ -409,7 +353,7 @@ class SogedHeader extends HTMLElement {
 
                 .theme-switch .fa-moon {
                     right: 8px;
-                    color: #64748B;
+                    color: var(--text-secondary);
                 }
 
                 #theme-switch:checked + .theme-switch .fa-sun {
@@ -418,6 +362,7 @@ class SogedHeader extends HTMLElement {
 
                 #theme-switch:checked + .theme-switch .fa-moon {
                     opacity: 1;
+                    color: #F1F5F9;
                 }
 
                 .nav-buttons {
@@ -456,6 +401,7 @@ class SogedHeader extends HTMLElement {
                     background: transparent;
                     color: var(--secondary-color);
                     border-color: var(--secondary-color);
+                    font-weight: 600;
                 }
 
                 .btn-outline-primary:hover {
@@ -973,11 +919,14 @@ class SogedHeader extends HTMLElement {
         // Theme toggle
         const themeSwitch = shadow.querySelector('#theme-switch');
         if (themeSwitch) {
+            // Set initial state based on current theme
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            themeSwitch.checked = currentTheme === 'dark';
+            
             themeSwitch.addEventListener('change', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
+                const newTheme = themeSwitch.checked ? 'dark' : 'light';
+                // Dispatch event to global theme manager
+                window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: newTheme } }));
             });
         }
 
@@ -988,24 +937,46 @@ class SogedHeader extends HTMLElement {
         if (loginBtn) {
             loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                // Dispatch custom event to open login modal
-                this.dispatchEvent(new CustomEvent('openAuthModal', { 
-                    detail: { type: 'login' },
-                    bubbles: true,
-                    composed: true
-                }));
+                // Redirect to login page
+                const currentPath = window.location.pathname;
+                let loginUrl = '';
+                
+                if (currentPath.includes('/pages/')) {
+                    loginUrl = '../auth/login.html';
+                } else if (currentPath.includes('/auth/')) {
+                    loginUrl = 'login.html';
+                } else if (currentPath.includes('/dashboard/')) {
+                    loginUrl = '../auth/login.html';
+                } else if (currentPath.includes('/courses/')) {
+                    loginUrl = '../auth/login.html';
+                } else {
+                    loginUrl = 'auth/login.html';
+                }
+                
+                window.location.href = loginUrl;
             });
         }
         
         if (registerBtn) {
             registerBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                // Dispatch custom event to open register modal
-                this.dispatchEvent(new CustomEvent('openAuthModal', { 
-                    detail: { type: 'register' },
-                    bubbles: true,
-                    composed: true
-                }));
+                // Redirect to register page
+                const currentPath = window.location.pathname;
+                let registerUrl = '';
+                
+                if (currentPath.includes('/pages/')) {
+                    registerUrl = '../auth/register.html';
+                } else if (currentPath.includes('/auth/')) {
+                    registerUrl = 'register.html';
+                } else if (currentPath.includes('/dashboard/')) {
+                    registerUrl = '../auth/register.html';
+                } else if (currentPath.includes('/courses/')) {
+                    registerUrl = '../auth/register.html';
+                } else {
+                    registerUrl = 'auth/register.html';
+                }
+                
+                window.location.href = registerUrl;
             });
         }
 

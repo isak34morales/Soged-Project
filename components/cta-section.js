@@ -8,6 +8,7 @@ class CtaSection extends HTMLElement {
     connectedCallback() {
         this.render();
         this.setupEventListeners();
+        this.setupThemeListener();
     }
 
     render() {
@@ -317,12 +318,16 @@ class CtaSection extends HTMLElement {
                     }
                 }
 
-                /* Dark mode support */
-                @media (prefers-color-scheme: dark) {
-                    .cta-btn-primary:hover {
-                        background: #1a1a1a;
-                        color: var(--primary-color);
-                    }
+                /* Dark mode support - using CSS variables that respond to theme changes */
+                :host-context([data-theme="dark"]) .cta-btn-primary:hover {
+                    background: var(--bg-secondary);
+                    color: var(--primary-color);
+                }
+
+                /* Alternative approach for browsers that don't support :host-context */
+                :host([data-theme="dark"]) .cta-btn-primary:hover {
+                    background: var(--bg-secondary);
+                    color: var(--primary-color);
                 }
             </style>
 
@@ -352,10 +357,10 @@ class CtaSection extends HTMLElement {
                         </a>
                     </div>
 
-                    <div class="cta-features">
+                    <div class="cta-features text-center">
                         <div class="cta-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>Free 7-day trial</span>
+                            <span class="text-center">Free 7-day trial</span>
                         </div>
                         <div class="cta-feature">
                             <i class="fas fa-users"></i>
@@ -382,6 +387,53 @@ class CtaSection extends HTMLElement {
                     window.location.href = href;
                 }
             });
+        });
+    }
+
+    setupThemeListener() {
+        // Listen for theme changes from the main document
+        document.addEventListener('themeChanged', () => {
+            this.updateTheme();
+        });
+
+        // Also listen for changes to the data-theme attribute
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    this.updateTheme();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+
+        // Initial theme check
+        this.updateTheme();
+    }
+
+    updateTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        this.setAttribute('data-theme', currentTheme);
+        
+        // Update CSS variables in the shadow DOM to match the current theme
+        const root = this.shadowRoot;
+        const computedStyle = getComputedStyle(document.documentElement);
+        
+        // Get all CSS variables from the main document
+        const cssVars = [
+            '--primary-color', '--primary-hover', '--secondary-color', '--accent-color',
+            '--success-color', '--bg-primary', '--bg-secondary', '--bg-tertiary',
+            '--text-primary', '--text-secondary', '--border-color', '--shadow-color'
+        ];
+        
+        cssVars.forEach(varName => {
+            const value = computedStyle.getPropertyValue(varName);
+            if (value) {
+                root.style.setProperty(varName, value);
+            }
         });
     }
 

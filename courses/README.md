@@ -8,12 +8,12 @@ Sistema moderno de aprendizaje de idiomas indígenas de Panamá con interfaz gam
 ### Archivos Principales
 ```
 courses/
-├── modern-learning-hub.html      # 🏠 Página principal del hub de aprendizaje
+├── learning-hub.html      # 🏠 Página principal del hub de aprendizaje
 ├── css/
-│   ├── modern-learning-hub.css   # 🎨 Estilos principales del nuevo sistema
+│   ├── learning-hub.css   # 🎨 Estilos principales del nuevo sistema
 │   └── course-modern.css         # 🎨 Estilos base reutilizables
 ├── js/
-│   └── modern-learning-hub.js    # ⚡ Funcionalidad principal del hub
+│   └── learning-hub.js    # ⚡ Funcionalidad principal del hub
 └── components/
     └── course-sidebar.js         # 🧩 Componente de sidebar (legacy, puede reutilizarse)
 ```
@@ -51,7 +51,7 @@ courses/
 ## 🎯 Cómo Usar
 
 ### Inicio Rápido
-1. Abrir `modern-learning-hub.html` en el navegador
+1. Abrir `learning-hub.html` en el navegador
 2. El sistema cargará automáticamente con una pantalla de bienvenida
 3. Navegar usando el sidebar o las acciones rápidas del dashboard
 
@@ -123,7 +123,7 @@ El sistema utiliza las variables CSS de SOGED:
 ## 🔄 Migración del Sistema Anterior
 
 ### Archivos Eliminados (Sistema Legacy)
-- `course-app.html` → Reemplazado por `modern-learning-hub.html`
+- `course-app.html` → Reemplazado por `learning-hub.html`
 - `*-course.html` → Integrado en sistema unificado
 - `course-components.js` → Funcionalidad migrada
 - `course-state-manager.js` → Estado integrado en nuevo sistema

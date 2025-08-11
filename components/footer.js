@@ -563,7 +563,7 @@ class SogedFooter extends HTMLElement {
                         <div class="row align-items-center">
                             <div class="col-lg-6">
                                 <p class="copyright">
-                                    © 2024 Soged. All rights reserved. Preserving indigenous languages of Panama.
+                                    <script>let year = new Date().getFullYear();</script>© ${year} Soged. All rights reserved. Preserving indigenous languages of Panama.
                                 </p>
                             </div>
                             <div class="col-lg-6">

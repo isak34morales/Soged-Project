@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Soged - Preserving Indigenous Languages</title>
+    <link rel="icon" type="image/png" href="../Images/logoo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&family=Fredoka+One&display=swap">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../css/about.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/theme-components.css">
+    <link rel="stylesheet" href="../css/dark-mode-fixes.css">
 </head>
 <body>
     <!-- Header Component -->
@@ -73,64 +77,76 @@
                 <p class="section-subtitle">The principles that guide our mission to preserve indigenous languages</p>
             </div>
             
-            <div class="values-zigzag">
-                <div class="value-row">
-                    <div class="value-image">
-                        <img src="../Images/Comunity first.png" alt="Community First">
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="value-text">
-                        <h3>Community First</h3>
-                        <p>We work directly with native speakers and indigenous communities to ensure authentic content and real cultural impact. Every lesson is co-created with those who know the language best.</p>
-                    </div>
-                </div>
-
-                <div class="value-row reverse">
-                    <div class="value-image">
-                        <img src="../Images/Cultural respect.png" alt="Cultural Respect">
-                    </div>
-                    <div class="value-text">
-                        <h3>Cultural Respect</h3>
-                        <p>We approach language preservation with deep respect for traditions and practices, honoring the cultural significance behind every word and story.</p>
+                    <h3 class="value-title">Community First</h3>
+                    <p class="value-description">We work directly with native speakers and indigenous communities to ensure authentic content and real cultural impact. Every lesson is co-created with those who know the language best.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-heart"></i>
+                        <span>Collaborative</span>
                     </div>
                 </div>
 
-                <div class="value-row">
-                    <div class="value-image">
-                        <img src="../Images/Accessible Education.png" alt="Accessible Education">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
                     </div>
-                    <div class="value-text">
-                        <h3>Accessible Education</h3>
-                        <p>Learning should be accessible to everyone. Our platform is friendly, inclusive, and designed for all ages and backgrounds.</p>
-                    </div>
-                </div>
-
-                <div class="value-row reverse">
-                    <div class="value-image">
-                        <img src="../Images/Official Recognition.png" alt="Official Recognition">
-                    </div>
-                    <div class="value-text">
-                        <h3>Official Recognition</h3>
-                        <p>We help learners prepare for official certification, supporting the preservation and recognition of indigenous languages nationally and internationally.</p>
+                    <h3 class="value-title">Cultural Respect</h3>
+                    <p class="value-description">We approach language preservation with deep respect for traditions and practices, honoring the cultural significance behind every word and story.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-star"></i>
+                        <span>Respectful</span>
                     </div>
                 </div>
 
-                <div class="value-row">
-                    <div class="value-image">
-                        <img src="../Images/Modern Technology.png" alt="Modern Technology">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <div class="value-text">
-                        <h3>Modern Technology</h3>
-                        <p>We leverage cutting‑edge technology to create engaging and interactive experiences that make language acquisition effective and fun.</p>
+                    <h3 class="value-title">Accessible Education</h3>
+                    <p class="value-description">Learning should be accessible to everyone. Our platform is friendly, inclusive, and designed for all ages and backgrounds.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-universal-access"></i>
+                        <span>Inclusive</span>
                     </div>
                 </div>
 
-                <div class="value-row reverse">
-                    <div class="value-image">
-                        <img src="../Images/Global impact.png" alt="Global Impact">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-certificate"></i>
                     </div>
-                    <div class="value-text">
-                        <h3>Global Impact</h3>
-                        <p>Our work contributes to worldwide efforts to preserve linguistic diversity and cultural heritage.</p>
+                    <h3 class="value-title">Official Recognition</h3>
+                    <p class="value-description">We help learners prepare for official certification, supporting the preservation and recognition of indigenous languages nationally and internationally.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-award"></i>
+                        <span>Certified</span>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="value-title">Modern Technology</h3>
+                    <p class="value-description">We leverage cutting‑edge technology to create engaging and interactive experiences that make language acquisition effective and fun.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-microchip"></i>
+                        <span>Innovative</span>
+                    </div>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="value-title">Global Impact</h3>
+                    <p class="value-description">Our work contributes to worldwide efforts to preserve linguistic diversity and cultural heritage.</p>
+                    <div class="value-badge">
+                        <i class="fas fa-earth-americas"></i>
+                        <span>Worldwide</span>
                     </div>
                 </div>
             </div>
@@ -224,30 +240,16 @@
     </section>
     
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-container">
-            <h2 class="cta-title">Join Our Mission</h2>
-            <p class="cta-description">
-                Be part of the movement to preserve Panama's indigenous languages. Start your learning journey today and help us protect these precious cultural treasures for future generations.
-            </p>
-            <div class="cta-buttons">
-                <a href="../index.html" class="cta-btn cta-btn-primary">
-                    <i class="fas fa-play"></i>
-                    <span>Start Learning</span>
-                </a>
-                <a href="contact.html" class="cta-btn cta-btn-outline">
-                    <i class="fas fa-envelope"></i>
-                    <span>Get in Touch</span>
-                </a>
-            </div>
-        </div>
-    </section>
+    <cta-section id="about-cta"></cta-section>
     
     <!-- Footer Component -->
     <div id="footer-component"></div>
-    <div id="auth-modal-root"></div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/components.js"></script>
+    <script src="../components/cta-section.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html> 

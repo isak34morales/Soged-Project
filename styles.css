@@ -42,8 +42,8 @@ section {
 }
 
 .hero-section {
-    padding: 90px 0 48px 0; /* Add top padding to account for fixed header */
-    min-height: 70vh;
+    padding: 90px 0 20px 0; /* Reduced bottom padding to minimize gap */
+    min-height: 60vh; /* Reduced min-height to minimize gap */
 }
 
 .features-section,
@@ -67,7 +67,7 @@ section {
     }
     
     .hero-section {
-        padding: 80px 0 32px 0; /* Slightly less padding for tablets */
+        padding: 80px 0 15px 0; /* Reduced bottom padding for tablets */
     }
 }
 
@@ -83,7 +83,7 @@ section {
     }
     
     .hero-section {
-        padding: 70px 0 24px 0; /* Less padding for mobile */
+        padding: 70px 0 10px 0; /* Reduced bottom padding for mobile */
     }
 }
 
@@ -113,13 +113,13 @@ section {
 
 /* Hero Section */
 .hero-section {
-    min-height: 70vh;
+    min-height: 60vh;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
-    padding: 0rem 0 2rem 0;
+    padding: 0rem 0 1rem 0;
 }
 
 .hero-background {
@@ -382,20 +382,41 @@ section {
     content: '';
     position: absolute;
     border-radius: 50%;
-    opacity: 0.12;
+    opacity: 0.15;
     z-index: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .why-soged-bg::before {
-    width: 220px; height: 220px;
-    left: -80px; top: -60px;
-    background: var(--gradient-primary);
+    width: 300px; height: 300px;
+    left: -100px; top: -80px;
+    background-image: url('../Images/Amarillo.png');
+    animation: float 6s ease-in-out infinite;
 }
 
 .why-soged-bg::after {
-    width: 180px; height: 180px;
-    right: -60px; bottom: -40px;
-    background: var(--gradient-accent);
+    width: 250px; height: 250px;
+    right: -80px; bottom: -60px;
+    background-image: url('../Images/Rojo.png');
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+/* Additional background elements using pseudo-elements on child elements */
+.why-soged-bg .container::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    left: 50px; top: 50%;
+    transform: translateY(-50%);
+    background-image: url('../Images/Azul.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+    animation: float 7s ease-in-out infinite;
 }
 
 /* Glass Card */
@@ -724,7 +745,9 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     flex: 1;
+    text-align: center;
 }
 
 .feature-info h4 {
@@ -732,18 +755,20 @@ section {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .feature-info p {
     color: rgba(255,255,255,0.8);
     font-size: 0.9rem;
     line-height: 1.4;
+    text-align: center;
 }
 
 /* Statistic-specific colors and positioning */
 .feature-superimposed.four-languages {
     top: 10%;
-    right: 200px;
+    right: 15%;
     background: linear-gradient(135deg, rgba(0, 163, 224, 0.8) 0%, rgba(147, 197, 253, 0.8) 100%);
     border-color: rgba(0, 163, 224, 0.9);
 }
@@ -754,7 +779,7 @@ section {
 
 .feature-superimposed.enrolled-students {
     top: 30%;
-    left: 200px;
+    left: 15%;
     background: linear-gradient(135deg, rgba(255, 107, 53, 0.8) 0%, rgba(255, 179, 0, 0.8) 100%);
     border-color: rgba(255, 107, 53, 0.9);
 }
@@ -765,7 +790,7 @@ section {
 
 .feature-superimposed.partners {
     bottom: 30%;
-    right: 200px;
+    right: 15%;
     background: linear-gradient(135deg, rgba(40, 167, 69, 0.8) 0%, rgba(134, 239, 172, 0.8) 100%);
     border-color: rgba(40, 167, 69, 0.9);
 }
@@ -776,7 +801,7 @@ section {
 
 .feature-superimposed.market-valuation {
     bottom: 10%;
-    left: 200px;
+    left: 15%;
     background: linear-gradient(135deg, rgba(255, 179, 0, 0.8) 0%, rgba(255, 193, 7, 0.8) 100%);
     border-color: rgba(255, 179, 0, 0.9);
 }
@@ -799,11 +824,14 @@ section {
     
     .features-superimposed {
         position: relative;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 1.5rem;
-        max-width: 500px;
-        margin-top: 2rem;
+        width: 100%;
+        margin: 2rem auto 0 auto;
+        padding: 0 1rem;
     }
     
     .feature-superimposed {
@@ -812,7 +840,31 @@ section {
         left: auto;
         right: auto;
         bottom: auto;
-        max-width: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    
+    /* Ensure text content is centered within feature-info */
+    .feature-superimposed .feature-info {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .feature-superimposed .feature-info h4,
+    .feature-superimposed .feature-info p {
+        text-align: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
     }
     
     .phone-mockup {
@@ -821,95 +873,121 @@ section {
     }
 }
 
-@media (max-width: 768px) {
-    .app-showcase-container {
-        padding: 1.5rem 0;
+/* Additional responsive adjustments for larger screens */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .feature-superimposed.four-languages {
+        right: 7%;
     }
     
-    .phone-mockup {
-        width: 220px;
-        height: 400px;
+    .feature-superimposed.enrolled-students {
+        left: 7%;
     }
     
-    .app-welcome h3 {
-        font-size: 1.1rem;
+    .feature-superimposed.partners {
+        right: 7%;
     }
     
-    .app-welcome p {
-        font-size: 0.8rem;
-    }
-    
-    .feature-preview-item {
-        padding: 0.6rem;
-    }
-    
-    .feature-preview-item span {
-        font-size: 0.8rem;
-    }
-    
-    .features-superimposed {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .feature-superimposed {
-        padding: 1rem;
-    }
-    
-    .feature-info h4 {
-        font-size: 1rem;
-    }
-    
-    .feature-info p {
-        font-size: 0.8rem;
+    .feature-superimposed.market-valuation {
+        left: 7%;
     }
 }
 
+@media (min-width: 1201px) and (max-width: 1400px) {
+    .feature-superimposed.four-languages {
+        right: 14%;
+    }
+    
+    .feature-superimposed.enrolled-students {
+        left: 14%;
+    }
+    
+    .feature-superimposed.partners {
+        right: 14%;
+    }
+    
+    .feature-superimposed.market-valuation {
+        left: 14%;
+    }
+}
+
+
+
 @media (max-width: 576px) {
     .app-showcase-container {
-        padding: 1rem 0;
+        padding: 1.5rem 0.5rem;
     }
     
     .phone-mockup {
-        width: 200px;
-        height: 360px;
+        width: 280px;
+        height: 560px;
+        margin: 0 auto;
     }
     
     .app-logo-img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
     }
     
     .app-welcome h3 {
-        font-size: 1rem;
-    }
-    
-    .app-welcome p {
-        font-size: 0.75rem;
-    }
-    
-    .features-superimposed {
-        gap: 1rem;
-    }
-    
-    .feature-superimposed {
-        padding: 0.8rem;
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .feature-icon {
-        width: 40px;
-        height: 40px;
         font-size: 1.2rem;
     }
     
-    .feature-info h4 {
+    .app-welcome p {
         font-size: 0.9rem;
     }
     
-    .feature-info p {
-        font-size: 0.75rem;
+    /* Mostrar tarjetas debajo de la app en columna */
+    .features-superimposed {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1.5rem auto 0 auto;
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .feature-superimposed {
+        display: flex !important;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    
+    /* Ensure text content is centered within feature-info */
+    .feature-superimposed .feature-info {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .feature-superimposed .feature-info h4,
+    .feature-superimposed .feature-info p {
+        text-align: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+    
+    /* Centrar la app */
+    .app-showcase-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 45vh;
+    }
+    
+    .phone-mockup-container {
+        margin: 0 auto;
     }
 }
 
@@ -1712,34 +1790,37 @@ section {
 
 @media (max-width: 768px) {
     .hero-title {
-        font-size: 2.8rem;
-        margin-top: 0;
+        font-size: 2.5rem;
+        margin-top: 2rem;
         line-height: 1.2;
+        margin-bottom: 1.5rem;
     }
     
     .section-title {
-        font-size: 2.2rem !important;
+        font-size: 2rem !important;
         line-height: 1.3;
     }
     
     .section-subtitle {
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
         line-height: 1.5;
     }
     
     .hero-description {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         line-height: 1.6;
+        margin-bottom: 2.5rem;
     }
     
     .hero-content {
         padding-left: 0;
         text-align: center;
+        padding-top: 3rem;
     }
     
     .hero-description {
         max-width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     
     .section-title {
@@ -1756,15 +1837,157 @@ section {
     .feature-card { margin-bottom: 1.5rem; }
     .languages-bg { border-radius: 1.2rem; }
     .language-step { margin-bottom: 1.5rem; }
+    
+    /* App Showcase and Feature Cards */
+    .app-showcase-container {
+        padding: 2rem 1rem;
+    }
+    
+    .phone-mockup {
+        width: 320px;
+        height: 640px;
+        margin: 0 auto;
+    }
+    
+    .app-welcome h3 {
+        font-size: 1.4rem;
+    }
+    
+    .app-welcome p {
+        font-size: 1rem;
+    }
+    
+    .feature-preview-item {
+        padding: 0.6rem;
+    }
+    
+    .feature-preview-item span {
+        font-size: 0.9rem;
+    }
+    
+    /* Mostrar tarjetas debajo de la app en columna */
+    .features-superimposed {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 2rem auto 0 auto;
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .feature-superimposed {
+        display: flex !important;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    
+    /* Ensure text content is centered within feature-info */
+    .feature-superimposed .feature-info {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .feature-superimposed .feature-info h4,
+    .feature-superimposed .feature-info p {
+        text-align: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+    
+    /* Centrar la app */
+    .app-showcase-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh;
+    }
+    
+    .phone-mockup-container {
+        margin: 0 auto;
+    }
+    
+    /* Partners section */
+    .partners-carousel {
+        gap: 1.5rem;
+    }
+    
+    .partner-logo-item {
+        min-width: 180px;
+        padding: 1.2rem 1.5rem;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    
+    .partner-logo-item i {
+        font-size: 2rem;
+    }
+    
+    .partner-logo-item .partner-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    
+    .partner-logo-item span {
+        font-size: 0.8rem;
+    }
+    
+    /* Hero section adjustments */
+    .hero-section,
+    .features-section,
+    .languages-section,
+    .how-it-works-section,
+    .testimonials-section,
+    .partners-section {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-section::before,
+    .features-section::before,
+    .languages-section::before,
+    .how-it-works-section::before,
+    .testimonials-section::before,
+    .partners-section::before {
+        opacity: 0.3;
+    }
+    
+    body::before {
+        opacity: 0.1;
+    }
+    
+    body::after {
+        opacity: 0.05;
+    }
 }
 
 @media (max-width: 576px) {
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
     }
     
     .hero-description {
         font-size: 1rem;
+        margin-bottom: 3rem;
+    }
+    
+    .hero-content {
+        padding-top: 4rem;
     }
     
     .section-title {
@@ -1798,54 +2021,34 @@ section {
 /* Mobile Small */
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 2.4rem !important;
+        font-size: 1.8rem !important;
         line-height: 1.2;
+        margin-top: 4rem;
+        margin-bottom: 2.5rem;
     }
     
     .section-title {
-        font-size: 2rem !important;
+        font-size: 1.8rem !important;
         line-height: 1.3;
     }
     
     .section-subtitle {
-        font-size: 1.1rem !important;
+        font-size: 0.95rem !important;
         line-height: 1.5;
     }
     
     .hero-description {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         line-height: 1.6;
+        margin-bottom: 3.5rem;
+    }
+    
+    .hero-content {
+        padding-top: 5rem;
     }
 }
 
-/* Responsive adjustments for partners */
-@media (max-width: 768px) {
-    .partners-carousel {
-        gap: 1.5rem;
-    }
-    
-    .partner-logo-item {
-        min-width: 180px;
-        padding: 1.2rem 1.5rem;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-    }
-    
-    .partner-logo-item i {
-        font-size: 2rem;
-    }
-    
-    .partner-logo-item .partner-logo {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-    }
-    
-    .partner-logo-item span {
-        font-size: 0.8rem;
-    }
-}
+
 
 @media (max-width: 576px) {
     .partners-carousel {
@@ -1939,7 +2142,42 @@ section {
 }
 
 .features-section::before {
-    background: url('Images/Amarillo.png') center/cover;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(40, 167, 69, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 179, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.9) 100%);
+    z-index: -1;
+}
+
+.features-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+    overflow: hidden;
+}
+
+.features-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2328A745' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    z-index: -1;
+    animation: pattern-float 20s linear infinite;
+}
+
+@keyframes pattern-float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-60px); }
 }
 
 .languages-section::before {

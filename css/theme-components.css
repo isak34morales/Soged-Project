@@ -1,0 +1,285 @@
+/* Theme Components CSS - Soged Project */
+/* This file ensures all components use CSS variables for consistent theming */
+
+/* Import variables */
+@import url('variables.css');
+
+/* ===== COMPONENT THEMING ===== */
+
+/* Cards */
+.card, .feature-card, .step-card, .testimonial-card, .language-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.card:hover, .feature-card:hover, .step-card:hover, .testimonial-card:hover, .language-card:hover {
+    box-shadow: 0 8px 25px var(--shadow-color);
+    transform: translateY(-2px);
+}
+
+/* Sections */
+.hero-section, .features-section, .testimonials-section, .partners-section {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Headers and titles */
+.section-title, .hero-title, h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+.section-subtitle, .hero-description, p {
+    color: var(--text-secondary);
+}
+
+/* Buttons */
+.btn {
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-secondary {
+    background: var(--gradient-secondary);
+    border-color: var(--secondary-color);
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--navbar-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* Forms */
+.form-control, .form-select {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--input-text);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--input-bg);
+    border-color: var(--primary-color);
+    color: var(--input-text);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-label {
+    color: var(--text-primary);
+}
+
+/* Dropdowns */
+.dropdown-menu {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.dropdown-item {
+    color: var(--text-primary);
+    background-color: transparent;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Modals */
+.modal-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+}
+
+.modal-title {
+    color: var(--text-primary);
+}
+
+/* Footer */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--text-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Partner logos */
+.partner-logo-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.partner-logo-item:hover {
+    background-color: var(--bg-tertiary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* Testimonials */
+.testimonial-author {
+    color: var(--text-primary);
+}
+
+.testimonial-author h4 {
+    color: var(--text-primary);
+}
+
+.testimonial-author span {
+    color: var(--text-secondary);
+}
+
+/* App showcase */
+.phone-mockup {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.app-content {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Feature superimposed */
+.feature-superimposed {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.feature-info h4 {
+    color: var(--text-primary);
+}
+
+.feature-info p {
+    color: var(--text-secondary);
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Background utilities */
+.bg-theme-primary { background-color: var(--bg-primary) !important; }
+.bg-theme-secondary { background-color: var(--bg-secondary) !important; }
+.bg-theme-tertiary { background-color: var(--bg-tertiary) !important; }
+.bg-theme-card { background-color: var(--card-bg) !important; }
+
+/* Text utilities */
+.text-theme-primary { color: var(--text-primary) !important; }
+.text-theme-secondary { color: var(--text-secondary) !important; }
+
+/* Border utilities */
+.border-theme { border-color: var(--border-color) !important; }
+
+/* Shadow utilities */
+.shadow-theme { box-shadow: 0 4px 15px var(--shadow-color) !important; }
+
+/* ===== ANIMATIONS ===== */
+
+/* Smooth transitions for theme changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== RESPONSIVE THEMING ===== */
+
+@media (max-width: 768px) {
+    .card, .feature-card, .step-card, .testimonial-card, .language-card {
+        margin-bottom: 1rem;
+    }
+    
+    .navbar {
+        padding: 0.5rem 0;
+    }
+}
+
+/* ===== DARK MODE SPECIFIC OVERRIDES ===== */
+
+[data-theme="dark"] .btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .dropdown-divider {
+    border-color: var(--border-color);
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    [data-theme="dark"] {
+        --border-color: #ffffff;
+        --shadow-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soged - Learn Indigenous Languages of Panama</title>
+    <link rel="icon" type="image/png" href="Images/logoo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/theme-components.css">
+    <link rel="stylesheet" href="css/dark-mode-fixes.css">
     <style>
         /* Locked course styles */
         .step-card.locked {
@@ -231,7 +234,7 @@
                             </div>
                             <h3 class="step-title gradient-text">Ngäbe</h3>
                             <p class="lang-description">Learn the language of the Ngäbe people, the largest indigenous group in Panama.</p>
-                            <button onclick="window.location.href='courses/simple-learning-hub.html?course=ngabe'" class="btn btn-ngabe w-100 mt-3">
+                            <button onclick="window.location.href='courses/learning-hub.html?course=ngabe'" class="btn btn-ngabe w-100 mt-3">
                                 <i class="fas fa-play me-2"></i>Start Learning
                             </button>
                         </div>
@@ -243,7 +246,7 @@
                             </div>
                             <h3 class="step-title gradient-text">Naso</h3>
                             <p class="lang-description">Discover the musical language of the Naso people with its unique rhythms.</p>
-                            <button onclick="window.location.href='courses/simple-learning-hub.html?course=naso'" class="btn btn-naso w-100 mt-3">
+                            <button onclick="window.location.href='courses/learning-hub.html?course=naso'" class="btn btn-naso w-100 mt-3">
                                 <i class="fas fa-play me-2"></i>Start Learning
                             </button>
                         </div>
@@ -255,7 +258,7 @@
                             </div>
                             <h3 class="step-title gradient-text">Guna</h3>
                             <p class="lang-description">Master the language of the Guna people from the beautiful San Blas Islands.</p>
-                            <button onclick="window.location.href='courses/simple-learning-hub.html?course=guna'" class="btn btn-guna w-100 mt-3">
+                            <button onclick="window.location.href='courses/learning-hub.html?course=guna'" class="btn btn-guna w-100 mt-3">
                                 <i class="fas fa-play me-2"></i>Start Learning
                             </button>
                         </div>
@@ -267,7 +270,7 @@
                             </div>
                             <h3 class="step-title gradient-text">Emberá</h3>
                             <p class="lang-description">Explore the ancient language of the Emberá people and their traditions.</p>
-                            <button onclick="window.location.href='courses/simple-learning-hub.html?course=embera'" class="btn btn-embera w-100 mt-3">
+                            <button onclick="window.location.href='courses/learning-hub.html?course=embera'" class="btn btn-embera w-100 mt-3">
                                 <i class="fas fa-play me-2"></i>Start Learning
                             </button>
                         </div>
@@ -338,11 +341,11 @@
                         </div>
                         <div class="testimonial-author">
                             <div class="author-avatar">
-                                <img src="Images/team/sara.png" alt="María Santos" class="author-photo">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face" alt="María Santos" class="author-photo">
                             </div>
                             <div class="author-info">
                                 <h4>María Santos</h4>
-                                <span>Ngäbe Student</span>
+                                <span>Student</span>
                             </div>
                         </div>
                     </div>
@@ -355,11 +358,11 @@
                         </div>
                         <div class="testimonial-author">
                             <div class="author-avatar">
-                                <img src="Images/team/javier.png" alt="Carlos Rodríguez" class="author-photo">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Carlos Rodríguez" class="author-photo">
                             </div>
                             <div class="author-info">
                                 <h4>Carlos Rodríguez</h4>
-                                <span>Guna Student</span>
+                                <span>Student</span>
                             </div>
                         </div>
                     </div>
@@ -368,15 +371,15 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-                            <p>"As a teacher, I love how Soged preserves our cultural heritage through modern technology."</p>
+                            <p>"I love how Soged preserves our cultural heritage through modern technology."</p>
                         </div>
                         <div class="testimonial-author">
                             <div class="author-avatar">
-                                <img src="Images/team/isabelle.png" alt="Ana Martínez" class="author-photo">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Ana Martínez" class="author-photo">
                             </div>
                             <div class="author-info">
                                 <h4>Ana Martínez</h4>
-                                <span>Bokota Teacher</span>
+                                <span>Student</span>
                             </div>
                         </div>
                     </div>
@@ -466,13 +469,14 @@
 
     <div id="footer-component"></div>
     
-    <div id="auth-modal-root"></div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/auth.js"></script>
+    <script src="main.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/carousel.js"></script>
     <script src="components/cta-section.js"></script>
@@ -609,149 +613,7 @@
             }
         });
 
-        // Función para forzar la aplicación del tema
-        function forceThemeApplication() {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            console.log('Forzando aplicación del tema:', currentTheme);
-            
-            // Forzar reflow
-            document.body.offsetHeight;
-            
-            // Aplicar variables CSS manualmente
-            const root = document.documentElement;
-            if (currentTheme === 'dark') {
-                root.style.setProperty('--bg-primary', '#0F172A');
-                root.style.setProperty('--bg-secondary', '#1E293B');
-                root.style.setProperty('--text-primary', '#F1F5F9');
-                root.style.setProperty('--text-secondary', '#94A3B8');
-                document.body.style.background = 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)';
-                document.body.style.color = '#F1F5F9';
-                
-                // Aplicar estilos de dropdown manualmente
-                const dropdowns = document.querySelectorAll('.dropdown-menu');
-                dropdowns.forEach(dropdown => {
-                    dropdown.style.background = '#1E293B';
-                    dropdown.style.border = '1px solid #334155';
-                    dropdown.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-                });
-                
-                const dropdownItems = document.querySelectorAll('.dropdown-item');
-                dropdownItems.forEach(item => {
-                    item.style.color = '#F1F5F9';
-                    item.style.background = 'transparent';
-                });
-                
-                // Aplicar estilos de texto mejorados
-                const paragraphs = document.querySelectorAll('p');
-                paragraphs.forEach(p => {
-                    p.style.color = '#E2E8F0';
-                });
-                
-                const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-                headings.forEach(h => {
-                    h.style.color = '#FFFFFF';
-                });
-                
-                const featureCards = document.querySelectorAll('.feature-card p, .step-card p, .testimonial-card p');
-                featureCards.forEach(p => {
-                    p.style.color = '#E2E8F0';
-                });
-                
-                const partnerItems = document.querySelectorAll('.partner-logo-item');
-                partnerItems.forEach(item => {
-                    item.style.color = '#E2E8F0';
-                    const span = item.querySelector('span');
-                    if (span) span.style.color = '#E2E8F0';
-                    const icon = item.querySelector('i');
-                    if (icon) icon.style.color = '#3498DB';
-                });
-            } else {
-                root.style.setProperty('--bg-primary', '#F8FAFC');
-                root.style.setProperty('--bg-secondary', '#ffffff');
-                root.style.setProperty('--text-primary', '#1E293B');
-                root.style.setProperty('--text-secondary', '#64748B');
-                document.body.style.background = 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)';
-                document.body.style.color = '#1E293B';
-                
-                // Restaurar estilos de dropdown para modo claro
-                const dropdowns = document.querySelectorAll('.dropdown-menu');
-                dropdowns.forEach(dropdown => {
-                    dropdown.style.background = '';
-                    dropdown.style.border = '';
-                    dropdown.style.boxShadow = '';
-                });
-                
-                const dropdownItems = document.querySelectorAll('.dropdown-item');
-                dropdownItems.forEach(item => {
-                    item.style.color = '';
-                    item.style.background = '';
-                });
-                
-                // Restaurar estilos de texto para modo claro
-                const paragraphs = document.querySelectorAll('p');
-                paragraphs.forEach(p => {
-                    p.style.color = '';
-                });
-                
-                const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-                headings.forEach(h => {
-                    h.style.color = '';
-                });
-                
-                const featureCards = document.querySelectorAll('.feature-card p, .step-card p, .testimonial-card p');
-                featureCards.forEach(p => {
-                    p.style.color = '';
-                });
-                
-                const partnerItems = document.querySelectorAll('.partner-logo-item');
-                partnerItems.forEach(item => {
-                    item.style.color = '';
-                    const span = item.querySelector('span');
-                    if (span) span.style.color = '';
-                    const icon = item.querySelector('i');
-                    if (icon) icon.style.color = '';
-                });
-            }
-        }
-        
-        // Función para actualizar el toggle manualmente
-        function updateThemeToggle() {
-            const themeSwitch = document.getElementById('theme-switch');
-            if (themeSwitch) {
-                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-                themeSwitch.checked = currentTheme === 'dark';
-                console.log('Toggle updated. Theme:', currentTheme, 'Checked:', themeSwitch.checked);
-            }
-        }
-        
-        // Actualizar toggle después de que se carguen los componentes
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                updateThemeToggle();
-                forceThemeApplication();
-            }, 1000);
-        });
-        
-        // Escuchar cambios de tema
-        window.addEventListener('themeChanged', (e) => {
-            setTimeout(() => {
-                updateThemeToggle();
-                forceThemeApplication();
-            }, 100);
-        });
-        
-        // Función global para debug
-        window.debugTheme = function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const themeSwitch = document.getElementById('theme-switch');
-            console.log('Debug Theme:', {
-                currentTheme: currentTheme,
-                switchChecked: themeSwitch ? themeSwitch.checked : 'no switch found',
-                localStorage: localStorage.getItem('theme'),
-                bodyBackground: document.body.style.background,
-                bodyColor: document.body.style.color
-            });
-        };
+        // Theme management is now handled by ThemeManager in js/theme.js
 
         // Function to require login - DIRECT REDIRECT
         function requireLogin() {

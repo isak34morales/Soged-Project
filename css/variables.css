@@ -17,7 +17,7 @@
     --logo-yellow: #FFB300; /* Amarillo del logo */
     --logo-blue: #00A3E0; /* Azul celeste del logo */
     
-    /* Light theme variables mejoradas */
+    /* Light theme variables */
     --bg-primary: #F8FAFC;
     --bg-secondary: #ffffff;
     --bg-tertiary: #F1F5F9;
@@ -25,7 +25,7 @@
     --header-bg: #fff;
     --footer-bg: #F8FAFC;
     --navbar-bg: #fff;
-    --shadow-color: rgba(40, 167, 69, 0.08); /* Sombra con color verde */
+    --shadow-color: rgba(40, 167, 69, 0.08);
     --text-primary: #1E293B;
     --text-secondary: #64748B;
     --text-color: #1E293B;
@@ -35,33 +35,26 @@
     --input-text: #1E293B;
     --transition: all 0.3s cubic-bezier(.4,0,.2,1);
     
-    /* Gradientes principales con el esquema de colores de Soged */
-    --gradient-primary: linear-gradient(135deg, #28A745 0%, #20C997 100%); /* Verde principal */
-    --gradient-secondary: linear-gradient(135deg, #FFB300 0%, #FFA726 100%); /* Amarillo */
-    --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%); /* Naranja */
-    --gradient-info: linear-gradient(135deg, #00A3E0 0%, #4FC3F7 100%); /* Azul celeste */
-    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%); /* Verde éxito */
-    --gradient-warning: linear-gradient(135deg, #F39C12 0%, #FF9800 100%); /* Naranja advertencia */
-    
-    /* Colores específicos para elementos del sitio */
-    --logo-green: #28A745; /* Verde exacto del logo */
-    --logo-orange: #FF6B35; /* Naranja del logo */
-    --logo-yellow: #FFB300; /* Amarillo del logo */
-    --logo-blue: #00A3E0; /* Azul celeste del logo */
+    /* Gradientes principales */
+    --gradient-primary: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+    --gradient-secondary: linear-gradient(135deg, #FFB300 0%, #FFA726 100%);
+    --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
+    --gradient-info: linear-gradient(135deg, #00A3E0 0%, #4FC3F7 100%);
+    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+    --gradient-warning: linear-gradient(135deg, #F39C12 0%, #FF9800 100%);
     
     /* Variables para modal y overlay */
     --modal-overlay-bg: rgba(30, 41, 59, 0.45);
     --modal-blur: blur(8px);
     
     /* ===== TIPOGRAFÍA Y TAMAÑOS DE FUENTE ===== */
-    /* Familias de fuentes */
-    --font-primary: 'Fredoka', sans-serif; /* Para títulos principales */
-    --font-secondary: 'Nunito', sans-serif; /* Para subtítulos y texto general */
-    --font-body: 'Quicksand', sans-serif; /* Para párrafos y texto del cuerpo */
+    --font-primary: 'Fredoka', sans-serif;
+    --font-secondary: 'Nunito', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
     
     /* Tamaños de fuente para títulos */
-    --font-size-hero-title: 3.5rem; /* Título principal del banner */
-    --font-size-section-title: 3.3rem; /* Títulos de sección (Why Choose Soged?, etc.) */
+    --font-size-hero-title: 3.5rem;
+    --font-size-section-title: 3.3rem;
     --font-size-h1: 3rem;
     --font-size-h2: 2.5rem;
     --font-size-h3: 2rem;
@@ -70,11 +63,11 @@
     --font-size-h6: 1.25rem;
     
     /* Tamaños de fuente para texto */
-    --font-size-large: 1.3rem; /* Descripción del hero */
-    --font-size-medium: 1.1rem; /* Texto de botones y elementos importantes */
-    --font-size-normal: 1rem; /* Texto normal de párrafos */
-    --font-size-small: 0.9rem; /* Texto pequeño */
-    --font-size-xs: 0.8rem; /* Texto muy pequeño */
+    --font-size-large: 1.3rem;
+    --font-size-medium: 1.1rem;
+    --font-size-normal: 1rem;
+    --font-size-small: 0.9rem;
+    --font-size-xs: 0.8rem;
     
     /* Pesos de fuente */
     --font-weight-light: 300;
@@ -100,11 +93,11 @@
 
 [data-theme="dark"] {
     /* Colores principales para modo oscuro */
-    --primary-color: #28A745; /* Mantener verde como principal */
+    --primary-color: #28A745;
     --primary-hover: #218838;
-    --secondary-color: #FFB300; /* Amarillo */
-    --accent-color: #FF6B35; /* Naranja vibrante */
-    --info-color: #00A3E0; /* Azul celeste */
+    --secondary-color: #FFB300;
+    --accent-color: #FF6B35;
+    --info-color: #00A3E0;
     --success-color: #2ECC71;
     --warning-color: #F39C12;
     --danger-color: #E74C3C;
@@ -117,7 +110,7 @@
     --header-bg: #0F172A;
     --footer-bg: #0F172A;
     --navbar-bg: #0F172A;
-    --shadow-color: rgba(40, 167, 69, 0.15); /* Sombra verde en modo oscuro */
+    --shadow-color: rgba(40, 167, 69, 0.15);
     --text-primary: #F1F5F9;
     --text-secondary: #94A3B8;
     --text-color: #F1F5F9;
@@ -127,7 +120,7 @@
     --input-text: #F1F5F9;
     --transition: all 0.3s cubic-bezier(.4,0,.2,1);
     
-    /* Gradientes para modo oscuro - manteniendo los colores principales */
+    /* Gradientes para modo oscuro */
     --gradient-primary: linear-gradient(135deg, #28A745 0%, #20C997 100%);
     --gradient-secondary: linear-gradient(135deg, #FFB300 0%, #FFA726 100%);
     --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
@@ -141,8 +134,11 @@
     --logo-yellow: #FFB300;
     --logo-blue: #00A3E0;
     
-    /* ===== TIPOGRAFÍA Y TAMAÑOS DE FUENTE (MODO OSCURO) ===== */
-    /* Las variables de tipografía se mantienen iguales en modo oscuro */
+    /* Variables para modal y overlay en modo oscuro */
+    --modal-overlay-bg: rgba(15, 23, 42, 0.8);
+    --modal-blur: blur(8px);
+    
+    /* Tipografía se mantiene igual en modo oscuro */
     --font-primary: 'Fredoka', sans-serif;
     --font-secondary: 'Nunito', sans-serif;
     --font-body: 'Quicksand', sans-serif;
@@ -194,16 +190,18 @@
 }
 
 body {
-    font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 50%, var(--bg-primary) 100%);
+    font-family: var(--font-body);
+    background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
     overflow-x: hidden;
     min-height: 100vh;
+    transition: var(--transition);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka', sans-serif;
+    font-family: var(--font-primary);
+    color: var(--text-primary);
 }
 
 /* Clases de utilidad para colores */
@@ -243,8 +241,6 @@ h1, h2, h3, h4, h5, h6 {
 .bg-logo-blue { background-color: var(--logo-blue) !important; }
 
 /* ===== CLASES DE UTILIDAD PARA TIPOGRAFÍA ===== */
-
-/* Familias de fuente */
 .font-primary { font-family: var(--font-primary) !important; }
 .font-secondary { font-family: var(--font-secondary) !important; }
 .font-body { font-family: var(--font-body) !important; }
@@ -294,6 +290,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-extrabold);
     line-height: var(--line-height-tight);
     letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-primary);
 }
 
 .section-title-style {
@@ -302,6 +299,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
     letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-primary);
 }
 
 .body-text-style {
@@ -310,6 +308,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-normal);
     line-height: var(--line-height-relaxed);
     letter-spacing: var(--letter-spacing-normal);
+    color: var(--text-primary);
 }
 
 .button-text-style {

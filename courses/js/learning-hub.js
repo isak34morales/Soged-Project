@@ -21,6 +21,7 @@ class SimpleLearningHub {
         this.setupUserMenu();
         this.setupModals();
         this.loadInitialSection();
+        this.setupResponsiveBehavior();
         
         // Apply saved sidebar state
         if (this.sidebarCollapsed) {
@@ -46,12 +47,20 @@ class SimpleLearningHub {
 
         if (sidebarToggle) {
             sidebarToggle.addEventListener('click', () => {
-                this.toggleSidebar();
+                // Only allow sidebar toggle on desktop (width > 1024px)
+                if (window.innerWidth > 1024) {
+                    this.toggleSidebar();
+                }
             });
         }
     }
 
     toggleSidebar() {
+        // Only allow sidebar toggle on desktop
+        if (window.innerWidth <= 1024) {
+            return;
+        }
+        
         const sidebar = document.getElementById('sidebar');
         const isCollapsed = sidebar.classList.contains('collapsed');
         
@@ -157,13 +166,14 @@ class SimpleLearningHub {
             mobileMenuToggle.addEventListener('click', () => {
                 sidebar.classList.add('open');
                 sidebarOverlay.classList.add('show');
+                // Prevent body scroll when mobile menu is open
+                document.body.style.overflow = 'hidden';
             });
         }
 
         if (sidebarOverlay) {
             sidebarOverlay.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-                sidebarOverlay.classList.remove('show');
+                this.closeMobileMenu();
             });
         }
 
@@ -171,10 +181,64 @@ class SimpleLearningHub {
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 if (window.innerWidth <= 1024) {
-                    sidebar.classList.remove('open');
-                    sidebarOverlay.classList.remove('show');
+                    this.closeMobileMenu();
                 }
             });
+        });
+
+        // Close mobile menu with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && window.innerWidth <= 1024) {
+                this.closeMobileMenu();
+            }
+        });
+    }
+
+    closeMobileMenu() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (sidebar) {
+            sidebar.classList.remove('open');
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.remove('show');
+        }
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+
+    setupResponsiveBehavior() {
+        // Handle window resize to manage sidebar behavior
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            if (window.innerWidth > 1024) {
+                // Desktop: Remove mobile-specific classes and restore desktop behavior
+                sidebar.classList.remove('open');
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.remove('show');
+                }
+                // Restore body scroll on desktop
+                document.body.style.overflow = '';
+                
+                // Restore saved sidebar state on desktop
+                if (this.sidebarCollapsed) {
+                    this.collapseSidebar();
+                } else {
+                    this.expandSidebar();
+                }
+            } else {
+                // Mobile/Tablet: Ensure sidebar is hidden and remove collapsed state
+                sidebar.classList.remove('open');
+                sidebar.classList.remove('collapsed');
+                if (sidebarOverlay) {
+                    sidebarOverlay.classList.remove('show');
+                }
+                // Restore body scroll on mobile/tablet
+                document.body.style.overflow = '';
+            }
         });
     }
 
@@ -207,8 +271,8 @@ class SimpleLearningHub {
         contentContainer.innerHTML = `
             <div class="section-loading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; text-align: center; padding: 4rem 2rem;">
                 <div class="spinner" style="margin: 0 auto 2rem;"></div>
-                <h3 style="color: var(--text-secondary); font-weight: 500; margin: 0;">Cargando ${this.getSectionTitle(section)}...</h3>
-                <p style="color: var(--text-light); margin-top: 0.5rem; font-size: 0.9rem;">Preparando tu experiencia de aprendizaje</p>
+                                  <h3 style="color: var(--text-secondary); font-weight: 500; margin: 0;">Loading ${this.getSectionTitle(section)}...</h3>
+                                        <p style="color: var(--text-light); margin-top: 0.5rem; font-size: 0.9rem;">Preparing your learning experience</p>
             </div>
         `;
 
@@ -268,7 +332,7 @@ class SimpleLearningHub {
                                 🤖
                             </div>
                             <div class="message-content" style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); max-width: 80%;">
-                                <p style="margin-bottom: 1rem; color: var(--text-primary);">¡Hola! I'm your ${this.getCourseName()} AI tutor. I'm here to help you learn through conversation.</p>
+                                <p style="margin-bottom: 1rem; color: var(--text-primary);">Hello! I'm your ${this.getCourseName()} AI tutor. I'm here to help you learn through conversation.</p>
                                 <p style="margin-bottom: 1rem; color: var(--text-primary);">I can help you with:</p>
                                 <ul style="list-style: none; padding: 0; margin: 0;">
                                     <li style="padding: 0.5rem 0; color: var(--text-secondary);"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i>Practice conversations</li>
@@ -307,13 +371,13 @@ class SimpleLearningHub {
             <div class="leaderboard-section" style="max-width: 1000px; margin: 0 auto;">
                 <div class="leaderboard-header" style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #FFB300, #FFA726); color: white; border-radius: 16px;">
                     <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏆 Leaderboard</h2>
-                    <p style="font-size: 1.2rem; opacity: 0.9;">Compite con otros estudiantes de ${this.getCourseName()}</p>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Compete with other ${this.getCourseName()} students</p>
                 </div>
 
                 <div class="leaderboard-tabs" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
-                    <button class="tab-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Esta Semana</button>
-                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Este Mes</button>
-                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Todos los Tiempos</button>
+                    <button class="tab-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">This Week</button>
+                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">This Month</button>
+                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">All Time</button>
                 </div>
 
                 <div class="leaderboard-list" style="background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden;">
@@ -348,10 +412,10 @@ class SimpleLearningHub {
                     </div>
                     <div class="user-info" style="flex: 1;">
                         <div class="user-name" style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.25rem;">
-                            ${user.name} ${user.isCurrentUser ? '(Tú)' : ''}
+                            ${user.name} ${user.isCurrentUser ? '(You)' : ''}
                         </div>
                         <div class="user-stats" style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-                            <span><i class="fas fa-fire" style="color: var(--accent-color);"></i> ${user.streak} días</span>
+                            <span><i class="fas fa-fire" style="color: var(--accent-color);"></i> ${user.streak} days</span>
                         </div>
                     </div>
                     <div class="user-xp" style="text-align: right;">
@@ -367,25 +431,25 @@ class SimpleLearningHub {
         return `
             <div class="achievements-section" style="max-width: 1000px; margin: 0 auto;">
                 <div class="achievements-header" style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #8B5CF6, #A78BFA); color: white; border-radius: 16px;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏅 Logros</h2>
-                    <p style="font-size: 1.2rem; opacity: 0.9;">Celebra tus hitos en el aprendizaje de ${this.getCourseName()}</p>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏅 Achievements</h2>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Celebrate your milestones in learning ${this.getCourseName()}</p>
                     <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem;">
                         <div style="text-align: center;">
                             <div style="font-size: 2rem; font-weight: 700;">7</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Desbloqueados</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Unlocked</div>
                         </div>
                         <div style="text-align: center;">
                             <div style="font-size: 2rem; font-weight: 700;">13</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Por desbloquear</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">To Unlock</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="achievements-categories" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                    <button class="category-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Todos</button>
-                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Aprendizaje</button>
+                    <button class="category-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">All</button>
+                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Learning</button>
                     <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Social</button>
-                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Especiales</button>
+                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Special</button>
                 </div>
 
                 <div class="achievements-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
@@ -397,14 +461,14 @@ class SimpleLearningHub {
 
     generateAchievementItems() {
         const achievements = [
-            { id: 'first-lesson', title: 'Primer Paso', description: 'Completa tu primera lección', icon: '🎯', status: 'unlocked', reward: '+50 XP', unlockedDate: 'Hace 5 días' },
-            { id: 'streak-7', title: 'Fuego Ardiente', description: 'Mantén una racha de 7 días', icon: '🔥', status: 'unlocked', reward: '+100 XP', unlockedDate: 'Hoy' },
-            { id: 'lessons-10', title: 'Estudiante Dedicado', description: 'Completa 10 lecciones', icon: '📚', status: 'unlocked', reward: '+150 XP', unlockedDate: 'Ayer' },
-            { id: 'perfect-lesson', title: 'Perfección', description: 'Obtén 100% en una lección', icon: '⭐', status: 'unlocked', reward: '+75 XP', unlockedDate: 'Hace 3 días' },
-            { id: 'voice-practice', title: 'Hablante Valiente', description: 'Completa 5 ejercicios de pronunciación', icon: '🎤', status: 'in-progress', reward: '+200 XP', progress: '3/5' },
-            { id: 'story-reader', title: 'Explorador Cultural', description: 'Lee 3 historias tradicionales', icon: '📖', status: 'in-progress', reward: '+125 XP', progress: '1/3' },
-            { id: 'streak-30', title: 'Maestro Constante', description: 'Mantén una racha de 30 días', icon: '👑', status: 'locked', reward: '+500 XP', requirement: 'Racha actual: 7/30' },
-            { id: 'all-lessons', title: 'Maestro del Idioma', description: 'Completa todas las lecciones', icon: '🏆', status: 'locked', reward: '+1000 XP', requirement: 'Lecciones: 12/50' }
+            { id: 'first-lesson', title: 'First Step', description: 'Complete your first lesson', icon: '🎯', status: 'unlocked', reward: '+50 XP', unlockedDate: '5 days ago' },
+            { id: 'streak-7', title: 'Burning Fire', description: 'Maintain a 7-day streak', icon: '🔥', status: 'unlocked', reward: '+100 XP', unlockedDate: 'Today' },
+            { id: 'lessons-10', title: 'Dedicated Student', description: 'Complete 10 lessons', icon: '📚', status: 'unlocked', reward: '+150 XP', unlockedDate: 'Yesterday' },
+            { id: 'perfect-lesson', title: 'Perfection', description: 'Get 100% on a lesson', icon: '⭐', status: 'unlocked', reward: '+75 XP', unlockedDate: '3 days ago' },
+            { id: 'voice-practice', title: 'Brave Speaker', description: 'Complete 5 pronunciation exercises', icon: '🎤', status: 'in-progress', reward: '+200 XP', progress: '3/5' },
+            { id: 'story-reader', title: 'Cultural Explorer', description: 'Read 3 traditional stories', icon: '📖', status: 'in-progress', reward: '+125 XP', progress: '1/3' },
+            { id: 'streak-30', title: 'Constant Master', description: 'Maintain a 30-day streak', icon: '👑', status: 'locked', reward: '+500 XP', requirement: 'Current streak: 7/30' },
+            { id: 'all-lessons', title: 'Language Master', description: 'Complete all lessons', icon: '🏆', status: 'locked', reward: '+1000 XP', requirement: 'Lessons: 12/50' }
         ];
 
         return achievements.map(achievement => {
@@ -560,8 +624,8 @@ class SimpleLearningHub {
         return `
             <div class="overview-dashboard">
                 <div class="dashboard-header" data-aos="fade-up">
-                    <h1 class="welcome-message">¡Bienvenido de vuelta!</h1>
-                    <p class="welcome-subtitle">Continúa tu viaje de aprendizaje de idiomas indígenas</p>
+                    <h1 class="welcome-message">Welcome back!</h1>
+                    <p class="welcome-subtitle">Continue your indigenous language learning journey</p>
                     
                     <div class="current-language-card">
                         <div class="language-card-flag">${courseData.flag}</div>
@@ -579,24 +643,24 @@ class SimpleLearningHub {
                                 <i class="fas fa-chart-line"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Tu Progreso</h3>
+                                <h3 class="card-title">Your Progress</h3>
                             </div>
                         </div>
                         
                         <div class="progress-stats">
                             <div class="progress-stat">
                                 <span class="stat-number">12</span>
-                                <span class="stat-description">Lecciones</span>
+                                <span class="stat-description">Lessons</span>
                             </div>
                             <div class="progress-stat">
                                 <span class="stat-number">1,250</span>
-                                <span class="stat-description">XP Total</span>
+                                <span class="stat-description">Total XP</span>
                             </div>
                         </div>
                         
                         <div class="overall-progress">
                             <div class="progress-label">
-                                <span>Progreso General</span>
+                                <span>Overall Progress</span>
                                 <span>24%</span>
                             </div>
                             <div class="progress-track">
@@ -611,13 +675,13 @@ class SimpleLearningHub {
                                 <i class="fas fa-fire"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Racha de Aprendizaje</h3>
+                                <h3 class="card-title">Learning Streak</h3>
                             </div>
                         </div>
                         
                         <div class="streak-info">
                             <span class="streak-number">7</span>
-                            <span class="streak-label">días consecutivos</span>
+                            <span class="streak-label">consecutive days</span>
                         </div>
                         
                         <div class="streak-calendar">
@@ -634,8 +698,8 @@ class SimpleLearningHub {
 
                 <div class="other-courses" data-aos="fade-up" data-aos-delay="200">
                     <div class="section-header">
-                        <h2 class="section-title">Otros Idiomas</h2>
-                        <p class="section-subtitle">Explora más culturas indígenas de Panamá</p>
+                        <h2 class="section-title">Other Languages</h2>
+                        <p class="section-subtitle">Explore more indigenous cultures of Panama</p>
                     </div>
                     
                     <div class="courses-grid">
@@ -646,7 +710,7 @@ class SimpleLearningHub {
                                 <p class="course-description">${course.description}</p>
                                 
                                 <div class="course-progress">
-                                    <div class="course-progress-label">${course.progress.lessons}/50 lecciones</div>
+                                    <div class="course-progress-label">${course.progress.lessons}/50 lessons</div>
                                     <div class="course-progress-bar">
                                         <div class="course-progress-fill" style="width: ${(course.progress.lessons / 50) * 100}%"></div>
                                     </div>
@@ -654,11 +718,11 @@ class SimpleLearningHub {
                                 
                                 <div class="course-stats">
                                     <span>${course.progress.xp} XP</span>
-                                    <span>${course.progress.streak} día(s) racha</span>
+                                    <span>${course.progress.streak} day(s) streak</span>
                                 </div>
                                 
                                 <button class="course-button">
-                                    ${course.progress.lessons > 0 ? 'Continuar' : 'Comenzar'}
+                                    ${course.progress.lessons > 0 ? 'Continue' : 'Start'}
                                 </button>
                             </div>
                         `).join('')}
@@ -670,20 +734,20 @@ class SimpleLearningHub {
 
     getCourseData() {
         const courses = {
-            'ngabe': { name: 'Ngäbe', flag: '🏔️', description: 'Pueblo de las montañas' },
-            'guna': { name: 'Guna', flag: '🏝️', description: 'Cultura de las islas' },
-            'embera': { name: 'Emberá', flag: '🌊', description: 'Habitantes del río' },
-            'naso': { name: 'Naso', flag: '🦋', description: 'Reino ancestral' }
+            'ngabe': { name: 'Ngäbe', flag: '🏔️', description: 'Mountain People' },
+            'guna': { name: 'Guna', flag: '🏝️', description: 'Island Culture' },
+            'embera': { name: 'Emberá', flag: '🌊', description: 'River Dwellers' },
+            'naso': { name: 'Naso', flag: '🦋', description: 'Ancient Kingdom' }
         };
         return courses[this.currentCourse] || courses['ngabe'];
     }
 
     getOtherCourses() {
         const allCourses = [
-            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Pueblo de las montañas', progress: { lessons: 12, xp: 1250, streak: 7 } },
-            { id: 'guna', name: 'Guna', flag: '🏝️', description: 'Cultura de las islas', progress: { lessons: 8, xp: 890, streak: 3 } },
-            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'Habitantes del río', progress: { lessons: 5, xp: 450, streak: 1 } },
-            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Reino ancestral', progress: { lessons: 3, xp: 220, streak: 0 } }
+            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Mountain People', progress: { lessons: 12, xp: 1250, streak: 7 } },
+            { id: 'guna', name: 'Guna', flag: '🏝️', description: 'Island Culture', progress: { lessons: 8, xp: 890, streak: 3 } },
+            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'River Dwellers', progress: { lessons: 5, xp: 450, streak: 1 } },
+            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Ancient Kingdom', progress: { lessons: 3, xp: 220, streak: 0 } }
         ];
         
         return allCourses.filter(course => course.id !== this.currentCourse);
@@ -862,7 +926,7 @@ class SimpleLearningHub {
         localStorage.removeItem('userProgress');
         
         // Show confirmation
-        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        if (confirm('Are you sure you want to log out?')) {
             // Redirect to main page
             window.location.href = '../index.html';
         }

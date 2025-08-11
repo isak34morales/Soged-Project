@@ -1,6 +1,6 @@
 /**
  * Learning Section Web Component
- * Componente moderno para la sección de aprendizaje interactivo
+ * Modern component for interactive learning section
  */
 
 class LearningSection extends HTMLElement {

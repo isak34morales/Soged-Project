@@ -1,6 +1,6 @@
 /**
  * Stories Section Web Component
- * Componente para historias culturales interactivas
+ * Component for interactive cultural stories
  */
 
 class StoriesSection extends HTMLElement {

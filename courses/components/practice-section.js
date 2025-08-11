@@ -1,6 +1,6 @@
 /**
  * Practice Section Web Component
- * Componente moderno para modos de práctica interactivos
+ * Modern component for interactive practice modes
  */
 
 class PracticeSection extends HTMLElement {
