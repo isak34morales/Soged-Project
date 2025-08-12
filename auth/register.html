@@ -686,11 +686,22 @@
             
             // Simulate registration process
             setTimeout(() => {
-                // Set registration data
+                // Set registration data in both formats for compatibility
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userEmail', email);
                 localStorage.setItem('userName', `${firstName} ${lastName}`);
                 localStorage.setItem('username', username);
+                
+                // Also set Soged format data for dashboard compatibility
+                const userData = {
+                    name: `${firstName} ${lastName}`,
+                    email: email,
+                    username: username,
+                    role: 'user',
+                    subscription: 'basic'
+                };
+                localStorage.setItem('soged_token', 'dummy_token_' + Date.now());
+                localStorage.setItem('soged_user', JSON.stringify(userData));
                 
                 // Show success animation
                 registerBtn.classList.remove('btn-loading');

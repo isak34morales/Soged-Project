@@ -93,9 +93,9 @@ class AuthManager {
         this.updateUI();
         this.showNotification('¡Bienvenido a Soged!', 'success');
         
-        // Redirect to dashboard immediately after login (respect current folder)
+        // Redirect to learning hub dashboard (respect current folder)
         const inSubfolder = window.location.pathname.includes('/pages/') || window.location.pathname.includes('/auth/') || window.location.pathname.includes('/courses/');
-        const dashboardUrl = (inSubfolder ? '../' : './') + 'dashboard/dashboard-new.html';
+        const dashboardUrl = (inSubfolder ? '../' : './') + 'courses/learning-hub.html';
         window.location.href = dashboardUrl;
     }
 

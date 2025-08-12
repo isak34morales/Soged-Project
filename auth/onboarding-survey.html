@@ -652,6 +652,24 @@
             // Store survey data
             localStorage.setItem('surveyData', JSON.stringify(surveyData));
             
+            // Get user data from localStorage and ensure it's in the correct format
+            const userEmail = localStorage.getItem('userEmail');
+            const userName = localStorage.getItem('userName');
+            const username = localStorage.getItem('username');
+            
+            if (userEmail && userName) {
+                // Ensure Soged format data is set for dashboard compatibility
+                const userData = {
+                    name: userName,
+                    email: userEmail,
+                    username: username || userEmail.split('@')[0] || 'usuario',
+                    role: 'user',
+                    subscription: 'basic'
+                };
+                localStorage.setItem('soged_token', 'dummy_token_' + Date.now());
+                localStorage.setItem('soged_user', JSON.stringify(userData));
+            }
+            
             // Show completion message
             document.querySelectorAll('.question-section').forEach(section => {
                 section.classList.remove('active');
@@ -666,19 +684,19 @@
                 
                 switch(selectedLanguage) {
                     case 'ngabe':
-                        courseUrl = '/courses/learning-hub.html?course=ngabe';
+                        courseUrl = '../courses/learning-hub.html?course=ngabe';
                         break;
                     case 'naso':
-                        courseUrl = '/courses/learning-hub.html?course=naso';
+                        courseUrl = '../courses/learning-hub.html?course=naso';
                         break;
                     case 'guna':
-                        courseUrl = '/courses/learning-hub.html?course=guna';
+                        courseUrl = '../courses/learning-hub.html?course=guna';
                         break;
                     case 'embera':
-                        courseUrl = '/courses/learning-hub.html?course=embera';
+                        courseUrl = '../courses/learning-hub.html?course=embera';
                         break;
                     default:
-                        courseUrl = '/courses/learning-hub.html?course=ngabe'; // Default to Ngäbe course
+                        courseUrl = '../courses/learning-hub.html?course=ngabe'; // Default to Ngäbe course
                 }
                 
                 window.location.href = courseUrl;

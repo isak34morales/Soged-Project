@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check which page we're on
     const path = window.location.pathname;
     const isAuthPage = path.includes('login.html') || path.includes('register.html');
-    const isDashboardPage = path.includes('dashboard.html') || path.includes('dashboard-new.html');
+            const isDashboardPage = path.includes('dashboard.html') || path.includes('dashboard-new.html') || path.includes('learning-hub.html');
     const isPagesFolder = path.includes('/pages/') || window.location.href.includes('/pages/');
     const isCoursesFolder = path.includes('/courses/') || window.location.href.includes('/courses/');
     

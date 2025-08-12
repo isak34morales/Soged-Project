@@ -8,11 +8,17 @@ class SimpleLearningHub {
         this.currentSection = 'learn';
         this.currentCourse = this.getCurrentCourse();
         this.sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+        this.currentUser = this.getCurrentUser();
         
         this.init();
     }
 
     init() {
+        // Check authentication first
+        if (!this.checkAuthentication()) {
+            return;
+        }
+        
         this.hideLoadingScreen();
         this.setupSidebar();
         this.setupNavigation();
@@ -22,6 +28,7 @@ class SimpleLearningHub {
         this.setupModals();
         this.loadInitialSection();
         this.setupResponsiveBehavior();
+        this.updateUserInfo();
         
         // Apply saved sidebar state
         if (this.sidebarCollapsed) {
@@ -777,6 +784,89 @@ class SimpleLearningHub {
         return localStorage.getItem('currentCourse') || 'ngabe';
     }
 
+    getCurrentUser() {
+        // First try to get data in Soged format
+        const token = localStorage.getItem('soged_token');
+        const userData = localStorage.getItem('soged_user');
+        
+        if (token && userData) {
+            try {
+                return JSON.parse(userData);
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+            }
+        }
+        
+        // Fallback to legacy format if Soged format not found
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const userEmail = localStorage.getItem('userEmail');
+        const userName = localStorage.getItem('userName');
+        const username = localStorage.getItem('username');
+        
+        if (isLoggedIn === 'true' && userEmail && userName) {
+            // Convert legacy format to Soged format and save it
+            const userData = {
+                name: userName,
+                email: userEmail,
+                username: username || userEmail.split('@')[0] || 'usuario',
+                role: 'user',
+                subscription: 'basic'
+            };
+            
+            // Save in Soged format for future use
+            localStorage.setItem('soged_token', 'dummy_token_' + Date.now());
+            localStorage.setItem('soged_user', JSON.stringify(userData));
+            
+            return userData;
+        }
+        
+        return null;
+    }
+
+    checkAuthentication() {
+        if (!this.currentUser) {
+            // User not authenticated, redirect to login
+            alert('Por favor inicia sesión para acceder al dashboard.');
+            window.location.href = '../auth/login.html';
+            return false;
+        }
+        return true;
+    }
+
+    updateUserInfo() {
+        if (this.currentUser) {
+            // Update username in sidebar
+            const usernameElement = document.querySelector('.username');
+            if (usernameElement) {
+                usernameElement.textContent = this.currentUser.name || 'Usuario';
+            }
+
+            // Update username in dropdown
+            const dropdownUsername = document.querySelector('.dropdown-username');
+            if (dropdownUsername) {
+                dropdownUsername.textContent = this.currentUser.name || 'Usuario';
+            }
+
+            // Update username in profile modal
+            const profileUsername = document.querySelector('.profile-username');
+            if (profileUsername) {
+                profileUsername.textContent = this.currentUser.name || 'Usuario';
+            }
+
+            // Update username input in profile modal
+            const usernameInput = document.getElementById('username');
+            if (usernameInput) {
+                usernameInput.value = this.currentUser.name || 'Usuario';
+            }
+
+            // Update email if available
+            const emailElement = document.querySelector('.profile-email');
+            if (emailElement && this.currentUser.email) {
+                emailElement.textContent = this.currentUser.email;
+            }
+        }
+    }
+
     getCourseName() {
         const names = {
             'ngabe': 'Ngäbe',
@@ -925,8 +1015,12 @@ class SimpleLearningHub {
         localStorage.removeItem('sidebarCollapsed');
         localStorage.removeItem('userProgress');
         
+        // Clear Soged authentication data
+        localStorage.removeItem('soged_token');
+        localStorage.removeItem('soged_user');
+        
         // Show confirmation
-        if (confirm('Are you sure you want to log out?')) {
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
             // Redirect to main page
             window.location.href = '../index.html';
         }

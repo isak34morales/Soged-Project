@@ -590,9 +590,20 @@
             
             // Simulate login process
             setTimeout(() => {
-                // Set login status
+                // Set login status in both formats for compatibility
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userEmail', email);
+                
+                // Also set Soged format data for dashboard compatibility
+                const userData = {
+                    name: email.split('@')[0] || 'Usuario',
+                    email: email,
+                    username: email.split('@')[0] || 'usuario',
+                    role: 'user',
+                    subscription: 'basic'
+                };
+                localStorage.setItem('soged_token', 'dummy_token_' + Date.now());
+                localStorage.setItem('soged_user', JSON.stringify(userData));
                 
                 // Show success animation
                 loginBtn.classList.remove('btn-loading');
@@ -604,7 +615,7 @@
                     // Redirect after animation (respect folder levels)
                     setTimeout(() => {
                         const inSubfolder = window.location.pathname.includes('/auth/');
-                        const dashboardUrl = (inSubfolder ? '../' : './') + 'dashboard/dashboard-new.html';
+                        const dashboardUrl = (inSubfolder ? '../' : './') + 'courses/learning-hub.html';
                         window.location.href = dashboardUrl;
                     }, 1500);
                 

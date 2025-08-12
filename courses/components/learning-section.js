@@ -528,14 +528,49 @@ customElements.define('learning-section', LearningSection);
 // Global functions for lesson interaction
 window.startLesson = function(lessonId) {
     console.log(`Starting lesson ${lessonId}`);
-    // Implement lesson start logic
-    showNotification(`Starting lesson ${lessonId}!`, 'success');
+    
+    // Check if it's a Guna lesson
+    const currentCourse = document.querySelector('learning-section')?.getAttribute('course') || 'ngabe';
+    
+    if (currentCourse === 'guna') {
+        // Load Guna lesson viewer
+        const contentContainer = document.getElementById('contentContainer');
+        if (contentContainer) {
+            contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
+            
+            // Listen for lesson completion
+            contentContainer.addEventListener('lessonCompleted', (e) => {
+                const { lessonId, course } = e.detail;
+                showNotification(`🎉 Lesson ${lessonId} completed! Great job!`, 'success');
+                
+                // Update lesson status in the learning path
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            });
+        }
+    } else {
+        // Default lesson start logic for other courses
+        showNotification(`Starting lesson ${lessonId}!`, 'success');
+    }
 };
 
 window.reviewLesson = function(lessonId) {
     console.log(`Reviewing lesson ${lessonId}`);
-    // Implement lesson review logic
-    showNotification(`Reviewing lesson ${lessonId}!`, 'info');
+    
+    // Check if it's a Guna lesson
+    const currentCourse = document.querySelector('learning-section')?.getAttribute('course') || 'ngabe';
+    
+    if (currentCourse === 'guna') {
+        // Load Guna lesson viewer in review mode
+        const contentContainer = document.getElementById('contentContainer');
+        if (contentContainer) {
+            contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
+        }
+    } else {
+        // Default lesson review logic for other courses
+        showNotification(`Reviewing lesson ${lessonId}!`, 'info');
+    }
 };
 
 // Utility function for notifications
