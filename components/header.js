@@ -79,8 +79,14 @@ class SogedHeader extends HTMLElement {
                     align-items: center;
                     flex: 0 0 auto;
                     padding-right: 1.5rem;
-                    min-width: 180px;
+                    min-width: 0;
                     height: 100%;
+                }
+
+                @media (min-width: 992px) {
+                    .header-left {
+                        max-width: min(300px, 36vw);
+                    }
                 }
 
                 .header-center {
@@ -111,39 +117,30 @@ class SogedHeader extends HTMLElement {
                 .logo-container {
                     display: flex;
                     align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.5rem 0.8rem;
+                    gap: 0;
+                    padding: 0.35rem 0.5rem;
                     border-radius: 12px;
                     transition: var(--transition);
                 }
 
-                .logo-image {
-                    width: 45px;
-                    height: 45px;
-                    margin-right: 12px;
-                    border-radius: 8px;
-                    object-fit: cover;
+                .logo-wordmark {
+                    display: block;
+                    width: auto;
+                    height: 48px;
+                    max-height: 56px;
+                    max-width: min(280px, 58vw);
+                    object-fit: contain;
+                    object-position: left center;
                     transition: transform 0.3s ease;
                 }
-                
-                .logo-image:hover {
-                    transform: scale(1.1);
+
+                .logo-container:hover .logo-wordmark {
+                    transform: scale(1.02);
                 }
 
                 .logo-container:hover {
                     background: transparent !important;
                     transform: translateY(-2px);
-                }
-
-                .logo-text {
-                    font-family: 'Fredoka', sans-serif;
-                    font-size: 2rem;
-                    font-weight: bold;
-                    background: var(--logo-green);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
                 }
 
                 .navbar-brand {
@@ -495,8 +492,10 @@ class SogedHeader extends HTMLElement {
                 }
 
                 @media (max-width: 576px) {
-                    .logo-text {
-                        font-size: 1.5rem;
+                    .logo-wordmark {
+                        height: 40px;
+                        max-height: 48px;
+                        max-width: min(220px, 62vw);
                     }
 
                     .navbar-brand i {
@@ -746,9 +745,10 @@ class SogedHeader extends HTMLElement {
                     .navbar .container {
                         padding: 0 1rem;
                     }
-                    
-                    .logo-text {
-                        font-size: 1.8rem;
+
+                    .logo-wordmark {
+                        height: 44px;
+                        max-width: min(260px, 56vw);
                     }
                     
                     .mobile-nav-link {
@@ -757,8 +757,9 @@ class SogedHeader extends HTMLElement {
                 }
 
                 @media (max-width: 480px) {
-                    .logo-text {
-                        font-size: 1.6rem;
+                    .logo-wordmark {
+                        height: 36px;
+                        max-width: min(200px, 65vw);
                     }
                     
                     .mobile-nav-link {
@@ -777,8 +778,7 @@ class SogedHeader extends HTMLElement {
                     <div class="header-left">
                         <a href="${basePath}index.html" class="navbar-brand">
                             <div class="logo-container">
-                                <img src="${basePath}Images/Newturttle.png" alt="SOGED Mascot" class="logo-image" style="width: 55px; height: 55px; margin-right: 8px; object-fit: contain;">
-                                <span class="logo-text">Soged</span>
+                                <img src="${basePath}Images/Logo%20SOGED.png" alt="SOGED" class="logo-wordmark" width="280" height="56" decoding="async">
                             </div>
                         </a>
                         <!-- Mobile Menu Toggle -->
