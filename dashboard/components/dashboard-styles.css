@@ -1,0 +1,927 @@
+/* === DASHBOARD WEB COMPONENTS STYLES - GAMIFICADO === */
+
+/* Variables específicas del dashboard */
+:root {
+    --dashboard-primary: #00A3E0;
+    --dashboard-secondary: #FF6B35;
+    --dashboard-accent: #FFD23F;
+    --dashboard-success: #2ECC71;
+    --dashboard-warning: #F39C12;
+    --dashboard-info: #3498DB;
+    --dashboard-purple: #9B59B6;
+    --dashboard-pink: #E91E63;
+    
+    /* Gradientes gamificados */
+    --gradient-hero: linear-gradient(135deg, #00A3E0 0%, #0088C7 50%, #FF6B35 100%);
+    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+    --gradient-warning: linear-gradient(135deg, #F39C12 0%, #E67E22 100%);
+    --gradient-info: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+    --gradient-purple: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);
+    --gradient-pink: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+    
+    /* Sombras gamificadas */
+    --shadow-glow: 0 8px 32px rgba(0, 163, 224, 0.3);
+    --shadow-glow-success: 0 8px 32px rgba(46, 204, 113, 0.3);
+    --shadow-glow-warning: 0 8px 32px rgba(243, 156, 18, 0.3);
+    --shadow-glow-purple: 0 8px 32px rgba(155, 89, 182, 0.3);
+}
+
+/* Estilos para las secciones de contenido */
+.content-section {
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header {
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--gradient-hero);
+    border-radius: 2px;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 163, 224, 0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Estilos para las tarjetas de progreso gamificadas */
+.progress-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--gradient-hero);
+    border-radius: 3px;
+}
+
+.progress-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 163, 224, 0.4);
+}
+
+.progress-card:nth-child(1) .card-icon {
+    background: var(--gradient-hero);
+    box-shadow: var(--shadow-glow);
+}
+
+.progress-card:nth-child(2) .card-icon {
+    background: var(--gradient-warning);
+    box-shadow: var(--shadow-glow-warning);
+}
+
+.progress-card:nth-child(3) .card-icon {
+    background: var(--gradient-success);
+    box-shadow: var(--shadow-glow-success);
+}
+
+.progress-card:nth-child(4) .card-icon {
+    background: var(--gradient-info);
+    box-shadow: 0 8px 32px rgba(52, 152, 219, 0.3);
+}
+
+.card-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-size: 2.5rem;
+    color: white;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.card-icon::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    z-index: -1;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.1; }
+    100% { transform: scale(1); opacity: 0.3; }
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.progress-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(var(--dashboard-primary) 0deg 234deg, #e9ecef 234deg 360deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.progress-circle::before {
+    content: '';
+    width: 110px;
+    height: 110px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--dashboard-primary);
+    z-index: 1;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 163, 224, 0.3);
+}
+
+.streak-value, .achievements-count, .study-time {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 163, 224, 0.3);
+}
+
+.card-content p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Estilos para las tarjetas de cursos gamificadas */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.course-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.course-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--gradient-hero);
+    border-radius: 3px;
+}
+
+.course-card.current::before {
+    background: var(--gradient-success);
+}
+
+.course-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 163, 224, 0.4);
+}
+
+.course-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.course-icon {
+    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-hero);
+    border-radius: 20px;
+    box-shadow: var(--shadow-glow);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.course-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-badge {
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--gradient-success);
+    color: white;
+    box-shadow: var(--shadow-glow-success);
+    animation: pulse 2s infinite;
+}
+
+.status-badge.available {
+    background: var(--gradient-warning);
+    box-shadow: var(--shadow-glow-warning);
+}
+
+.course-progress {
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e9ecef;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-hero);
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.course-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Estilos para los logros gamificados */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.achievement-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--gradient-warning);
+    border-radius: 3px;
+}
+
+.achievement-card.unlocked::before {
+    background: var(--gradient-success);
+}
+
+.achievement-card.locked::before {
+    background: linear-gradient(90deg, #95a5a6, #7f8c8d);
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 163, 224, 0.4);
+}
+
+.achievement-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--gradient-warning);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: var(--shadow-glow-warning);
+    animation: rotate 8s linear infinite;
+}
+
+.achievement-card.unlocked .achievement-icon {
+    background: var(--gradient-success);
+    box-shadow: var(--shadow-glow-success);
+    animation: celebrate 1s ease-out;
+}
+
+@keyframes celebrate {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.achievement-card.locked .achievement-icon {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    box-shadow: 0 8px 32px rgba(149, 165, 166, 0.3);
+    animation: none;
+    opacity: 0.7;
+}
+
+.achievement-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.achievement-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.achievement-date, .achievement-progress {
+    font-size: 0.9rem;
+    color: var(--dashboard-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.achievement-card.locked .achievement-date,
+.achievement-card.locked .achievement-progress {
+    color: #95a5a6;
+}
+
+/* Estilos para la comunidad gamificada */
+.community-content {
+    margin-top: 2rem;
+}
+
+.community-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    animation: slideInUp 0.6s ease-out;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--gradient-hero);
+    border-radius: 3px;
+}
+
+.stat-card:nth-child(2)::before {
+    background: var(--gradient-success);
+}
+
+.stat-card:nth-child(3)::before {
+    background: var(--gradient-warning);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 163, 224, 0.4);
+}
+
+.stat-card h3 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 163, 224, 0.3);
+}
+
+.stat-card:nth-child(2) h3 {
+    background: var(--gradient-success);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card:nth-child(3) h3 {
+    background: var(--gradient-warning);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recent-activity {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: slideInUp 0.8s ease-out;
+}
+
+.recent-activity h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.activity-item:hover {
+    background: rgba(0, 163, 224, 0.1);
+    transform: translateX(10px);
+}
+
+.activity-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid var(--dashboard-primary);
+    box-shadow: 0 4px 12px rgba(0, 163, 224, 0.3);
+}
+
+.activity-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-content p {
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.activity-content strong {
+    color: var(--dashboard-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.activity-time {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+/* Estilos para el perfil gamificado */
+.profile-content {
+    margin-top: 2rem;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 3rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    animation: slideInUp 0.8s ease-out;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+}
+
+.profile-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid var(--dashboard-primary);
+    overflow: hidden;
+    box-shadow: var(--shadow-glow);
+    animation: float 4s ease-in-out infinite;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.profile-info p {
+    font-size: 1.3rem;
+    color: var(--dashboard-primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.member-since {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 163, 224, 0.1);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    text-shadow: 0 4px 8px rgba(0, 163, 224, 0.3);
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Estilos para configuración gamificada */
+.settings-content {
+    margin-top: 2rem;
+}
+
+.settings-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glow);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 2rem;
+    animation: slideInUp 0.8s ease-out;
+}
+
+.settings-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item:hover {
+    background: rgba(0, 163, 224, 0.05);
+    border-radius: 15px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.setting-item label {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    accent-color: var(--dashboard-primary);
+    transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 2.5rem;
+    }
+    
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .community-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-card,
+    .course-card,
+    .achievement-card,
+    .stat-card,
+    .recent-activity,
+    .profile-card,
+    .settings-section {
+        padding: 2rem;
+    }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .progress-card,
+[data-theme="dark"] .course-card,
+[data-theme="dark"] .achievement-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .recent-activity,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .settings-section {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .section-header h2 {
+    color: #ecf0f1;
+}
+
+[data-theme="dark"] .card-content h3,
+[data-theme="dark"] .course-header h3,
+[data-theme="dark"] .achievement-card h3,
+[data-theme="dark"] .recent-activity h3,
+[data-theme="dark"] .profile-info h3,
+[data-theme="dark"] .settings-section h3 {
+    color: #ecf0f1;
+}
+
+[data-theme="dark"] .card-content p,
+[data-theme="dark"] .progress-text,
+[data-theme="dark"] .course-stats,
+[data-theme="dark"] .achievement-card p,
+[data-theme="dark"] .stat-card p,
+[data-theme="dark"] .activity-content p,
+[data-theme="dark"] .member-since,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .setting-item label {
+    color: #bdc3c7;
+} 
