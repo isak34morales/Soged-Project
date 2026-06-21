@@ -3,179 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Languages - Soged</title>
+    <title>Learn - Soged</title>
     <link rel="icon" type="image/png" href="Images/Soged/Newturttle.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .language-card {
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 2rem;
-        }
-        
-        .language-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .stat-item {
-            display: inline-block;
-            margin-right: 15px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .stat-item i {
-            margin-right: 5px;
-            color: #28a745;
-        }
-        
-        .language-description {
-            margin: 1rem 0;
-            line-height: 1.6;
-        }
-        
-        .language-stats {
-            margin: 1.5rem 0;
-        }
-        
-        .language-title {
-            margin-bottom: 1rem;
-        }
-        
-        .badge {
-            margin-bottom: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="css/languages.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'soged-green': '#11802b',
+                        'soged-yellow': '#e3a008',
+                    },
+                },
+            },
+        };
+    </script>
 </head>
 <body>
     <div id="header-component"></div>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-center" style="min-height: 40vh; padding-top: 120px;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up">
-                    <h1 class="hero-title">
-                        Explore <span class="keyword-secondary">Indigenous Languages</span> of <span class="keyword-blue">Panama</span>
+    <!-- Guna Hero Banner -->
+    <section class="guna-hero" aria-labelledby="guna-hero-title">
+        <div class="guna-hero__bg" aria-hidden="true"></div>
+        <div class="guna-hero__overlay" aria-hidden="true"></div>
+
+        <div class="container guna-hero__content">
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h1 id="guna-hero-title" class="guna-hero__title">
+                        Nuegambi! (Welcome!)
                     </h1>
-                    <p class="hero-description" style="margin: 0 auto !important;">
-                        Click on any language to start learning.
+                    <p class="guna-hero__subtitle">
+                        Dive into the Guna Universe: Connect with Panama's ancestral heart through our primary language focus, immersive culture, and vibrant traditions.
                     </p>
+                </div>
+
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div id="guna-panel-root"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Languages Grid -->
-    <section class="languages-section py-5" id="languages">
+    <!-- Other Languages — Coming Soon -->
+    <section class="coming-soon-section py-5" id="languages" aria-labelledby="other-languages-heading">
         <div class="container">
-            
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 id="other-languages-heading" class="section-title-style mb-2">More Indigenous Languages</h2>
+                <p class="text-secondary mb-0">Additional courses are on the way. Guna is our active focus today.</p>
+            </div>
+
             <div class="row g-4">
-                <!-- Ngäbe Language -->
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="language-card glass-card h-100" id="ngabe-card">
-                        <div class="row align-items-center">
-                            <div class="col-md-4 text-center">
-                                <div class="language-icon mb-3">
-                                    <img src="Images/Languages/Ngabe.png" alt="Ngäbe Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="language-title gradient-text">Ngäbe</h3>
-                                <p class="language-description">
-                                    Learn the language of the Ngäbe people, the largest indigenous group in Panama. 
-                                    Discover their traditions, customs, and way of life through interactive lessons.
-                                </p>
-                                <div class="language-stats mb-3">
-                                    <span class="stat-item"><i class="fas fa-book"></i> 150 Lessons</span>
-                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
-                                    <span class="stat-item"><i class="fas fa-users"></i> 50,000+ Speakers</span>
-                                </div>
-                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/learning-hub.html?course=ngabe'">Start Learning Ngäbe</button>
-                            </div>
+                <!-- Ngäbe -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="coming-soon-card language-card glass-card h-100 grayscale opacity-50 pointer-events-none select-none">
+                        <div class="text-center mb-3">
+                            <img src="Images/Languages/Ngabe.png" alt="Ngäbe Language" class="img-fluid rounded-circle mx-auto" style="width: 100px; height: 100px; object-fit: cover;">
                         </div>
+                        <h3 class="language-title gradient-text text-center h5">Ngäbe</h3>
+                        <p class="language-description text-center small">
+                            Learn the language of the Ngäbe people, the largest indigenous group in Panama.
+                        </p>
+                        <div class="language-stats text-center mb-3">
+                            <span class="stat-item"><i class="fas fa-book"></i> 150 Lessons</span>
+                            <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
+                        </div>
+                        <button class="btn btn-secondary w-100" disabled tabindex="-1">Explore (Coming Soon)</button>
                     </div>
                 </div>
 
-                <!-- Naso Language -->
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="language-card glass-card h-100" id="naso-card">
-                        <div class="row align-items-center">
-                            <div class="col-md-4 text-center">
-                                <div class="language-icon mb-3">
-                                    <img src="Images/Languages/Naso.gif" alt="Naso Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="language-title gradient-text">Naso</h3>
-                                <p class="language-description">
-                                    Discover the musical language of the Naso people with its unique rhythms and 
-                                    cultural expressions. Learn about their spiritual traditions and connection to nature.
-                                </p>
-                                <div class="language-stats mb-3">
-                                    <span class="stat-item"><i class="fas fa-book"></i> 120 Lessons</span>
-                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 4 Levels</span>
-                                    <span class="stat-item"><i class="fas fa-users"></i> 3,000+ Speakers</span>
-                                </div>
-                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/learning-hub.html?course=naso'">Start Learning Naso</button>
-                            </div>
+                <!-- Naso -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="coming-soon-card language-card glass-card h-100 grayscale opacity-50 pointer-events-none select-none">
+                        <div class="text-center mb-3">
+                            <img src="Images/Languages/Naso.gif" alt="Naso Language" class="img-fluid rounded-circle mx-auto" style="width: 100px; height: 100px; object-fit: cover;">
                         </div>
+                        <h3 class="language-title gradient-text text-center h5">Naso</h3>
+                        <p class="language-description text-center small">
+                            Discover the musical language of the Naso people and their connection to nature.
+                        </p>
+                        <div class="language-stats text-center mb-3">
+                            <span class="stat-item"><i class="fas fa-book"></i> 120 Lessons</span>
+                            <span class="stat-item"><i class="fas fa-layer-group"></i> 4 Levels</span>
+                        </div>
+                        <button class="btn btn-secondary w-100" disabled tabindex="-1">Explore (Coming Soon)</button>
                     </div>
                 </div>
 
-                <!-- Guna Language -->
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="language-card glass-card h-100" id="guna-card">
-                        <div class="row align-items-center">
-                            <div class="col-md-4 text-center">
-                                <div class="language-icon mb-3">
-                                    <img src="Images/Languages/Guna.png" alt="Guna Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="language-title gradient-text">Guna</h3>
-                                <p class="language-description">
-                                    Master the language of the Guna people from the beautiful San Blas Islands. 
-                                    Explore their rich maritime culture and traditional governance systems.
-                                </p>
-                                <div class="language-stats mb-3">
-                                    <span class="stat-item"><i class="fas fa-book"></i> 200 Lessons</span>
-                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 6 Levels</span>
-                                    <span class="stat-item"><i class="fas fa-users"></i> 60,000+ Speakers</span>
-                                </div>
-                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/learning-hub.html?course=guna'">Start Learning Guna</button>
-                            </div>
+                <!-- Emberá -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="coming-soon-card language-card glass-card h-100 grayscale opacity-50 pointer-events-none select-none">
+                        <div class="text-center mb-3">
+                            <img src="Images/Languages/Embera.png" alt="Emberá Language" class="img-fluid rounded-circle mx-auto" style="width: 100px; height: 100px; object-fit: cover;">
                         </div>
-                    </div>
-                </div>
-
-                <!-- Emberá Language -->
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="language-card glass-card h-100" id="embera-card">
-                        <div class="row align-items-center">
-                            <div class="col-md-4 text-center">
-                                <div class="language-icon mb-3">
-                                    <img src="Images/Languages/Embera.png" alt="Emberá Language" class="img-fluid rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h3 class="language-title gradient-text">Emberá</h3>
-                                <p class="language-description">
-                                    Explore the ancient language of the Emberá people and their deep-rooted traditions. 
-                                    Learn about their spiritual practices and connection to the rainforest.
-                                </p>
-                                <div class="language-stats mb-3">
-                                    <span class="stat-item"><i class="fas fa-book"></i> 180 Lessons</span>
-                                    <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
-                                    <span class="stat-item"><i class="fas fa-users"></i> 25,000+ Speakers</span>
-                                </div>
-                                <button class="btn btn-primary w-100" onclick="window.location.href='courses/learning-hub.html?course=embera'">Start Learning Emberá</button>
-                            </div>
+                        <h3 class="language-title gradient-text text-center h5">Emberá</h3>
+                        <p class="language-description text-center small">
+                            Explore the ancient language of the Emberá people and their rainforest traditions.
+                        </p>
+                        <div class="language-stats text-center mb-3">
+                            <span class="stat-item"><i class="fas fa-book"></i> 180 Lessons</span>
+                            <span class="stat-item"><i class="fas fa-layer-group"></i> 5 Levels</span>
                         </div>
+                        <button class="btn btn-secondary w-100" disabled tabindex="-1">Explore (Coming Soon)</button>
                     </div>
                 </div>
             </div>
@@ -184,47 +118,20 @@
 
     <div id="footer-component"></div>
 
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="js/components.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
-    <script src="js/carousel.js"></script>
-    
+    <script type="text/babel" src="components/guna-learn-panel.jsx"></script>
+
     <script>
-        // Add the Web Component to the page (same as index.html)
-        document.addEventListener('DOMContentLoaded', function() {
-            const headerElement = document.createElement('soged-header');
-            document.getElementById('header-component').appendChild(headerElement);
-            
-            // Ensure navigation links work properly
-            setTimeout(() => {
-                const header = document.querySelector('soged-header');
-                if (header && header.shadowRoot) {
-                    const navLinks = header.shadowRoot.querySelectorAll('.nav-link');
-                    navLinks.forEach(link => {
-                        link.addEventListener('click', function(e) {
-                            const href = this.getAttribute('href');
-                            if (href) {
-                                // Navigate to the correct page
-                                window.location.href = href;
-                            }
-                        });
-                    });
-                }
-            }, 100);
-        });
-    </script>
-    
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 600,
-            offset: 50
-        });
+        AOS.init({ duration: 600, offset: 50 });
     </script>
 </body>
-</html> 
+</html>

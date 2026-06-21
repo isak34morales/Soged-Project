@@ -1,0 +1,100 @@
+/* Learn / Languages page — Guna hero & coming-soon cards */
+
+.guna-hero {
+    position: relative;
+    min-height: 520px;
+    padding: 120px 0 64px;
+    overflow: hidden;
+}
+
+.guna-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('../Images/Molas Guna/Mola 1.jpg');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+}
+
+.guna-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(17, 24, 39, 0.82) 0%,
+        rgba(17, 128, 43, 0.55) 45%,
+        rgba(17, 24, 39, 0.75) 100%
+    );
+}
+
+.guna-hero__content {
+    position: relative;
+    z-index: 1;
+}
+
+.guna-hero__title {
+    font-family: var(--font-primary, 'Fredoka', sans-serif);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.guna-hero__subtitle {
+    font-family: var(--font-body, 'Quicksand', sans-serif);
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 34rem;
+}
+
+/* Diagonal COMING SOON ribbon */
+.coming-soon-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.coming-soon-card::after {
+    content: 'COMING SOON';
+    position: absolute;
+    top: 22px;
+    right: -38px;
+    width: 160px;
+    padding: 6px 0;
+    background: #374151;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    transform: rotate(45deg);
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.coming-soon-section {
+    background: var(--bg-primary, #f8fafc);
+}
+
+.coming-soon-section .language-card {
+    padding: 2rem 1.5rem;
+}
+
+.coming-soon-section .stat-item {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 13px;
+    color: #666;
+}
+
+.coming-soon-section .stat-item i {
+    margin-right: 4px;
+    color: #11802b;
+}
+
+@media (max-width: 991px) {
+    .guna-hero {
+        padding-bottom: 48px;
+    }
+}
