@@ -392,14 +392,14 @@ section {
 .why-soged-bg::before {
     width: 300px; height: 300px;
     left: -100px; top: -80px;
-    background-image: url('../Images/Amarillo.png');
+    background-image: url('Images/Languages/Amarillo.png');
     animation: float 6s ease-in-out infinite;
 }
 
 .why-soged-bg::after {
     width: 250px; height: 250px;
     right: -80px; bottom: -60px;
-    background-image: url('../Images/Rojo.png');
+    background-image: url('Images/Languages/Rojo.png');
     animation: float 8s ease-in-out infinite reverse;
 }
 
@@ -410,7 +410,7 @@ section {
     width: 200px; height: 200px;
     left: 50px; top: 50%;
     transform: translateY(-50%);
-    background-image: url('../Images/Azul.png');
+    background-image: url('Images/Languages/Azul.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -584,10 +584,10 @@ section {
 }
 
 .app-logo-img {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    object-fit: cover;
+    height: 48px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
 }
 
 .app-welcome h3 {
@@ -1406,9 +1406,9 @@ section {
 .language-step.guna-green .step-number,
 .language-step.guna-green .lang-level { background: var(--gradient-primary); }
 .language-step.guna-green .step-icon { background: var(--gradient-primary); }
-.language-step.bribri-yellow .step-number,
-.language-step.bribri-yellow .lang-level { background: var(--gradient-accent); }
-.language-step.bribri-yellow .step-icon { background: var(--gradient-accent); }
+.language-step.embera-yellow .step-number,
+.language-step.embera-yellow .lang-level { background: var(--gradient-accent); }
+.language-step.embera-yellow .step-icon { background: var(--gradient-accent); }
 
 /* Language-specific button styles */
 .btn-ngabe {
@@ -1649,110 +1649,7 @@ section {
     color: var(--text-secondary);
 }
 
-/* Partners Section */
-.partners-section {
-    background: var(--bg-primary);
-    padding: 100px 0;
-    overflow: hidden;
-}
-
-.partners-carousel-container {
-    position: relative;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    overflow: hidden;
-}
-
-.partners-carousel {
-    display: flex;
-    gap: 2rem;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    width: max-content;
-}
-
-.partner-logo-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 1.5rem 2rem;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    transition: var(--transition);
-    min-width: 200px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: none;
-}
-
-.partner-logo-item:hover {
-    transform: translateY(-5px) scale(1.05);
-}
-
-.partner-logo-item i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    transition: var(--transition);
-}
-
-.partner-logo-item:hover i {
-    transform: scale(1.1);
-    color: var(--secondary-color);
-}
-
-.partner-logo-item .partner-logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 50%;
-    transition: var(--transition);
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-
-.partner-logo-item:hover .partner-logo {
-    transform: scale(1.15);
-    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
-}
-
-.partner-logo-item span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-align: center;
-    line-height: 1.3;
-    transition: var(--transition);
-    opacity: 0.8;
-}
-
-.partner-logo-item:hover span {
-    opacity: 1;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-/* Auto-scroll animation for partners */
-@keyframes autoScroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.partners-carousel.auto-scroll {
-    animation: autoScroll 25s linear infinite;
-    will-change: transform;
-}
-
-.partners-carousel.auto-scroll:hover {
-    animation-play-state: paused;
-}
+/* Partners Section — handled by <partners-marquee> web component */
 
 /* CTA Section - Now handled by web component */
 
@@ -2166,7 +2063,7 @@ section {
 }
 
 .hero-section::before {
-    background: url('Images/Azul.png') center/cover;
+    background: url('Images/Languages/Azul.png') center/cover;
 }
 
 .features-section::before {
@@ -2209,22 +2106,22 @@ section {
 }
 
 .languages-section::before {
-    background: url('Images/Verde.png') center/cover;
+    background: url('Images/Languages/Verde.png') center/cover;
 }
 
 .how-it-works-section::before {
-    background: url('Images/Rojo.png') center/cover;
+    background: url('Images/Languages/Rojo.png') center/cover;
 }
 
 .testimonials-section::before {
-    background: url('Images/Azul.png') center/cover;
+    background: url('Images/Languages/Azul.png') center/cover;
     opacity: 0.6;
 }
 
 /* CTA section now handled by web component */
 
 .partners-section::before {
-    background: url('Images/Verde.png') center/cover;
+    background: url('Images/Languages/Verde.png') center/cover;
     opacity: 0.6;
 }
 
@@ -2259,66 +2156,66 @@ section {
 
 /* Feature card borders */
 .feature-card:nth-child(1)::before {
-    background-image: url('Images/Azul.png');
+    background-image: url('Images/Languages/Azul.png');
 }
 
 .feature-card:nth-child(2)::before {
-    background-image: url('Images/Amarillo.png');
+    background-image: url('Images/Languages/Amarillo.png');
 }
 
 .feature-card:nth-child(3)::before {
-    background-image: url('Images/Verde.png');
+    background-image: url('Images/Languages/Verde.png');
 }
 
 .feature-card:nth-child(4)::before {
-    background-image: url('Images/Rojo.png');
+    background-image: url('Images/Languages/Rojo.png');
 }
 
 /* Language step borders */
 .language-step.ngabe-blue::before {
-    background-image: url('Images/Azul.png');
+    background-image: url('Images/Languages/Azul.png');
 }
 
 .language-step.naso-orange::before {
-    background-image: url('Images/Amarillo.png');
+    background-image: url('Images/Languages/Amarillo.png');
 }
 
 .language-step.guna-green::before {
-    background-image: url('Images/Verde.png');
+    background-image: url('Images/Languages/Verde.png');
 }
 
-.language-step.bribri-yellow::before {
-    background-image: url('Images/Rojo.png');
+.language-step.embera-yellow::before {
+    background-image: url('Images/Languages/Rojo.png');
 }
 
 /* Step card borders */
 .step-card.step-blue::before {
-    background-image: url('Images/Azul.png');
+    background-image: url('Images/Languages/Azul.png');
 }
 
 .step-card.step-orange::before {
-    background-image: url('Images/Amarillo.png');
+    background-image: url('Images/Languages/Amarillo.png');
 }
 
 .step-card.step-green::before {
-    background-image: url('Images/Verde.png');
+    background-image: url('Images/Languages/Verde.png');
 }
 
 .step-card.step-yellow::before {
-    background-image: url('Images/Rojo.png');
+    background-image: url('Images/Languages/Rojo.png');
 }
 
 /* Testimonial card borders */
 .testimonial-card::before {
-    background-image: url('Images/Azul.png');
+    background-image: url('Images/Languages/Azul.png');
 }
 
 .testimonial-card:nth-child(2)::before {
-    background-image: url('Images/Amarillo.png');
+    background-image: url('Images/Languages/Amarillo.png');
 }
 
 .testimonial-card:nth-child(3)::before {
-    background-image: url('Images/Verde.png');
+    background-image: url('Images/Languages/Verde.png');
 }
 
 /* Page border decorations */
@@ -2334,10 +2231,10 @@ body::before {
     right: 0;
     height: 6px;
     background: linear-gradient(90deg, 
-        url('Images/Azul.png') 0% 25%,
-        url('Images/Amarillo.png') 25% 50%,
-        url('Images/Verde.png') 50% 75%,
-        url('Images/Rojo.png') 75% 100%);
+        url('Images/Languages/Azul.png') 0% 25%,
+        url('Images/Languages/Amarillo.png') 25% 50%,
+        url('Images/Languages/Verde.png') 50% 75%,
+        url('Images/Languages/Rojo.png') 75% 100%);
     background-size: 25% 100%;
     background-repeat: no-repeat;
     z-index: 1000;
@@ -2352,10 +2249,10 @@ body::after {
     width: 6px;
     height: 100vh;
     background: linear-gradient(180deg, 
-        url('Images/Azul.png') 0% 25%,
-        url('Images/Amarillo.png') 25% 50%,
-        url('Images/Verde.png') 50% 75%,
-        url('Images/Rojo.png') 75% 100%);
+        url('Images/Languages/Azul.png') 0% 25%,
+        url('Images/Languages/Amarillo.png') 25% 50%,
+        url('Images/Languages/Verde.png') 50% 75%,
+        url('Images/Languages/Rojo.png') 75% 100%);
     background-size: 100% 25%;
     background-repeat: no-repeat;
     z-index: 1000;
@@ -2387,10 +2284,10 @@ body::after {
 .footer {
     border-top: 4px solid;
     border-image: linear-gradient(90deg, 
-        url('Images/Azul.png') 0% 25%,
-        url('Images/Amarillo.png') 25% 50%,
-        url('Images/Verde.png') 50% 75%,
-        url('Images/Rojo.png') 75% 100%) 1;
+        url('Images/Languages/Azul.png') 0% 25%,
+        url('Images/Languages/Amarillo.png') 25% 50%,
+        url('Images/Languages/Verde.png') 50% 75%,
+        url('Images/Languages/Rojo.png') 75% 100%) 1;
     opacity: 0.8;
 }
 

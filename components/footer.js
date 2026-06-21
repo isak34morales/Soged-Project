@@ -11,6 +11,15 @@ class SogedFooter extends HTMLElement {
     }
 
     render() {
+        const currentPath = window.location.pathname;
+        let basePath = '';
+
+        if (currentPath.includes('/pages/') || currentPath.includes('/auth/') || currentPath.includes('/dashboard/') || currentPath.includes('/courses/')) {
+            basePath = '../';
+        } else {
+            basePath = './';
+        }
+
         this.shadowRoot.innerHTML = `
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka+One&display=swap');
@@ -143,6 +152,13 @@ class SogedFooter extends HTMLElement {
                     align-items: center;
                     gap: 0.8rem;
                     margin-bottom: 1.5rem;
+                }
+
+                .footer-brand img {
+                    height: 40px;
+                    width: auto;
+                    max-width: 140px;
+                    object-fit: contain;
                 }
 
                 .footer-brand i {
@@ -492,7 +508,7 @@ class SogedFooter extends HTMLElement {
                         <!-- Logo + Descripción -->
                         <div class="col-lg-3 col-md-6">
                             <div class="footer-brand">
-                                <i class="fas fa-language"></i>
+                                <img src="${basePath}Images/Soged/LOGO%20SOGED.png" alt="SOGED Logo">
                                 <span>Soged</span>
                             </div>
                             <p class="footer-description">

@@ -194,7 +194,7 @@ function getSectionName(sectionId) {
         'ngabe': 'Ngäbe',
         'naso': 'Naso',
         'guna': 'Guna',
-        'bribri': 'Bri-Bri',
+        'embera': 'Emberá',
         'friends': 'Amigos',
         'groups': 'Grupos',
         'chat': 'Chat',

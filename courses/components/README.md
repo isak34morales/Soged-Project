@@ -82,7 +82,7 @@ Componente de pie de página reutilizable para todas las páginas de cursos.
 ```
 
 #### Atributos:
-- `current-course`: ID del curso actual (ngabe, embera, kuna, bribri)
+- `current-course`: ID del curso actual (ngabe, embera, kuna, naso)
 
 #### Métodos Públicos:
 ```javascript

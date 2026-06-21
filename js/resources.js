@@ -7,55 +7,49 @@ class ResourcesManager {
         this.resourceCards = document.querySelectorAll('.resource-card');
         this.resourcesGrid = document.getElementById('resourcesGrid');
         this.loadMoreBtn = document.getElementById('loadMoreBtn');
-        
+
         this.currentCategory = 'all';
         this.currentSearch = '';
-        this.visibleCards = 12;
-        
+        this.showAllResources = false;
+
         this.init();
     }
-    
+
     init() {
         this.setupEventListeners();
         this.setupSearch();
-        this.setupFilters();
-        this.setupLoadMore();
+        this.filterResources();
     }
-    
+
     setupEventListeners() {
-        // Search functionality
         if (this.searchInput) {
             this.searchInput.addEventListener('input', (e) => {
                 this.currentSearch = e.target.value.toLowerCase();
                 this.filterResources();
             });
         }
-        
-        // Category filters
+
         this.categoryButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.setActiveCategory(e.target.closest('.category-btn'));
             });
         });
-        
-        // Load more functionality
+
         if (this.loadMoreBtn) {
             this.loadMoreBtn.addEventListener('click', () => {
                 this.loadMoreResources();
             });
         }
     }
-    
+
     setupSearch() {
-        // Add search icon click functionality
         const searchBtn = document.querySelector('.search-btn');
         if (searchBtn) {
             searchBtn.addEventListener('click', () => {
                 this.performSearch();
             });
         }
-        
-        // Add enter key functionality
+
         if (this.searchInput) {
             this.searchInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -64,112 +58,78 @@ class ResourcesManager {
             });
         }
     }
-    
-    setupFilters() {
-        // Initialize with "All" category active
-        const allBtn = document.querySelector('.category-btn[data-category="all"]');
-        if (allBtn) {
-            this.setActiveCategory(allBtn);
-        }
-    }
-    
-    setupLoadMore() {
-        // Hide load more button if not enough cards
-        if (this.resourceCards.length <= this.visibleCards) {
-            if (this.loadMoreBtn) {
-                this.loadMoreBtn.style.display = 'none';
-            }
-        }
-    }
-    
+
     setActiveCategory(button) {
-        // Remove active class from all buttons
         this.categoryButtons.forEach(btn => {
             btn.classList.remove('active');
         });
-        
-        // Add active class to clicked button
+
         button.classList.add('active');
-        
-        // Update current category
         this.currentCategory = button.getAttribute('data-category');
-        
-        // Filter resources
         this.filterResources();
     }
-    
+
+    isFeatured(card) {
+        return card.getAttribute('data-featured') === 'true';
+    }
+
+    cardMatchesFilter(card) {
+        const category = card.getAttribute('data-category');
+        const searchText = card.getAttribute('data-search') || '';
+        const matchesCategory = this.currentCategory === 'all' || category === this.currentCategory;
+        const matchesSearch = !this.currentSearch || searchText.includes(this.currentSearch);
+        return matchesCategory && matchesSearch;
+    }
+
     filterResources() {
         let visibleCount = 0;
-        
-        this.resourceCards.forEach((card, index) => {
-            const category = card.getAttribute('data-category');
-            const searchText = card.getAttribute('data-search');
-            
-            // Check if card matches current filter
-            const matchesCategory = this.currentCategory === 'all' || category === this.currentCategory;
-            const matchesSearch = !this.currentSearch || searchText.includes(this.currentSearch);
-            
-            if (matchesCategory && matchesSearch) {
-                card.classList.remove('hidden');
+
+        this.resourceCards.forEach(card => {
+            const featured = this.isFeatured(card);
+            const matches = this.cardMatchesFilter(card);
+
+            card.classList.remove('hidden', 'filtered');
+
+            if (!matches) {
+                card.classList.add('hidden');
+                card.style.display = 'none';
+                return;
+            }
+
+            if (featured || this.showAllResources) {
                 card.classList.add('filtered');
-                
-                // Show only visible cards
-                if (visibleCount < this.visibleCards) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = 'block';
+                visibleCount++;
             } else {
                 card.classList.add('hidden');
-                card.classList.remove('filtered');
                 card.style.display = 'none';
             }
         });
-        
-        // Update load more button visibility
-        this.updateLoadMoreButton(visibleCount);
-        
-        // Show no results message if needed
+
+        this.updateLoadMoreButton();
         this.showNoResultsMessage(visibleCount);
     }
-    
-    updateLoadMoreButton(visibleCount) {
-        if (this.loadMoreBtn) {
-            const totalMatchingCards = this.getMatchingCardsCount();
-            
-            if (visibleCount >= totalMatchingCards) {
-                this.loadMoreBtn.style.display = 'none';
-            } else {
-                this.loadMoreBtn.style.display = 'block';
-            }
+
+    updateLoadMoreButton() {
+        if (!this.loadMoreBtn) return;
+
+        const hiddenComingSoon = Array.from(this.resourceCards).some(card => {
+            return !this.isFeatured(card) && this.cardMatchesFilter(card);
+        });
+
+        if (this.showAllResources || !hiddenComingSoon) {
+            this.loadMoreBtn.style.display = 'none';
+        } else {
+            this.loadMoreBtn.style.display = 'inline-flex';
         }
     }
-    
-    getMatchingCardsCount() {
-        let count = 0;
-        this.resourceCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            const searchText = card.getAttribute('data-search');
-            
-            const matchesCategory = this.currentCategory === 'all' || category === this.currentCategory;
-            const matchesSearch = !this.currentSearch || searchText.includes(this.currentSearch);
-            
-            if (matchesCategory && matchesSearch) {
-                count++;
-            }
-        });
-        return count;
-    }
-    
+
     showNoResultsMessage(visibleCount) {
-        // Remove existing no results message
         const existingMessage = document.querySelector('.no-results-message');
         if (existingMessage) {
             existingMessage.remove();
         }
-        
-        // Show message if no results
+
         if (visibleCount === 0) {
             const message = document.createElement('div');
             message.className = 'no-results-message text-center py-5';
@@ -178,69 +138,51 @@ class ResourcesManager {
                 <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">No resources found</h3>
                 <p style="color: var(--text-secondary);">Try adjusting your search or filter criteria</p>
             `;
-            
+
             if (this.resourcesGrid) {
                 this.resourcesGrid.appendChild(message);
             }
         }
     }
-    
+
     performSearch() {
-        // Trigger search with current input value
         if (this.searchInput) {
             this.currentSearch = this.searchInput.value.toLowerCase();
             this.filterResources();
         }
     }
-    
+
     loadMoreResources() {
-        const matchingCards = Array.from(this.resourceCards).filter(card => {
-            const category = card.getAttribute('data-category');
-            const searchText = card.getAttribute('data-search');
-            
-            const matchesCategory = this.currentCategory === 'all' || category === this.currentCategory;
-            const matchesSearch = !this.currentSearch || searchText.includes(this.currentSearch);
-            
-            return matchesCategory && matchesSearch;
-        });
-        
-        // Show more cards
-        matchingCards.forEach((card, index) => {
-            if (index < this.visibleCards + 6) { // Load 6 more cards
-                card.style.display = 'block';
-            }
-        });
-        
-        this.visibleCards += 6;
-        
-        // Hide load more button if all cards are shown
-        if (this.visibleCards >= matchingCards.length) {
-            if (this.loadMoreBtn) {
-                this.loadMoreBtn.style.display = 'none';
-            }
+        this.showAllResources = true;
+        this.filterResources();
+
+        if (this.loadMoreBtn) {
+            this.loadMoreBtn.style.display = 'none';
         }
     }
-    
-    // Add smooth animations
+
     addCardAnimations() {
         this.resourceCards.forEach((card, index) => {
             card.style.animationDelay = `${index * 0.1}s`;
         });
     }
-    
-    // Handle resource card interactions
+
     setupCardInteractions() {
         this.resourceCards.forEach(card => {
-            const downloadBtn = card.querySelector('.btn-primary');
+            if (card.classList.contains('resource-card--coming-soon')) {
+                return;
+            }
+
+            const downloadBtn = card.querySelector('.btn-primary:not([onclick])');
             const actionBtn = card.querySelector('.btn-outline-primary');
-            
+
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.handleDownload(card);
                 });
             }
-            
+
             if (actionBtn) {
                 actionBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -249,23 +191,21 @@ class ResourcesManager {
             }
         });
     }
-    
+
     handleDownload(card) {
         const title = card.querySelector('.resource-title').textContent;
-        
-        // Show download notification
         this.showNotification(`Downloading ${title}...`, 'success');
-        
-        // Simulate download
+
         setTimeout(() => {
             this.showNotification(`${title} downloaded successfully!`, 'success');
         }, 2000);
     }
-    
+
     handleAction(card) {
         const title = card.querySelector('.resource-title').textContent;
-        const actionText = card.querySelector('.btn-outline-primary').textContent.trim();
-        
+        const actionBtn = card.querySelector('.btn-outline-primary');
+        const actionText = actionBtn ? actionBtn.textContent.trim() : '';
+
         if (actionText.includes('Practice')) {
             this.showNotification(`Starting practice for ${title}...`, 'info');
         } else if (actionText.includes('Listen')) {
@@ -280,9 +220,8 @@ class ResourcesManager {
             this.showNotification(`${title} saved to favorites!`, 'success');
         }
     }
-    
+
     showNotification(message, type = 'info') {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -291,8 +230,7 @@ class ResourcesManager {
                 <span>${message}</span>
             </div>
         `;
-        
-        // Add styles
+
         notification.style.cssText = `
             position: fixed;
             top: 100px;
@@ -307,16 +245,13 @@ class ResourcesManager {
             transition: transform 0.3s ease;
             max-width: 300px;
         `;
-        
-        // Add to page
+
         document.body.appendChild(notification);
-        
-        // Animate in
+
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
-        
-        // Remove after 3 seconds
+
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => {
@@ -326,7 +261,7 @@ class ResourcesManager {
             }, 300);
         }, 3000);
     }
-    
+
     getNotificationIcon(type) {
         switch (type) {
             case 'success': return 'check-circle';
@@ -337,18 +272,9 @@ class ResourcesManager {
     }
 }
 
-// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const resourcesManager = new ResourcesManager();
-    
-    // Add card animations
     resourcesManager.addCardAnimations();
-    
-    // Setup card interactions
     resourcesManager.setupCardInteractions();
-    
-    // Make it globally available
     window.resourcesManager = resourcesManager;
-    
-    console.log('Resources manager initialized');
-}); 
+});

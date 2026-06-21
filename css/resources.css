@@ -182,6 +182,117 @@
     margin-bottom: 3rem;
 }
 
+/* SOGED official palette — active Guna resource cards only */
+.resource-card--active.soged-earth {
+    border-color: #6b4423;
+}
+.resource-card--active.soged-earth .resource-image {
+    background: #6b4423;
+}
+.resource-card--active.soged-earth::before {
+    background: #6b4423;
+}
+.resource-card--active.soged-earth:hover {
+    border-color: #6b4423;
+    box-shadow: 0 12px 40px rgba(107, 68, 35, 0.25);
+}
+
+.resource-card--active.soged-gold {
+    border-color: #e3a008;
+}
+.resource-card--active.soged-gold .resource-image {
+    background: #e3a008;
+}
+.resource-card--active.soged-gold::before {
+    background: #e3a008;
+}
+.resource-card--active.soged-gold:hover {
+    border-color: #e3a008;
+    box-shadow: 0 12px 40px rgba(227, 160, 8, 0.25);
+}
+
+.resource-card--active.soged-red {
+    border-color: #c00000;
+}
+.resource-card--active.soged-red .resource-image {
+    background: #c00000;
+}
+.resource-card--active.soged-red::before {
+    background: #c00000;
+}
+.resource-card--active.soged-red:hover {
+    border-color: #c00000;
+    box-shadow: 0 12px 40px rgba(192, 0, 0, 0.25);
+}
+
+.resource-card--active.soged-green {
+    border-color: #11802b;
+}
+.resource-card--active.soged-green .resource-image {
+    background: #11802b;
+}
+.resource-card--active.soged-green::before {
+    background: #11802b;
+}
+.resource-card--active.soged-green:hover {
+    border-color: #11802b;
+    box-shadow: 0 12px 40px rgba(17, 128, 43, 0.25);
+}
+
+.resource-card--active.soged-blue {
+    border-color: #0973a1;
+}
+.resource-card--active.soged-blue .resource-image {
+    background: #0973a1;
+}
+.resource-card--active.soged-blue::before {
+    background: #0973a1;
+}
+.resource-card--active.soged-blue:hover {
+    border-color: #0973a1;
+    box-shadow: 0 12px 40px rgba(9, 115, 161, 0.25);
+}
+
+.resource-card--active.soged-earth .resource-category { background: rgba(107, 68, 35, 0.15); color: #6b4423; }
+.resource-card--active.soged-gold .resource-category { background: rgba(227, 160, 8, 0.15); color: #b07d06; }
+.resource-card--active.soged-red .resource-category { background: rgba(192, 0, 0, 0.12); color: #c00000; }
+.resource-card--active.soged-green .resource-category { background: rgba(17, 128, 43, 0.12); color: #11802b; }
+.resource-card--active.soged-blue .resource-category { background: rgba(9, 115, 161, 0.12); color: #0973a1; }
+
+/* Coming Soon — other languages (grayscale, disabled) */
+.resource-card--coming-soon {
+    filter: grayscale(100%);
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.resource-card--coming-soon:hover {
+    transform: none;
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.resource-card--coming-soon::before {
+    display: none;
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    background: rgba(80, 80, 80, 0.9);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
 /* Resource Cards */
 .resource-card {
     background: var(--card-bg);
