@@ -249,3 +249,27 @@
 [data-theme="dark"] .shadow-lg {
     box-shadow: 0 8px 25px var(--shadow-color) !important;
 }
+
+/* ===== GUNA CULTURE / LEARN PAGE DARK MODE ===== */
+
+[data-theme="dark"] .guna-culture-page .section-lead,
+[data-theme="dark"] .guna-culture-page .stat-desc,
+[data-theme="dark"] .guna-culture-page .mola-fact p,
+[data-theme="dark"] .guna-culture-page .congreso-block p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .section-title,
+[data-theme="dark"] .guna-culture-page .mola-fact h5,
+[data-theme="dark"] .guna-culture-page .congreso-block h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .guna-culture-page .map-tooltip {
+    background: rgba(15, 23, 42, 0.95);
+    color: var(--logo-yellow);
+}
+
+[data-theme="dark"] .guna-culture-page .tier-diagram-label {
+    color: var(--text-secondary);
+}
