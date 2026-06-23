@@ -31,6 +31,8 @@ class SimpleLearningHub {
         this.setupResponsiveBehavior();
         this.updateUserInfo();
         this.setupHashRouting();
+        this.setupThemeToggle();
+        if (typeof GunaGamification !== 'undefined') GunaGamification.updateDisplays();
         
         // Apply saved sidebar state
         if (this.sidebarCollapsed) {
@@ -270,7 +272,7 @@ class SimpleLearningHub {
         const hash = window.location.hash.replace('#', '');
         if (path.includes('/store') || hash === 'store') return 'store';
         if (path.includes('/learning-path') || hash === 'learning-path' || hash === 'learn') return 'learn';
-        const valid = ['overview', 'learn', 'store', 'stories', 'chat', 'leaderboard', 'achievements'];
+        const valid = ['overview', 'learn', 'vocabulary', 'community', 'store', 'stories', 'chat', 'leaderboard', 'achievements'];
         if (hash && valid.includes(hash)) return hash;
         return 'overview';
     }
@@ -329,6 +331,12 @@ class SimpleLearningHub {
                 case 'learn':
                     content = `<learning-section course="${this.currentCourse}"></learning-section>`;
                     break;
+                case 'vocabulary':
+                    content = `<guna-vocabulary-section></guna-vocabulary-section>`;
+                    break;
+                case 'community':
+                    content = `<guna-community-section></guna-community-section>`;
+                    break;
                 case 'stories':
                     content = `<stories-section course="${this.currentCourse}"></stories-section>`;
                     break;
@@ -373,6 +381,10 @@ class SimpleLearningHub {
             if (typeof CocosEconomy !== 'undefined') {
                 CocosEconomy.updateAllDisplays();
             }
+            if (typeof GunaGamification !== 'undefined') {
+                GunaGamification.updateDisplays();
+            }
+            this.updatePathProgressUI();
         }, 600);
     }
 
@@ -694,18 +706,42 @@ class SimpleLearningHub {
     }
 
     getUserStats() {
+        const gunaState = typeof GunaGamification !== 'undefined' ? GunaGamification.getState() : {};
         const progress = JSON.parse(localStorage.getItem('userProgress') || '{}');
         const gunaCompleted = typeof GunaProgress !== 'undefined' ? GunaProgress.getCompletedCount() : 3;
         const pathProgress = Math.round((gunaCompleted / 10) * 100);
         return {
-            level: progress.level || 5,
-            xp: progress.xp || 1250,
-            xpNext: progress.xpNext || 2000,
-            streak: progress.streak || 7,
+            level: gunaState.level || progress.level || 5,
+            xp: gunaState.xp || progress.xp || 1250,
+            xpNext: typeof GunaGamification !== 'undefined' ? GunaGamification.xpForLevel(gunaState.level || 1) : (progress.xpNext || 2000),
+            streak: gunaState.streak || progress.streak || 7,
             lessons: gunaCompleted,
             cocos: typeof CocosEconomy !== 'undefined' ? CocosEconomy.getBalance() : 1250,
             pathProgress: pathProgress || progress.pathProgress || 30
         };
+    }
+
+    setupThemeToggle() {
+        const btn = document.getElementById('themeToggleBtn');
+        const saved = localStorage.getItem('gunaTheme');
+        if (saved === 'dark') document.body.classList.add('dark-mode');
+        if (btn) {
+            btn.innerHTML = document.body.classList.contains('dark-mode')
+                ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            btn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const dark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('gunaTheme', dark ? 'dark' : 'light');
+                btn.innerHTML = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        }
+    }
+
+    updatePathProgressUI() {
+        const completed = typeof GunaProgress !== 'undefined' ? GunaProgress.getCompletedCount() : 0;
+        const pct = Math.round((completed / 10) * 100);
+        document.querySelectorAll('[data-path-progress]').forEach(el => { el.style.width = `${pct}%`; });
+        document.querySelectorAll('[data-path-percent]').forEach(el => { el.textContent = `${pct}% complete`; });
     }
 
     getDisplayUsername() {
@@ -938,6 +974,8 @@ class SimpleLearningHub {
         const titles = {
             overview: 'Dashboard',
             learn: 'Learning Path',
+            vocabulary: 'Vocabulary',
+            community: 'Community',
             store: 'Guna Store',
             stories: 'Cultural Stories',
             chat: 'AI Tutor',

@@ -628,8 +628,11 @@ class GunaLessonViewer extends HTMLElement {
         const icons = {
             'introduction': '📚',
             'vocabulary': '📖',
+            'pronunciation': '🔊',
+            'flashcards': '🃏',
             'interactive': '🎯',
             'conversation': '💬',
+            'completion': '🏆',
             'summary': '📝'
         };
         return icons[type] || '📄';
@@ -667,8 +670,130 @@ class GunaLessonViewer extends HTMLElement {
         // Conversation scenarios
         this.setupConversationInteractions();
 
+        // Pronunciation, flashcards, drag-drop
+        this.setupPronunciation();
+        this.setupFlashcards();
+        this.setupDragDrop();
+
         // Lesson completion
         this.setupCompletionInteractions();
+    }
+
+    speakText(text) {
+        if (!text || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'es-ES';
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+
+    setupPronunciation() {
+        this.querySelectorAll('[data-speak], .pronounce-btn, .pronunciation-card').forEach(el => {
+            el.addEventListener('click', () => {
+                const text = el.dataset.speak || el.textContent.trim();
+                this.speakText(text);
+            });
+        });
+    }
+
+    setupFlashcards() {
+        const deck = this.querySelector('.flashcard-deck');
+        if (!deck) return;
+        const dataEl = deck.querySelector('.flashcard-data');
+        if (!dataEl) return;
+        let words = [];
+        try { words = JSON.parse(dataEl.textContent); } catch { return; }
+        let index = 0;
+        let flipped = false;
+
+        const card = deck.querySelector('#activeFlashcard');
+        const counter = deck.querySelector('.flashcard-counter');
+        const prev = deck.querySelector('#flashPrev');
+        const next = deck.querySelector('#flashNext');
+        const speak = deck.querySelector('#flashSpeak');
+
+        const renderCard = () => {
+            const w = words[index];
+            if (!w || !card) return;
+            flipped = false;
+            card.querySelector('.flashcard-front').style.display = '';
+            card.querySelector('.flashcard-back').style.display = 'none';
+            card.querySelector('.flashcard-icon').textContent = w.icon || '📝';
+            card.querySelector('.flashcard-guna').textContent = w.guna;
+            card.querySelector('.flashcard-es').textContent = w.es;
+            card.querySelector('.flashcard-en').textContent = w.en;
+            card.querySelector('.flashcard-example').innerHTML = `<em>${w.example || ''}</em>`;
+            if (counter) counter.textContent = `${index + 1} / ${words.length}`;
+            if (prev) prev.disabled = index === 0;
+            if (next) next.disabled = index === words.length - 1;
+            if (speak) speak.dataset.speak = w.guna;
+        };
+
+        card?.addEventListener('click', () => {
+            flipped = !flipped;
+            card.querySelector('.flashcard-front').style.display = flipped ? 'none' : '';
+            card.querySelector('.flashcard-back').style.display = flipped ? '' : 'none';
+        });
+
+        prev?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (index > 0) { index--; renderCard(); }
+        });
+        next?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (index < words.length - 1) { index++; renderCard(); }
+        });
+        speak?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.speakText(speak.dataset.speak);
+        });
+        renderCard();
+    }
+
+    setupDragDrop() {
+        const exercise = this.querySelector('.drag-drop-exercise');
+        if (!exercise) return;
+
+        let dragged = null;
+        exercise.querySelectorAll('.drag-item').forEach(item => {
+            item.addEventListener('dragstart', () => { dragged = item; });
+            item.addEventListener('dragend', () => { dragged = null; });
+        });
+
+        exercise.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragover', (e) => e.preventDefault());
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!dragged) return;
+                const slot = zone.querySelector('.drop-slot');
+                if (slot) {
+                    slot.innerHTML = '';
+                    slot.appendChild(dragged);
+                }
+            });
+        });
+
+        const checkBtn = exercise.querySelector('.check-drag-btn');
+        if (checkBtn) {
+            checkBtn.addEventListener('click', () => {
+                const feedback = exercise.querySelector('.drag-feedback');
+                let correct = 0;
+                exercise.querySelectorAll('.drop-zone').forEach(zone => {
+                    const item = zone.querySelector('.drag-item');
+                    if (item && item.dataset.value === zone.dataset.accept) correct++;
+                });
+                const total = exercise.querySelectorAll('.drop-zone').length;
+                if (feedback) {
+                    feedback.style.display = 'block';
+                    feedback.className = 'drag-feedback ' + (correct === total ? 'correct' : 'incorrect');
+                    feedback.textContent = correct === total
+                        ? 'Perfect! All matches correct!'
+                        : `${correct}/${total} correct. Try again!`;
+                }
+                if (correct === total) this.userAnswers.drag = 'done';
+            });
+        }
     }
 
     navigateToSection(sectionIndex) {
@@ -897,6 +1022,13 @@ class GunaLessonViewer extends HTMLElement {
     completeLesson() {
         if (typeof GunaProgress !== 'undefined') {
             GunaProgress.completeLesson(this.currentLessonId);
+        }
+        if (typeof GunaGamification !== 'undefined') {
+            GunaGamification.onLessonComplete(this.currentLessonId, this.lessonContent?.xp || 50);
+            if (this.currentLessonId === 10) {
+                GunaGamification.awardBadge('guna-master');
+                if (typeof CocosEconomy !== 'undefined') CocosEconomy.addCocos(25);
+            }
         }
         this.gunaLessons.saveProgress(this.currentLessonId, {
             completed: true,

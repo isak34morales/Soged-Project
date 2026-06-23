@@ -96,6 +96,18 @@
                     </div>
                 </a>
 
+                <a href="#vocabulary" class="nav-item" data-section="vocabulary">
+                    <div class="nav-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Vocabulary</span>
+                        <div class="nav-meta">
+                            <span class="vocab-nav-hint">Interactive dictionary</span>
+                        </div>
+                    </div>
+                </a>
+
                 <a href="#store" class="nav-item" data-section="store">
                     <div class="nav-icon">
                         <i class="fas fa-store"></i>
@@ -136,12 +148,24 @@
                 </a>
             </div>
 
-            <!-- Social & Progress Section -->
+            <!-- Community Section -->
             <div class="nav-section secondary">
                 <h4 class="nav-section-title">
                     <i class="fas fa-users"></i>
                     <span class="title-text">Community</span>
                 </h4>
+
+                <a href="#community" class="nav-item" data-section="community">
+                    <div class="nav-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Culture Center</span>
+                        <div class="nav-meta">
+                            <span>History & traditions</span>
+                        </div>
+                    </div>
+                </a>
                 
                 <a href="#leaderboard" class="nav-item" data-section="leaderboard">
                     <div class="nav-icon">
@@ -235,13 +259,16 @@
             </div>
 
             <div class="header-right">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
                 <div class="user-stats">
                     <div class="stat-item streak">
                         <div class="stat-icon">
                             <i class="fas fa-fire"></i>
                         </div>
                         <div class="stat-info">
-                            <span class="stat-value">7</span>
+                            <span class="stat-value" data-streak-count>7</span>
                             <span class="stat-label">streak</span>
                         </div>
                     </div>
@@ -555,16 +582,20 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="js/cocos-economy.js"></script>
     <script src="js/guna-progress.js"></script>
+    <script src="js/guna-gamification.js"></script>
+    <script src="components/guna-vocabulary.js"></script>
+    <script src="js/guna-lesson-configs.js"></script>
     
     <!-- Web Components -->
     <script src="components/guna-store.js"></script>
     <script src="components/learning-section.js"></script>
     <script src="components/practice-section.js"></script>
     <script src="components/stories-section.js"></script>
+    <script src="components/guna-vocabulary-section.js"></script>
+    <script src="components/guna-community-section.js"></script>
     
     <!-- Guna Language Lessons -->
     <script src="components/guna-ai-tutor.js"></script>
-    <script src="components/guna-vocabulary.js"></script>
     <script src="components/guna-lessons.js"></script>
     <script src="components/guna-lesson-viewer.js"></script>
     

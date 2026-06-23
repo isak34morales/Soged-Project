@@ -709,3 +709,41 @@
         color: #fff;
     }
 }
+
+.flashcard-deck { text-align: center; padding: 1rem; }
+.flashcard {
+    min-height: 200px; margin: 0 auto 1rem; max-width: 360px;
+    background: white; border-radius: 16px; padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1); cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 3px solid var(--guna-primary, #00A3E0);
+}
+.flashcard-icon { font-size: 3rem; }
+.flashcard-guna { font-size: 2rem; color: var(--guna-primary); margin: 0.5rem 0; }
+.flashcard-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.flashcard-btn, .flashcard-speak {
+    width: 44px; height: 44px; border: none; border-radius: 50%;
+    background: var(--guna-primary); color: white; cursor: pointer;
+}
+.pronunciation-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+.pronunciation-card {
+    padding: 1rem; border: 2px solid #e0e0e0; border-radius: 12px;
+    background: white; cursor: pointer; text-align: center;
+}
+.drag-drop-exercise { margin: 1.5rem 0; padding: 1.5rem; background: white; border-radius: 12px; }
+.drag-items { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.drag-item {
+    padding: 0.75rem 1.25rem; background: var(--guna-primary); color: white;
+    border-radius: 10px; cursor: grab; font-weight: 600;
+}
+.drop-zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
+.drop-zone { border: 2px dashed #ccc; border-radius: 12px; padding: 0.75rem; min-height: 80px; text-align: center; }
+.drop-label { display: block; font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+.check-drag-btn, .check-matching-btn {
+    margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--guna-primary);
+    color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;
+}
+.pronounce-btn {
+    padding: 0.35rem 0.75rem; border: 1px solid var(--guna-primary);
+    background: transparent; color: var(--guna-primary); border-radius: 8px; cursor: pointer;
+}

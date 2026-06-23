@@ -1,67 +1,85 @@
 /**
- * Guna vocabulary sourced from project reference documents:
- * - cultura-guna-completa.pdf
- * - diccionario-guna-espanol-ingles.pdf
- * - diccionario-gunagaya-espanol.pdf (gayamar sabga)
+ * Guna vocabulary — central data for lessons & dictionary
  */
 const GUNA_VOCABULARY = {
-    objects: [
-        { guna: 'Muu', es: 'Casa', en: 'House' },
-        { guna: 'Dii', es: 'Fuego', en: 'Fire' },
-        { guna: 'Sii', es: 'Agua', en: 'Water' },
-        { guna: 'Onmaked', es: 'Canoa', en: 'Canoe' },
-        { guna: 'Bii', es: 'Ropa', en: 'Clothes' },
-        { guna: 'Gwamai', es: 'Sombrero', en: 'Hat' },
-        { guna: 'Obaggad', es: 'Red de pesca', en: 'Fishing net' },
-        { guna: 'Misi', es: 'Plato', en: 'Plate' }
+    greetings: [
+        { guna: 'Na', es: 'Yo', en: 'I', icon: '👤', example: 'Na an mar — I am here' },
+        { guna: 'Be', es: 'Tú', en: 'You', icon: '👋', example: 'Be an mar? — Are you here?' },
+        { guna: 'Eye', es: 'Sí', en: 'Yes', icon: '✅', example: 'Eye, degii — Yes, that is right' },
+        { guna: 'Degii', es: 'Así es', en: "That's right", icon: '👍', example: 'Degii, anna — That is right, hello' },
+        { guna: '¡ anna !', es: 'Hola', en: 'Hello', icon: '🏝️', example: '¡ anna ! — Hello!' },
+        { guna: 'degi malo', es: 'Adiós', en: 'Goodbye', icon: '👋', example: 'degi malo — Goodbye' },
+        { guna: 'Banmalo', es: 'Hasta mañana', en: 'See you tomorrow', icon: '🌅', example: 'Banmalo — See you tomorrow' }
     ],
     family: [
-        { guna: 'Nana', es: 'Mamá', en: 'Mother' },
-        { guna: 'Tata', es: 'Papá', en: 'Father' },
-        { guna: 'Inna', es: 'Hijo / Hija', en: 'Son / Daughter' },
-        { guna: 'Sogedi', es: 'Bebé', en: 'Baby' },
-        { guna: 'Dummad', es: 'Hermano', en: 'Brother' },
-        { guna: 'Nueded', es: 'Hermana', en: 'Sister' },
-        { guna: 'Dada', es: 'Abuela', en: 'Grandmother' },
-        { guna: 'Bab', es: 'Abuelo', en: 'Grandfather' }
+        { guna: 'Nana', es: 'Mamá', en: 'Mother', icon: '👩', example: 'Nana an mar — Mother is here' },
+        { guna: 'Tata', es: 'Papá', en: 'Father', icon: '👨', example: 'Tata — Father' },
+        { guna: 'Dummad', es: 'Hermano', en: 'Brother', icon: '👦', example: 'Dummad — Brother' },
+        { guna: 'Nueded', es: 'Hermana', en: 'Sister', icon: '👧', example: 'Nueded — Sister' },
+        { guna: 'Bab', es: 'Abuelo', en: 'Grandfather', icon: '👴', example: 'Bab — Grandfather' },
+        { guna: 'Dada', es: 'Abuela', en: 'Grandmother', icon: '👵', example: 'Dada — Grandmother' }
+    ],
+    home: [
+        { guna: 'Muu', es: 'Casa', en: 'House', icon: '🏠', example: 'Muu — House / home' },
+        { guna: 'Nika', es: 'Mesa', en: 'Table', icon: '🪑', example: 'Nika — Table' },
+        { guna: 'Misi', es: 'Plato', en: 'Plate', icon: '🍽️', example: 'Misi — Plate' },
+        { guna: 'Tapa', es: 'Cuchara', en: 'Spoon', icon: '🥄', example: 'Tapa — Spoon' },
+        { guna: 'Bii', es: 'Ropa', en: 'Clothes', icon: '👕', example: 'Bii — Clothes' }
+    ],
+    nature: [
+        { guna: 'Sii', es: 'Agua', en: 'Water', icon: '💧', example: 'Sii — Water' },
+        { guna: 'Dii', es: 'Fuego', en: 'Fire', icon: '🔥', example: 'Dii — Fire' },
+        { guna: 'Kalu', es: 'Madera', en: 'Wood', icon: '🪵', example: 'Kalu — Wood' },
+        { guna: 'Tii', es: 'Barro', en: 'Clay', icon: '🏺', example: 'Tii — Clay' }
     ],
     animals: [
-        { guna: 'Uli', es: 'Cangrejo', en: 'Crab' },
-        { guna: 'Ibeler', es: 'Tiburón', en: 'Shark' },
-        { guna: 'Ardi', es: 'Tortuga', en: 'Turtle' },
-        { guna: 'Malú', es: 'Pollo', en: 'Chicken' },
-        { guna: 'Suu', es: 'Mono', en: 'Monkey' },
-        { guna: 'Makki', es: 'Loro', en: 'Parrot' },
-        { guna: 'Wala', es: 'Mariposa', en: 'Butterfly' },
-        { guna: 'Olo', es: 'Ave', en: 'Bird' }
+        { guna: 'Malú', es: 'Pollo', en: 'Chicken', icon: '🐔', example: 'Malú — Chicken' },
+        { guna: 'Suu', es: 'Mono', en: 'Monkey', icon: '🐒', example: 'Suu — Monkey' },
+        { guna: 'Uli', es: 'Cangrejo', en: 'Crab', icon: '🦀', example: 'Uli — Crab' },
+        { guna: 'Ibeler', es: 'Tiburón', en: 'Shark', icon: '🦈', example: 'Ibeler — Shark' },
+        { guna: 'Ardi', es: 'Tortuga', en: 'Turtle', icon: '🐢', example: 'Ardi — Turtle' },
+        { guna: 'Wala', es: 'Mariposa', en: 'Butterfly', icon: '🦋', example: 'Wala — Butterfly' }
     ],
     plants: [
-        { guna: 'Gwad', es: 'Coco', en: 'Coconut' },
-        { guna: 'Ogob', es: 'Maíz', en: 'Corn' },
-        { guna: 'Inna', es: 'Plátano', en: 'Plantain' },
-        { guna: 'Naggid', es: 'Yuca', en: 'Cassava' },
-        { guna: 'Suggid', es: 'Ñame', en: 'Yam' },
-        { guna: 'Olawad', es: 'Cacao', en: 'Cocoa' },
-        { guna: 'Suwad', es: 'Tomate', en: 'Tomato' },
-        { guna: 'Tula', es: 'Calabaza', en: 'Pumpkin' }
-    ],
-    pronouns: [
-        { guna: 'Na', es: 'Yo', en: 'I' },
-        { guna: 'Be', es: 'Tú', en: 'You' },
-        { guna: 'Nega', es: 'Él / Ella', en: 'He / She' },
-        { guna: 'Anmar', es: 'Nosotros', en: 'We' },
-        { guna: 'Bega', es: 'Ustedes', en: 'You (plural)' },
-        { guna: 'Negga', es: 'Ellos / Ellas', en: 'They' }
+        { guna: 'Ogob', es: 'Maíz', en: 'Corn', icon: '🌽', example: 'Ogob — Corn' },
+        { guna: 'Gwad', es: 'Coco', en: 'Coconut', icon: '🥥', example: 'Gwad — Coconut' },
+        { guna: 'Naggid', es: 'Yuca', en: 'Cassava', icon: '🌿', example: 'Naggid — Cassava' },
+        { guna: 'Suggid', es: 'Ñame', en: 'Yam', icon: '🍠', example: 'Suggid — Yam' },
+        { guna: 'Suwad', es: 'Tomate', en: 'Tomato', icon: '🍅', example: 'Suwad — Tomato' },
+        { guna: 'Bagar', es: 'Cebolla', en: 'Onion', icon: '🧅', example: 'Bagar — Onion' }
     ],
     phrases: [
-        { guna: 'Eye', es: 'Sí', en: 'Yes' },
-        { guna: 'Degii', es: 'Así es', en: "That's right" },
-        { guna: 'Bia?', es: '¿Dónde?', en: 'Where?' },
-        { guna: 'Doa?', es: '¿Quién?', en: 'Who?' },
-        { guna: 'Emi', es: 'Hoy', en: 'Today' },
-        { guna: 'Banmalo', es: 'Hasta mañana', en: 'See you tomorrow' },
-        { guna: 'Basuli', es: 'No importa', en: "It doesn't matter" }
-    ]
+        { guna: 'Bia?', es: '¿Dónde?', en: 'Where?', icon: '📍', example: 'Bia an mar? — Where are you?' },
+        { guna: 'Doa?', es: '¿Quién?', en: 'Who?', icon: '❓', example: 'Doa? — Who?' },
+        { guna: 'Basuli', es: 'No importa', en: "It doesn't matter", icon: '🤷', example: 'Basuli — It does not matter' },
+        { guna: 'Banmalo', es: 'Hasta mañana', en: 'See you tomorrow', icon: '🌅', example: 'Banmalo — See you tomorrow' },
+        { guna: 'Emi', es: 'Hoy', en: 'Today', icon: '📅', example: 'Emi — Today' }
+    ],
+    culture: [
+        { guna: 'Mola', es: 'Textil tradicional Guna', en: 'Traditional Guna textile', icon: '🧵', example: 'Mola — Sacred textile art' },
+        { guna: 'Sagla', es: 'Líder tradicional', en: 'Traditional leader', icon: '🏛️', example: 'Sagla — Community leader' },
+        { guna: 'Ibeorgun', es: 'Creador', en: 'Creator', icon: '🌟', example: 'Ibeorgun — Creator deity' },
+        { guna: 'Kantule', es: 'Sabio ancestral', en: 'Ancestral sage', icon: '📜', example: 'Kantule — Ancestral sage' },
+        { guna: 'Dulegaya', es: 'Idioma Guna', en: 'Guna language', icon: '🗣️', example: 'Dulegaya — Guna language' },
+        { guna: 'Guna Yala', es: 'Comarca autónoma', en: 'Autonomous territory', icon: '🏝️', example: 'Guna Yala — Guna territory' }
+    ],
+    // Legacy aliases for compatibility
+    objects: [],
+    pronouns: []
 };
+
+GUNA_VOCABULARY.objects = [...GUNA_VOCABULARY.home, ...GUNA_VOCABULARY.nature];
+GUNA_VOCABULARY.pronouns = GUNA_VOCABULARY.greetings.filter(w => ['Na', 'Be'].includes(w.guna));
+
+GUNA_VOCABULARY.CATEGORIES = [
+    { id: 'greetings', label: 'Greetings', icon: '👋', words: GUNA_VOCABULARY.greetings },
+    { id: 'family', label: 'Family', icon: '👨‍👩‍👧', words: GUNA_VOCABULARY.family },
+    { id: 'home', label: 'Home Objects', icon: '🏠', words: GUNA_VOCABULARY.home },
+    { id: 'nature', label: 'Nature', icon: '🌊', words: GUNA_VOCABULARY.nature },
+    { id: 'animals', label: 'Animals', icon: '🐢', words: GUNA_VOCABULARY.animals },
+    { id: 'plants', label: 'Plants & Food', icon: '🥥', words: GUNA_VOCABULARY.plants },
+    { id: 'phrases', label: 'Phrases', icon: '💬', words: GUNA_VOCABULARY.phrases },
+    { id: 'culture', label: 'Culture', icon: '🧵', words: GUNA_VOCABULARY.culture }
+];
 
 window.GUNA_VOCABULARY = GUNA_VOCABULARY;

@@ -10,7 +10,7 @@ const GunaProgress = {
             const data = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || 'null');
             if (data && Array.isArray(data.completed)) return data;
         } catch { /* ignore */ }
-        return { completed: [1, 2, 3], current: 4 };
+        return { completed: [], current: 1 };
     },
 
     saveProgress(data) {
