@@ -148,13 +148,13 @@ class GunaStore extends HTMLElement {
             <div class="guna-store" role="region" aria-label="Tienda Guna">
                 <header class="store-hero" data-aos="fade-up">
                     <div class="store-hero-content">
-                        <h1 class="store-title">🛒 Tienda Guna</h1>
-                        <p class="store-subtitle">Desbloquea molas, arte cultural y recompensas con tus cocos ganados al aprender.</p>
+                        <h1 class="store-title">🛒 Guna Store</h1>
+                        <p class="store-subtitle">Unlock molas, cultural art and rewards with cocos earned from learning.</p>
                     </div>
                     <div class="store-balance-card cocos-balance-display" title="Cocos ganados durante tu aprendizaje">
                         <img src="${GUNA_STORE_ASSETS.coco}" alt="Coco" class="store-balance-coco">
                         <div class="store-balance-info">
-                            <span class="store-balance-label">Mis Cocos</span>
+                            <span class="store-balance-label">My Cocos</span>
                             <span class="store-balance-value">🥥 <span data-cocos-balance>${CocosEconomy.formatCocos(CocosEconomy.getBalance())}</span></span>
                         </div>
                     </div>

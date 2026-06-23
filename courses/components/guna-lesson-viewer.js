@@ -6,15 +6,20 @@
 class GunaLessonViewer extends HTMLElement {
     constructor() {
         super();
-        this.currentLessonId = parseInt(this.getAttribute('lesson-id')) || 1;
+        this.currentLessonId = 1;
         this.currentSectionIndex = 0;
-        this.gunaLessons = new GunaLessons();
+        this.gunaLessons = null;
         this.lessonContent = null;
         this.userAnswers = {};
         this.quizCompleted = false;
     }
 
     connectedCallback() {
+        this.currentLessonId = parseInt(this.getAttribute('lesson-id'), 10) || 1;
+        this.gunaLessons = new GunaLessons();
+        this.currentSectionIndex = 0;
+        this.userAnswers = {};
+        this.quizCompleted = false;
         this.loadLesson();
         this.render();
         this.initializeEventListeners();
@@ -22,6 +27,9 @@ class GunaLessonViewer extends HTMLElement {
 
     loadLesson() {
         this.lessonContent = this.gunaLessons.getLessonContent(this.currentLessonId);
+        if (!this.lessonContent) {
+            this.lessonContent = this.gunaLessons.getLessonContent(1);
+        }
     }
 
     render() {
@@ -50,6 +58,29 @@ class GunaLessonViewer extends HTMLElement {
                     border-radius: 16px;
                     position: relative;
                     overflow: hidden;
+                }
+
+                .lesson-back-btn {
+                    position: absolute;
+                    top: 1rem;
+                    left: 1rem;
+                    z-index: 2;
+                    padding: 0.5rem 1rem;
+                    background: rgba(255,255,255,0.2);
+                    color: white;
+                    border: 1px solid rgba(255,255,255,0.4);
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    font-size: 0.9rem;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.4rem;
+                    transition: background 0.2s;
+                }
+
+                .lesson-back-btn:hover {
+                    background: rgba(255,255,255,0.35);
                 }
 
                 .lesson-header::before {
@@ -546,6 +577,9 @@ class GunaLessonViewer extends HTMLElement {
 
             <div class="lesson-viewer">
                 <div class="lesson-header">
+                    <button type="button" class="lesson-back-btn" id="backToPathBtn">
+                        <i class="fas fa-arrow-left"></i> Back to Path
+                    </button>
                     <h1 class="lesson-title">${this.lessonContent.title}</h1>
                     <p class="lesson-subtitle">${this.lessonContent.subtitle}</p>
                     
@@ -575,7 +609,7 @@ class GunaLessonViewer extends HTMLElement {
                 </div>
 
                 <div class="section-content">
-                    ${this.lessonContent.sections[this.currentSectionIndex].content}
+                    ${this.lessonContent.sections[this.currentSectionIndex]?.content || '<p>Loading section…</p>'}
                 </div>
 
                 <div class="navigation-buttons">
@@ -602,11 +636,19 @@ class GunaLessonViewer extends HTMLElement {
     }
 
     initializeEventListeners() {
+        const backBtn = this.querySelector('#backToPathBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => this.backToPath());
+        }
+
         // Section navigation
         this.querySelectorAll('.section-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
-                const sectionIndex = parseInt(e.target.dataset.section);
-                this.navigateToSection(sectionIndex);
+                const tabEl = e.currentTarget;
+                const sectionIndex = parseInt(tabEl.dataset.section, 10);
+                if (!isNaN(sectionIndex)) {
+                    this.navigateToSection(sectionIndex);
+                }
             });
         });
 
@@ -630,6 +672,7 @@ class GunaLessonViewer extends HTMLElement {
     }
 
     navigateToSection(sectionIndex) {
+        if (!this.lessonContent?.sections) return;
         if (sectionIndex >= 0 && sectionIndex < this.lessonContent.sections.length) {
             this.currentSectionIndex = sectionIndex;
             this.render();
@@ -637,26 +680,28 @@ class GunaLessonViewer extends HTMLElement {
         }
     }
 
+    backToPath() {
+        if (window.learningHub) {
+            window.learningHub.loadSection('learn', true);
+        }
+    }
+
     setupQuizInteractions() {
         // Quiz options
         this.querySelectorAll('.quiz-option').forEach(option => {
             option.addEventListener('click', (e) => {
-                const question = e.target.closest('.quiz-question');
+                const optionEl = e.currentTarget;
+                const question = optionEl.closest('.quiz-question');
+                if (!question) return;
                 const questionId = question.dataset.question;
                 
-                // Remove previous selections
                 question.querySelectorAll('.quiz-option').forEach(opt => {
                     opt.classList.remove('selected', 'correct', 'incorrect');
                 });
                 
-                // Select current option
-                e.target.classList.add('selected');
-                
-                // Store answer
-                this.userAnswers[questionId] = e.target.dataset.answer;
-                
-                // Show feedback
-                this.showQuizFeedback(questionId, e.target.dataset.answer);
+                optionEl.classList.add('selected');
+                this.userAnswers[questionId] = optionEl.dataset.answer;
+                this.showQuizFeedback(questionId, optionEl.dataset.answer);
             });
         });
 
@@ -726,7 +771,7 @@ class GunaLessonViewer extends HTMLElement {
     showQuizFeedback(questionId, userAnswer) {
         const question = this.querySelector(`[data-question="${questionId}"]`);
         const feedback = question.querySelector('.quiz-feedback');
-        const correctAnswers = this.gunaLessons.getQuizAnswers();
+        const correctAnswers = this.gunaLessons.getQuizAnswers(this.currentLessonId);
         
         if (questionId <= 3) {
             // Multiple choice questions
@@ -753,7 +798,7 @@ class GunaLessonViewer extends HTMLElement {
     checkMatchingAnswers() {
         const matchingExercise = this.querySelector('.matching-exercise');
         const feedback = matchingExercise.querySelector('.matching-feedback');
-        const correctAnswers = this.gunaLessons.getQuizAnswers()[4];
+        const correctAnswers = this.gunaLessons.getQuizAnswers(this.currentLessonId)[4];
         
         let allCorrect = true;
         const userAnswers = {};
@@ -798,18 +843,26 @@ class GunaLessonViewer extends HTMLElement {
     }
 
     showQuizResults() {
-        const results = this.gunaLessons.validateQuiz(this.userAnswers);
+        const results = this.gunaLessons.validateQuiz(this.userAnswers, this.currentLessonId);
         const resultsDiv = this.querySelector('.quiz-results');
+        if (!resultsDiv) {
+            this.quizCompleted = true;
+            this.gunaLessons.saveProgress(this.currentLessonId, {
+                quizScore: results.score,
+                quizPercentage: results.percentage,
+                completed: true
+            });
+            return;
+        }
         const correctAnswersSpan = resultsDiv.querySelector('.correct-answers');
         const progressFill = resultsDiv.querySelector('.progress-fill');
         
-        correctAnswersSpan.textContent = results.score;
-        progressFill.style.width = `${results.percentage}%`;
+        if (correctAnswersSpan) correctAnswersSpan.textContent = results.score;
+        if (progressFill) progressFill.style.width = `${results.percentage}%`;
         
         resultsDiv.style.display = 'block';
         this.quizCompleted = true;
         
-        // Save progress
         this.gunaLessons.saveProgress(this.currentLessonId, {
             quizScore: results.score,
             quizPercentage: results.percentage,
@@ -821,7 +874,6 @@ class GunaLessonViewer extends HTMLElement {
         this.userAnswers = {};
         this.quizCompleted = false;
         
-        // Reset quiz state
         this.querySelectorAll('.quiz-option').forEach(option => {
             option.classList.remove('selected', 'correct', 'incorrect');
         });
@@ -836,21 +888,23 @@ class GunaLessonViewer extends HTMLElement {
             select.style.backgroundColor = '';
         });
         
-        this.querySelector('.matching-feedback').style.display = 'none';
-        this.querySelector('.quiz-results').style.display = 'none';
+        const matchFeedback = this.querySelector('.matching-feedback');
+        if (matchFeedback) matchFeedback.style.display = 'none';
+        const quizResults = this.querySelector('.quiz-results');
+        if (quizResults) quizResults.style.display = 'none';
     }
 
     completeLesson() {
-        // Save final progress
+        if (typeof GunaProgress !== 'undefined') {
+            GunaProgress.completeLesson(this.currentLessonId);
+        }
         this.gunaLessons.saveProgress(this.currentLessonId, {
             completed: true,
             completedAt: new Date().toISOString()
         });
         
-        // Show completion notification
         this.showNotification('🎉 Lesson completed! Great job!', 'success');
         
-        // Trigger lesson completion event
         this.dispatchEvent(new CustomEvent('lessonCompleted', {
             detail: {
                 lessonId: this.currentLessonId,

@@ -352,10 +352,184 @@ class StoriesSection extends HTMLElement {
                     color: white;
                 }
 
-                .category-filter.active {
-                    background: var(--gradient-primary);
-                    border-color: var(--primary-color);
+                    .category-filter.active {
+                        background: var(--gradient-primary);
+                        border-color: var(--primary-color);
+                        color: white;
+                    }
+
+                .story-card.pdf-resource .story-image {
+                    background: none;
+                }
+
+                .story-image-mola {
+                    position: relative;
+                    padding: 0 !important;
+                }
+
+                .story-image-mola img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }
+
+                .story-image-mola::before {
+                    display: none;
+                }
+
+                .story-pdf-label {
+                    position: absolute;
+                    bottom: 0.75rem;
+                    right: 0.75rem;
+                    background: rgba(0, 0, 0, 0.65);
                     color: white;
+                    padding: 0.35rem 0.65rem;
+                    border-radius: 8px;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.35rem;
+                }
+
+                .story-card.pdf-resource {
+                    border: 2px solid rgba(40, 167, 69, 0.15);
+                }
+
+                .story-card.pdf-resource:hover {
+                    border-color: var(--primary-color);
+                }
+
+                .story-badge {
+                    display: inline-block;
+                    padding: 0.25rem 0.65rem;
+                    border-radius: 20px;
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4px;
+                    margin-bottom: 0.75rem;
+                }
+
+                .story-badge.pdf { background: rgba(231, 76, 60, 0.12); color: #C0392B; }
+                .story-badge.reference { background: rgba(0, 163, 224, 0.12); color: #0077A3; }
+                .story-badge.culture { background: rgba(40, 167, 69, 0.12); color: #218838; }
+
+                .story-source {
+                    font-size: 0.8rem;
+                    color: var(--text-secondary);
+                    margin-bottom: 1rem;
+                    font-style: italic;
+                }
+
+                .pdf-actions {
+                    display: flex;
+                    gap: 0.75rem;
+                    flex-wrap: wrap;
+                }
+
+                .pdf-actions .story-button {
+                    flex: 1;
+                    min-width: 120px;
+                }
+
+                /* PDF Viewer Modal */
+                .pdf-viewer-overlay {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.75);
+                    z-index: 10050;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 1rem;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                }
+
+                .pdf-viewer-overlay.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .pdf-viewer-modal {
+                    background: white;
+                    border-radius: 16px;
+                    width: min(1100px, 100%);
+                    height: min(90vh, 900px);
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+                }
+
+                .pdf-viewer-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+                    padding: 1rem 1.5rem;
+                    background: var(--gradient-primary);
+                    color: white;
+                    flex-shrink: 0;
+                }
+
+                .pdf-viewer-title {
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                }
+
+                .pdf-viewer-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                }
+
+                .pdf-viewer-btn {
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-family: inherit;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.4rem;
+                    transition: all 0.2s ease;
+                }
+
+                .pdf-viewer-btn.download {
+                    background: rgba(255,255,255,0.2);
+                    color: white;
+                }
+
+                .pdf-viewer-btn.close {
+                    background: white;
+                    color: var(--text-primary);
+                }
+
+                .pdf-viewer-body {
+                    flex: 1;
+                    background: #525659;
+                }
+
+                .pdf-viewer-body iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                }
+
+                .documents-section-title {
+                    grid-column: 1 / -1;
+                    font-size: 1.35rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    margin: 0.5rem 0 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
                 }
 
                 /* Responsive Design */
@@ -416,6 +590,10 @@ class StoriesSection extends HTMLElement {
                     <button class="category-filter active" data-category="all">
                         <i class="fas fa-globe"></i>
                         All Stories
+                    </button>
+                    <button class="category-filter" data-category="documents">
+                        <i class="fas fa-file-pdf"></i>
+                        Documents
                     </button>
                     <button class="category-filter" data-category="legends">
                         <i class="fas fa-dragon"></i>
@@ -482,21 +660,55 @@ class StoriesSection extends HTMLElement {
 
     generateStoriesForCourse() {
         const stories = this.getStoriesData();
-        
-        return stories.map((story, index) => {
-            const isFeatured = index === 0;
+        const pdfs = stories.filter(s => s.type === 'pdf');
+        const regular = stories.filter(s => s.type !== 'pdf');
+
+        const renderCard = (story, index) => {
+            const isFeatured = index === 0 && story.type !== 'pdf';
             const progressPercent = this.readingProgress[story.id] || 0;
-            
+
+            if (story.type === 'pdf') {
+                return `
+                    <div class="story-card pdf-resource" data-story="${story.id}" data-category="${story.category}">
+                        <div class="story-image story-image-mola">
+                            <img src="${story.molaImage}" alt="${story.title}" loading="lazy">
+                            <span class="story-pdf-label"><i class="fas fa-file-pdf"></i> PDF</span>
+                        </div>
+                        <div class="story-content">
+                            <span class="story-badge pdf">📄 PDF Document</span>
+                            <h3 class="story-title">${story.title}</h3>
+                            <p class="story-source">${story.source}</p>
+                            <p class="story-description">${story.description}</p>
+                            <div class="story-meta">
+                                <div class="story-duration">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>${story.pages || 'Reference'}</span>
+                                </div>
+                            </div>
+                            <div class="pdf-actions">
+                                <button class="story-button btn-primary" onclick="readStory('${story.id}')">
+                                    <i class="fas fa-eye"></i> View PDF
+                                </button>
+                                <button class="story-button btn-secondary" onclick="downloadStoryPdf('${story.id}')">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                            <div class="story-tags">
+                                ${story.tags.map(tag => `<span class="story-tag">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             return `
-                <div class="story-card ${isFeatured ? 'featured-story' : ''}" data-story="${story.id}">
+                <div class="story-card ${isFeatured ? 'featured-story' : ''}" data-story="${story.id}" data-category="${story.category}">
                     <div class="story-image">
                         <i class="fas ${story.icon}"></i>
                     </div>
-                    
                     <div class="story-content">
                         <h3 class="story-title">${story.title}</h3>
                         <p class="story-description">${story.description}</p>
-                        
                         <div class="story-meta">
                             <div class="story-difficulty">
                                 <span>Difficulty:</span>
@@ -509,11 +721,9 @@ class StoriesSection extends HTMLElement {
                                 <span>${story.duration} min</span>
                             </div>
                         </div>
-                        
                         <div class="story-progress">
                             <div class="story-progress-bar" style="width: ${progressPercent}%"></div>
                         </div>
-                        
                         <div class="story-actions">
                             <button class="story-button btn-primary" onclick="readStory('${story.id}')">
                                 <i class="fas ${progressPercent > 0 ? 'fa-play' : 'fa-book-open'}"></i>
@@ -521,19 +731,26 @@ class StoriesSection extends HTMLElement {
                             </button>
                             ${progressPercent > 0 ? `
                                 <button class="story-button btn-secondary" onclick="reviewStory('${story.id}')">
-                                    <i class="fas fa-redo"></i>
-                                    Review
+                                    <i class="fas fa-redo"></i> Review
                                 </button>
                             ` : ''}
                         </div>
-                        
                         <div class="story-tags">
                             ${story.tags.map(tag => `<span class="story-tag">${tag}</span>`).join('')}
                         </div>
                     </div>
                 </div>
             `;
-        }).join('');
+        };
+
+        let html = '';
+        if (pdfs.length > 0) {
+            html += `<h3 class="documents-section-title"><i class="fas fa-folder-open"></i> Guna Reference Documents</h3>`;
+            html += pdfs.map((s, i) => renderCard(s, i)).join('');
+            html += `<h3 class="documents-section-title" style="margin-top: 2rem;"><i class="fas fa-book-open"></i> Cultural Stories</h3>`;
+        }
+        html += regular.map((s, i) => renderCard(s, i)).join('');
+        return html;
     }
 
     getStoriesData() {
@@ -581,6 +798,54 @@ class StoriesSection extends HTMLElement {
                 }
             ],
             'guna': [
+                {
+                    id: 'pdf-diccionario-escolar',
+                    title: 'School Dictionary (Gunagaya–Spanish)',
+                    source: 'gayamar sabga — Reuter Orán & Aiban Wagua',
+                    description: 'Official Guna-Yala bilingual school dictionary from the Intercultural Bilingual Education (EBI) project. 224 pages of Gunagaya vocabulary with Spanish definitions.',
+                    type: 'pdf',
+                    pdfFile: 'resources/guna/diccionario-gunagaya-espanol.pdf',
+                    downloadName: 'diccionario-gunagaya-espanol.pdf',
+                    molaImage: '../Images/Molas - Guna/Mola 1.jpg',
+                    pages: '224 pages',
+                    icon: 'fa-book',
+                    difficulty: 3,
+                    duration: 60,
+                    tags: ['Dictionary', 'Gunagaya', 'School', 'Reference'],
+                    category: 'documents'
+                },
+                {
+                    id: 'pdf-cultura-completa',
+                    title: 'Complete Guna Culture Guide',
+                    source: 'Cultura Guna Completa — History, molas, food & language',
+                    description: 'Comprehensive guide covering Guna history, the 1925 Tule Revolution, molas, traditional food, social organization, spiritual beliefs and a trilingual vocabulary section.',
+                    type: 'pdf',
+                    pdfFile: 'resources/guna/cultura-guna-completa.pdf',
+                    downloadName: 'cultura-guna-completa.pdf',
+                    molaImage: '../Images/Molas - Guna/Mola 4.jpg',
+                    pages: 'Study guide',
+                    icon: 'fa-landmark',
+                    difficulty: 1,
+                    duration: 25,
+                    tags: ['Culture', 'History', 'Molas', 'Trilingual'],
+                    category: 'documents'
+                },
+                {
+                    id: 'pdf-diccionario-trilingue',
+                    title: 'Trilingual Dictionary (Guna–Spanish–English)',
+                    source: 'Diccionario Guna Español Inglés — Study edition',
+                    description: 'Organized trilingual vocabulary for study and presentation. Includes objects, family, animals, plants, pronouns and everyday phrases.',
+                    type: 'pdf',
+                    pdfFile: 'resources/guna/diccionario-guna-espanol-ingles.pdf',
+                    downloadName: 'diccionario-guna-espanol-ingles.pdf',
+                    molaImage: '../Images/Molas - Guna/Mola 3.jpg',
+                    pages: 'Quick reference',
+                    icon: 'fa-language',
+                    difficulty: 1,
+                    duration: 15,
+                    tags: ['Dictionary', 'Trilingual', 'Study', 'Vocabulary'],
+                    category: 'documents'
+                },
                 {
                     id: 'golden-islands',
                     title: 'The Golden Islands',
@@ -747,25 +1012,122 @@ class StoriesSection extends HTMLElement {
 
         // Filter story cards
         this.querySelectorAll('.story-card').forEach(card => {
-            const storyId = card.getAttribute('data-story');
-            const story = this.getStoriesData().find(s => s.id === storyId);
-            
-            if (category === 'all' || story.category === category) {
+            const cardCategory = card.getAttribute('data-category');
+            const sectionTitle = card.classList.contains('documents-section-title');
+            if (sectionTitle) return;
+
+            if (category === 'all' || cardCategory === category) {
                 card.style.display = 'block';
             } else {
                 card.style.display = 'none';
+            }
+        });
+
+        this.querySelectorAll('.documents-section-title').forEach(title => {
+            if (category === 'all' || category === 'documents') {
+                title.style.display = category === 'documents' || category === 'all' ? 'flex' : 'none';
+            } else {
+                title.style.display = title.textContent.includes('Reference') ? 'none' : 'flex';
             }
         });
     }
 
     selectStory(storyId) {
         this.selectedStory = storyId;
-        
-        // Trigger story selection event
         this.dispatchEvent(new CustomEvent('storySelected', {
-            detail: { storyId: storyId, course: this.currentCourse },
+            detail: { storyId, course: this.currentCourse },
             bubbles: true
         }));
+    }
+
+    getStoryById(storyId) {
+        return this.getStoriesData().find(s => s.id === storyId);
+    }
+
+    openStory(storyId) {
+        const story = this.getStoryById(storyId);
+        if (!story) return;
+
+        if (story.type === 'pdf') {
+            this.openPdfViewer(story);
+            this.saveStoryProgress(storyId, 100);
+            return;
+        }
+
+        this.selectStory(storyId);
+        if (typeof showNotification === 'function') {
+            showNotification(`Opening story: ${story.title}`, 'info');
+        }
+    }
+
+    openPdfViewer(story) {
+        let overlay = document.getElementById('pdfViewerOverlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'pdfViewerOverlay';
+            overlay.className = 'pdf-viewer-overlay';
+            overlay.innerHTML = `
+                <div class="pdf-viewer-modal" role="dialog" aria-modal="true" aria-label="PDF Viewer">
+                    <div class="pdf-viewer-header">
+                        <div>
+                            <div class="pdf-viewer-title" id="pdfViewerTitle"></div>
+                            <small id="pdfViewerSource" style="opacity:0.85"></small>
+                        </div>
+                        <div class="pdf-viewer-actions">
+                            <a class="pdf-viewer-btn download" id="pdfViewerDownload" download>
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                            <button class="pdf-viewer-btn close" id="pdfViewerClose">
+                                <i class="fas fa-times"></i> Close
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pdf-viewer-body">
+                        <iframe id="pdfViewerFrame" title="PDF document viewer"></iframe>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) this.closePdfViewer();
+            });
+            document.getElementById('pdfViewerClose').addEventListener('click', () => this.closePdfViewer());
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') this.closePdfViewer();
+            });
+        }
+
+        const pdfUrl = story.pdfFile;
+        document.getElementById('pdfViewerTitle').textContent = story.title;
+        document.getElementById('pdfViewerSource').textContent = story.source || '';
+        document.getElementById('pdfViewerFrame').src = pdfUrl;
+        const dl = document.getElementById('pdfViewerDownload');
+        dl.href = pdfUrl;
+        dl.download = story.downloadName || 'document.pdf';
+        overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        localStorage.setItem('guna_story_read', '1');
+    }
+
+    closePdfViewer() {
+        const overlay = document.getElementById('pdfViewerOverlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+            const frame = document.getElementById('pdfViewerFrame');
+            if (frame) frame.src = '';
+            document.body.style.overflow = '';
+        }
+    }
+
+    downloadPdf(storyId) {
+        const story = this.getStoryById(storyId);
+        if (!story || story.type !== 'pdf') return;
+        const link = document.createElement('a');
+        link.href = story.pdfFile;
+        link.download = story.downloadName || 'document.pdf';
+        link.click();
+        this.saveStoryProgress(storyId, 100);
     }
 
     loadStoryProgress() {
@@ -783,17 +1145,19 @@ customElements.define('stories-section', StoriesSection);
 
 // Global functions for story interaction
 window.readStory = function(storyId) {
-    console.log(`Reading story: ${storyId}`);
-    showNotification(`Opening story: ${storyId}`, 'info');
-    
-    // Here you would implement the story reader
-    // For now, simulate progress
-    setTimeout(() => {
-        showNotification('Story loaded! Enjoy reading! 📖', 'success');
-    }, 1000);
+    const section = document.querySelector('stories-section');
+    if (section) {
+        section.openStory(storyId);
+    }
+};
+
+window.downloadStoryPdf = function(storyId) {
+    const section = document.querySelector('stories-section');
+    if (section) {
+        section.downloadPdf(storyId);
+    }
 };
 
 window.reviewStory = function(storyId) {
-    console.log(`Reviewing story: ${storyId}`);
-    showNotification(`Reviewing story: ${storyId}`, 'info');
+    window.readStory(storyId);
 };

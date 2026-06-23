@@ -6,7 +6,7 @@
 class LearningSection extends HTMLElement {
     constructor() {
         super();
-        this.currentCourse = this.getAttribute('course') || 'ngabe';
+        this.currentCourse = this.getAttribute('course') || 'guna';
         this.userProgress = JSON.parse(localStorage.getItem('userProgress') || '{}');
     }
 
@@ -15,6 +15,15 @@ class LearningSection extends HTMLElement {
         this.initializeEventListeners();
         this.loadUserProgress();
         this.setupSidebarListener();
+        this.updateProgressIndicator();
+    }
+
+    updateProgressIndicator() {
+        const lessons = this.getLessonsData();
+        const completed = lessons.filter(l => l.status === 'completed').length;
+        const total = lessons.length;
+        const el = this.querySelector('#progressText');
+        if (el) el.textContent = `${completed}/${total} Lessons`;
     }
 
     setupSidebarListener() {
@@ -40,6 +49,25 @@ class LearningSection extends HTMLElement {
     }
 
     render() {
+        if (this.currentCourse !== 'guna') {
+            this.innerHTML = `
+                <div class="learning-section learning-section--soon">
+                    <div class="learning-header" data-aos="fade-up">
+                        <h2 class="section-title">🎯 ${this.getCourseName()} Learning Path</h2>
+                        <p class="section-subtitle">This language course is being prepared for you</p>
+                    </div>
+                    <div class="coming-soon-panel">
+                        <span class="coming-soon-badge-lg">Coming Soon</span>
+                        <p>We're building interactive lessons for ${this.getCourseName()}. For now, explore the <strong>Guna</strong> learning path with 10 levels of culture and vocabulary.</p>
+                        <button class="lesson-btn btn-primary" onclick="window.learningHub && window.learningHub.switchCourse('guna')">
+                            <i class="fas fa-play"></i> Go to Guna Path
+                        </button>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
         this.innerHTML = `
             <style>
                 /* Component-specific styles */
@@ -90,30 +118,80 @@ class LearningSection extends HTMLElement {
 
                 .learning-path {
                     position: relative;
-                    padding: 2rem 0;
+                    padding: 2rem 0 3rem;
                     background: var(--bg-secondary);
                     border-radius: var(--border-radius-lg);
                     box-shadow: var(--shadow-md);
                     margin-bottom: 2rem;
+                    overflow: visible;
                 }
 
                 .path-container {
                     display: flex;
                     flex-direction: column;
-                    gap: 1.5rem;
-                    padding: 0 2rem;
+                    align-items: center;
+                    gap: 0;
+                    padding: 1rem 1.5rem 2rem;
+                    max-width: 560px;
+                    margin: 0 auto;
+                    position: relative;
+                }
+
+                .path-container::before {
+                    content: '';
+                    position: absolute;
+                    top: 40px;
+                    bottom: 40px;
+                    left: 50%;
+                    width: 4px;
+                    transform: translateX(-50%);
+                    background: linear-gradient(180deg, var(--success-color), var(--primary-color), var(--text-light));
+                    border-radius: 4px;
+                    z-index: 0;
+                }
+
+                .path-step {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    position: relative;
+                    z-index: 1;
+                    padding: 0.5rem 0;
+                }
+
+                .path-step:nth-child(odd) .lesson-node {
+                    margin-right: auto;
+                    margin-left: 0;
+                    max-width: 92%;
+                }
+
+                .path-step:nth-child(even) .lesson-node {
+                    margin-left: auto;
+                    margin-right: 0;
+                    max-width: 92%;
+                }
+
+                .path-step-connector {
+                    width: 4px;
+                    height: 20px;
+                    background: var(--primary-color);
+                    opacity: 0.3;
+                    margin: 0 auto;
                 }
 
                 .lesson-node {
                     display: flex;
                     align-items: center;
-                    padding: 1.5rem;
+                    padding: 1.25rem 1.5rem;
                     background: var(--bg-tertiary);
-                    border-radius: var(--border-radius);
+                    border-radius: var(--border-radius-lg);
                     transition: all var(--transition-fast);
                     cursor: pointer;
                     position: relative;
-                    overflow: hidden;
+                    overflow: visible;
+                    width: 100%;
+                    box-shadow: var(--shadow-sm);
+                    border: 2px solid transparent;
                 }
 
                 .lesson-node::before {
@@ -140,8 +218,41 @@ class LearningSection extends HTMLElement {
                 }
 
                 .lesson-node:hover {
-                    transform: translateX(8px);
-                    box-shadow: var(--shadow-md);
+                    transform: translateY(-4px) scale(1.02);
+                    box-shadow: var(--shadow-lg);
+                    border-color: var(--primary-color);
+                }
+
+                .lesson-node.locked {
+                    opacity: 0.75;
+                }
+
+                .lesson-node.locked:hover {
+                    transform: none;
+                    border-color: transparent;
+                    box-shadow: var(--shadow-sm);
+                }
+
+                .lesson-level-num {
+                    position: absolute;
+                    top: -10px;
+                    left: -10px;
+                    width: 28px;
+                    height: 28px;
+                    background: var(--gradient-primary);
+                    color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    box-shadow: var(--shadow-sm);
+                    z-index: 2;
+                }
+
+                .boss-node .lesson-level-num {
+                    background: var(--gradient-accent);
                 }
 
                 .lesson-icon {
@@ -324,8 +435,8 @@ class LearningSection extends HTMLElement {
                 </div>
 
                 <div class="learning-path" data-aos="fade-up" data-aos-delay="100">
-                    <div class="progress-indicator">
-                        Progress: <span id="progressText">3/12 Lessons</span>
+                    <div class="progress-indicator" id="pathProgressIndicator">
+                        Progress: <span id="progressText">0/0 Lessons</span>
                     </div>
                     
                     <div class="path-container" id="pathContainer">
@@ -348,36 +459,26 @@ class LearningSection extends HTMLElement {
 
     generateLessonsForCourse() {
         const lessons = this.getLessonsData();
-        return lessons.map(lesson => `
-            <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''}" data-lesson="${lesson.id}">
-                ${lesson.type === 'boss' ? '<div class="boss-badge">BOSS</div>' : ''}
-                
-                <div class="lesson-icon">
-                    <i class="fas ${this.getLessonIcon(lesson.status, lesson.type)}"></i>
-                </div>
-                
-                <div class="lesson-info">
-                    <h3 class="lesson-title">${lesson.title}</h3>
-                    <p class="lesson-description">${lesson.description}</p>
-                    
-                    <div class="lesson-stats">
-                        <span class="stat-item">
-                            <i class="fas fa-star"></i>
-                            +${lesson.xp} XP
-                        </span>
-                        <span class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            ${lesson.duration} min
-                        </span>
-                        <span class="stat-item">
-                            <i class="fas fa-layer-group"></i>
-                            ${lesson.exercises} exercises
-                        </span>
+        return lessons.map((lesson, index) => `
+            <div class="path-step">
+                <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''}" data-lesson="${lesson.id}">
+                    ${lesson.type === 'boss' ? '<div class="boss-badge">BOSS</div>' : ''}
+                    <div class="lesson-level-num">${lesson.id}</div>
+                    <div class="lesson-icon">
+                        <i class="fas ${this.getLessonIcon(lesson.status, lesson.type)}"></i>
                     </div>
-                </div>
-                
-                <div class="lesson-actions">
-                    ${this.getLessonButton(lesson)}
+                    <div class="lesson-info">
+                        <h3 class="lesson-title">${lesson.title}</h3>
+                        <p class="lesson-description">${lesson.description}</p>
+                        <div class="lesson-stats">
+                            <span class="stat-item"><i class="fas fa-star"></i> +${lesson.xp} XP</span>
+                            <span class="stat-item"><i class="fas fa-clock"></i> ${lesson.duration} min</span>
+                            <span class="stat-item"><i class="fas fa-layer-group"></i> ${lesson.exercises} exercises</span>
+                        </div>
+                    </div>
+                    <div class="lesson-actions">
+                        ${this.getLessonButton(lesson)}
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -395,10 +496,15 @@ class LearningSection extends HTMLElement {
             ],
             'guna': [
                 { id: 1, title: 'Island Greetings', description: 'Traditional Guna welcome expressions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
-                { id: 2, title: 'Ocean Numbers', description: 'Counting like the sea people', status: 'current', xp: 75, duration: 20, exercises: 12, type: 'normal' },
-                { id: 3, title: 'Mola Patterns', description: 'Learn textile-related vocabulary', status: 'locked', xp: 100, duration: 25, exercises: 15, type: 'normal' },
-                { id: 4, title: 'Sea Creatures', description: 'Marine life and fishing terms', status: 'locked', xp: 125, duration: 30, exercises: 18, type: 'normal' },
-                { id: 5, title: 'Cultural Wisdom', description: 'Traditional stories and values', status: 'locked', xp: 200, duration: 45, exercises: 25, type: 'boss' }
+                { id: 2, title: 'Island Elements', description: 'Home, water, fire and daily tools', status: 'completed', xp: 75, duration: 20, exercises: 12, type: 'normal' },
+                { id: 3, title: 'Family & Community', description: 'Parents, siblings and elders', status: 'completed', xp: 100, duration: 25, exercises: 15, type: 'normal' },
+                { id: 4, title: 'Sea Creatures & Animals', description: 'Turtles, sharks, crabs and forest animals', status: 'current', xp: 125, duration: 30, exercises: 18, type: 'normal' },
+                { id: 5, title: 'Plants & Coconut', description: 'Traditional foods and island agriculture', status: 'locked', xp: 125, duration: 30, exercises: 18, type: 'normal' },
+                { id: 6, title: 'Mola Culture & History', description: 'Molas, revolution and spiritual heritage', status: 'locked', xp: 150, duration: 35, exercises: 20, type: 'normal' },
+                { id: 7, title: 'Daily Phrases', description: 'Pronouns and everyday expressions', status: 'locked', xp: 100, duration: 25, exercises: 15, type: 'normal' },
+                { id: 8, title: 'Cultural Mastery', description: 'Combined vocabulary challenge', status: 'locked', xp: 175, duration: 35, exercises: 22, type: 'normal' },
+                { id: 9, title: 'Oral Traditions', description: 'Congress, saglas and ceremonial knowledge', status: 'locked', xp: 150, duration: 30, exercises: 18, type: 'normal' },
+                { id: 10, title: 'Guna Grand Challenge', description: 'Final boss — prove your fluency', status: 'locked', xp: 250, duration: 45, exercises: 30, type: 'boss' }
             ],
             'embera': [
                 { id: 1, title: 'River Greetings', description: 'Welcome expressions from the rainforest', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
@@ -416,7 +522,11 @@ class LearningSection extends HTMLElement {
             ]
         };
 
-        return courseLessons[this.currentCourse] || courseLessons['ngabe'];
+        const base = courseLessons[this.currentCourse] || courseLessons['guna'];
+        if (this.currentCourse === 'guna' && typeof GunaProgress !== 'undefined') {
+            return GunaProgress.getLessonsWithStatus(base);
+        }
+        return base;
     }
 
     getLessonIcon(status, type) {
@@ -434,14 +544,14 @@ class LearningSection extends HTMLElement {
         switch(lesson.status) {
             case 'completed':
                 return `
-                    <button class="lesson-btn btn-secondary" onclick="reviewLesson(${lesson.id})">
+                    <button class="lesson-btn btn-secondary" onclick="event.stopPropagation(); reviewLesson(${lesson.id})">
                         <i class="fas fa-redo"></i>
                         Review
                     </button>
                 `;
             case 'current':
                 return `
-                    <button class="lesson-btn btn-primary" onclick="startLesson(${lesson.id})">
+                    <button class="lesson-btn btn-primary" onclick="event.stopPropagation(); startLesson(${lesson.id})">
                         <i class="fas fa-play"></i>
                         Start Lesson
                     </button>
@@ -525,51 +635,55 @@ class LearningSection extends HTMLElement {
 // Register the custom element
 customElements.define('learning-section', LearningSection);
 
+// Helper: resolve active course even when learning-section is not in DOM
+function getActiveCourse() {
+    if (window.learningHub?.currentCourse) return window.learningHub.currentCourse;
+    const stored = localStorage.getItem('currentCourse');
+    if (stored) return stored;
+    const section = document.querySelector('learning-section');
+    if (section) return section.getAttribute('course') || 'guna';
+    return 'guna';
+}
+
+function openGunaLessonViewer(lessonId) {
+    const contentContainer = document.getElementById('contentContainer');
+    if (!contentContainer) return;
+
+    contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
+
+    const viewer = contentContainer.querySelector('guna-lesson-viewer');
+    if (viewer) {
+        viewer.addEventListener('lessonCompleted', (e) => {
+            const id = e.detail.lessonId;
+            if (typeof GunaProgress !== 'undefined') {
+                GunaProgress.completeLesson(id);
+            }
+            showNotification(`🎉 Lesson ${id} completed! +25 cocos`, 'success');
+            setTimeout(() => {
+                if (window.learningHub) {
+                    window.learningHub.loadSection('learn', true);
+                }
+            }, 1500);
+        }, { once: true });
+    }
+}
+
 // Global functions for lesson interaction
 window.startLesson = function(lessonId) {
-    console.log(`Starting lesson ${lessonId}`);
-    
-    // Check if it's a Guna lesson
-    const currentCourse = document.querySelector('learning-section')?.getAttribute('course') || 'ngabe';
-    
+    const currentCourse = getActiveCourse();
     if (currentCourse === 'guna') {
-        // Load Guna lesson viewer
-        const contentContainer = document.getElementById('contentContainer');
-        if (contentContainer) {
-            contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
-            
-            // Listen for lesson completion
-            contentContainer.addEventListener('lessonCompleted', (e) => {
-                const { lessonId, course } = e.detail;
-                showNotification(`🎉 Lesson ${lessonId} completed! Great job!`, 'success');
-                
-                // Update lesson status in the learning path
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            });
-        }
+        openGunaLessonViewer(lessonId);
     } else {
-        // Default lesson start logic for other courses
-        showNotification(`Starting lesson ${lessonId}!`, 'success');
+        showNotification('This course is coming soon!', 'info');
     }
 };
 
 window.reviewLesson = function(lessonId) {
-    console.log(`Reviewing lesson ${lessonId}`);
-    
-    // Check if it's a Guna lesson
-    const currentCourse = document.querySelector('learning-section')?.getAttribute('course') || 'ngabe';
-    
+    const currentCourse = getActiveCourse();
     if (currentCourse === 'guna') {
-        // Load Guna lesson viewer in review mode
-        const contentContainer = document.getElementById('contentContainer');
-        if (contentContainer) {
-            contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
-        }
+        openGunaLessonViewer(lessonId);
     } else {
-        // Default lesson review logic for other courses
-        showNotification(`Reviewing lesson ${lessonId}!`, 'info');
+        showNotification('This course is coming soon!', 'info');
     }
 };
 

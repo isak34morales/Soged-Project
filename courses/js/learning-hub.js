@@ -20,6 +20,7 @@ class SimpleLearningHub {
         }
         
         this.hideLoadingScreen();
+        this.syncCourseDisplay();
         this.setupSidebar();
         this.setupNavigation();
         this.setupCourseSelector();
@@ -146,6 +147,11 @@ class SimpleLearningHub {
         // Course selection
         courseOptions.forEach(option => {
             option.addEventListener('click', () => {
+                if (option.dataset.soon === 'true') {
+                    this.showNotification('Coming Soon — Guna is available now!', 'info');
+                    courseDropdown.classList.remove('show');
+                    return;
+                }
                 const courseId = option.getAttribute('data-course');
                 this.switchCourse(courseId);
             });
@@ -327,7 +333,7 @@ class SimpleLearningHub {
                     content = `<stories-section course="${this.currentCourse}"></stories-section>`;
                     break;
                 case 'chat':
-                    content = this.generateChatContent();
+                    content = `<guna-ai-tutor course="${this.currentCourse}"></guna-ai-tutor>`;
                     break;
                 case 'leaderboard':
                     content = this.generateLeaderboardContent();
@@ -352,6 +358,12 @@ class SimpleLearningHub {
             
             if (section === 'overview') {
                 this.setupOverviewInteractions();
+            }
+            if (section === 'store') {
+                localStorage.setItem('guna_store_visited', '1');
+            }
+            if (section === 'chat') {
+                localStorage.setItem('guna_ai_used', '1');
             }
             
             if (typeof AOS !== 'undefined') {
@@ -511,15 +523,28 @@ class SimpleLearningHub {
     }
 
     generateAchievementItems() {
+        const gunaDone = typeof GunaProgress !== 'undefined' ? GunaProgress.getCompletedCount() : 3;
+        const cocos = typeof CocosEconomy !== 'undefined' ? CocosEconomy.getBalance() : 0;
+
         const achievements = [
-            { id: 'first-lesson', title: 'First Step', description: 'Complete your first lesson', icon: '🎯', status: 'unlocked', reward: '+50 XP', unlockedDate: '5 days ago' },
+            { id: 'first-lesson', title: 'First Step', description: 'Complete your first Guna lesson', icon: '🎯', status: gunaDone >= 1 ? 'unlocked' : 'locked', reward: '+50 XP', unlockedDate: 'Unlocked', requirement: 'Complete lesson 1' },
+            { id: 'island-greeter', title: 'Island Greeter', description: 'Master Guna greetings', icon: '🏝️', status: gunaDone >= 1 ? 'unlocked' : 'locked', reward: '+75 XP', unlockedDate: 'Unlocked', requirement: 'Complete lesson 1' },
             { id: 'streak-7', title: 'Burning Fire', description: 'Maintain a 7-day streak', icon: '🔥', status: 'unlocked', reward: '+100 XP', unlockedDate: 'Today' },
-            { id: 'lessons-10', title: 'Dedicated Student', description: 'Complete 10 lessons', icon: '📚', status: 'unlocked', reward: '+150 XP', unlockedDate: 'Yesterday' },
-            { id: 'perfect-lesson', title: 'Perfection', description: 'Get 100% on a lesson', icon: '⭐', status: 'unlocked', reward: '+75 XP', unlockedDate: '3 days ago' },
-            { id: 'voice-practice', title: 'Brave Speaker', description: 'Complete 5 pronunciation exercises', icon: '🎤', status: 'in-progress', reward: '+200 XP', progress: '3/5' },
-            { id: 'story-reader', title: 'Cultural Explorer', description: 'Read 3 traditional stories', icon: '📖', status: 'in-progress', reward: '+125 XP', progress: '1/3' },
-            { id: 'streak-30', title: 'Constant Master', description: 'Maintain a 30-day streak', icon: '👑', status: 'locked', reward: '+500 XP', requirement: 'Current streak: 7/30' },
-            { id: 'all-lessons', title: 'Language Master', description: 'Complete all lessons', icon: '🏆', status: 'locked', reward: '+1000 XP', requirement: 'Lessons: 12/50' }
+            { id: 'lessons-3', title: 'Path Walker', description: 'Complete 3 Guna levels', icon: '🚶', status: gunaDone >= 3 ? 'unlocked' : 'in-progress', reward: '+100 XP', unlockedDate: 'Unlocked', progress: `${Math.min(gunaDone, 3)}/3` },
+            { id: 'sea-scholar', title: 'Sea Scholar', description: 'Complete Sea Creatures level', icon: '🐢', status: gunaDone >= 4 ? 'unlocked' : 'locked', reward: '+125 XP', requirement: 'Complete level 4' },
+            { id: 'coco-collector', title: 'Coco Collector', description: 'Earn 100 cocos', icon: '🥥', status: cocos >= 100 ? 'unlocked' : 'in-progress', reward: '+50 cocos', progress: `${Math.min(cocos, 100)}/100` },
+            { id: 'mola-lover', title: 'Mola Enthusiast', description: 'Visit the Guna Store', icon: '🎨', status: localStorage.getItem('guna_store_visited') ? 'unlocked' : 'locked', reward: '+75 XP', requirement: 'Open the store' },
+            { id: 'lessons-5', title: 'Halfway Hero', description: 'Complete 5 Guna levels', icon: '⭐', status: gunaDone >= 5 ? 'unlocked' : 'in-progress', reward: '+150 XP', progress: `${Math.min(gunaDone, 5)}/5` },
+            { id: 'story-reader', title: 'Cultural Explorer', description: 'Read a Guna story PDF', icon: '📖', status: localStorage.getItem('guna_story_read') ? 'unlocked' : 'in-progress', reward: '+125 XP', progress: localStorage.getItem('guna_story_read') ? '1/1' : '0/1' },
+            { id: 'ai-tutor', title: 'AI Explorer', description: 'Chat with the Guna AI Tutor', icon: '🤖', status: localStorage.getItem('guna_ai_used') ? 'unlocked' : 'locked', reward: '+80 XP', requirement: 'Use AI Tutor' },
+            { id: 'perfect-lesson', title: 'Perfection', description: 'Get 100% on a lesson quiz', icon: '💯', status: 'unlocked', reward: '+75 XP', unlockedDate: '3 days ago' },
+            { id: 'mola-culture', title: 'Mola Guardian', description: 'Complete Mola Culture level', icon: '🧵', status: gunaDone >= 6 ? 'unlocked' : 'locked', reward: '+175 XP', requirement: 'Complete level 6' },
+            { id: 'oral-traditions', title: 'Congress Scholar', description: 'Complete Oral Traditions level', icon: '📜', status: gunaDone >= 9 ? 'unlocked' : 'locked', reward: '+200 XP', requirement: 'Complete level 9' },
+            { id: 'lessons-10', title: 'Dedicated Student', description: 'Complete all 10 Guna levels', icon: '📚', status: gunaDone >= 10 ? 'unlocked' : 'in-progress', reward: '+300 XP', progress: `${gunaDone}/10` },
+            { id: 'boss-beat', title: 'Grand Champion', description: 'Beat the Guna Grand Challenge', icon: '👑', status: gunaDone >= 10 ? 'unlocked' : 'locked', reward: '+500 XP', requirement: 'Complete the boss level' },
+            { id: 'coco-rich', title: 'Coconut Tycoon', description: 'Accumulate 500 cocos', icon: '💰', status: cocos >= 500 ? 'unlocked' : 'in-progress', reward: '+100 cocos', progress: `${Math.min(cocos, 500)}/500` },
+            { id: 'streak-30', title: 'Constant Master', description: 'Maintain a 30-day streak', icon: '🌟', status: 'locked', reward: '+500 XP', requirement: 'Current streak: 7/30' },
+            { id: 'all-lessons', title: 'Language Master', description: 'Complete every Guna lesson', icon: '🏆', status: gunaDone >= 10 ? 'unlocked' : 'locked', reward: '+1000 XP', requirement: `Levels: ${gunaDone}/10` }
         ];
 
         return achievements.map(achievement => {
@@ -670,14 +695,16 @@ class SimpleLearningHub {
 
     getUserStats() {
         const progress = JSON.parse(localStorage.getItem('userProgress') || '{}');
+        const gunaCompleted = typeof GunaProgress !== 'undefined' ? GunaProgress.getCompletedCount() : 3;
+        const pathProgress = Math.round((gunaCompleted / 10) * 100);
         return {
             level: progress.level || 5,
             xp: progress.xp || 1250,
             xpNext: progress.xpNext || 2000,
             streak: progress.streak || 7,
-            lessons: progress.lessons || 12,
+            lessons: gunaCompleted,
             cocos: typeof CocosEconomy !== 'undefined' ? CocosEconomy.getBalance() : 1250,
-            pathProgress: progress.pathProgress || 35
+            pathProgress: pathProgress || progress.pathProgress || 30
         };
     }
 
@@ -732,76 +759,69 @@ class SimpleLearningHub {
         const xpPercent = Math.round((stats.xp / stats.xpNext) * 100);
 
         return `
-            <div class="overview-dashboard overview-gamified">
-                <img src="../Images/Languages/Verde.png" class="overview-deco deco-verde-tl" alt="" aria-hidden="true">
-                <img src="../Images/Languages/Rojo.png" class="overview-deco deco-rojo-tr" alt="" aria-hidden="true">
-                <img src="../Images/Languages/Rojo.png" class="overview-deco deco-rojo-bl" alt="" aria-hidden="true">
-                <img src="../Images/Languages/Verde.png" class="overview-deco deco-verde-br" alt="" aria-hidden="true">
-
+            <div class="overview-dashboard overview-gamified overview-mola-bg">
                 <section class="hero-section" data-aos="fade-up">
-                    <img src="../Images/Languages/Verde.png" class="hero-deco hero-deco-verde" alt="" aria-hidden="true">
-                    <img src="../Images/Languages/Rojo.png" class="hero-deco hero-deco-rojo" alt="" aria-hidden="true">
                     <div class="hero-greeting">
-                        <h1 class="hero-title">¡Bienvenido de nuevo, <span class="hero-username">${username}</span>!</h1>
-                        <p class="hero-subtitle">Continúa fortaleciendo tu conocimiento de la cultura y lengua Guna.</p>
+                        <h1 class="hero-title">Welcome back, <span class="hero-username">${username}</span>!</h1>
+                        <p class="hero-subtitle">Keep strengthening your knowledge of Guna culture and language.</p>
                     </div>
                     <div class="hero-stats-row">
                         <div class="hero-stat-pill level">
                             <i class="fas fa-star"></i>
                             <div>
-                                <span class="hero-stat-value">Nivel ${stats.level}</span>
-                                <span class="hero-stat-label">Actual</span>
+                                <span class="hero-stat-value">Level ${stats.level}</span>
+                                <span class="hero-stat-label">Current</span>
                             </div>
                         </div>
                         <div class="hero-stat-pill xp">
                             <i class="fas fa-bolt"></i>
                             <div>
-                                <span class="hero-stat-value">${stats.xp.toLocaleString('es-ES')} XP</span>
-                                <span class="hero-stat-label">Acumulada</span>
+                                <span class="hero-stat-value">${stats.xp.toLocaleString('en-US')} XP</span>
+                                <span class="hero-stat-label">Earned</span>
                             </div>
                         </div>
                         <div class="hero-stat-pill streak">
                             <i class="fas fa-fire"></i>
                             <div>
-                                <span class="hero-stat-value">${stats.streak} días</span>
-                                <span class="hero-stat-label">Racha</span>
+                                <span class="hero-stat-value">${stats.streak} days</span>
+                                <span class="hero-stat-label">Streak</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <button type="button" class="main-course-card" id="mainCourseCard"
-                        aria-label="Continuar aprendiendo ${courseData.name} - ${courseData.description}"
+                        aria-label="Continue learning ${courseData.name} - ${courseData.description}"
                         data-aos="fade-up" data-aos-delay="50">
                     <div class="main-course-icon">${this.getCourseIcon(courseData)}</div>
                     <div class="main-course-content">
                         <h2 class="main-course-name">${courseData.name}</h2>
                         <p class="main-course-desc">${courseData.description}</p>
-                        <span class="main-course-cta">Continuar Aprendiendo <i class="fas fa-arrow-right"></i></span>
+                        <span class="main-course-cta">Continue Learning <i class="fas fa-arrow-right"></i></span>
                     </div>
                     <div class="main-course-glow" aria-hidden="true"></div>
                 </button>
 
-                <section class="mini-stats-grid" data-aos="fade-up" data-aos-delay="100" aria-label="Estadísticas de progreso">
+                <section class="mini-stats-grid" data-aos="fade-up" data-aos-delay="100" aria-label="Progress statistics">
                     <div class="mini-stat-card lessons">
                         <span class="mini-stat-emoji" aria-hidden="true">📚</span>
                         <span class="mini-stat-number">${stats.lessons}</span>
-                        <span class="mini-stat-label">Lecciones completadas</span>
+                        <span class="mini-stat-label">Lessons completed</span>
                     </div>
                     <div class="mini-stat-card xp-total">
                         <span class="mini-stat-emoji" aria-hidden="true">⭐</span>
-                        <span class="mini-stat-number">${stats.xp.toLocaleString('es-ES')}</span>
-                        <span class="mini-stat-label">XP Total</span>
+                        <span class="mini-stat-number">${stats.xp.toLocaleString('en-US')}</span>
+                        <span class="mini-stat-label">Total XP</span>
                     </div>
                     <div class="mini-stat-card cocos-earned cocos-counter">
                         <img src="../Images/Soged/coco.png" alt="" class="mini-stat-coco-img" aria-hidden="true">
-                        <span class="mini-stat-number" data-cocos-balance>${stats.cocos.toLocaleString('es-ES')}</span>
-                        <span class="mini-stat-label">Cocos ganados</span>
+                        <span class="mini-stat-number" data-cocos-balance>${stats.cocos.toLocaleString('en-US')}</span>
+                        <span class="mini-stat-label">Cocos earned</span>
                     </div>
                     <div class="mini-stat-card streak-current">
                         <span class="mini-stat-emoji" aria-hidden="true">🔥</span>
                         <span class="mini-stat-number">${stats.streak}</span>
-                        <span class="mini-stat-label">Racha actual</span>
+                        <span class="mini-stat-label">Current streak</span>
                     </div>
                 </section>
 
@@ -812,13 +832,13 @@ class SimpleLearningHub {
                                 <i class="fas fa-chart-line"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Tu Progreso</h3>
-                                <p class="card-subtitle">Learning Path Guna</p>
+                                <h3 class="card-title">Your Progress</h3>
+                                <p class="card-subtitle">Guna Learning Path</p>
                             </div>
                         </div>
                         <div class="overall-progress">
                             <div class="progress-label">
-                                <span>Progreso general</span>
+                                <span>Overall progress</span>
                                 <span>${stats.pathProgress}%</span>
                             </div>
                             <div class="progress-track progress-track-lg">
@@ -827,7 +847,7 @@ class SimpleLearningHub {
                         </div>
                         <div class="progress-xp-bar">
                             <div class="progress-label">
-                                <span>XP al siguiente nivel</span>
+                                <span>XP to next level</span>
                                 <span>${xpPercent}%</span>
                             </div>
                             <div class="progress-track">
@@ -842,11 +862,11 @@ class SimpleLearningHub {
                                 <i class="fas fa-fire"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Racha de Aprendizaje</h3>
-                                <p class="card-subtitle streak-highlight">🔥 ${stats.streak} días consecutivos</p>
+                                <h3 class="card-title">Learning Streak</h3>
+                                <p class="card-subtitle streak-highlight">🔥 ${stats.streak} consecutive days</p>
                             </div>
                         </div>
-                        <div class="week-calendar" role="group" aria-label="Calendario semanal de racha">
+                        <div class="week-calendar" role="group" aria-label="Weekly streak calendar">
                             ${this.getWeekCalendar()}
                         </div>
                     </div>
@@ -857,39 +877,35 @@ class SimpleLearningHub {
                     <div class="store-promo-content">
                         <span class="store-promo-icon">🛒</span>
                         <div>
-                            <h3>Visita la Tienda Guna</h3>
-                            <p>Usa tus cocos para desbloquear molas, arte y recompensas culturales.</p>
+                            <h3>Visit the Guna Store</h3>
+                            <p>Spend your cocos to unlock molas, art and cultural rewards.</p>
                         </div>
                     </div>
                     <button type="button" class="store-promo-btn" onclick="window.learningHub.navigateToSection('store')">
-                        Ir a la Tienda <i class="fas fa-arrow-right"></i>
+                        Go to Store <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
 
                 <div class="other-courses" data-aos="fade-up" data-aos-delay="250">
                     <div class="section-header">
-                        <h2 class="section-title">Otros Idiomas</h2>
-                        <p class="section-subtitle">Explora más culturas indígenas de Panamá</p>
+                        <h2 class="section-title">Other Languages</h2>
+                        <p class="section-subtitle">Explore more indigenous cultures of Panama</p>
                     </div>
                     <div class="courses-grid">
                         ${otherCourses.map(course => `
-                            <div class="course-card" onclick="switchCourse('${course.id}')" role="button" tabindex="0"
-                                 onkeydown="if(event.key==='Enter')switchCourse('${course.id}')">
+                            <div class="course-card course-card--soon" aria-disabled="true">
+                                <span class="coming-soon-badge">Coming Soon</span>
                                 <div class="course-flag">${course.flag}</div>
                                 <h3 class="course-name">${course.name}</h3>
                                 <p class="course-description">${course.description}</p>
                                 <div class="course-progress">
-                                    <div class="course-progress-label">${course.progress.lessons}/50 lecciones</div>
+                                    <div class="course-progress-label">Not available yet</div>
                                     <div class="course-progress-bar">
-                                        <div class="course-progress-fill" style="width: ${(course.progress.lessons / 50) * 100}%"></div>
+                                        <div class="course-progress-fill" style="width: 0%"></div>
                                     </div>
                                 </div>
-                                <div class="course-stats">
-                                    <span>${course.progress.xp} XP</span>
-                                    <span>🥥 ${course.progress.cocos || 0}</span>
-                                </div>
-                                <button class="course-button">
-                                    ${course.progress.lessons > 0 ? 'Continuar' : 'Empezar'}
+                                <button class="course-button course-button--disabled" disabled>
+                                    Coming Soon
                                 </button>
                             </div>
                         `).join('')}
@@ -911,20 +927,18 @@ class SimpleLearningHub {
 
     getOtherCourses() {
         const allCourses = [
-            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Mountain People', progress: { lessons: 12, xp: 1250, streak: 7, cocos: 420 } },
-            { id: 'guna', name: 'Guna', flag: '🏝️', description: 'Island Culture', progress: { lessons: 8, xp: 890, streak: 3, cocos: 310 } },
-            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'River Dwellers', progress: { lessons: 5, xp: 450, streak: 1, cocos: 150 } },
-            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Ancient Kingdom', progress: { lessons: 3, xp: 220, streak: 0, cocos: 80 } }
+            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Mountain People' },
+            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'River Dwellers' },
+            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Ancient Kingdom' }
         ];
-        
-        return allCourses.filter(course => course.id !== this.currentCourse);
+        return allCourses;
     }
 
     getSectionTitle(section) {
         const titles = {
             overview: 'Dashboard',
             learn: 'Learning Path',
-            store: 'Tienda Guna',
+            store: 'Guna Store',
             stories: 'Cultural Stories',
             chat: 'AI Tutor',
             leaderboard: 'Leaderboard',
@@ -942,7 +956,20 @@ class SimpleLearningHub {
             return courseFromUrl;
         }
         
-        return localStorage.getItem('currentCourse') || 'ngabe';
+        return localStorage.getItem('currentCourse') || 'guna';
+    }
+
+    syncCourseDisplay() {
+        if (this.currentCourse !== 'guna') {
+            this.currentCourse = 'guna';
+            localStorage.setItem('currentCourse', 'guna');
+        }
+        const course = this.getCourseData();
+        this.updateCourseDisplay({
+            name: course.name,
+            flag: course.flag,
+            desc: course.description
+        });
     }
 
     getCurrentUser() {
@@ -1028,7 +1055,7 @@ class SimpleLearningHub {
         const pathBar = document.querySelector('[data-path-progress]');
         const pathPercent = document.querySelector('[data-path-percent]');
         if (pathBar) pathBar.style.width = `${stats.pathProgress}%`;
-        if (pathPercent) pathPercent.textContent = `${stats.pathProgress}% completado`;
+        if (pathPercent) pathPercent.textContent = `${stats.pathProgress}% complete`;
 
         if (typeof CocosEconomy !== 'undefined') {
             CocosEconomy.updateAllDisplays();
@@ -1046,49 +1073,53 @@ class SimpleLearningHub {
     }
 
     switchCourse(courseId) {
+        if (courseId !== 'guna') {
+            this.showNotification('Coming Soon — only Guna is available right now!', 'info');
+            document.getElementById('courseDropdown')?.classList.remove('show');
+            return;
+        }
         if (courseId === this.currentCourse) return;
 
         const courses = {
-            'ngabe': { name: 'Ngäbe', flag: '🏔️', desc: 'Mountain People' },
-            'guna': { name: 'Guna', flag: '🏝️', desc: 'Island Culture' },
-            'embera': { name: 'Emberá', flag: '🌊', desc: 'River Dwellers' },
-            'naso': { name: 'Naso', flag: '🦋', desc: 'Royal Kingdom' }
+            'guna': { name: 'Guna', flag: '🏝️', desc: 'Island Culture' }
         };
 
         const course = courses[courseId];
         if (!course) return;
 
-        // Update current course
         this.currentCourse = courseId;
         localStorage.setItem('currentCourse', courseId);
 
-        // Update URL
         const url = new URL(window.location);
         url.searchParams.set('course', courseId);
         window.history.pushState({}, '', url);
 
-        // Update course display
         this.updateCourseDisplay(course);
+        document.getElementById('courseDropdown')?.classList.remove('show');
 
-        // Close dropdown
-        document.getElementById('courseDropdown').classList.remove('show');
-
-        // Reload current section with new course
         if (['learn', 'stories'].includes(this.currentSection)) {
             this.loadSection(this.currentSection);
         }
 
-        // Show notification
         this.showNotification(`Switched to ${course.name}! 🎯`, 'success');
     }
 
     updateCourseDisplay(course) {
-        // Update current course display
-        document.querySelector('.course-flag').textContent = course.flag;
-        document.querySelector('.course-name').textContent = course.name;
-        document.querySelector('.course-desc').textContent = course.desc;
+        const flagEl = document.querySelector('.course-flag');
+        if (flagEl) {
+            if (this.currentCourse === 'guna') {
+                flagEl.innerHTML = '<img src="../Images/Soged/mola-icon.png" alt="Guna" class="course-flag-img">';
+                flagEl.classList.add('course-flag-img-wrap');
+            } else {
+                flagEl.classList.remove('course-flag-img-wrap');
+                flagEl.textContent = course.flag || '';
+            }
+        }
+        const nameEl = document.querySelector('.course-name');
+        if (nameEl) nameEl.textContent = course.name;
+        const descEl = document.querySelector('.course-desc');
+        if (descEl) descEl.textContent = course.desc || course.description || '';
 
-        // Update active option
         document.querySelectorAll('.course-option').forEach(option => {
             option.classList.remove('active');
             if (option.getAttribute('data-course') === this.currentCourse) {

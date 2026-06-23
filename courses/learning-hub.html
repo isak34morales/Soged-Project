@@ -30,15 +30,11 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo-section">
+        <div class="sidebar-header sidebar-header--logo-only">
+            <div class="logo-section logo-section--centered">
                 <img src="../Images/Soged/LOGO SOGED.png" alt="SOGED" class="sidebar-logo">
-                <div class="logo-text">
-                    <h2 class="sidebar-title">SOGED</h2>
-                    <p class="sidebar-subtitle">Learning Hub</p>
-                </div>
             </div>
-            <button class="sidebar-toggle" id="sidebarToggle">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
                 <i class="fas fa-chevron-left"></i>
             </button>
         </div>
@@ -95,7 +91,7 @@
                             <div class="nav-progress">
                                 <div class="progress-bar" data-path-progress style="width: 35%"></div>
                             </div>
-                            <span class="progress-text" data-path-percent>35% completado</span>
+                            <span class="progress-text" data-path-percent>35% complete</span>
                         </div>
                     </div>
                 </a>
@@ -105,9 +101,9 @@
                         <i class="fas fa-store"></i>
                     </div>
                     <div class="nav-content">
-                        <span class="nav-text">Tienda Guna</span>
+                        <span class="nav-text">Guna Store</span>
                         <div class="nav-meta">
-                            <span class="store-nav-hint">🥥 Gasta tus cocos</span>
+                            <span class="store-nav-hint">🥥 Spend your cocos</span>
                         </div>
                     </div>
                 </a>
@@ -175,44 +171,46 @@
 
         <!-- Course Selector -->
         <div class="course-selector">
-            <div class="current-course">
-                <div class="course-flag">🏔️</div>
-                <div class="course-info">
-                    <span class="course-name">Ngäbe</span>
-                    <span class="course-desc">Mountain People</span>
+            <div class="current-course" id="currentCourseDisplay">
+                <div class="course-flag course-flag-img-wrap">
+                    <img src="../Images/Soged/mola-icon.png" alt="Guna" class="course-flag-img">
                 </div>
-                <button class="course-dropdown-btn" id="courseDropdownBtn">
+                <div class="course-info">
+                    <span class="course-name">Guna</span>
+                    <span class="course-desc">Island Culture</span>
+                </div>
+                <button class="course-dropdown-btn" id="courseDropdownBtn" aria-label="Select course">
                     <i class="fas fa-chevron-down"></i>
                 </button>
             </div>
             
             <div class="course-dropdown" id="courseDropdown">
-                <div class="course-option active" data-course="ngabe">
+                <div class="course-option active" data-course="guna">
+                    <span class="option-flag"><img src="../Images/Soged/mola-icon.png" alt="" class="option-flag-img"></span>
+                    <div class="option-info">
+                        <span class="option-name">Guna</span>
+                        <span class="option-progress">10 levels available</span>
+                    </div>
+                </div>
+                <div class="course-option course-option--soon" data-course="ngabe" data-soon="true">
                     <span class="option-flag">🏔️</span>
                     <div class="option-info">
                         <span class="option-name">Ngäbe</span>
-                        <span class="option-progress">12/50 lessons</span>
+                        <span class="option-progress coming-soon-label">Coming Soon</span>
                     </div>
                 </div>
-                <div class="course-option" data-course="guna">
-                    <span class="option-flag">🏝️</span>
-                    <div class="option-info">
-                        <span class="option-name">Guna</span>
-                        <span class="option-progress">8/50 lessons</span>
-                    </div>
-                </div>
-                <div class="course-option" data-course="embera">
+                <div class="course-option course-option--soon" data-course="embera" data-soon="true">
                     <span class="option-flag">🌊</span>
                     <div class="option-info">
                         <span class="option-name">Emberá</span>
-                        <span class="option-progress">5/50 lessons</span>
+                        <span class="option-progress coming-soon-label">Coming Soon</span>
                     </div>
                 </div>
-                <div class="course-option" data-course="naso">
+                <div class="course-option course-option--soon" data-course="naso" data-soon="true">
                     <span class="option-flag">🦋</span>
                     <div class="option-info">
                         <span class="option-name">Naso</span>
-                        <span class="option-progress">3/50 lessons</span>
+                        <span class="option-progress coming-soon-label">Coming Soon</span>
                     </div>
                 </div>
             </div>
@@ -556,6 +554,7 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="js/cocos-economy.js"></script>
+    <script src="js/guna-progress.js"></script>
     
     <!-- Web Components -->
     <script src="components/guna-store.js"></script>
@@ -564,6 +563,8 @@
     <script src="components/stories-section.js"></script>
     
     <!-- Guna Language Lessons -->
+    <script src="components/guna-ai-tutor.js"></script>
+    <script src="components/guna-vocabulary.js"></script>
     <script src="components/guna-lessons.js"></script>
     <script src="components/guna-lesson-viewer.js"></script>
     
