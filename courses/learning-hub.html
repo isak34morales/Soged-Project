@@ -85,15 +85,29 @@
                     <span class="title-text">Learning</span>
                 </h4>
                 
-                <a href="#learn" class="nav-item" data-section="learn">
+                <a href="#learning-path" class="nav-item" data-section="learn">
                     <div class="nav-icon">
                         <i class="fas fa-map"></i>
                     </div>
                     <div class="nav-content">
                         <span class="nav-text">Learning Path</span>
-                        <div class="nav-progress">
-                            <div class="progress-bar" style="width: 35%"></div>
-                            <span class="progress-text">World 2 of 5</span>
+                        <div class="nav-progress-wrap">
+                            <div class="nav-progress">
+                                <div class="progress-bar" data-path-progress style="width: 35%"></div>
+                            </div>
+                            <span class="progress-text" data-path-percent>35% completado</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#store" class="nav-item" data-section="store">
+                    <div class="nav-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="nav-content">
+                        <span class="nav-text">Tienda Guna</span>
+                        <div class="nav-meta">
+                            <span class="store-nav-hint">🥥 Gasta tus cocos</span>
                         </div>
                     </div>
                 </a>
@@ -244,14 +258,15 @@
                         </div>
                     </div>
                     
-                    <div class="stat-item seeds">
-                        <div class="stat-icon">
-                            <i class="fas fa-seedling"></i>
+                    <div class="stat-item cocos cocos-counter" title="Cocos ganados durante tu aprendizaje" tabindex="0" role="status" aria-label="Cocos ganados durante tu aprendizaje">
+                        <div class="stat-icon cocos-icon-wrap">
+                            <img src="../Images/Soged/coco.png" alt="" class="cocos-icon" aria-hidden="true">
                         </div>
                         <div class="stat-info">
-                            <span class="stat-value">1,250</span>
-                            <span class="stat-label">seeds</span>
+                            <span class="stat-value" data-cocos-balance>1,250</span>
+                            <span class="stat-label">Cocos</span>
                         </div>
+                        <span class="cocos-tooltip">Cocos ganados durante tu aprendizaje</span>
                     </div>
                 </div>
 
@@ -539,8 +554,11 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="js/cocos-economy.js"></script>
     
     <!-- Web Components -->
+    <script src="components/guna-store.js"></script>
     <script src="components/learning-section.js"></script>
     <script src="components/practice-section.js"></script>
     <script src="components/stories-section.js"></script>

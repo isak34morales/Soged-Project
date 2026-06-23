@@ -5,7 +5,7 @@
 
 class SimpleLearningHub {
     constructor() {
-        this.currentSection = 'learn';
+        this.currentSection = '';
         this.currentCourse = this.getCurrentCourse();
         this.sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
         this.currentUser = this.getCurrentUser();
@@ -29,6 +29,7 @@ class SimpleLearningHub {
         this.loadInitialSection();
         this.setupResponsiveBehavior();
         this.updateUserInfo();
+        this.setupHashRouting();
         
         // Apply saved sidebar state
         if (this.sidebarCollapsed) {
@@ -249,8 +250,36 @@ class SimpleLearningHub {
         });
     }
 
-    loadSection(section) {
-        if (section === this.currentSection) return;
+    setupHashRouting() {
+        window.addEventListener('hashchange', () => {
+            const section = this.resolveSectionFromUrl();
+            if (section && section !== this.currentSection) {
+                this.loadSection(section, true);
+            }
+        });
+    }
+
+    resolveSectionFromUrl() {
+        const path = window.location.pathname;
+        const hash = window.location.hash.replace('#', '');
+        if (path.includes('/store') || hash === 'store') return 'store';
+        if (path.includes('/learning-path') || hash === 'learning-path' || hash === 'learn') return 'learn';
+        const valid = ['overview', 'learn', 'store', 'stories', 'chat', 'leaderboard', 'achievements'];
+        if (hash && valid.includes(hash)) return hash;
+        return 'overview';
+    }
+
+    navigateToSection(section) {
+        const hashMap = { learn: 'learning-path', store: 'store', overview: 'overview' };
+        const hash = hashMap[section] || section;
+        if (window.location.hash !== `#${hash}`) {
+            window.location.hash = hash;
+        }
+        this.loadSection(section, true);
+    }
+
+    loadSection(section, force = false) {
+        if (!force && section === this.currentSection) return;
 
         // Update navigation active state
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -306,6 +335,9 @@ class SimpleLearningHub {
                 case 'achievements':
                     content = this.generateAchievementsContent();
                     break;
+                case 'store':
+                    content = `<guna-store></guna-store>`;
+                    break;
                 default:
                     content = `
                         <div style="text-align: center; padding: 4rem 2rem;">
@@ -317,6 +349,18 @@ class SimpleLearningHub {
             }
             
             contentContainer.innerHTML = content;
+            
+            if (section === 'overview') {
+                this.setupOverviewInteractions();
+            }
+            
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+            
+            if (typeof CocosEconomy !== 'undefined') {
+                CocosEconomy.updateAllDisplays();
+            }
         }, 600);
     }
 
@@ -624,112 +668,228 @@ class SimpleLearningHub {
         }
     }
 
+    getUserStats() {
+        const progress = JSON.parse(localStorage.getItem('userProgress') || '{}');
+        return {
+            level: progress.level || 5,
+            xp: progress.xp || 1250,
+            xpNext: progress.xpNext || 2000,
+            streak: progress.streak || 7,
+            lessons: progress.lessons || 12,
+            cocos: typeof CocosEconomy !== 'undefined' ? CocosEconomy.getBalance() : 1250,
+            pathProgress: progress.pathProgress || 35
+        };
+    }
+
+    getDisplayUsername() {
+        if (!this.currentUser) return 'Explorador';
+        return this.currentUser.username
+            || (this.currentUser.email ? this.currentUser.email.split('@')[0] : null)
+            || this.currentUser.name
+            || 'Explorador';
+    }
+
+    getWeekCalendar() {
+        const days = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+        const today = new Date().getDay();
+        const todayIndex = today === 0 ? 6 : today - 1;
+        const streak = this.getUserStats().streak;
+
+        return days.map((label, i) => {
+            let cls = 'week-day';
+            const isCompleted = streak >= 7 || (i > todayIndex - streak && i <= todayIndex);
+            if (isCompleted) cls += ' completed';
+            if (i === todayIndex) cls += ' today';
+            return `<div class="${cls}" aria-label="Día ${label}${i === todayIndex ? ', hoy' : isCompleted ? ', completado' : ''}"><span class="week-day-label">${label}</span><span class="week-day-dot"></span></div>`;
+        }).join('');
+    }
+
+    setupOverviewInteractions() {
+        const courseCard = document.getElementById('mainCourseCard');
+        if (courseCard) {
+            courseCard.addEventListener('click', () => this.navigateToSection('learn'));
+            courseCard.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.navigateToSection('learn');
+                }
+            });
+        }
+    }
+
+    getCourseIcon(courseData) {
+        if (this.currentCourse === 'guna') {
+            return `<img src="../Images/Soged/mola-icon.png" alt="Cultura ${courseData.name}" class="main-course-icon-img">`;
+        }
+        return `<span class="main-course-emoji">${courseData.flag}</span>`;
+    }
+
     generateOverviewContent() {
         const courseData = this.getCourseData();
         const otherCourses = this.getOtherCourses();
-        
+        const stats = this.getUserStats();
+        const username = this.getDisplayUsername();
+        const xpPercent = Math.round((stats.xp / stats.xpNext) * 100);
+
         return `
-            <div class="overview-dashboard">
-                <div class="dashboard-header" data-aos="fade-up">
-                    <h1 class="welcome-message">Welcome back!</h1>
-                    <p class="welcome-subtitle">Continue your indigenous language learning journey</p>
-                    
-                    <div class="current-language-card">
-                        <div class="language-card-flag">${courseData.flag}</div>
-                        <div class="language-card-info">
-                            <h3>${courseData.name}</h3>
-                            <p>${courseData.description}</p>
+            <div class="overview-dashboard overview-gamified">
+                <img src="../Images/Languages/Verde.png" class="overview-deco deco-verde-tl" alt="" aria-hidden="true">
+                <img src="../Images/Languages/Rojo.png" class="overview-deco deco-rojo-tr" alt="" aria-hidden="true">
+                <img src="../Images/Languages/Rojo.png" class="overview-deco deco-rojo-bl" alt="" aria-hidden="true">
+                <img src="../Images/Languages/Verde.png" class="overview-deco deco-verde-br" alt="" aria-hidden="true">
+
+                <section class="hero-section" data-aos="fade-up">
+                    <img src="../Images/Languages/Verde.png" class="hero-deco hero-deco-verde" alt="" aria-hidden="true">
+                    <img src="../Images/Languages/Rojo.png" class="hero-deco hero-deco-rojo" alt="" aria-hidden="true">
+                    <div class="hero-greeting">
+                        <h1 class="hero-title">¡Bienvenido de nuevo, <span class="hero-username">${username}</span>!</h1>
+                        <p class="hero-subtitle">Continúa fortaleciendo tu conocimiento de la cultura y lengua Guna.</p>
+                    </div>
+                    <div class="hero-stats-row">
+                        <div class="hero-stat-pill level">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <span class="hero-stat-value">Nivel ${stats.level}</span>
+                                <span class="hero-stat-label">Actual</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-pill xp">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <span class="hero-stat-value">${stats.xp.toLocaleString('es-ES')} XP</span>
+                                <span class="hero-stat-label">Acumulada</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat-pill streak">
+                            <i class="fas fa-fire"></i>
+                            <div>
+                                <span class="hero-stat-value">${stats.streak} días</span>
+                                <span class="hero-stat-label">Racha</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="100">
-                    <div class="dashboard-card">
+                <button type="button" class="main-course-card" id="mainCourseCard"
+                        aria-label="Continuar aprendiendo ${courseData.name} - ${courseData.description}"
+                        data-aos="fade-up" data-aos-delay="50">
+                    <div class="main-course-icon">${this.getCourseIcon(courseData)}</div>
+                    <div class="main-course-content">
+                        <h2 class="main-course-name">${courseData.name}</h2>
+                        <p class="main-course-desc">${courseData.description}</p>
+                        <span class="main-course-cta">Continuar Aprendiendo <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    <div class="main-course-glow" aria-hidden="true"></div>
+                </button>
+
+                <section class="mini-stats-grid" data-aos="fade-up" data-aos-delay="100" aria-label="Estadísticas de progreso">
+                    <div class="mini-stat-card lessons">
+                        <span class="mini-stat-emoji" aria-hidden="true">📚</span>
+                        <span class="mini-stat-number">${stats.lessons}</span>
+                        <span class="mini-stat-label">Lecciones completadas</span>
+                    </div>
+                    <div class="mini-stat-card xp-total">
+                        <span class="mini-stat-emoji" aria-hidden="true">⭐</span>
+                        <span class="mini-stat-number">${stats.xp.toLocaleString('es-ES')}</span>
+                        <span class="mini-stat-label">XP Total</span>
+                    </div>
+                    <div class="mini-stat-card cocos-earned cocos-counter">
+                        <img src="../Images/Soged/coco.png" alt="" class="mini-stat-coco-img" aria-hidden="true">
+                        <span class="mini-stat-number" data-cocos-balance>${stats.cocos.toLocaleString('es-ES')}</span>
+                        <span class="mini-stat-label">Cocos ganados</span>
+                    </div>
+                    <div class="mini-stat-card streak-current">
+                        <span class="mini-stat-emoji" aria-hidden="true">🔥</span>
+                        <span class="mini-stat-number">${stats.streak}</span>
+                        <span class="mini-stat-label">Racha actual</span>
+                    </div>
+                </section>
+
+                <div class="dashboard-grid" data-aos="fade-up" data-aos-delay="150">
+                    <div class="dashboard-card progress-card-modern">
                         <div class="card-header">
                             <div class="card-icon progress">
                                 <i class="fas fa-chart-line"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Your Progress</h3>
+                                <h3 class="card-title">Tu Progreso</h3>
+                                <p class="card-subtitle">Learning Path Guna</p>
                             </div>
                         </div>
-                        
-                        <div class="progress-stats">
-                            <div class="progress-stat">
-                                <span class="stat-number">12</span>
-                                <span class="stat-description">Lessons</span>
-                            </div>
-                            <div class="progress-stat">
-                                <span class="stat-number">1,250</span>
-                                <span class="stat-description">Total XP</span>
-                            </div>
-                        </div>
-                        
                         <div class="overall-progress">
                             <div class="progress-label">
-                                <span>Overall Progress</span>
-                                <span>24%</span>
+                                <span>Progreso general</span>
+                                <span>${stats.pathProgress}%</span>
+                            </div>
+                            <div class="progress-track progress-track-lg">
+                                <div class="progress-fill progress-fill-animated" style="width: ${stats.pathProgress}%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-xp-bar">
+                            <div class="progress-label">
+                                <span>XP al siguiente nivel</span>
+                                <span>${xpPercent}%</span>
                             </div>
                             <div class="progress-track">
-                                <div class="progress-fill" style="width: 24%"></div>
+                                <div class="progress-fill progress-fill-xp" style="width: ${xpPercent}%"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card">
+                    <div class="dashboard-card streak-card-modern">
                         <div class="card-header">
                             <div class="card-icon streak">
                                 <i class="fas fa-fire"></i>
                             </div>
                             <div>
-                                <h3 class="card-title">Learning Streak</h3>
+                                <h3 class="card-title">Racha de Aprendizaje</h3>
+                                <p class="card-subtitle streak-highlight">🔥 ${stats.streak} días consecutivos</p>
                             </div>
                         </div>
-                        
-                        <div class="streak-info">
-                            <span class="streak-number">7</span>
-                            <span class="streak-label">consecutive days</span>
-                        </div>
-                        
-                        <div class="streak-calendar">
-                            <div class="calendar-day completed">L</div>
-                            <div class="calendar-day completed">M</div>
-                            <div class="calendar-day completed">M</div>
-                            <div class="calendar-day completed">J</div>
-                            <div class="calendar-day completed">V</div>
-                            <div class="calendar-day completed">S</div>
-                            <div class="calendar-day today">D</div>
+                        <div class="week-calendar" role="group" aria-label="Calendario semanal de racha">
+                            ${this.getWeekCalendar()}
                         </div>
                     </div>
                 </div>
 
-                <div class="other-courses" data-aos="fade-up" data-aos-delay="200">
-                    <div class="section-header">
-                        <h2 class="section-title">Other Languages</h2>
-                        <p class="section-subtitle">Explore more indigenous cultures of Panama</p>
+                <div class="store-promo-banner" data-aos="fade-up" data-aos-delay="200">
+                    <img src="../Images/Molas - Guna/Mola 2.jpg" alt="" class="store-promo-mola" aria-hidden="true">
+                    <div class="store-promo-content">
+                        <span class="store-promo-icon">🛒</span>
+                        <div>
+                            <h3>Visita la Tienda Guna</h3>
+                            <p>Usa tus cocos para desbloquear molas, arte y recompensas culturales.</p>
+                        </div>
                     </div>
-                    
+                    <button type="button" class="store-promo-btn" onclick="window.learningHub.navigateToSection('store')">
+                        Ir a la Tienda <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="other-courses" data-aos="fade-up" data-aos-delay="250">
+                    <div class="section-header">
+                        <h2 class="section-title">Otros Idiomas</h2>
+                        <p class="section-subtitle">Explora más culturas indígenas de Panamá</p>
+                    </div>
                     <div class="courses-grid">
                         ${otherCourses.map(course => `
-                            <div class="course-card" onclick="switchCourse('${course.id}')">
+                            <div class="course-card" onclick="switchCourse('${course.id}')" role="button" tabindex="0"
+                                 onkeydown="if(event.key==='Enter')switchCourse('${course.id}')">
                                 <div class="course-flag">${course.flag}</div>
                                 <h3 class="course-name">${course.name}</h3>
                                 <p class="course-description">${course.description}</p>
-                                
                                 <div class="course-progress">
-                                    <div class="course-progress-label">${course.progress.lessons}/50 lessons</div>
+                                    <div class="course-progress-label">${course.progress.lessons}/50 lecciones</div>
                                     <div class="course-progress-bar">
                                         <div class="course-progress-fill" style="width: ${(course.progress.lessons / 50) * 100}%"></div>
                                     </div>
                                 </div>
-                                
                                 <div class="course-stats">
                                     <span>${course.progress.xp} XP</span>
-                                    <span>${course.progress.streak} day(s) streak</span>
+                                    <span>🥥 ${course.progress.cocos || 0}</span>
                                 </div>
-                                
                                 <button class="course-button">
-                                    ${course.progress.lessons > 0 ? 'Continue' : 'Start'}
+                                    ${course.progress.lessons > 0 ? 'Continuar' : 'Empezar'}
                                 </button>
                             </div>
                         `).join('')}
@@ -751,10 +911,10 @@ class SimpleLearningHub {
 
     getOtherCourses() {
         const allCourses = [
-            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Mountain People', progress: { lessons: 12, xp: 1250, streak: 7 } },
-            { id: 'guna', name: 'Guna', flag: '🏝️', description: 'Island Culture', progress: { lessons: 8, xp: 890, streak: 3 } },
-            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'River Dwellers', progress: { lessons: 5, xp: 450, streak: 1 } },
-            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Ancient Kingdom', progress: { lessons: 3, xp: 220, streak: 0 } }
+            { id: 'ngabe', name: 'Ngäbe', flag: '🏔️', description: 'Mountain People', progress: { lessons: 12, xp: 1250, streak: 7, cocos: 420 } },
+            { id: 'guna', name: 'Guna', flag: '🏝️', description: 'Island Culture', progress: { lessons: 8, xp: 890, streak: 3, cocos: 310 } },
+            { id: 'embera', name: 'Emberá', flag: '🌊', description: 'River Dwellers', progress: { lessons: 5, xp: 450, streak: 1, cocos: 150 } },
+            { id: 'naso', name: 'Naso', flag: '🦋', description: 'Ancient Kingdom', progress: { lessons: 3, xp: 220, streak: 0, cocos: 80 } }
         ];
         
         return allCourses.filter(course => course.id !== this.currentCourse);
@@ -764,6 +924,7 @@ class SimpleLearningHub {
         const titles = {
             overview: 'Dashboard',
             learn: 'Learning Path',
+            store: 'Tienda Guna',
             stories: 'Cultural Stories',
             chat: 'AI Tutor',
             leaderboard: 'Leaderboard',
@@ -835,35 +996,42 @@ class SimpleLearningHub {
 
     updateUserInfo() {
         if (this.currentUser) {
-            // Update username in sidebar
+            const displayName = this.getDisplayUsername();
+
             const usernameElement = document.querySelector('.username');
             if (usernameElement) {
-                usernameElement.textContent = this.currentUser.name || 'Usuario';
+                usernameElement.textContent = displayName;
             }
 
-            // Update username in dropdown
             const dropdownUsername = document.querySelector('.dropdown-username');
             if (dropdownUsername) {
-                dropdownUsername.textContent = this.currentUser.name || 'Usuario';
+                dropdownUsername.textContent = displayName;
             }
 
-            // Update username in profile modal
             const profileUsername = document.querySelector('.profile-username');
             if (profileUsername) {
-                profileUsername.textContent = this.currentUser.name || 'Usuario';
+                profileUsername.textContent = this.currentUser.name || displayName;
             }
 
-            // Update username input in profile modal
             const usernameInput = document.getElementById('username');
             if (usernameInput) {
-                usernameInput.value = this.currentUser.name || 'Usuario';
+                usernameInput.value = this.currentUser.name || displayName;
             }
 
-            // Update email if available
             const emailElement = document.querySelector('.profile-email');
             if (emailElement && this.currentUser.email) {
                 emailElement.textContent = this.currentUser.email;
             }
+        }
+
+        const stats = this.getUserStats();
+        const pathBar = document.querySelector('[data-path-progress]');
+        const pathPercent = document.querySelector('[data-path-percent]');
+        if (pathBar) pathBar.style.width = `${stats.pathProgress}%`;
+        if (pathPercent) pathPercent.textContent = `${stats.pathProgress}% completado`;
+
+        if (typeof CocosEconomy !== 'undefined') {
+            CocosEconomy.updateAllDisplays();
         }
     }
 
@@ -1027,8 +1195,8 @@ class SimpleLearningHub {
     }
 
     loadInitialSection() {
-        // Load the default section (overview)
-        this.loadSection('overview');
+        const section = this.resolveSectionFromUrl();
+        this.loadSection(section, true);
     }
 
     showNotification(message, type = 'info') {
