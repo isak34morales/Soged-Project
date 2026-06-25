@@ -10,7 +10,7 @@ const GUNA_STORE_ASSETS = {
 class GunaStore extends HTMLElement {
     constructor() {
         super();
-        this.activeCategory = 'molas';
+        this.activeCategory = 'vidas';
         this.weeklyCountdown = this.getWeeklyCountdown();
     }
 
@@ -35,7 +35,34 @@ class GunaStore extends HTMLElement {
         const M = GUNA_STORE_ASSETS.mola;
         const C = GUNA_STORE_ASSETS.coco;
         const I = GUNA_STORE_ASSETS.molaIcon;
+
+        const livesItems = [
+            { id: 'lives-1', name: '❤️ 1 Vida', price: 75, image: C, story: 'Recupera una vida para seguir practicando.', rarity: 'comun', lives: 1 },
+            { id: 'lives-2', name: '❤️❤️ 2 Vidas', price: 150, image: C, story: 'Paquete de 2 vidas para tu ruta de aprendizaje.', rarity: 'comun', lives: 2 },
+            { id: 'lives-3', name: '❤️❤️❤️ 3 Vidas', price: 250, image: C, story: 'Tres vidas para seguir aprendiendo sin parar.', rarity: 'raro', lives: 3 },
+            { id: 'lives-4', name: '❤️❤️❤️❤️ 4 Vidas', price: 350, image: C, story: 'Cuatro vidas — casi una recarga completa.', rarity: 'raro', lives: 4 },
+            { id: 'lives-5', name: '❤️❤️❤️❤️❤️ Recarga Completa', price: 400, image: C, story: 'Recarga completa de 5 vidas.', rarity: 'epico', lives: 5 }
+        ];
+
+        if (typeof GunaLives !== 'undefined' && !GunaLives.isSpecialOfferUsed()) {
+            livesItems.unshift({
+                id: 'lives-special',
+                name: '🔥 Oferta: ❤️ 1 Vida',
+                price: 50,
+                image: C,
+                story: '¡Oferta única! Una vida por solo 50 cocos — solo una vez por cuenta.',
+                rarity: 'legendario',
+                lives: 1,
+                special: true
+            });
+        }
+
         return {
+            vidas: {
+                title: 'Vidas',
+                icon: '❤️',
+                items: livesItems
+            },
             molas: {
                 title: 'Molas Guna',
                 icon: '🧵',
@@ -106,16 +133,22 @@ class GunaStore extends HTMLElement {
     }
 
     renderItemCard(item) {
-        const purchased = CocosEconomy.isPurchased(item.id);
+        const isLives = !!item.lives;
+        const purchased = !isLives && CocosEconomy.isPurchased(item.id);
         const balance = CocosEconomy.getBalance();
         const canAfford = balance >= item.price;
+        const currentLives = typeof GunaLives !== 'undefined' ? GunaLives.getLives() : 5;
+        const livesFull = isLives && currentLives >= 5;
 
         return `
-            <article class="store-item-card ${purchased ? 'purchased' : ''} rarity-${item.rarity}" data-item-id="${item.id}">
+            <article class="store-item-card ${purchased ? 'purchased' : ''} ${item.special ? 'store-special-offer' : ''} rarity-${item.rarity}" data-item-id="${item.id}">
                 <div class="store-item-image-wrap">
-                    <img src="${item.image}" alt="${item.name}" class="store-item-image" loading="lazy"
-                         onerror="this.src='${GUNA_STORE_ASSETS.coco}'">
+                    ${typeof MolaAttribution !== 'undefined' && MolaAttribution.isMolaImage(item.image)
+                        ? MolaAttribution.wrapHtml(item.image, item.name, 'store-item-image')
+                        : `<img src="${item.image}" alt="${item.name}" class="store-item-image" loading="lazy" onerror="this.src='${GUNA_STORE_ASSETS.coco}'">`
+                    }
                     <span class="store-rarity-badge rarity-${item.rarity}">${this.rarityLabel(item.rarity)}</span>
+                    ${item.special ? '<span class="store-special-badge">Oferta única</span>' : ''}
                     ${purchased ? '<span class="store-owned-badge"><i class="fas fa-check"></i> Desbloqueado</span>' : ''}
                 </div>
                 <div class="store-item-body">
@@ -126,11 +159,17 @@ class GunaStore extends HTMLElement {
                             <img src="${GUNA_STORE_ASSETS.coco}" alt="" class="store-coco-icon" aria-hidden="true">
                             <span>${CocosEconomy.formatCocos(item.price)} cocos</span>
                         </span>
-                        ${purchased
-                            ? '<button class="store-buy-btn owned" disabled><i class="fas fa-lock-open"></i> En tu colección</button>'
-                            : `<button class="store-buy-btn ${canAfford ? '' : 'insufficient'}" data-buy="${item.id}" data-price="${item.price}" ${canAfford ? '' : 'disabled'}>
-                                <i class="fas fa-shopping-cart"></i> Comprar
-                               </button>`
+                        ${isLives
+                            ? (livesFull
+                                ? '<button class="store-buy-btn owned" disabled><i class="fas fa-heart"></i> Vidas llenas</button>'
+                                : `<button class="store-buy-btn ${canAfford ? '' : 'insufficient'}" data-buy="${item.id}" data-price="${item.price}" data-lives="${item.lives}" ${item.special ? 'data-special="1"' : ''} ${canAfford ? '' : 'disabled'}>
+                                    <i class="fas fa-heart"></i> Comprar
+                                   </button>`)
+                            : (purchased
+                                ? '<button class="store-buy-btn owned" disabled><i class="fas fa-lock-open"></i> En tu colección</button>'
+                                : `<button class="store-buy-btn ${canAfford ? '' : 'insufficient'}" data-buy="${item.id}" data-price="${item.price}" ${canAfford ? '' : 'disabled'}>
+                                    <i class="fas fa-shopping-cart"></i> Comprar
+                                   </button>`)
                         }
                     </div>
                 </div>
@@ -203,7 +242,7 @@ class GunaStore extends HTMLElement {
         });
     }
 
-    handlePurchase(itemId, price) {
+    handlePurchase(itemId, price, btn) {
         const catalog = this.getCatalog();
         let item = null;
         for (const cat of Object.values(catalog)) {
@@ -211,6 +250,32 @@ class GunaStore extends HTMLElement {
             if (item) break;
         }
         if (!item) return;
+
+        if (item.lives) {
+            if (typeof GunaLives === 'undefined') return;
+            if (GunaLives.getLives() >= GunaLives.MAX_LIVES) {
+                this.showToast('Ya tienes el máximo de vidas.', 'error');
+                return;
+            }
+            if (item.special && GunaLives.isSpecialOfferUsed()) {
+                this.showToast('Esta oferta ya fue utilizada.', 'error');
+                this.render();
+                this.bindEvents();
+                return;
+            }
+            if (!CocosEconomy.spendCocos(price)) {
+                this.showToast(typeof GunaI18n !== 'undefined' ? GunaI18n.t('notEnoughCocos') : 'No tienes suficientes cocos.', 'error');
+                return;
+            }
+            GunaLives.addLives(item.lives);
+            if (item.special) GunaLives.markSpecialOfferUsed();
+            CocosEconomy.recordPurchase(`purchase-${itemId}-${Date.now()}`);
+            CocosEconomy.triggerConfetti();
+            this.showToast(`¡+${item.lives} vida(s) añadida(s)! ❤️`, 'success');
+            this.render();
+            this.bindEvents();
+            return;
+        }
 
         if (CocosEconomy.isPurchased(itemId)) return;
 
@@ -220,6 +285,16 @@ class GunaStore extends HTMLElement {
         }
 
         CocosEconomy.recordPurchase(itemId);
+        if (item.id === 'avatar-ancestral' || item.id === 'semanal-avatar') {
+            const profile = GunaUserData?.getProfile();
+            if (profile) GunaUserData.saveProfile({ ...profile, avatar: item.image });
+            GunaUserData?.applyProfileToUI();
+        }
+        if (item.id === 'titulo-guardian' || item.id === 'titulo-protector') {
+            const profile = GunaUserData?.getProfile();
+            if (profile) GunaUserData.saveProfile({ ...profile, title: item.name });
+            GunaUserData?.applyProfileToUI();
+        }
         CocosEconomy.triggerConfetti();
         this.showToast(`¡${item.name} desbloqueado! 🎉`, 'success');
         this.render();

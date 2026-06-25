@@ -27,12 +27,23 @@ class SimpleLearningHub {
         this.setupMobileMenu();
         this.setupUserMenu();
         this.setupModals();
+        this.setupProfileAndSettings();
         this.loadInitialSection();
         this.setupResponsiveBehavior();
         this.updateUserInfo();
         this.setupHashRouting();
         this.setupThemeToggle();
-        if (typeof GunaGamification !== 'undefined') GunaGamification.updateDisplays();
+        if (typeof GunaGamification !== 'undefined') {
+            GunaGamification.updateDisplays();
+            GunaGamification.checkAllBadges();
+        }
+        if (typeof GunaLives !== 'undefined') GunaLives.updateDisplays();
+        if (typeof GunaUserData !== 'undefined') {
+            GunaUserData.applyProfileToUI();
+            GunaUserData.applySettingsToForm();
+            GunaUserData.saveSettings(GunaUserData.getSettings());
+        }
+        if (typeof GunaI18n !== 'undefined') GunaI18n.apply();
         
         // Apply saved sidebar state
         if (this.sidebarCollapsed) {
@@ -370,6 +381,18 @@ class SimpleLearningHub {
             if (section === 'store') {
                 localStorage.setItem('guna_store_visited', '1');
             }
+            if (section === 'community') {
+                const visits = parseInt(localStorage.getItem('guna_community_visits') || '0', 10);
+                localStorage.setItem('guna_community_visits', String(visits + 1));
+                if (typeof GunaGamification !== 'undefined') GunaGamification.checkAllBadges();
+            }
+            if (section === 'leaderboard') {
+                this.setupLeaderboardInteractions();
+            }
+            if (section === 'achievements') {
+                if (typeof GunaGamification !== 'undefined') GunaGamification.checkAllBadges();
+                this.setupAchievementsInteractions();
+            }
             if (section === 'chat') {
                 localStorage.setItem('guna_ai_used', '1');
             }
@@ -442,174 +465,175 @@ class SimpleLearningHub {
     }
 
     generateLeaderboardContent() {
+        const period = this.leaderboardPeriod || 'week';
+        const sortBy = this.leaderboardSort || 'xp';
+        const rankings = typeof GunaLeaderboard !== 'undefined'
+            ? GunaLeaderboard.getRankings(period, sortBy)
+            : [];
+        const userStats = typeof GunaLeaderboard !== 'undefined' ? GunaLeaderboard.getUserStats() : {};
+
         return `
-            <div class="leaderboard-section" style="max-width: 1000px; margin: 0 auto;">
-                <div class="leaderboard-header" style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #FFB300, #FFA726); color: white; border-radius: 16px;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏆 Leaderboard</h2>
-                    <p style="font-size: 1.2rem; opacity: 0.9;">Compete with other ${this.getCourseName()} students</p>
+            <div class="leaderboard-section lb-modern">
+                <header class="lb-header">
+                    <h2>🏆 Leaderboard</h2>
+                    <p>Compete with other ${this.getCourseName()} students</p>
+                </header>
+
+                <div class="lb-user-stats" aria-label="Your statistics">
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.xp || 0}</span><span class="lb-stat-lbl">Total XP</span></div>
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.lessons || 0}</span><span class="lb-stat-lbl">Lessons</span></div>
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.vocab || 0}</span><span class="lb-stat-lbl">Vocabulary</span></div>
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.streak || 0}</span><span class="lb-stat-lbl">Streak</span></div>
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.badges || 0}</span><span class="lb-stat-lbl">Badges</span></div>
+                    <div class="lb-stat-card"><span class="lb-stat-val">${userStats.community || 0}</span><span class="lb-stat-lbl">Community</span></div>
                 </div>
 
-                <div class="leaderboard-tabs" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
-                    <button class="tab-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">This Week</button>
-                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">This Month</button>
-                    <button class="tab-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">All Time</button>
+                <div class="lb-tabs" role="tablist">
+                    <button type="button" class="lb-tab ${period === 'week' ? 'active' : ''}" data-period="week" role="tab">This Week</button>
+                    <button type="button" class="lb-tab ${period === 'month' ? 'active' : ''}" data-period="month" role="tab">This Month</button>
+                    <button type="button" class="lb-tab ${period === 'all' ? 'active' : ''}" data-period="all" role="tab">All Time</button>
                 </div>
 
-                <div class="leaderboard-list" style="background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden;">
-                    ${this.generateLeaderboardItems()}
+                <div class="lb-sort" role="group" aria-label="Sort by">
+                    <button type="button" class="lb-sort-btn ${sortBy === 'xp' ? 'active' : ''}" data-sort="xp">XP</button>
+                    <button type="button" class="lb-sort-btn ${sortBy === 'lessons' ? 'active' : ''}" data-sort="lessons">Lessons</button>
+                    <button type="button" class="lb-sort-btn ${sortBy === 'vocab' ? 'active' : ''}" data-sort="vocab">Vocabulary</button>
+                </div>
+
+                <div class="lb-rewards-note">
+                    <i class="fas fa-gift"></i> Top weekly players earn +25 cocos and an exclusive badge!
+                </div>
+
+                <div class="leaderboard-list lb-list">
+                    ${this.generateLeaderboardItems(rankings, sortBy)}
                 </div>
             </div>
         `;
     }
 
-    generateLeaderboardItems() {
-        const leaderboardData = [
-            { rank: 1, name: 'María González', xp: 2450, streak: 15, avatar: '👩‍🎓', isCurrentUser: false },
-            { rank: 2, name: 'Carlos Rivera', xp: 2380, streak: 12, avatar: '👨‍💼', isCurrentUser: false },
-            { rank: 3, name: 'Ana Morales', xp: 2210, streak: 18, avatar: '👩‍🏫', isCurrentUser: false },
-            { rank: 4, name: 'José Pérez', xp: 2150, streak: 8, avatar: '👨‍🎨', isCurrentUser: false },
-            { rank: 5, name: 'Language Explorer', xp: 1250, streak: 7, avatar: '🐢', isCurrentUser: true },
-            { rank: 6, name: 'Elena Castro', xp: 1180, streak: 5, avatar: '👩‍💻', isCurrentUser: false },
-            { rank: 7, name: 'Miguel Torres', xp: 1050, streak: 3, avatar: '👨‍🔬', isCurrentUser: false },
-        ];
+    generateLeaderboardItems(rankings, sortBy = 'xp') {
+        if (!rankings?.length) return '<p class="lb-empty">No rankings available.</p>';
 
-        return leaderboardData.map(user => {
+        return rankings.map(user => {
             const rankIcon = user.rank <= 3 ? ['🥇', '🥈', '🥉'][user.rank - 1] : `#${user.rank}`;
-            const userClass = user.isCurrentUser ? 'current-user' : '';
-            
+            const value = user[sortBy] ?? user.xp;
+            const valueLabel = sortBy === 'lessons' ? 'lessons' : sortBy === 'vocab' ? 'words' : 'XP';
+            const avatarHtml = user.avatarImg
+                ? `<img src="${user.avatarImg}" alt="" class="lb-avatar-img">`
+                : (user.avatar || '🐢');
+
             return `
-                <div class="leaderboard-item ${userClass}" style="display: flex; align-items: center; padding: 1.5rem; border-bottom: 1px solid #F1F3F4; transition: all 0.3s; ${user.isCurrentUser ? 'background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1)); border-left: 4px solid var(--primary-color);' : ''}" onMouseOver="this.style.background='var(--bg-tertiary)'" onMouseOut="this.style.background='${user.isCurrentUser ? 'linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1))' : 'transparent'}'">
-                    <div class="rank-display" style="width: 60px; text-align: center; font-size: 1.5rem; font-weight: 700;">
-                        ${rankIcon}
-                    </div>
-                    <div class="user-avatar" style="width: 50px; height: 50px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-right: 1rem;">
-                        ${user.avatar}
-                    </div>
-                    <div class="user-info" style="flex: 1;">
-                        <div class="user-name" style="font-weight: 600; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.25rem;">
-                            ${user.name} ${user.isCurrentUser ? '(You)' : ''}
-                        </div>
-                        <div class="user-stats" style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-                            <span><i class="fas fa-fire" style="color: var(--accent-color);"></i> ${user.streak} days</span>
+                <div class="leaderboard-item lb-item ${user.isCurrentUser ? 'current-user' : ''}" role="listitem">
+                    <div class="rank-display">${rankIcon}</div>
+                    <div class="user-avatar lb-avatar">${avatarHtml}</div>
+                    <div class="user-info">
+                        <div class="user-name">${user.name} ${user.isCurrentUser ? '(You)' : ''}</div>
+                        <div class="user-stats">
+                            <span><i class="fas fa-fire"></i> ${user.streak} day streak</span>
+                            <span><i class="fas fa-book"></i> ${user.lessons} lessons</span>
                         </div>
                     </div>
-                    <div class="user-xp" style="text-align: right;">
-                        <div style="font-size: 1.3rem; font-weight: 700; color: var(--primary-color);">${user.xp}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary);">XP</div>
+                    <div class="user-xp">
+                        <div class="lb-value">${value.toLocaleString()}</div>
+                        <div class="lb-value-lbl">${valueLabel}</div>
                     </div>
                 </div>
             `;
         }).join('');
     }
 
+    setupLeaderboardInteractions() {
+        document.querySelectorAll('.lb-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.leaderboardPeriod = btn.dataset.period;
+                const container = document.getElementById('contentContainer');
+                if (container) {
+                    container.innerHTML = this.generateLeaderboardContent();
+                    this.setupLeaderboardInteractions();
+                }
+            });
+        });
+        document.querySelectorAll('.lb-sort-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.leaderboardSort = btn.dataset.sort;
+                const container = document.getElementById('contentContainer');
+                if (container) {
+                    container.innerHTML = this.generateLeaderboardContent();
+                    this.setupLeaderboardInteractions();
+                }
+            });
+        });
+    }
+
     generateAchievementsContent() {
+        const badges = typeof GunaGamification !== 'undefined'
+            ? GunaGamification.getBadgesForUI(this.achievementCategory || 'all')
+            : [];
+        const unlocked = badges.filter(b => b.status === 'unlocked').length;
+        const locked = badges.length - unlocked;
+
         return `
-            <div class="achievements-section" style="max-width: 1000px; margin: 0 auto;">
-                <div class="achievements-header" style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #8B5CF6, #A78BFA); color: white; border-radius: 16px;">
-                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏅 Achievements</h2>
-                    <p style="font-size: 1.2rem; opacity: 0.9;">Celebrate your milestones in learning ${this.getCourseName()}</p>
-                    <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 2rem;">
-                        <div style="text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700;">7</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Unlocked</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700;">13</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">To Unlock</div>
-                        </div>
+            <div class="achievements-section ach-modern">
+                <header class="ach-header">
+                    <h2>🏅 Achievements</h2>
+                    <p>Celebrate your milestones learning ${this.getCourseName()}</p>
+                    <div class="ach-summary">
+                        <div><strong>${unlocked}</strong><span>Unlocked</span></div>
+                        <div><strong>${locked}</strong><span>To Unlock</span></div>
                     </div>
+                </header>
+
+                <div class="ach-categories" role="tablist">
+                    ${['all', 'vocabulary', 'learning', 'community', 'streak', 'special'].map(cat => `
+                        <button type="button" class="ach-cat-btn ${(this.achievementCategory || 'all') === cat ? 'active' : ''}" data-cat="${cat}">
+                            ${cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                        </button>
+                    `).join('')}
                 </div>
 
-                <div class="achievements-categories" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                    <button class="category-btn active" style="padding: 0.75rem 1.5rem; background: var(--gradient-primary); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">All</button>
-                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Learning</button>
-                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Social</button>
-                    <button class="category-btn" style="padding: 0.75rem 1.5rem; background: var(--bg-tertiary); color: var(--text-primary); border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Special</button>
-                </div>
-
-                <div class="achievements-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                    ${this.generateAchievementItems()}
+                <div class="achievements-grid">
+                    ${this.generateAchievementItems(badges)}
                 </div>
             </div>
         `;
     }
 
-    generateAchievementItems() {
-        const gunaDone = typeof GunaProgress !== 'undefined' ? GunaProgress.getCompletedCount() : 3;
-        const cocos = typeof CocosEconomy !== 'undefined' ? CocosEconomy.getBalance() : 0;
+    setupAchievementsInteractions() {
+        document.querySelectorAll('.ach-cat-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.achievementCategory = btn.dataset.cat;
+                const container = document.getElementById('contentContainer');
+                if (container) {
+                    container.innerHTML = this.generateAchievementsContent();
+                    this.setupAchievementsInteractions();
+                }
+            });
+        });
+    }
 
-        const achievements = [
-            { id: 'first-lesson', title: 'First Step', description: 'Complete your first Guna lesson', icon: '🎯', status: gunaDone >= 1 ? 'unlocked' : 'locked', reward: '+50 XP', unlockedDate: 'Unlocked', requirement: 'Complete lesson 1' },
-            { id: 'island-greeter', title: 'Island Greeter', description: 'Master Guna greetings', icon: '🏝️', status: gunaDone >= 1 ? 'unlocked' : 'locked', reward: '+75 XP', unlockedDate: 'Unlocked', requirement: 'Complete lesson 1' },
-            { id: 'streak-7', title: 'Burning Fire', description: 'Maintain a 7-day streak', icon: '🔥', status: 'unlocked', reward: '+100 XP', unlockedDate: 'Today' },
-            { id: 'lessons-3', title: 'Path Walker', description: 'Complete 3 Guna levels', icon: '🚶', status: gunaDone >= 3 ? 'unlocked' : 'in-progress', reward: '+100 XP', unlockedDate: 'Unlocked', progress: `${Math.min(gunaDone, 3)}/3` },
-            { id: 'sea-scholar', title: 'Sea Scholar', description: 'Complete Sea Creatures level', icon: '🐢', status: gunaDone >= 4 ? 'unlocked' : 'locked', reward: '+125 XP', requirement: 'Complete level 4' },
-            { id: 'coco-collector', title: 'Coco Collector', description: 'Earn 100 cocos', icon: '🥥', status: cocos >= 100 ? 'unlocked' : 'in-progress', reward: '+50 cocos', progress: `${Math.min(cocos, 100)}/100` },
-            { id: 'mola-lover', title: 'Mola Enthusiast', description: 'Visit the Guna Store', icon: '🎨', status: localStorage.getItem('guna_store_visited') ? 'unlocked' : 'locked', reward: '+75 XP', requirement: 'Open the store' },
-            { id: 'lessons-5', title: 'Halfway Hero', description: 'Complete 5 Guna levels', icon: '⭐', status: gunaDone >= 5 ? 'unlocked' : 'in-progress', reward: '+150 XP', progress: `${Math.min(gunaDone, 5)}/5` },
-            { id: 'story-reader', title: 'Cultural Explorer', description: 'Read a Guna story PDF', icon: '📖', status: localStorage.getItem('guna_story_read') ? 'unlocked' : 'in-progress', reward: '+125 XP', progress: localStorage.getItem('guna_story_read') ? '1/1' : '0/1' },
-            { id: 'ai-tutor', title: 'AI Explorer', description: 'Chat with the Guna AI Tutor', icon: '🤖', status: localStorage.getItem('guna_ai_used') ? 'unlocked' : 'locked', reward: '+80 XP', requirement: 'Use AI Tutor' },
-            { id: 'perfect-lesson', title: 'Perfection', description: 'Get 100% on a lesson quiz', icon: '💯', status: 'unlocked', reward: '+75 XP', unlockedDate: '3 days ago' },
-            { id: 'mola-culture', title: 'Mola Guardian', description: 'Complete Mola Culture level', icon: '🧵', status: gunaDone >= 6 ? 'unlocked' : 'locked', reward: '+175 XP', requirement: 'Complete level 6' },
-            { id: 'oral-traditions', title: 'Congress Scholar', description: 'Complete Oral Traditions level', icon: '📜', status: gunaDone >= 9 ? 'unlocked' : 'locked', reward: '+200 XP', requirement: 'Complete level 9' },
-            { id: 'lessons-10', title: 'Dedicated Student', description: 'Complete all 10 Guna levels', icon: '📚', status: gunaDone >= 10 ? 'unlocked' : 'in-progress', reward: '+300 XP', progress: `${gunaDone}/10` },
-            { id: 'boss-beat', title: 'Grand Champion', description: 'Beat the Guna Grand Challenge', icon: '👑', status: gunaDone >= 10 ? 'unlocked' : 'locked', reward: '+500 XP', requirement: 'Complete the boss level' },
-            { id: 'coco-rich', title: 'Coconut Tycoon', description: 'Accumulate 500 cocos', icon: '💰', status: cocos >= 500 ? 'unlocked' : 'in-progress', reward: '+100 cocos', progress: `${Math.min(cocos, 500)}/500` },
-            { id: 'streak-30', title: 'Constant Master', description: 'Maintain a 30-day streak', icon: '🌟', status: 'locked', reward: '+500 XP', requirement: 'Current streak: 7/30' },
-            { id: 'all-lessons', title: 'Language Master', description: 'Complete every Guna lesson', icon: '🏆', status: gunaDone >= 10 ? 'unlocked' : 'locked', reward: '+1000 XP', requirement: `Levels: ${gunaDone}/10` }
-        ];
+    generateAchievementItems(badges) {
+        if (!badges?.length) return '<p class="ach-empty">No achievements in this category yet.</p>';
 
-        return achievements.map(achievement => {
-            let statusClass = achievement.status;
-            let statusIcon = '';
-            let statusText = '';
-            let progressBar = '';
-
-            switch(achievement.status) {
-                case 'unlocked':
-                    statusIcon = '✅';
-                    statusText = achievement.unlockedDate;
-                    break;
-                case 'in-progress':
-                    statusIcon = '⏳';
-                    statusText = achievement.progress;
-                    const [current, total] = achievement.progress.split('/');
-                    const progressPercent = (parseInt(current) / parseInt(total)) * 100;
-                    progressBar = `
-                        <div style="width: 100%; height: 6px; background: var(--bg-tertiary); border-radius: 3px; margin-top: 0.5rem; overflow: hidden;">
-                            <div style="height: 100%; background: var(--gradient-info); border-radius: 3px; width: ${progressPercent}%; transition: width 0.3s;"></div>
-                        </div>
-                    `;
-                    break;
-                case 'locked':
-                    statusIcon = '🔒';
-                    statusText = achievement.requirement;
-                    break;
-            }
+        return badges.map(achievement => {
+            const statusClass = achievement.status;
+            const statusIcon = achievement.status === 'unlocked' ? '✅' : '🔒';
+            const statusText = achievement.status === 'unlocked' ? 'Unlocked' : 'Locked';
 
             return `
-                <div class="achievement-card ${statusClass}" style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 2px solid transparent; position: relative; overflow: hidden; ${achievement.status === 'locked' ? 'opacity: 0.6;' : ''}" onMouseOver="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.12)'; this.style.borderColor='var(--primary-color)'" onMouseOut="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'; this.style.borderColor='transparent'">
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: ${achievement.status === 'unlocked' ? 'var(--gradient-success)' : achievement.status === 'in-progress' ? 'var(--gradient-info)' : 'var(--text-light)'};"></div>
-                    
-                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: ${achievement.status === 'unlocked' ? 'var(--gradient-success)' : achievement.status === 'in-progress' ? 'var(--gradient-info)' : 'var(--text-light)'};">
-                            ${achievement.icon}
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">${achievement.title}</h3>
-                            <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">${achievement.description}</p>
+                <article class="achievement-card ach-card ${statusClass}" aria-label="${achievement.title}">
+                    <div class="ach-card-top ${statusClass}"></div>
+                    <div class="ach-card-body">
+                        <div class="ach-icon">${achievement.icon}</div>
+                        <div>
+                            <h3>${achievement.title}</h3>
+                            <p>${achievement.description}</p>
                         </div>
                     </div>
-                    
-                    <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; text-align: center;">
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <span style="font-size: 1.2rem;">${statusIcon}</span>
-                            <span style="font-weight: 600; color: ${achievement.status === 'unlocked' ? 'var(--success-color)' : achievement.status === 'in-progress' ? 'var(--info-color)' : 'var(--text-light)'};">${statusText}</span>
-                        </div>
-                        <div style="font-size: 0.9rem; color: var(--text-secondary);">${achievement.reward}</div>
-                        ${progressBar}
+                    <div class="ach-card-footer">
+                        <span>${statusIcon} ${statusText}</span>
+                        <span>${achievement.reward}</span>
                     </div>
-                </div>
+                </article>
             `;
         }).join('');
     }
@@ -1060,7 +1084,9 @@ class SimpleLearningHub {
     }
 
     updateUserInfo() {
-        if (this.currentUser) {
+        if (typeof GunaUserData !== 'undefined') {
+            GunaUserData.applyProfileToUI();
+        } else if (this.currentUser) {
             const displayName = this.getDisplayUsername();
 
             const usernameElement = document.querySelector('.username');
@@ -1097,6 +1123,9 @@ class SimpleLearningHub {
 
         if (typeof CocosEconomy !== 'undefined') {
             CocosEconomy.updateAllDisplays();
+        }
+        if (typeof GunaLives !== 'undefined') {
+            GunaLives.updateDisplays();
         }
     }
 
@@ -1215,15 +1244,108 @@ class SimpleLearningHub {
         });
     }
 
+    setupProfileAndSettings() {
+        if (typeof GunaUserData === 'undefined') return;
+
+        let selectedAvatar = GunaUserData.getProfile().avatar;
+
+        const avatarGrid = document.getElementById('avatarPickerGrid');
+        if (avatarGrid) {
+            avatarGrid.innerHTML = GunaUserData.AVATARS.map(src => `
+                <button type="button" class="avatar-option ${src === selectedAvatar ? 'selected' : ''}" data-avatar="${src}">
+                    <img src="${src}" alt="Avatar option">
+                </button>
+            `).join('');
+            avatarGrid.querySelectorAll('.avatar-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedAvatar = btn.dataset.avatar;
+                    avatarGrid.querySelectorAll('.avatar-option').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    document.querySelectorAll('.profile-avatar-img').forEach(img => { img.src = selectedAvatar; });
+                });
+            });
+        }
+
+        document.querySelector('.change-avatar-btn')?.addEventListener('click', () => {
+            const picker = document.getElementById('avatarPicker');
+            if (picker) picker.hidden = !picker.hidden;
+        });
+
+        document.getElementById('saveProfileBtn')?.addEventListener('click', () => {
+            const profile = GunaUserData.saveProfile({
+                username: document.getElementById('username')?.value?.trim() || 'Explorer',
+                email: document.getElementById('email')?.value?.trim() || '',
+                bio: document.getElementById('bio')?.value?.trim() || '',
+                avatar: selectedAvatar,
+                goals: {
+                    cultural: !!document.getElementById('goalCultural')?.checked,
+                    fluent: !!document.getElementById('goalFluent')?.checked,
+                    teaching: !!document.getElementById('goalTeaching')?.checked,
+                    research: !!document.getElementById('goalResearch')?.checked
+                }
+            });
+            this.currentUser = this.getCurrentUser();
+            GunaUserData.applyProfileToUI(profile);
+            this.updateUserInfo();
+            this.closeModal('profileModal');
+            this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('profileSaved') : 'Profile saved!', 'success');
+        });
+
+        document.getElementById('saveSettingsBtn')?.addEventListener('click', () => {
+            const settings = GunaUserData.saveSettings({
+                theme: document.getElementById('settingTheme')?.value || 'light',
+                language: document.getElementById('settingLanguage')?.value || 'en',
+                dailyReminders: !!document.getElementById('settingDailyReminders')?.checked,
+                achievementNotif: !!document.getElementById('settingAchievementNotif')?.checked,
+                streakReminders: !!document.getElementById('settingStreakReminders')?.checked,
+                audioPlayback: !!document.getElementById('settingAudioPlayback')?.checked,
+                speechRecognition: !!document.getElementById('settingSpeechRecognition')?.checked,
+                dailyGoal: parseInt(document.getElementById('settingDailyGoal')?.value || '100', 10),
+                difficulty: document.getElementById('settingDifficulty')?.value || 'intermediate'
+            });
+            if (settings.theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (settings.theme === 'light') {
+                document.body.classList.remove('dark-mode');
+            } else if (settings.theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.body.classList.toggle('dark-mode', prefersDark);
+            }
+            if (typeof GunaI18n !== 'undefined') GunaI18n.setLanguage(settings.language);
+            this.closeModal('settingsModal');
+            this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('settingsSaved') : 'Settings saved!', 'success');
+        });
+
+        document.getElementById('profileModal')?.addEventListener('click', (e) => {
+            if (e.target.closest('.modal-header') || e.target.closest('.modal-content')) {
+                GunaUserData.applyProfileToUI();
+                GunaUserData.applySettingsToForm();
+            }
+        });
+    }
+
     handleUserAction(action) {
         switch(action) {
             case 'dashboard':
                 this.loadSection('overview');
                 break;
             case 'profile':
+                if (typeof GunaUserData !== 'undefined') {
+                    GunaUserData.applyProfileToUI();
+                    const p = GunaUserData.getProfile();
+                    const goalCultural = document.getElementById('goalCultural');
+                    const goalFluent = document.getElementById('goalFluent');
+                    const goalTeaching = document.getElementById('goalTeaching');
+                    const goalResearch = document.getElementById('goalResearch');
+                    if (goalCultural) goalCultural.checked = !!p.goals?.cultural;
+                    if (goalFluent) goalFluent.checked = !!p.goals?.fluent;
+                    if (goalTeaching) goalTeaching.checked = !!p.goals?.teaching;
+                    if (goalResearch) goalResearch.checked = !!p.goals?.research;
+                }
                 this.openModal('profileModal');
                 break;
             case 'settings':
+                if (typeof GunaUserData !== 'undefined') GunaUserData.applySettingsToForm();
                 this.openModal('settingsModal');
                 break;
             case 'logout':
@@ -1280,7 +1402,7 @@ class SimpleLearningHub {
             position: 'fixed',
             top: '20px',
             right: '20px',
-            background: type === 'success' ? '#2ECC71' : '#00A3E0',
+            background: type === 'success' ? '#2ECC71' : type === 'error' ? '#e74c3c' : '#00A3E0',
             color: 'white',
             padding: '1rem 1.5rem',
             borderRadius: '12px',

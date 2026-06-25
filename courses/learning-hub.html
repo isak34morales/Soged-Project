@@ -66,7 +66,7 @@
                         <i class="fas fa-home"></i>
                     </div>
                     <div class="nav-content">
-                        <span class="nav-text">Overview</span>
+                        <span class="nav-text" data-i18n="overview">Overview</span>
                         <div class="nav-meta">
                             <span class="overview-desc">Your learning hub</span>
                         </div>
@@ -86,7 +86,7 @@
                         <i class="fas fa-map"></i>
                     </div>
                     <div class="nav-content">
-                        <span class="nav-text">Learning Path</span>
+                        <span class="nav-text" data-i18n="learn">Learning Path</span>
                         <div class="nav-progress-wrap">
                             <div class="nav-progress">
                                 <div class="progress-bar" data-path-progress style="width: 35%"></div>
@@ -101,7 +101,7 @@
                         <i class="fas fa-book"></i>
                     </div>
                     <div class="nav-content">
-                        <span class="nav-text">Vocabulary</span>
+                        <span class="nav-text" data-i18n="vocabulary">Vocabulary</span>
                         <div class="nav-meta">
                             <span class="vocab-nav-hint">Interactive dictionary</span>
                         </div>
@@ -113,7 +113,7 @@
                         <i class="fas fa-store"></i>
                     </div>
                     <div class="nav-content">
-                        <span class="nav-text">Guna Store</span>
+                        <span class="nav-text" data-i18n="store">Guna Store</span>
                         <div class="nav-meta">
                             <span class="store-nav-hint">🥥 Spend your cocos</span>
                         </div>
@@ -278,8 +278,8 @@
                             <i class="fas fa-heart"></i>
                         </div>
                         <div class="stat-info">
-                            <span class="stat-value">5</span>
-                            <span class="stat-label">lives</span>
+                            <span class="stat-value" data-lives-count>5</span>
+                            <span class="stat-label" data-i18n="lives">lives</span>
                         </div>
                     </div>
                     
@@ -396,34 +396,39 @@
                             <label>Learning Goals</label>
                             <div class="goals-grid">
                                 <label class="goal-checkbox">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="goalCultural" checked>
                                     <span class="checkmark"></span>
                                     <span class="goal-text">Cultural Understanding</span>
                                 </label>
                                 <label class="goal-checkbox">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="goalFluent" checked>
                                     <span class="checkmark"></span>
                                     <span class="goal-text">Fluent Conversation</span>
                                 </label>
                                 <label class="goal-checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="goalTeaching">
                                     <span class="checkmark"></span>
                                     <span class="goal-text">Teaching Others</span>
                                 </label>
                                 <label class="goal-checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="goalResearch">
                                     <span class="checkmark"></span>
                                     <span class="goal-text">Academic Research</span>
                                 </label>
                             </div>
                         </div>
                     </div>
+
+                    <div class="avatar-picker" id="avatarPicker" hidden>
+                        <p class="avatar-picker-label">Choose your avatar</p>
+                        <div class="avatar-picker-grid" id="avatarPickerGrid"></div>
+                    </div>
                 </div>
             </div>
             
             <div class="modal-footer">
                 <button class="btn-secondary" data-modal="profileModal">Cancel</button>
-                <button class="btn-primary">Save Changes</button>
+                <button class="btn-primary" id="saveProfileBtn">Save Changes</button>
             </div>
         </div>
     </div>
@@ -452,7 +457,7 @@
                             <label class="setting-label">Theme</label>
                             <span class="setting-desc">Choose your preferred theme</span>
                         </div>
-                        <select class="setting-select">
+                        <select class="setting-select" id="settingTheme">
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
                             <option value="auto">Auto</option>
@@ -464,7 +469,7 @@
                             <label class="setting-label">Language Interface</label>
                             <span class="setting-desc">Interface language</span>
                         </div>
-                        <select class="setting-select">
+                        <select class="setting-select" id="settingLanguage">
                             <option value="en">English</option>
                             <option value="es">Español</option>
                         </select>
@@ -482,7 +487,7 @@
                             <span class="setting-desc">Get reminded to practice daily</span>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="settingDailyReminders" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -493,7 +498,7 @@
                             <span class="setting-desc">Celebrate your milestones</span>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="settingAchievementNotif" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -504,7 +509,7 @@
                             <span class="setting-desc">Don't break your streak</span>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox">
+                            <input type="checkbox" id="settingStreakReminders">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -521,7 +526,7 @@
                             <span class="setting-desc">Automatic pronunciation playback</span>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="settingAudioPlayback" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -532,7 +537,7 @@
                             <span class="setting-desc">Enable voice practice</span>
                         </div>
                         <label class="toggle-switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="settingSpeechRecognition" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -548,8 +553,7 @@
                             <label class="setting-label">Daily Goal</label>
                             <span class="setting-desc">XP target per day</span>
                         </div>
-                        <select class="setting-select">
-                            <option value="50">50 XP (Casual)</option>
+                        <select class="setting-select" id="settingDailyGoal">
                             <option value="100" selected>100 XP (Regular)</option>
                             <option value="200">200 XP (Serious)</option>
                             <option value="300">300 XP (Intense)</option>
@@ -561,8 +565,7 @@
                             <label class="setting-label">Difficulty Level</label>
                             <span class="setting-desc">Learning pace preference</span>
                         </div>
-                        <select class="setting-select">
-                            <option value="beginner">Beginner</option>
+                        <select class="setting-select" id="settingDifficulty">
                             <option value="intermediate" selected>Intermediate</option>
                             <option value="advanced">Advanced</option>
                         </select>
@@ -572,7 +575,7 @@
             
             <div class="modal-footer">
                 <button class="btn-secondary" data-modal="settingsModal">Cancel</button>
-                <button class="btn-primary">Save Settings</button>
+                <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
             </div>
         </div>
     </div>
@@ -581,10 +584,16 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="js/cocos-economy.js"></script>
+    <script src="js/mola-attribution.js"></script>
+    <script src="js/guna-lives.js"></script>
+    <script src="js/guna-user-data.js"></script>
+    <script src="js/guna-i18n.js"></script>
     <script src="js/guna-progress.js"></script>
     <script src="js/guna-gamification.js"></script>
+    <script src="js/guna-leaderboard.js"></script>
     <script src="components/guna-vocabulary.js"></script>
     <script src="js/guna-lesson-configs.js"></script>
+    <script src="js/guna-level-lessons.js"></script>
     
     <!-- Web Components -->
     <script src="components/guna-store.js"></script>

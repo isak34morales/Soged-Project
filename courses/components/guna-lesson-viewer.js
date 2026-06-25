@@ -8,18 +8,47 @@ class GunaLessonViewer extends HTMLElement {
         super();
         this.currentLessonId = 1;
         this.currentSectionIndex = 0;
+        this.maxSectionReached = 0;
         this.gunaLessons = null;
         this.lessonContent = null;
         this.userAnswers = {};
         this.quizCompleted = false;
+        this.memoryCompleted = false;
+        this.isReviewMode = false;
     }
 
     connectedCallback() {
         this.currentLessonId = parseInt(this.getAttribute('lesson-id'), 10) || 1;
+        this.isReviewMode = this.getAttribute('review') === 'true' ||
+            (typeof GunaProgress !== 'undefined' && GunaProgress.isCompleted(this.currentLessonId));
+
+        if (typeof GunaProgress !== 'undefined' && !GunaProgress.canAccessLesson(this.currentLessonId, this.isReviewMode)) {
+            this.innerHTML = `
+                <div class="lesson-viewer lesson-locked">
+                    <h2>🔒 Lección bloqueada</h2>
+                    <p>Completa la lección anterior para desbloquear este nivel.</p>
+                    <button type="button" class="nav-btn" id="backToPathBtn"><i class="fas fa-arrow-left"></i> Volver al camino</button>
+                </div>`;
+            this.querySelector('#backToPathBtn')?.addEventListener('click', () => this.backToPath());
+            return;
+        }
+
         this.gunaLessons = new GunaLessons();
         this.currentSectionIndex = 0;
+        this.maxSectionReached = 0;
         this.userAnswers = {};
         this.quizCompleted = false;
+        this.memoryCompleted = false;
+
+        const session = typeof GunaProgress !== 'undefined' ? GunaProgress.getLessonSession(this.currentLessonId) : null;
+        if (session && !this.isReviewMode) {
+            this.currentSectionIndex = session.sectionIndex || 0;
+            this.maxSectionReached = session.maxSectionReached ?? this.currentSectionIndex;
+            this.userAnswers = session.userAnswers || {};
+            this.quizCompleted = !!session.quizCompleted;
+            this.memoryCompleted = !!session.memoryCompleted;
+        }
+
         this.loadLesson();
         this.render();
         this.initializeEventListeners();
@@ -576,6 +605,12 @@ class GunaLessonViewer extends HTMLElement {
             </style>
 
             <div class="lesson-viewer">
+                ${typeof GunaLives !== 'undefined' && !GunaLives.canPlay() ? `
+                <div class="lives-warning-banner">
+                    <i class="fas fa-heart-broken"></i>
+                    <span>${typeof GunaI18n !== 'undefined' ? GunaI18n.t('noLives') : 'No lives left! Visit the store or wait for regeneration.'}</span>
+                    <button type="button" class="btn-duo btn-duo-primary" id="goToStoreBtn">Tienda</button>
+                </div>` : ''}
                 <div class="lesson-header">
                     <button type="button" class="lesson-back-btn" id="backToPathBtn">
                         <i class="fas fa-arrow-left"></i> Back to Path
@@ -600,12 +635,14 @@ class GunaLessonViewer extends HTMLElement {
                 </div>
 
                 <div class="section-navigation">
-                    ${this.lessonContent.sections.map((section, index) => `
-                        <button class="section-tab ${index === this.currentSectionIndex ? 'active' : ''}" 
-                                data-section="${index}">
+                    ${this.lessonContent.sections.map((section, index) => {
+                        const locked = index > this.maxSectionReached;
+                        return `
+                        <button class="section-tab ${index === this.currentSectionIndex ? 'active' : ''} ${locked ? 'tab-locked' : ''}" 
+                                data-section="${index}" ${locked ? 'disabled' : ''}>
                             ${this.getSectionIcon(section.type)} ${section.title}
-                        </button>
-                    `).join('')}
+                        </button>`;
+                    }).join('')}
                 </div>
 
                 <div class="section-content">
@@ -616,7 +653,7 @@ class GunaLessonViewer extends HTMLElement {
                     <button class="nav-btn" id="prevBtn" ${this.currentSectionIndex === 0 ? 'disabled' : ''}>
                         <i class="fas fa-arrow-left"></i> Previous
                     </button>
-                    <button class="nav-btn" id="nextBtn" ${this.currentSectionIndex === this.lessonContent.sections.length - 1 ? 'disabled' : ''}>
+                    <button class="nav-btn" id="nextBtn" ${this.isNextDisabled() ? 'disabled' : ''}>
                         Next <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -630,6 +667,7 @@ class GunaLessonViewer extends HTMLElement {
             'vocabulary': '📖',
             'pronunciation': '🔊',
             'flashcards': '🃏',
+            'memory': '🧠',
             'interactive': '🎯',
             'conversation': '💬',
             'completion': '🏆',
@@ -638,30 +676,67 @@ class GunaLessonViewer extends HTMLElement {
         return icons[type] || '📄';
     }
 
+    isNextDisabled() {
+        if (this.currentSectionIndex >= this.lessonContent.sections.length - 1) return true;
+        return !this.isCurrentSectionComplete();
+    }
+
+    isCurrentSectionComplete() {
+        const section = this.lessonContent?.sections?.[this.currentSectionIndex];
+        if (!section) return true;
+        if (section.type === 'interactive') return this.quizCompleted;
+        if (section.type === 'memory') return this.memoryCompleted;
+        return true;
+    }
+
+    canGoToSection(sectionIndex) {
+        if (sectionIndex < 0 || sectionIndex >= this.lessonContent.sections.length) return false;
+        if (sectionIndex <= this.maxSectionReached) return true;
+        if (sectionIndex === this.maxSectionReached + 1 && this.isCurrentSectionComplete()) return true;
+        return false;
+    }
+
+    saveSession() {
+        if (typeof GunaProgress === 'undefined' || this.isReviewMode) return;
+        GunaProgress.saveLessonSession(this.currentLessonId, {
+            sectionIndex: this.currentSectionIndex,
+            maxSectionReached: this.maxSectionReached,
+            userAnswers: this.userAnswers,
+            quizCompleted: this.quizCompleted,
+            memoryCompleted: this.memoryCompleted
+        });
+    }
+
     initializeEventListeners() {
         const backBtn = this.querySelector('#backToPathBtn');
         if (backBtn) {
             backBtn.addEventListener('click', () => this.backToPath());
         }
 
+        this.querySelector('#goToStoreBtn')?.addEventListener('click', () => {
+            window.learningHub?.loadSection('store', true);
+        });
+
         // Section navigation
-        this.querySelectorAll('.section-tab').forEach(tab => {
+        this.querySelectorAll('.section-tab:not([disabled])').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 const tabEl = e.currentTarget;
                 const sectionIndex = parseInt(tabEl.dataset.section, 10);
-                if (!isNaN(sectionIndex)) {
+                if (!isNaN(sectionIndex) && this.canGoToSection(sectionIndex)) {
                     this.navigateToSection(sectionIndex);
                 }
             });
         });
 
         // Navigation buttons
-        this.querySelector('#prevBtn').addEventListener('click', () => {
+        this.querySelector('#prevBtn')?.addEventListener('click', () => {
             this.navigateToSection(this.currentSectionIndex - 1);
         });
 
-        this.querySelector('#nextBtn').addEventListener('click', () => {
-            this.navigateToSection(this.currentSectionIndex + 1);
+        this.querySelector('#nextBtn')?.addEventListener('click', () => {
+            if (this.isCurrentSectionComplete()) {
+                this.navigateToSection(this.currentSectionIndex + 1);
+            }
         });
 
         // Quiz interactions
@@ -673,6 +748,7 @@ class GunaLessonViewer extends HTMLElement {
         // Pronunciation, flashcards, drag-drop
         this.setupPronunciation();
         this.setupFlashcards();
+        this.setupMemoryGame();
         this.setupDragDrop();
 
         // Lesson completion
@@ -751,6 +827,127 @@ class GunaLessonViewer extends HTMLElement {
         renderCard();
     }
 
+    setupMemoryGame() {
+        const exercise = this.querySelector('.memory-game-exercise');
+        const grid = this.querySelector('#memoryGrid');
+        if (!exercise || !grid) return;
+
+        let pairs = [];
+        try { pairs = JSON.parse(grid.dataset.pairs || '[]'); } catch { return; }
+
+        const buildCards = (difficulty) => {
+            const pairCounts = { easy: 3, medium: 6, hard: 10, expert: 15 };
+            const count = Math.min(pairCounts[difficulty] || 6, pairs.length);
+            const subset = pairs.slice(0, count);
+            const cards = [];
+            subset.forEach(p => {
+                cards.push({ pairId: p.id, type: 'word', label: p.guna, speak: p.guna, es: p.es, en: p.en });
+                cards.push({ pairId: p.id, type: 'image', label: p.icon, speak: p.guna, es: p.es, en: p.en });
+            });
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            return { cards, totalPairs: count };
+        };
+
+        let state = { ...buildCards(exercise.dataset.difficulty || 'medium'), flipped: [], moves: 0, matched: 0, lock: false };
+
+        const renderGrid = () => {
+            grid.innerHTML = state.cards.map((c, i) => `
+                <button type="button" class="memory-card ${c.matched ? 'matched' : ''}" data-idx="${i}" aria-label="Memory card" ${c.matched ? 'disabled' : ''}>
+                    <div class="memory-card-inner ${c.revealed ? 'flipped' : ''}">
+                        <div class="memory-card-front">?</div>
+                        <div class="memory-card-back">
+                            ${c.type === 'word' ? `<span class="memory-word">${c.label}</span>` : `<span class="memory-icon">${c.label}</span>`}
+                        </div>
+                    </div>
+                </button>
+            `).join('');
+            const movesEl = exercise.querySelector('#memoryMoves');
+            const pairsEl = exercise.querySelector('#memoryPairs');
+            if (movesEl) movesEl.textContent = state.moves;
+            if (pairsEl) pairsEl.textContent = state.matched;
+        };
+
+        const onWin = (perfect) => {
+            this.memoryCompleted = true;
+            const fb = exercise.querySelector('#memoryFeedback');
+            if (fb) {
+                fb.hidden = false;
+                fb.className = 'memory-feedback success';
+                fb.innerHTML = `🎉 All pairs found in ${state.moves} moves! +20 XP, +8 cocos`;
+            }
+            if (typeof GunaGamification !== 'undefined') {
+                GunaGamification.onMemoryGameComplete(perfect);
+                subsetWords(state.cards).forEach(w => GunaGamification.recordVocabWord(w));
+            }
+            this.saveSession();
+        };
+
+        const subsetWords = (cards) => [...new Set(cards.filter(c => c.speak).map(c => c.speak))];
+
+        const handleFlip = (idx) => {
+            if (state.lock) return;
+            const card = state.cards[idx];
+            if (!card || card.matched || card.revealed) return;
+
+            card.revealed = true;
+            state.flipped.push(idx);
+            this.speakText(card.speak);
+            renderGrid();
+
+            if (state.flipped.length < 2) return;
+
+            state.moves++;
+            state.lock = true;
+            const [a, b] = state.flipped.map(i => state.cards[i]);
+
+            if (a.pairId === b.pairId) {
+                a.matched = true;
+                b.matched = true;
+                state.matched++;
+                state.flipped = [];
+                state.lock = false;
+                renderGrid();
+                if (state.matched >= state.totalPairs) {
+                    onWin(state.moves <= state.totalPairs + 2);
+                }
+            } else {
+                setTimeout(() => {
+                    a.revealed = false;
+                    b.revealed = false;
+                    state.flipped = [];
+                    state.lock = false;
+                    renderGrid();
+                }, 900);
+            }
+        };
+
+        grid.addEventListener('click', (e) => {
+            const btn = e.target.closest('.memory-card');
+            if (!btn || btn.disabled) return;
+            handleFlip(parseInt(btn.dataset.idx, 10));
+        });
+
+        exercise.querySelectorAll('.memory-diff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                exercise.querySelectorAll('.memory-diff-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                exercise.dataset.difficulty = btn.dataset.diff;
+                state = { ...buildCards(btn.dataset.diff), flipped: [], moves: 0, matched: 0, lock: false };
+                this.memoryCompleted = false;
+                renderGrid();
+            });
+        });
+
+        renderGrid();
+        if (this.memoryCompleted) {
+            const fb = exercise.querySelector('#memoryFeedback');
+            if (fb) { fb.hidden = false; fb.textContent = '✅ Memory game completed!'; }
+        }
+    }
+
     setupDragDrop() {
         const exercise = this.querySelector('.drag-drop-exercise');
         if (!exercise) return;
@@ -791,15 +988,25 @@ class GunaLessonViewer extends HTMLElement {
                         ? 'Perfect! All matches correct!'
                         : `${correct}/${total} correct. Try again!`;
                 }
-                if (correct === total) this.userAnswers.drag = 'done';
+                if (correct === total) {
+                    this.userAnswers.drag = 'done';
+                } else if (typeof GunaLives !== 'undefined') {
+                    GunaLives.loseLife();
+                    this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('livesLost') : 'You lost a life!', 'error');
+                }
             });
         }
     }
 
     navigateToSection(sectionIndex) {
         if (!this.lessonContent?.sections) return;
+        if (!this.canGoToSection(sectionIndex)) return;
         if (sectionIndex >= 0 && sectionIndex < this.lessonContent.sections.length) {
             this.currentSectionIndex = sectionIndex;
+            if (sectionIndex > this.maxSectionReached) {
+                this.maxSectionReached = sectionIndex;
+            }
+            this.saveSession();
             this.render();
             this.initializeEventListeners();
         }
@@ -812,9 +1019,15 @@ class GunaLessonViewer extends HTMLElement {
     }
 
     setupQuizInteractions() {
+        const canAnswer = typeof GunaLives === 'undefined' || GunaLives.canPlay();
+
         // Quiz options
         this.querySelectorAll('.quiz-option').forEach(option => {
             option.addEventListener('click', (e) => {
+                if (!canAnswer && typeof GunaLives !== 'undefined' && !GunaLives.canPlay()) {
+                    this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('noLives') : 'No lives left!', 'error');
+                    return;
+                }
                 const optionEl = e.currentTarget;
                 const question = optionEl.closest('.quiz-question');
                 if (!question) return;
@@ -827,6 +1040,7 @@ class GunaLessonViewer extends HTMLElement {
                 optionEl.classList.add('selected');
                 this.userAnswers[questionId] = optionEl.dataset.answer;
                 this.showQuizFeedback(questionId, optionEl.dataset.answer);
+                this.saveSession();
             });
         });
 
@@ -880,7 +1094,20 @@ class GunaLessonViewer extends HTMLElement {
     setupCompletionInteractions() {
         const completeLessonBtn = this.querySelector('.complete-lesson-btn');
         if (completeLessonBtn) {
+            const hasInteractive = this.lessonContent?.sections?.some(s => s.type === 'interactive');
+            if (hasInteractive && !this.quizCompleted && !this.isReviewMode) {
+                completeLessonBtn.disabled = true;
+                completeLessonBtn.title = 'Complete the quiz first';
+            }
             completeLessonBtn.addEventListener('click', () => {
+                if (hasInteractive && !this.quizCompleted && !this.isReviewMode) {
+                    this.showNotification('Complete all quiz exercises before finishing.', 'error');
+                    return;
+                }
+                if (typeof GunaLives !== 'undefined' && !GunaLives.canPlay() && hasInteractive) {
+                    this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('noLives') : 'No lives left!', 'error');
+                    return;
+                }
                 this.completeLesson();
             });
         }
@@ -911,6 +1138,13 @@ class GunaLessonViewer extends HTMLElement {
                 selectedOption.classList.add('incorrect');
                 feedback.textContent = `Incorrect. The correct answer is: ${correctAnswers[questionId]}`;
                 feedback.className = 'quiz-feedback incorrect';
+                if (typeof GunaLives !== 'undefined') {
+                    GunaLives.loseLife();
+                    this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('livesLost') : 'You lost a life!', 'error');
+                    if (!GunaLives.canPlay()) {
+                        setTimeout(() => this.render(), 600);
+                    }
+                }
             }
         }
         
@@ -952,10 +1186,15 @@ class GunaLessonViewer extends HTMLElement {
         } else {
             feedback.textContent = "Some matches are incorrect. Try again!";
             feedback.className = 'matching-feedback incorrect';
+            if (typeof GunaLives !== 'undefined') {
+                GunaLives.loseLife();
+                this.showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('livesLost') : 'You lost a life!', 'error');
+            }
         }
         
         feedback.style.display = 'block';
         this.checkQuizCompletion();
+        this.saveSession();
     }
 
     checkQuizCompletion() {
@@ -987,6 +1226,9 @@ class GunaLessonViewer extends HTMLElement {
         
         resultsDiv.style.display = 'block';
         this.quizCompleted = true;
+        if (results.percentage === 100) localStorage.setItem('guna_perfect_quiz', '1');
+        if (typeof GunaGamification !== 'undefined') GunaGamification.checkAllBadges();
+        this.saveSession();
         
         this.gunaLessons.saveProgress(this.currentLessonId, {
             quizScore: results.score,
@@ -1020,6 +1262,10 @@ class GunaLessonViewer extends HTMLElement {
     }
 
     completeLesson() {
+        if (typeof GunaProgress !== 'undefined' && !GunaProgress.canAccessLesson(this.currentLessonId)) {
+            this.showNotification('Cannot complete a locked lesson.', 'error');
+            return;
+        }
         if (typeof GunaProgress !== 'undefined') {
             GunaProgress.completeLesson(this.currentLessonId);
         }

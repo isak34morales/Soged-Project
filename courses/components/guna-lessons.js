@@ -77,6 +77,38 @@ class GunaLessons {
         `;
     }
 
+    buildMemoryGame(words, difficulty = 'medium') {
+        const pairCounts = { easy: 3, medium: 6, hard: 10, expert: 15 };
+        const count = Math.min(pairCounts[difficulty] || 6, words.length);
+        const selected = words.slice(0, count);
+        const pairs = selected.map((w, i) => ({
+            id: `pair-${i}`,
+            guna: w.guna,
+            icon: w.icon || '📝',
+            es: w.es,
+            en: w.en
+        }));
+        return `
+            <div class="memory-game-exercise" data-difficulty="${difficulty}">
+                <h3>🧠 Memory Match</h3>
+                <p>Find matching pairs — Guna word + meaning image. Tap cards to flip. Complete all pairs to continue!</p>
+                <div class="memory-difficulty-bar" role="group" aria-label="Difficulty">
+                    ${['easy', 'medium', 'hard', 'expert'].map(d => `
+                        <button type="button" class="memory-diff-btn ${d === difficulty ? 'active' : ''}" data-diff="${d}">
+                            ${d.charAt(0).toUpperCase() + d.slice(1)} (${(pairCounts[d] || 3) * 2})
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="memory-stats">
+                    <span>Moves: <strong id="memoryMoves">0</strong></span>
+                    <span>Pairs: <strong id="memoryPairs">0</strong> / ${count}</span>
+                </div>
+                <div class="memory-grid" id="memoryGrid" data-pairs='${JSON.stringify(pairs).replace(/'/g, "&#39;")}'></div>
+                <div class="memory-feedback" id="memoryFeedback" hidden></div>
+            </div>
+        `;
+    }
+
     buildFlashcards(words) {
         if (!words?.length) return '<p>No flashcards available.</p>';
         return `
@@ -205,6 +237,11 @@ class GunaLessons {
                     content: this.buildFlashcards(words)
                 },
                 {
+                    type: 'memory',
+                    title: 'Memory Match',
+                    content: this.buildMemoryGame(words, config.memoryDifficulty || 'medium')
+                },
+                {
                     type: 'interactive',
                     title: 'Practice & Quiz',
                     content: `
@@ -275,9 +312,9 @@ class GunaLessons {
         return this.buildStandardLesson({ ...cfg, words });
     }
 
-    getGreetingsLesson() { return this.buildLessonFromConfig(1); }
-    getFamilyLesson() { return this.buildLessonFromConfig(2); }
-    getHomeObjectsLesson() { return this.buildLessonFromConfig(3); }
+    getGreetingsLesson() { return window.GunaLevelLessons?.getGreetingsLesson() || this.buildLessonFromConfig(1); }
+    getFamilyLesson() { return window.GunaLevelLessons?.getFamilyLesson() || this.buildLessonFromConfig(2); }
+    getHomeObjectsLesson() { return window.GunaLevelLessons?.getHomeObjectsLesson() || this.buildLessonFromConfig(3); }
     getNatureLesson() { return this.buildLessonFromConfig(4); }
     getAnimalsLesson() { return this.buildLessonFromConfig(5); }
     getPlantsLesson() { return this.buildLessonFromConfig(6); }
@@ -420,6 +457,12 @@ class GunaLessons {
     }
     // Quiz answers for validation (per lesson)
     getQuizAnswers(lessonId) {
+        const richAnswers = {
+            1: { 1: 'anna', 2: 'goodbye', 3: 'banmalo', 4: { 1: 'hello', 2: 'goodbye', 3: 'tomorrow' } },
+            2: { 1: 'nana', 2: 'father', 3: 'dada', 4: { 1: 'mother', 2: 'father', 3: 'brother' } },
+            3: { 1: 'muu', 2: 'plate', 3: 'tapa', 4: { 1: 'house', 2: 'table', 3: 'spoon' } }
+        };
+        if (richAnswers[lessonId]) return richAnswers[lessonId];
         const answers = window.GUNA_LESSON_CONFIGS?.quizAnswers || {};
         return answers[lessonId] || answers[1];
     }

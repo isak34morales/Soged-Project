@@ -496,8 +496,8 @@ class LearningSection extends HTMLElement {
             ],
             'guna': [
                 { id: 1, title: 'Saludos y Presentaciones', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
-                { id: 2, title: 'Familia', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 3, title: 'Objetos del Hogar', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
+                { id: 2, title: 'Family', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
+                { id: 3, title: 'Home Objects', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
                 { id: 4, title: 'Naturaleza', description: 'Water, fire, wood and clay', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
                 { id: 5, title: 'Animales', description: 'Sea creatures, birds and forest animals', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
                 { id: 6, title: 'Plantas y Alimentos', description: 'Coconut, corn, yuca and traditional foods', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
@@ -541,23 +541,27 @@ class LearningSection extends HTMLElement {
     }
 
     getLessonButton(lesson) {
+        const session = typeof GunaProgress !== 'undefined' ? GunaProgress.getLessonSession(lesson.id) : null;
+        const statusEmoji = { completed: '✅', current: '🔄', locked: '🔒' };
+        const badge = `<span class="lesson-status-badge">${statusEmoji[lesson.status] || ''}</span>`;
+
         switch(lesson.status) {
             case 'completed':
-                return `
+                return `${badge}
                     <button class="lesson-btn btn-secondary" onclick="event.stopPropagation(); reviewLesson(${lesson.id})">
                         <i class="fas fa-redo"></i>
                         Review
                     </button>
                 `;
             case 'current':
-                return `
+                return `${badge}
                     <button class="lesson-btn btn-primary" onclick="event.stopPropagation(); startLesson(${lesson.id})">
                         <i class="fas fa-play"></i>
-                        Start Lesson
+                        ${session ? 'Continue' : 'Start Lesson'}
                     </button>
                 `;
             case 'locked':
-                return `
+                return `${badge}
                     <button class="lesson-btn btn-disabled" disabled>
                         <i class="fas fa-lock"></i>
                         Locked
@@ -645,20 +649,33 @@ function getActiveCourse() {
     return 'guna';
 }
 
-function openGunaLessonViewer(lessonId) {
+function openGunaLessonViewer(lessonId, review = false) {
+    const id = parseInt(lessonId, 10);
+    if (typeof GunaProgress !== 'undefined') {
+        if (!GunaProgress.canAccessLesson(id, review)) {
+            showNotification('🔒 Completa la lección anterior para desbloquear este nivel.', 'info');
+            return;
+        }
+        if (!review && typeof GunaLives !== 'undefined' && !GunaLives.canPlay()) {
+            const session = GunaProgress.getLessonSession(id);
+            if (!session) {
+                showNotification(typeof GunaI18n !== 'undefined' ? GunaI18n.t('noLives') : 'No lives left! Visit the store.', 'error');
+                return;
+            }
+        }
+    }
+
     const contentContainer = document.getElementById('contentContainer');
     if (!contentContainer) return;
 
-    contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${lessonId}"></guna-lesson-viewer>`;
+    const reviewAttr = review ? ' review="true"' : '';
+    contentContainer.innerHTML = `<guna-lesson-viewer lesson-id="${id}"${reviewAttr}></guna-lesson-viewer>`;
 
     const viewer = contentContainer.querySelector('guna-lesson-viewer');
     if (viewer) {
         viewer.addEventListener('lessonCompleted', (e) => {
-            const id = e.detail.lessonId;
-            if (typeof GunaProgress !== 'undefined') {
-                GunaProgress.completeLesson(id);
-            }
-            showNotification(`🎉 Lesson ${id} completed! +25 cocos`, 'success');
+            const completedId = e.detail.lessonId;
+            showNotification(`🎉 Lesson ${completedId} completed! +25 cocos`, 'success');
             setTimeout(() => {
                 if (window.learningHub) {
                     window.learningHub.loadSection('learn', true);
@@ -671,20 +688,41 @@ function openGunaLessonViewer(lessonId) {
 // Global functions for lesson interaction
 window.startLesson = function(lessonId) {
     const currentCourse = getActiveCourse();
-    if (currentCourse === 'guna') {
-        openGunaLessonViewer(lessonId);
-    } else {
+    if (currentCourse !== 'guna') {
         showNotification('This course is coming soon!', 'info');
+        return;
     }
+    const id = parseInt(lessonId, 10);
+    if (typeof GunaProgress !== 'undefined') {
+        if (!GunaProgress.canAccessLesson(id, false)) {
+            showNotification('🔒 Esta lección está bloqueada.', 'info');
+            return;
+        }
+        const completed = GunaProgress.getProgress().completed;
+        let currentId = 1;
+        for (let i = 1; i <= GunaProgress.TOTAL_LESSONS; i++) {
+            if (!completed.includes(i)) { currentId = i; break; }
+        }
+        if (id !== currentId) {
+            showNotification('Solo puedes iniciar la lección actual del camino.', 'info');
+            return;
+        }
+    }
+    openGunaLessonViewer(id, false);
 };
 
 window.reviewLesson = function(lessonId) {
     const currentCourse = getActiveCourse();
-    if (currentCourse === 'guna') {
-        openGunaLessonViewer(lessonId);
-    } else {
+    if (currentCourse !== 'guna') {
         showNotification('This course is coming soon!', 'info');
+        return;
     }
+    const id = parseInt(lessonId, 10);
+    if (typeof GunaProgress !== 'undefined' && !GunaProgress.isCompleted(id)) {
+        showNotification('Solo puedes repasar lecciones completadas.', 'info');
+        return;
+    }
+    openGunaLessonViewer(id, true);
 };
 
 // Utility function for notifications
