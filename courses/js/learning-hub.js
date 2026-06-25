@@ -283,7 +283,7 @@ class SimpleLearningHub {
         const hash = window.location.hash.replace('#', '');
         if (path.includes('/store') || hash === 'store') return 'store';
         if (path.includes('/learning-path') || hash === 'learning-path' || hash === 'learn') return 'learn';
-        const valid = ['overview', 'learn', 'vocabulary', 'community', 'store', 'stories', 'chat', 'leaderboard', 'achievements'];
+        const valid = ['overview', 'learn', 'vocabulary', 'memory', 'community', 'territory', 'store', 'stories', 'chat', 'leaderboard', 'achievements'];
         if (hash && valid.includes(hash)) return hash;
         return 'overview';
     }
@@ -345,8 +345,14 @@ class SimpleLearningHub {
                 case 'vocabulary':
                     content = `<guna-vocabulary-section></guna-vocabulary-section>`;
                     break;
+                case 'memory':
+                    content = `<guna-memory-section></guna-memory-section>`;
+                    break;
                 case 'community':
                     content = `<guna-community-section></guna-community-section>`;
+                    break;
+                case 'territory':
+                    content = `<guna-territory-section></guna-territory-section>`;
                     break;
                 case 'stories':
                     content = `<stories-section course="${this.currentCourse}"></stories-section>`;
@@ -806,7 +812,7 @@ class SimpleLearningHub {
 
     getCourseIcon(courseData) {
         if (this.currentCourse === 'guna') {
-            return `<img src="../Images/Soged/mola-icon.png" alt="Cultura ${courseData.name}" class="main-course-icon-img">`;
+            return `<img src="../Images/Soged/mola-icon.png" alt="Cultura ${courseData.name}" class="main-course-icon-img" data-no-mola-attribution="true">`;
         }
         return `<span class="main-course-emoji">${courseData.flag}</span>`;
     }
@@ -933,7 +939,7 @@ class SimpleLearningHub {
                 </div>
 
                 <div class="store-promo-banner" data-aos="fade-up" data-aos-delay="200">
-                    <img src="../Images/Molas - Guna/Mola 2.jpg" alt="" class="store-promo-mola" aria-hidden="true">
+                    <img src="../Images/Molas - Guna/Mola 2.jpg" alt="" class="store-promo-mola" data-no-mola-attribution="true" aria-hidden="true">
                     <div class="store-promo-content">
                         <span class="store-promo-icon">🛒</span>
                         <div>
@@ -999,7 +1005,9 @@ class SimpleLearningHub {
             overview: 'Dashboard',
             learn: 'Learning Path',
             vocabulary: 'Vocabulary',
-            community: 'Community',
+            memory: 'Memory Match',
+            community: 'Culture Center',
+            territory: 'Guna Territory',
             store: 'Guna Store',
             stories: 'Cultural Stories',
             chat: 'AI Tutor',
@@ -1175,7 +1183,7 @@ class SimpleLearningHub {
         const flagEl = document.querySelector('.course-flag');
         if (flagEl) {
             if (this.currentCourse === 'guna') {
-                flagEl.innerHTML = '<img src="../Images/Soged/mola-icon.png" alt="Guna" class="course-flag-img">';
+                flagEl.innerHTML = '<img src="../Images/Soged/mola-icon.png" alt="Guna" class="course-flag-img" data-no-mola-attribution="true">';
                 flagEl.classList.add('course-flag-img-wrap');
             } else {
                 flagEl.classList.remove('course-flag-img-wrap');

@@ -11,7 +11,6 @@ class GunaCommunitySection extends HTMLElement {
     getTabs() {
         return [
             { id: 'history', label: 'History', icon: '📜' },
-            { id: 'territory', label: 'Territorio Guna', icon: '🗺️' },
             { id: 'culture', label: 'Culture', icon: '🧵' },
             { id: 'spirituality', label: 'Spirituality', icon: '🌟' },
             { id: 'nature', label: 'Nature', icon: '🌊' }
@@ -167,7 +166,6 @@ class GunaCommunitySection extends HTMLElement {
                     </div>
                 </div>
             `,
-            territory: this.renderTerritoryMap(),
             culture: `
                 <div class="community-article">
                     <h2>🧵 Guna Culture</h2>
@@ -282,7 +280,6 @@ class GunaCommunitySection extends HTMLElement {
                 this.activeTab = tab.dataset.tab;
                 if (tab.dataset.tab === 'history') localStorage.setItem('guna_history_visited', '1');
                 if (tab.dataset.tab === 'culture') localStorage.setItem('guna_culture_visited', '1');
-                if (tab.dataset.tab === 'territory') localStorage.setItem('guna_territory_visited', '1');
                 if (typeof GunaGamification !== 'undefined') GunaGamification.checkAllBadges();
                 this.render();
                 this.bindEvents();
