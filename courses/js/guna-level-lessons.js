@@ -198,7 +198,7 @@ const GunaLevelLessons = {
     getGreetingsLesson() {
         return {
             id: 1,
-            title: "🏝️ Island Greetings - Saludos Guna",
+            title: "🏝️ Island Greetings",
             subtitle: "Learn traditional Guna welcome expressions",
             duration: 15,
             xp: 50,

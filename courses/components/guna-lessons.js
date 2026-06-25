@@ -323,7 +323,7 @@ class GunaLessons {
     getAdvancedConversationLesson() {
         const base = this.buildLessonFromConfig(7);
         base.id = 8;
-        base.title = '💬 Conversación Avanzada';
+        base.title = '💬 Advanced Conversation';
         base.subtitle = 'Advanced dialogues and real scenarios';
         base.xp = 175;
         base.duration = 35;
@@ -361,7 +361,7 @@ class GunaLessons {
     getCultureLesson() {
         const words = window.GUNA_VOCABULARY?.culture || [];
         return this.buildStandardLesson({
-            id: 9, title: '🧵 Cultura Guna', subtitle: 'History, molas and traditions',
+            id: 9, title: '🧵 Guna Culture', subtitle: 'History, molas and traditions',
             duration: 35, xp: 150, words,
             introTitle: 'Guna Culture', introHeading: '🧵 Guna Culture',
             introText: 'Explore molas, the Tule Revolution, spirituality and social organization.',
@@ -397,7 +397,7 @@ class GunaLessons {
 
     getFinalExamLesson() {
         const base = this.buildStandardLesson({
-            id: 10, title: '👑 Dominio Básico — Final Exam', subtitle: 'Prove your Guna mastery',
+            id: 10, title: '👑 Basic Mastery — Final Exam', subtitle: 'Prove your Guna mastery',
             duration: 45, xp: 250,
             words: [
                 ...(window.GUNA_VOCABULARY?.greetings || []).slice(0, 2),

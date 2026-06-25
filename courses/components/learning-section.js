@@ -495,16 +495,16 @@ class LearningSection extends HTMLElement {
                 { id: 5, title: 'Level 1 Assessment', description: 'Test your knowledge with cultural scenarios', status: 'locked', xp: 200, duration: 45, exercises: 25, type: 'boss' }
             ],
             'guna': [
-                { id: 1, title: 'Saludos y Presentaciones', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
+                { id: 1, title: 'Greetings & Introductions', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
                 { id: 2, title: 'Family', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
                 { id: 3, title: 'Home Objects', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 4, title: 'Naturaleza', description: 'Water, fire, wood and clay', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
-                { id: 5, title: 'Animales', description: 'Sea creatures, birds and forest animals', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 6, title: 'Plantas y Alimentos', description: 'Coconut, corn, yuca and traditional foods', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 7, title: 'Conversaciones Básicas', description: 'Where, who, and everyday phrases', status: 'locked', xp: 100, duration: 25, exercises: 12, type: 'normal' },
-                { id: 8, title: 'Conversación Avanzada', description: 'Real dialogues and comprehension', status: 'locked', xp: 175, duration: 35, exercises: 18, type: 'normal' },
-                { id: 9, title: 'Cultura Guna', description: 'Molas, revolution and traditions', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
-                { id: 10, title: 'Dominio Básico', description: 'Final exam and certificate', status: 'locked', xp: 250, duration: 45, exercises: 25, type: 'boss' }
+                { id: 4, title: 'Nature', description: 'Water, fire, wood and clay', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
+                { id: 5, title: 'Animals', description: 'Sea creatures, birds and forest animals', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
+                { id: 6, title: 'Plants & Food', description: 'Coconut, corn, yuca and traditional foods', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
+                { id: 7, title: 'Basic Conversations', description: 'Where, who, and everyday phrases', status: 'locked', xp: 100, duration: 25, exercises: 12, type: 'normal' },
+                { id: 8, title: 'Advanced Conversation', description: 'Real dialogues and comprehension', status: 'locked', xp: 175, duration: 35, exercises: 18, type: 'normal' },
+                { id: 9, title: 'Guna Culture', description: 'Molas, revolution and traditions', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
+                { id: 10, title: 'Basic Mastery', description: 'Final exam and certificate', status: 'locked', xp: 250, duration: 45, exercises: 25, type: 'boss' }
             ],
             'embera': [
                 { id: 1, title: 'River Greetings', description: 'Welcome expressions from the rainforest', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },

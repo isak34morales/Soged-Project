@@ -1,201 +1,171 @@
 /**
- * Guna Territory Map — standalone interactive map section
+ * Guna Territory Map — Panama map with interactive hotspots in Guna Yala
  */
+const MUSEUM_URL = 'https://museodelamola.org/';
+
 class GunaTerritorySection extends HTMLElement {
     connectedCallback() {
         localStorage.setItem('guna_territory_visited', '1');
         if (typeof GunaGamification !== 'undefined') GunaGamification.checkAllBadges();
         this.render();
-        this.setupMapInteractions();
+        this.setupInteractions();
     }
 
-    getTerritoryData() {
-        return {
-            'guna-yala': {
-                name: 'Guna Yala (Comarca)',
-                location: 'San Blas Archipelago, Caribbean coast of Panama — over 360 islands.',
-                history: 'Former San Blas. After the 1925 Tule Revolution, the Guna secured autonomy and territorial recognition.',
-                culture: 'Community congresses, molas, artisanal fishing, and the Dulegaya language as pillars of identity.',
-                population: '~34,000 inhabitants',
-                traditions: 'Mola crafting, ceremonial songs, collective cayuco work, and governance by saglas.',
-                facts: 'One of the best-known indigenous comarcas in Panama and a unique cultural destination.',
-                image: '../Images/Molas - Guna/Comarca-Guna-Yala.jpg'
+    getMapPoints() {
+        return [
+            {
+                id: 'guna-yala',
+                label: 'Guna Yala',
+                top: '24%',
+                left: '68%',
+                name: 'Comarca Guna Yala',
+                molaImage: '../Images/Molas - Guna/Mola 1.jpg',
+                molaTitle: 'Molas of Guna Yala',
+                molaText: 'Molas are reverse-appliqué textiles created by Guna women. Each design tells stories of nature, animals and spiritual beliefs passed through generations.',
+                culture: 'Guna Yala is an autonomous indigenous territory with over 360 Caribbean islands. Community congresses led by Saglas govern daily life, fishing, and cultural preservation.',
+                history: 'After the 1925 Tule Revolution, the Guna people secured recognition of their territory and the right to maintain their language, dress and traditions.',
+                facts: 'Dulegaya (Guna language) and mola art are UNESCO-recognized symbols of living indigenous heritage.'
             },
-            'madugandi': {
-                name: 'Madugandí',
-                location: 'Panama and Darién provinces, mainland forests.',
-                history: 'Comarca created in 1996 for Guna communities that migrated from the archipelago.',
-                culture: 'Blend of island traditions with tropical forest life; crafts and agriculture.',
-                population: '~1,800 inhabitants',
-                traditions: 'Chácaras, local congresses, and oral migration stories.',
-                facts: 'Madugandí means "where there is Mother Earth" in Guna cosmovision.',
-                image: '../Images/Molas - Guna/Mola 4.jpg'
-            },
-            'wargandi': {
-                name: 'Wargandí',
-                location: 'Darién Province, border with Colombia, tropical rainforest.',
-                history: 'Comarca established in 2000 to protect Guna territories on the border.',
-                culture: 'Life tied to rivers and jungle; forest conservation and medicinal knowledge.',
-                population: '~1,700 inhabitants',
-                traditions: 'Traditional medicine, river fishing, and general congress assemblies.',
-                facts: 'Wargandí is the youngest and one of the most remote Guna comarcas.',
-                image: '../Images/Molas - Guna/Mola 6.webp'
-            },
-            'ailigandi': {
+            {
+                id: 'ailigandi',
+                label: 'Ailigandí',
+                top: '22%',
+                left: '78%',
                 name: 'Ailigandí Island',
-                location: 'Guna Yala — historic island in the archipelago.',
-                history: 'Symbolic center of the 1925 Tule Revolution.',
-                culture: 'Site of historic congresses and cultural resistance.',
-                population: 'Traditional island community',
-                traditions: 'February 25 celebrations and congress meetings.',
-                facts: 'Considered the cradle of the movement that defended Guna autonomy.',
-                image: '../Images/Molas - Guna/Mola 1.jpg'
+                molaImage: '../Images/Molas - Guna/Mola 2.jpg',
+                molaTitle: 'Revolution & Molas',
+                molaText: 'Ailigandí is a historic center of the Tule Revolution. Molas from this region often depict symbols of resistance and cultural pride.',
+                culture: 'Traditional congresses gather here. Women pass mola techniques from mothers to daughters as sacred cultural knowledge.',
+                history: 'In February 1925, Guna leaders rose up on Ailigandí to defend autonomy — a defining moment in Panamanian history.',
+                facts: 'February 25 is commemorated as a day of Guna cultural resistance and identity.'
             },
-            'nargana': {
-                name: 'Narganá',
-                location: 'Bridge-connected island in Guna Yala.',
-                history: 'One of the most visited islands; meeting point of tourism and culture.',
-                culture: 'Local markets, crafts, and community hospitality.',
-                population: '~3,000 inhabitants',
-                traditions: 'Mola sales, dances, and coconut-fish cuisine.',
-                facts: 'Accessible by road from the mainland via bridge.',
-                image: '../Images/Molas - Guna/Mola 3.jpg'
-            },
-            'carti': {
+            {
+                id: 'carti',
+                label: 'Cartí',
+                top: '28%',
+                left: '63%',
                 name: 'Cartí Sugdup',
-                location: 'Cartí Islands, gateway to the archipelago from Panama.',
-                history: 'Historic entry point to Guna island territory.',
-                culture: 'Departure point for boats to the islands; community tourism.',
-                population: 'Several island communities',
-                traditions: 'Cayuco boarding, craft sales, and welcoming visitors.',
-                facts: 'Boats to the archipelago depart from here.',
-                image: '../Images/Molas - Guna/Mola 5.jpg'
+                molaImage: '../Images/Molas - Guna/Mola 3.jpg',
+                molaTitle: 'Gateway Molas',
+                molaText: 'Cartí is the gateway to the archipelago. Local artisans sell molas featuring turtles, fish, and geometric patterns inspired by the sea.',
+                culture: 'Visitors arrive by road and continue by cayuco (canoe) to the islands. Markets showcase living mola traditions.',
+                history: 'For decades, Cartí has been the main entry point connecting mainland Panama with Guna island communities.',
+                facts: 'Cayucos remain the traditional transport linking islands and preserving maritime culture.'
+            },
+            {
+                id: 'nargana',
+                label: 'Narganá',
+                top: '26%',
+                left: '85%',
+                name: 'Narganá Island',
+                molaImage: '../Images/Molas - Guna/Mola 4.jpg',
+                molaTitle: 'Island Mola Art',
+                molaText: 'Narganá molas blend sea life motifs — sharks, turtles, crabs — with bold geometric designs unique to each artisan.',
+                culture: 'A bridge-connected island where Guna families maintain fishing, coconut harvesting and ceremonial life.',
+                history: 'One of the most accessible Guna communities, balancing tourism with cultural preservation.',
+                facts: 'Mola patterns here often feature marine animals central to island identity.'
+            },
+            {
+                id: 'mola-tradition',
+                label: 'Mola Art',
+                top: '32%',
+                left: '72%',
+                name: 'Mola — Sacred Textile',
+                molaImage: '../Images/Molas - Guna/Mola 5.jpg',
+                molaTitle: 'The Art of the Mola',
+                molaText: 'A mola is created by layering colored cloth and cutting reverse-appliqué designs. Each layer reveals patterns of animals, plants and spiritual symbols.',
+                culture: 'Molas are worn daily by Guna women as identity and pride. Designs are never copied — each is an original artistic expression.',
+                history: 'Molas evolved from body painting traditions into textile art recognized worldwide as a masterpiece of indigenous creativity.',
+                facts: 'Learn more at the Museo de la Mola — tap any mola image to visit the museum website.'
             }
-        };
+        ];
     }
 
     render() {
+        const points = this.getMapPoints();
         this.innerHTML = `
-            <div class="territory-section">
+            <div class="territory-section territory-section--map-only">
                 <header class="territory-hero" data-aos="fade-up">
-                    <h1>🗺️ Guna Territory & Regions</h1>
-                    <p>Interactive map of Panama — explore Guna Yala, Madugandí, Wargandí and the main islands</p>
+                    <h1>🗺️ Guna Territory Map</h1>
+                    <p>Tap the points on the red zone (Guna Yala) to explore molas and culture</p>
                 </header>
-                <div class="community-article territory-article">
-                    <div class="guna-map-container">
-                        <div class="guna-map-controls">
-                            <button type="button" class="map-zoom-btn" data-zoom="in" title="Zoom in"><i class="fas fa-plus"></i></button>
-                            <button type="button" class="map-zoom-btn" data-zoom="out" title="Zoom out"><i class="fas fa-minus"></i></button>
-                            <button type="button" class="map-zoom-btn" data-zoom="reset" title="Reset"><i class="fas fa-compress"></i></button>
-                        </div>
-                        <div class="guna-map-viewport" id="gunaMapViewport">
-                            <svg class="guna-map-svg" viewBox="0 0 400 600" id="gunaMapSvg">
-                                <rect width="400" height="600" fill="#b8e0f0" rx="8"/>
-                                <path d="M80,120 L200,80 L320,140 L300,280 L180,320 L60,240 Z" fill="#7cb87c" stroke="#4a7c4a" stroke-width="2"/>
-                                <text x="200" y="200" text-anchor="middle" fill="#333" font-size="12">Panama</text>
-                                <g class="map-region" data-region="madugandi" transform="translate(140,220)">
-                                    <ellipse cx="0" cy="0" rx="45" ry="35" fill="#f59e0b" opacity="0.85" stroke="#d97706" stroke-width="2"/>
-                                    <text x="0" y="4" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">Madugandí</text>
-                                </g>
-                                <g class="map-region" data-region="wargandi" transform="translate(250,350)">
-                                    <ellipse cx="0" cy="0" rx="50" ry="40" fill="#8b5cf6" opacity="0.85" stroke="#6d28d9" stroke-width="2"/>
-                                    <text x="0" y="4" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">Wargandí</text>
-                                </g>
-                                <g class="map-region" data-region="guna-yala" transform="translate(300,100)">
-                                    <ellipse cx="0" cy="0" rx="55" ry="45" fill="#00A3E0" opacity="0.9" stroke="#0077a8" stroke-width="2"/>
-                                    <text x="0" y="4" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">Guna Yala</text>
-                                </g>
-                                <g class="map-island" data-region="ailigandi" transform="translate(320,70)">
-                                    <circle r="8" fill="#ff6b6b" stroke="#fff" stroke-width="2"/>
-                                </g>
-                                <g class="map-island" data-region="nargana" transform="translate(340,95)">
-                                    <circle r="7" fill="#ff6b6b" stroke="#fff" stroke-width="2"/>
-                                </g>
-                                <g class="map-island" data-region="carti" transform="translate(305,130)">
-                                    <circle r="7" fill="#ff6b6b" stroke="#fff" stroke-width="2"/>
-                                </g>
-                                <text x="330" y="55" text-anchor="middle" fill="#c0392b" font-size="8">Guna Yala Islands</text>
-                            </svg>
-                        </div>
-                        <aside class="guna-map-info" id="gunaMapInfo">
-                            <div class="map-info-placeholder">
-                                <i class="fas fa-hand-pointer"></i>
-                                <p>Click a region or island on the map</p>
-                            </div>
-                        </aside>
+
+                <div class="panama-map-layout">
+                    <div class="panama-map-stage" id="panamaMapStage">
+                        <img
+                            src="../Images/panama-guna-map.png"
+                            alt="Map of Panama highlighting Guna Yala"
+                            class="panama-map-img"
+                            data-no-mola-attribution="true"
+                            onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='../Images/panama-guna-map.svg';}"
+                        >
+                        ${points.map(p => `
+                            <button type="button" class="map-hotspot" data-point="${p.id}"
+                                    style="top:${p.top};left:${p.left}"
+                                    aria-label="${p.label}">
+                                <span class="map-hotspot-pulse"></span>
+                                <span class="map-hotspot-dot"></span>
+                            </button>
+                        `).join('')}
                     </div>
-                    <div class="territory-legend">
-                        <span><i class="legend-dot guna-yala"></i> Guna Yala</span>
-                        <span><i class="legend-dot madugandi"></i> Madugandí</span>
-                        <span><i class="legend-dot wargandi"></i> Wargandí</span>
-                        <span><i class="legend-dot island"></i> Main islands</span>
-                    </div>
+
+                    <aside class="panama-map-panel" id="panamaMapPanel">
+                        <div class="map-panel-placeholder">
+                            <i class="fas fa-hand-pointer"></i>
+                            <p>Select a point on the <strong>red zone</strong> to learn about molas and Guna culture</p>
+                        </div>
+                    </aside>
                 </div>
             </div>
         `;
     }
 
-    setupMapInteractions() {
-        const regions = this.getTerritoryData();
-        const infoPanel = this.querySelector('#gunaMapInfo');
-        const viewport = this.querySelector('#gunaMapViewport');
-        const svg = this.querySelector('#gunaMapSvg');
-        if (!infoPanel || !svg) return;
+    molaLink(imgSrc, alt, title) {
+        return `
+            <a href="${MUSEUM_URL}" target="_blank" rel="noopener noreferrer" class="map-mola-link" title="Visit Museo de la Mola">
+                <img src="${imgSrc}" alt="${alt}" class="map-mola-thumb" data-no-mola-attribution="true" loading="lazy"
+                     onerror="this.src='../Images/Soged/mola-icon.png'">
+                <span class="map-mola-link-label"><i class="fas fa-external-link-alt"></i> ${title}</span>
+            </a>`;
+    }
 
-        let scale = 1;
-        const updateTransform = () => { svg.style.transform = `scale(${scale})`; };
+    showPoint(pointId) {
+        const point = this.getMapPoints().find(p => p.id === pointId);
+        const panel = this.querySelector('#panamaMapPanel');
+        if (!point || !panel) return;
 
-        this.querySelectorAll('.map-zoom-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (btn.dataset.zoom === 'in') scale = Math.min(2, scale + 0.2);
-                else if (btn.dataset.zoom === 'out') scale = Math.max(0.6, scale - 0.2);
-                else scale = 1;
-                updateTransform();
-            });
+        panel.innerHTML = `
+            <h3>${point.name}</h3>
+            ${this.molaLink(point.molaImage, point.molaTitle, 'View at Museo de la Mola')}
+            <div class="map-panel-block map-panel-mola">
+                <h4>🧵 ${point.molaTitle}</h4>
+                <p>${point.molaText}</p>
+            </div>
+            <div class="map-panel-block">
+                <h4><i class="fas fa-users"></i> Culture</h4>
+                <p>${point.culture}</p>
+            </div>
+            <div class="map-panel-block">
+                <h4><i class="fas fa-landmark"></i> History</h4>
+                <p>${point.history}</p>
+            </div>
+            <div class="map-panel-block map-panel-fact">
+                <h4><i class="fas fa-lightbulb"></i> Did you know?</h4>
+                <p>${point.facts}</p>
+            </div>
+            <a href="${MUSEUM_URL}" target="_blank" rel="noopener noreferrer" class="map-museum-btn">
+                <i class="fas fa-museum"></i> Visit Museo de la Mola
+            </a>
+        `;
+
+        this.querySelectorAll('.map-hotspot').forEach(el => el.classList.remove('active'));
+        this.querySelector(`[data-point="${pointId}"]`)?.classList.add('active');
+    }
+
+    setupInteractions() {
+        this.querySelectorAll('.map-hotspot').forEach(btn => {
+            btn.addEventListener('click', () => this.showPoint(btn.dataset.point));
         });
-
-        const showRegion = (key) => {
-            const r = regions[key];
-            if (!r) return;
-            infoPanel.innerHTML = `
-                <img src="${r.image}" alt="${r.name}" class="map-info-image" data-no-mola-attribution="true" onerror="this.style.display='none'">
-                <h3>${r.name}</h3>
-                <dl class="map-info-list">
-                    <dt><i class="fas fa-map-marker-alt"></i> Location</dt><dd>${r.location}</dd>
-                    <dt><i class="fas fa-landmark"></i> History</dt><dd>${r.history}</dd>
-                    <dt><i class="fas fa-users"></i> Culture</dt><dd>${r.culture}</dd>
-                    <dt><i class="fas fa-chart-pie"></i> Population</dt><dd>${r.population}</dd>
-                    <dt><i class="fas fa-star"></i> Traditions</dt><dd>${r.traditions}</dd>
-                    <dt><i class="fas fa-lightbulb"></i> Fun fact</dt><dd>${r.facts}</dd>
-                </dl>
-            `;
-            this.querySelectorAll('.map-region, .map-island').forEach(el => el.classList.remove('active'));
-            this.querySelector(`[data-region="${key}"]`)?.classList.add('active');
-        };
-
-        this.querySelectorAll('.map-region, .map-island').forEach(el => {
-            el.style.cursor = 'pointer';
-            el.addEventListener('click', () => showRegion(el.dataset.region));
-        });
-
-        if (viewport) {
-            let isPanning = false;
-            let startX, startY, scrollL, scrollT;
-            viewport.addEventListener('mousedown', (e) => {
-                isPanning = true;
-                startX = e.pageX;
-                startY = e.pageY;
-                scrollL = viewport.scrollLeft;
-                scrollT = viewport.scrollTop;
-            });
-            viewport.addEventListener('mousemove', (e) => {
-                if (!isPanning) return;
-                viewport.scrollLeft = scrollL - (e.pageX - startX);
-                viewport.scrollTop = scrollT - (e.pageY - startY);
-            });
-            viewport.addEventListener('mouseup', () => { isPanning = false; });
-            viewport.addEventListener('mouseleave', () => { isPanning = false; });
-        }
     }
 }
 

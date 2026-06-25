@@ -3,7 +3,7 @@
  */
 const GUNA_LESSON_CONFIGS = {
     1: {
-        id: 1, title: '👋 Saludos y Presentaciones', subtitle: 'Greetings and introductions',
+        id: 1, title: '👋 Greetings & Introductions', subtitle: 'Greetings and introductions',
         duration: 15, xp: 50,
         wordsKey: 'greetings',
         introTitle: 'Welcome', introHeading: '👋 Greetings & Introductions',
@@ -37,7 +37,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Greetings mastered!', completionText: 'You can greet people and use basic pronouns in Guna.'
     },
     2: {
-        id: 2, title: '👨‍👩‍👧 Familia', subtitle: 'Family members',
+        id: 2, title: '👨‍👩‍👧 Family', subtitle: 'Family members',
         duration: 20, xp: 75,
         wordsKey: 'family',
         introTitle: 'Family', introHeading: '👨‍👩‍👧 Family',
@@ -71,7 +71,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Family words learned!', completionText: 'You can talk about your family in Guna.'
     },
     3: {
-        id: 3, title: '🏠 Objetos del Hogar', subtitle: 'Home objects',
+        id: 3, title: '🏠 Home Objects', subtitle: 'Home objects',
         duration: 20, xp: 75,
         wordsKey: 'home',
         introTitle: 'Home', introHeading: '🏠 Home Objects',
@@ -105,7 +105,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Home objects learned!', completionText: 'You can name objects in the Guna home.'
     },
     4: {
-        id: 4, title: '🌊 Naturaleza', subtitle: 'Nature elements',
+        id: 4, title: '🌊 Nature', subtitle: 'Nature elements',
         duration: 25, xp: 100,
         wordsKey: 'nature',
         introTitle: 'Nature', introHeading: '🌊 Nature',
@@ -139,7 +139,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Nature words learned!', completionText: 'You understand Guna words for natural elements.'
     },
     5: {
-        id: 5, title: '🐢 Animales', subtitle: 'Animals of land and sea',
+        id: 5, title: '🐢 Animals', subtitle: 'Animals of land and sea',
         duration: 30, xp: 125,
         wordsKey: 'animals',
         introTitle: 'Animals', introHeading: '🐢 Animals',
@@ -173,7 +173,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Animals mastered!', completionText: 'You can name animals in Guna.'
     },
     6: {
-        id: 6, title: '🥥 Plantas y Alimentos', subtitle: 'Plants and foods',
+        id: 6, title: '🥥 Plants & Food', subtitle: 'Plants and foods',
         duration: 30, xp: 125,
         wordsKey: 'plants',
         introTitle: 'Plants & Food', introHeading: '🥥 Plants & Foods',
@@ -207,7 +207,7 @@ const GUNA_LESSON_CONFIGS = {
         completionTitle: 'Plants & foods learned!', completionText: 'You know Guna words for traditional foods.'
     },
     7: {
-        id: 7, title: '💬 Conversaciones Básicas', subtitle: 'Basic conversations',
+        id: 7, title: '💬 Basic Conversations', subtitle: 'Basic conversations',
         duration: 25, xp: 100,
         wordsKey: 'phrases',
         introTitle: 'Basic Phrases', introHeading: '💬 Basic Conversations',
