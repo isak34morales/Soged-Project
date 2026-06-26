@@ -36,26 +36,38 @@
 .guna-culture-page .guna-hero__bg {
     position: absolute;
     inset: 0;
-    background-image: url('../Images/Molas - Guna/Mola 1.jpg');
+    background-image: url('../Images/guna-hero-mola-garment.png');
     background-size: cover;
-    background-position: center;
+    background-position: center 42%;
 }
 
 .guna-culture-page .guna-hero__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        105deg,
-        rgba(26, 14, 5, 0.92) 0%,
-        rgba(192, 57, 43, 0.45) 45%,
-        rgba(26, 14, 5, 0.85) 100%
+        95deg,
+        rgba(8, 6, 4, 0.9) 0%,
+        rgba(8, 6, 4, 0.78) 38%,
+        rgba(8, 6, 4, 0.52) 62%,
+        rgba(8, 6, 4, 0.28) 100%
     );
 }
 
 .guna-culture-page .guna-hero__content {
     position: relative;
     z-index: 2;
-    max-width: 640px;
+    max-width: 720px;
+}
+
+.guna-culture-page .guna-hero__text-panel {
+    max-width: 580px;
+    padding: 1.75rem 2rem;
+    border-radius: 16px;
+    background: rgba(12, 8, 5, 0.62);
+    border: 1px solid rgba(212, 160, 23, 0.35);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .guna-culture-page .hero-eyebrow {
@@ -65,14 +77,16 @@
     color: var(--guna-gold);
     margin-bottom: 14px;
     font-weight: var(--font-weight-semibold, 600);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .guna-culture-page .guna-hero__title {
     font-size: clamp(2rem, 5vw, 3.25rem);
     font-weight: var(--font-weight-extrabold, 800);
     line-height: 1.15;
-    color: #f5edd8;
+    color: #fff;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
 }
 
 .guna-culture-page .guna-hero__title em {
@@ -81,10 +95,32 @@
 }
 
 .guna-culture-page .guna-hero__subtitle {
-    color: #c4b99a;
+    color: #ece4d4;
     font-size: clamp(1rem, 1.6vw, 1.1rem);
     line-height: 1.7;
     max-width: 520px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+    margin-bottom: 1rem;
+}
+
+.guna-culture-page .hero-museum-credit {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: #f5edd8;
+    background: rgba(192, 57, 43, 0.85);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.guna-culture-page .hero-museum-credit:hover {
+    background: var(--guna-red);
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 .guna-culture-page .hero-flag {
@@ -94,6 +130,11 @@
     transform: translateY(-50%);
     z-index: 2;
     text-align: center;
+    padding: 0.75rem;
+    border-radius: 12px;
+    background: rgba(8, 6, 4, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .guna-culture-page .flag-frame {
@@ -486,6 +527,29 @@
 /* ── Mola carousel ── */
 .guna-culture-page .section-mola {
     background: var(--guna-cream);
+    padding-top: 0;
+}
+
+.guna-culture-page .mola-section-banner {
+    width: 100%;
+    max-height: 72px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    border-top: 3px solid var(--guna-red);
+    border-bottom: 3px solid var(--guna-red);
+    background: #0a0a0a;
+}
+
+.guna-culture-page .mola-section-banner img {
+    display: block;
+    width: 100%;
+    height: 72px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.guna-culture-page .section-mola .container {
+    padding-top: 0;
 }
 
 .guna-culture-page .mola-showcase {
@@ -1067,5 +1131,9 @@
 
     .guna-culture-page .guna-hero {
         padding-bottom: 48px;
+    }
+
+    .guna-culture-page .guna-hero__text-panel {
+        padding: 1.25rem 1.35rem;
     }
 }
