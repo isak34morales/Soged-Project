@@ -26,12 +26,12 @@
 /* ── Hero ── */
 .guna-culture-page .guna-hero {
     position: relative;
-    min-height: 480px;
+    min-height: 340px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 100px 0 64px;
+    padding: 88px 0 48px;
 }
 
 .guna-culture-page .guna-hero__bg {
@@ -39,8 +39,7 @@
     inset: 0;
     background-image: url('../Images/guna-hero-mola-garment.png');
     background-size: cover;
-    background-position: center 42%;
-    transform: scale(1.02);
+    background-position: center 38%;
 }
 
 .guna-culture-page .guna-hero__overlay {
@@ -217,17 +216,22 @@
 
 .guna-culture-page .section-map {
     background: #fff;
-    padding-bottom: 64px;
 }
 
-.guna-culture-page .map-full-wrap {
-    width: 100%;
-    margin-top: 0.5rem;
-}
-
-.guna-culture-page .map-interactive-wrap--full {
+.guna-culture-page .map-interactive-wrap--side {
     display: block;
     width: 100%;
+}
+
+.guna-culture-page .map-interactive-wrap--side .learn-map-stage--featured {
+    aspect-ratio: 734 / 370;
+    min-height: 280px;
+    max-height: none;
+}
+
+.guna-culture-page .map-interactive-wrap--side .learn-map-stage--featured .learn-map-img {
+    object-fit: contain;
+    object-position: center center;
 }
 
 .guna-culture-page .section-label {
@@ -1213,7 +1217,8 @@
     }
 
     .guna-culture-page .guna-hero {
-        padding-bottom: 48px;
+        min-height: 300px;
+        padding: 80px 0 40px;
     }
 
     .guna-culture-page .guna-hero__text-panel {
