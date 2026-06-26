@@ -1,0 +1,320 @@
+/* CSS Variables - Soged Project */
+
+:root {
+    /* Colores principales basados en el logo de Soged */
+    --primary-color: #28A745; /* Verde principal del logo */
+    --primary-hover: #218838; /* Verde más oscuro para hover */
+    --secondary-color: #FFB300; /* Amarillo del sol tropical */
+    --accent-color: #FF6B35; /* Naranja vibrante */
+    --info-color: #00A3E0; /* Azul celeste */
+    --success-color: #2ECC71; /* Verde de la selva */
+    --warning-color: #F39C12; /* Naranja de advertencia */
+    --danger-color: #E74C3C; /* Rojo para errores */
+    
+    /* Colores específicos para elementos del sitio */
+    --logo-green: #28A745; /* Verde exacto del logo */
+    --logo-orange: #FF6B35; /* Naranja del logo */
+    --logo-yellow: #FFB300; /* Amarillo del logo */
+    --logo-blue: #00A3E0; /* Azul celeste del logo */
+    
+    /* Light theme variables */
+    --bg-primary: #F8FAFC;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #F1F5F9;
+    --card-bg: #fff;
+    --header-bg: #fff;
+    --footer-bg: #F8FAFC;
+    --navbar-bg: #fff;
+    --shadow-color: rgba(40, 167, 69, 0.08);
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --text-color: #1E293B;
+    --border-color: #E2E8F0;
+    --input-bg: #fff;
+    --input-border: #CBD5E1;
+    --input-text: #1E293B;
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    
+    /* Gradientes principales */
+    --gradient-primary: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+    --gradient-secondary: linear-gradient(135deg, #FFB300 0%, #FFA726 100%);
+    --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
+    --gradient-info: linear-gradient(135deg, #00A3E0 0%, #4FC3F7 100%);
+    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+    --gradient-warning: linear-gradient(135deg, #F39C12 0%, #FF9800 100%);
+    
+    /* Variables para modal y overlay */
+    --modal-overlay-bg: rgba(30, 41, 59, 0.45);
+    --modal-blur: blur(8px);
+    
+    /* ===== TIPOGRAFÍA Y TAMAÑOS DE FUENTE ===== */
+    --font-primary: 'Fredoka', sans-serif;
+    --font-secondary: 'Nunito', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
+    
+    /* Tamaños de fuente para títulos */
+    --font-size-hero-title: 3.5rem;
+    --font-size-section-title: 3.3rem;
+    --font-size-h1: 3rem;
+    --font-size-h2: 2.5rem;
+    --font-size-h3: 2rem;
+    --font-size-h4: 1.75rem;
+    --font-size-h5: 1.5rem;
+    --font-size-h6: 1.25rem;
+    
+    /* Tamaños de fuente para texto */
+    --font-size-large: 1.3rem;
+    --font-size-medium: 1.1rem;
+    --font-size-normal: 1rem;
+    --font-size-small: 0.9rem;
+    --font-size-xs: 0.8rem;
+    
+    /* Pesos de fuente */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Altura de línea */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.4;
+    --line-height-relaxed: 1.6;
+    --line-height-loose: 1.8;
+    
+    /* Espaciado de letras */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+}
+
+[data-theme="dark"] {
+    /* Colores principales para modo oscuro */
+    --primary-color: #28A745;
+    --primary-hover: #218838;
+    --secondary-color: #FFB300;
+    --accent-color: #FF6B35;
+    --info-color: #00A3E0;
+    --success-color: #2ECC71;
+    --warning-color: #F39C12;
+    --danger-color: #E74C3C;
+    
+    /* Dark theme variables */
+    --bg-primary: #0F172A;
+    --bg-secondary: #1E293B;
+    --bg-tertiary: #334155;
+    --card-bg: #1E293B;
+    --header-bg: #0F172A;
+    --footer-bg: #0F172A;
+    --navbar-bg: #0F172A;
+    --shadow-color: rgba(40, 167, 69, 0.15);
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-color: #F1F5F9;
+    --border-color: #334155;
+    --input-bg: #1E293B;
+    --input-border: #475569;
+    --input-text: #F1F5F9;
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    
+    /* Gradientes para modo oscuro */
+    --gradient-primary: linear-gradient(135deg, #28A745 0%, #20C997 100%);
+    --gradient-secondary: linear-gradient(135deg, #FFB300 0%, #FFA726 100%);
+    --gradient-accent: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
+    --gradient-info: linear-gradient(135deg, #00A3E0 0%, #4FC3F7 100%);
+    --gradient-success: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+    --gradient-warning: linear-gradient(135deg, #F39C12 0%, #FF9800 100%);
+    
+    /* Colores específicos del logo en modo oscuro */
+    --logo-green: #28A745;
+    --logo-orange: #FF6B35;
+    --logo-yellow: #FFB300;
+    --logo-blue: #00A3E0;
+    
+    /* Variables para modal y overlay en modo oscuro */
+    --modal-overlay-bg: rgba(15, 23, 42, 0.8);
+    --modal-blur: blur(8px);
+    
+    /* Tipografía se mantiene igual en modo oscuro */
+    --font-primary: 'Fredoka', sans-serif;
+    --font-secondary: 'Nunito', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
+    
+    /* Tamaños de fuente para títulos */
+    --font-size-hero-title: 3.5rem;
+    --font-size-section-title: 3.3rem;
+    --font-size-h1: 3rem;
+    --font-size-h2: 2.5rem;
+    --font-size-h3: 2rem;
+    --font-size-h4: 1.75rem;
+    --font-size-h5: 1.5rem;
+    --font-size-h6: 1.25rem;
+    
+    /* Tamaños de fuente para texto */
+    --font-size-large: 1.3rem;
+    --font-size-medium: 1.1rem;
+    --font-size-normal: 1rem;
+    --font-size-small: 0.9rem;
+    --font-size-xs: 0.8rem;
+    
+    /* Pesos de fuente */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    /* Altura de línea */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.4;
+    --line-height-relaxed: 1.6;
+    --line-height-loose: 1.8;
+    
+    /* Espaciado de letras */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+}
+
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: var(--line-height-relaxed);
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: var(--transition);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+}
+
+/* Clases de utilidad para colores */
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.text-accent { color: var(--accent-color) !important; }
+.text-info { color: var(--info-color) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+
+.bg-primary { background-color: var(--primary-color) !important; }
+.bg-secondary { background-color: var(--secondary-color) !important; }
+.bg-accent { background-color: var(--accent-color) !important; }
+.bg-info { background-color: var(--info-color) !important; }
+.bg-success { background-color: var(--success-color) !important; }
+.bg-warning { background-color: var(--warning-color) !important; }
+.bg-danger { background-color: var(--danger-color) !important; }
+
+/* Clases para gradientes */
+.gradient-primary { background: var(--gradient-primary) !important; }
+.gradient-secondary { background: var(--gradient-secondary) !important; }
+.gradient-accent { background: var(--gradient-accent) !important; }
+.gradient-info { background: var(--gradient-info) !important; }
+.gradient-success { background: var(--gradient-success) !important; }
+.gradient-warning { background: var(--gradient-warning) !important; }
+
+/* Clases específicas para colores del logo */
+.text-logo-green { color: var(--logo-green) !important; }
+.text-logo-orange { color: var(--logo-orange) !important; }
+.text-logo-yellow { color: var(--logo-yellow) !important; }
+.text-logo-blue { color: var(--logo-blue) !important; }
+
+.bg-logo-green { background-color: var(--logo-green) !important; }
+.bg-logo-orange { background-color: var(--logo-orange) !important; }
+.bg-logo-yellow { background-color: var(--logo-yellow) !important; }
+.bg-logo-blue { background-color: var(--logo-blue) !important; }
+
+/* ===== CLASES DE UTILIDAD PARA TIPOGRAFÍA ===== */
+.font-primary { font-family: var(--font-primary) !important; }
+.font-secondary { font-family: var(--font-secondary) !important; }
+.font-body { font-family: var(--font-body) !important; }
+
+/* Tamaños de fuente para títulos */
+.text-hero-title { font-size: var(--font-size-hero-title) !important; }
+.text-section-title { font-size: var(--font-size-section-title) !important; }
+.text-h1 { font-size: var(--font-size-h1) !important; }
+.text-h2 { font-size: var(--font-size-h2) !important; }
+.text-h3 { font-size: var(--font-size-h3) !important; }
+.text-h4 { font-size: var(--font-size-h4) !important; }
+.text-h5 { font-size: var(--font-size-h5) !important; }
+.text-h6 { font-size: var(--font-size-h6) !important; }
+
+/* Tamaños de fuente para texto */
+.text-large { font-size: var(--font-size-large) !important; }
+.text-medium { font-size: var(--font-size-medium) !important; }
+.text-normal { font-size: var(--font-size-normal) !important; }
+.text-small { font-size: var(--font-size-small) !important; }
+.text-xs { font-size: var(--font-size-xs) !important; }
+
+/* Pesos de fuente */
+.font-light { font-weight: var(--font-weight-light) !important; }
+.font-normal { font-weight: var(--font-weight-normal) !important; }
+.font-medium { font-weight: var(--font-weight-medium) !important; }
+.font-semibold { font-weight: var(--font-weight-semibold) !important; }
+.font-bold { font-weight: var(--font-weight-bold) !important; }
+.font-extrabold { font-weight: var(--font-weight-extrabold) !important; }
+
+/* Altura de línea */
+.leading-tight { line-height: var(--line-height-tight) !important; }
+.leading-normal { line-height: var(--line-height-normal) !important; }
+.leading-relaxed { line-height: var(--line-height-relaxed) !important; }
+.leading-loose { line-height: var(--line-height-loose) !important; }
+
+/* Espaciado de letras */
+.tracking-tight { letter-spacing: var(--letter-spacing-tight) !important; }
+.tracking-normal { letter-spacing: var(--letter-spacing-normal) !important; }
+.tracking-wide { letter-spacing: var(--letter-spacing-wide) !important; }
+.tracking-wider { letter-spacing: var(--letter-spacing-wider) !important; }
+.tracking-widest { letter-spacing: var(--letter-spacing-widest) !important; }
+
+/* Combinaciones predefinidas para elementos comunes */
+.hero-title-style {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-hero-title);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-primary);
+}
+
+.section-title-style {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-section-title);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-primary);
+}
+
+.body-text-style {
+    font-family: var(--font-body);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    color: var(--text-primary);
+}
+
+.button-text-style {
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+} 

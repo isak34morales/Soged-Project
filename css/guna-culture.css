@@ -1,0 +1,1253 @@
+/* Guna Culture — Learn page (aligned with SOGED design system) */
+
+.guna-culture-page {
+    --guna-earth: #3d1f0a;
+    --guna-red: #c0392b;
+    --guna-gold: #d4a017;
+    --guna-green: #11802b;
+    --guna-cream: #f8f3ea;
+    --guna-dark: #1a0e05;
+    --mola-border: 3px solid var(--guna-gold);
+
+    font-family: var(--font-body, 'Quicksand', sans-serif);
+    background: var(--guna-cream);
+    color: var(--guna-earth);
+}
+
+.guna-culture-page h1,
+.guna-culture-page h2,
+.guna-culture-page h4,
+.guna-culture-page h5,
+.guna-culture-page .section-title,
+.guna-culture-page .stat-number {
+    font-family: var(--font-primary, 'Fredoka', sans-serif);
+}
+
+/* ── Hero ── */
+.guna-culture-page .guna-hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 100px 0 64px;
+}
+
+.guna-culture-page .guna-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-color: #0a0a0a;
+    background-image: url('../Images/guna-hero-mola-banner.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.guna-culture-page .guna-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 6, 4, 0.82) 0%,
+        rgba(8, 6, 4, 0.68) 45%,
+        rgba(8, 6, 4, 0.82) 100%
+    );
+}
+
+.guna-culture-page .guna-hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.guna-culture-page .guna-hero__text-panel {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.75rem 2rem;
+    border-radius: 16px;
+    background: rgba(12, 8, 5, 0.62);
+    border: 1px solid rgba(212, 160, 23, 0.35);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.guna-culture-page .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--guna-gold);
+    margin-bottom: 14px;
+    font-weight: var(--font-weight-semibold, 600);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.guna-culture-page .guna-hero__title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: var(--font-weight-extrabold, 800);
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+}
+
+.guna-culture-page .guna-hero__title em {
+    color: var(--guna-gold);
+    font-style: normal;
+}
+
+.guna-culture-page .guna-hero__subtitle {
+    color: #ece4d4;
+    font-size: clamp(1rem, 1.6vw, 1.1rem);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+    margin-bottom: 1rem;
+}
+
+.guna-culture-page .hero-museum-credit {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: #f5edd8;
+    background: rgba(192, 57, 43, 0.85);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.guna-culture-page .hero-museum-credit:hover {
+    background: var(--guna-red);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* ── Mola separator strip (single line, full width, 90–120px) ── */
+.guna-culture-page .mola-separator {
+    width: 100%;
+    height: clamp(90px, 9vw, 120px);
+    overflow: hidden;
+    line-height: 0;
+    flex-shrink: 0;
+}
+
+.guna-culture-page .mola-separator img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+}
+
+.guna-culture-page .congreso-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px 48px;
+    align-items: start;
+    margin-bottom: 8px;
+}
+
+.guna-culture-page .congreso-header__text {
+    max-width: 640px;
+}
+
+.guna-culture-page .congreso-header__flag {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 12px;
+    background: var(--guna-cream);
+    border: 1px solid #d0c4a8;
+    box-shadow: 0 4px 16px rgba(61, 31, 10, 0.08);
+    flex-shrink: 0;
+}
+
+.guna-culture-page .congreso-header__flag .flag-frame {
+    width: 200px;
+    height: 128px;
+}
+
+.guna-culture-page .congreso-header__flag .flag-caption {
+    margin-top: 10px;
+    color: #5a4030;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+}
+
+.guna-culture-page .flag-frame {
+    width: 220px;
+    height: 140px;
+    border: var(--mola-border);
+    border-color: rgba(212, 160, 23, 0.55);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    background: #fff;
+}
+
+.guna-culture-page .flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.guna-culture-page .flag-caption {
+    margin-top: 10px;
+    color: rgba(248, 250, 252, 0.85);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+}
+
+/* ── Sections ── */
+.guna-culture-page .gc-section {
+    padding: 80px 0;
+}
+
+.guna-culture-page .section-map {
+    background: #fff;
+}
+
+.guna-culture-page .map-interactive-wrap--side {
+    display: block;
+    width: 100%;
+}
+
+.guna-culture-page .map-interactive-wrap--side .learn-map-stage--featured {
+    aspect-ratio: 734 / 370;
+    min-height: 280px;
+    max-height: none;
+}
+
+.guna-culture-page .map-interactive-wrap--side .learn-map-stage--featured .learn-map-img {
+    object-fit: contain;
+    object-position: center center;
+}
+
+.guna-culture-page .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--guna-red);
+    margin-bottom: 8px;
+    font-weight: var(--font-weight-semibold, 600);
+}
+
+.guna-culture-page .section-title {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    color: var(--guna-dark);
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.guna-culture-page .section-lead {
+    color: #5a4030;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.guna-culture-page .map-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: var(--mola-border);
+    box-shadow: 0 8px 24px rgba(61, 31, 10, 0.12);
+    background: var(--guna-cream);
+}
+
+/* ── Interactive learn map ── */
+.guna-culture-page .map-interactive-wrap {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.guna-culture-page .learn-map-stage {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: var(--mola-border);
+    box-shadow: 0 8px 24px rgba(61, 31, 10, 0.12);
+    background: #a9c9d9;
+    aspect-ratio: 734 / 370;
+}
+
+.guna-culture-page .learn-map-stage--featured {
+    aspect-ratio: 21 / 9;
+    min-height: 340px;
+    max-height: 520px;
+}
+
+.guna-culture-page .learn-map-stage--featured .learn-map-img {
+    object-fit: cover;
+    object-position: center top;
+}
+
+.guna-culture-page .learn-map-stage--expanded {
+    aspect-ratio: auto;
+    min-height: 420px;
+    flex: 1;
+}
+
+.guna-culture-page .learn-map-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.guna-culture-page .learn-map-expand-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(26, 14, 5, 0.88);
+    color: var(--guna-gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.guna-culture-page .learn-map-expand-btn:hover {
+    background: var(--guna-red);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.guna-culture-page .learn-map-hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.guna-culture-page .learn-map-hotspot-dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 7px auto;
+    background: #fff;
+    border: 3px solid var(--guna-red);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.guna-culture-page .learn-map-hotspot-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(192, 57, 43, 0.35);
+    animation: learn-map-pulse 2s ease-out infinite;
+}
+
+.guna-culture-page .learn-map-hotspot.is-active .learn-map-hotspot-dot {
+    background: var(--guna-gold);
+    transform: scale(1.2);
+}
+
+@keyframes learn-map-pulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.guna-culture-page .learn-map-panel {
+    background: #fff;
+    border: 1px solid #e8e0d0;
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #5a4030;
+    min-height: 160px;
+}
+
+.guna-culture-page .learn-map-panel h4 {
+    color: var(--guna-dark);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.guna-culture-page .learn-map-panel-placeholder {
+    text-align: center;
+    color: #7a5c40;
+    padding: 1.5rem 0.5rem;
+}
+
+.guna-culture-page .learn-map-panel-hand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    padding: 2rem 1rem;
+}
+
+.guna-culture-page .learn-map-hand-icon {
+    font-size: 2.75rem;
+    color: var(--guna-dark);
+    display: block;
+}
+
+.guna-culture-page .learn-map-islands {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.guna-culture-page .learn-map-museum-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    color: var(--guna-red);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.guna-culture-page .learn-map-museum-link:hover {
+    text-decoration: underline;
+    color: var(--guna-red);
+}
+
+.guna-culture-page .learn-map-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(26, 14, 5, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.guna-culture-page .learn-map-modal[hidden] {
+    display: none;
+}
+
+.guna-culture-page .learn-map-modal-body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 1rem;
+    width: min(1100px, 100%);
+    max-height: 90vh;
+    background: var(--guna-cream);
+    border-radius: 16px;
+    padding: 1.25rem;
+    overflow: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.guna-culture-page .learn-map-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--guna-dark);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guna-culture-page .learn-map-modal-panel {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #e8e0d0;
+    font-size: 0.9rem;
+    color: #5a4030;
+    align-self: start;
+}
+
+.guna-culture-page .map-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.guna-culture-page .map-tooltip {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: var(--guna-dark);
+    color: var(--guna-gold);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.guna-culture-page .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #e8e0d0;
+    border: 1px solid #e8e0d0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 28px;
+}
+
+.guna-culture-page .stat-box {
+    background: var(--guna-cream);
+    padding: 20px;
+    text-align: center;
+}
+
+.guna-culture-page .stat-number {
+    font-size: 2rem;
+    color: var(--guna-red);
+    display: block;
+    font-weight: var(--font-weight-bold, 700);
+}
+
+.guna-culture-page .stat-desc {
+    font-size: 0.82rem;
+    color: #7a5c40;
+    margin-top: 4px;
+}
+
+/* ── Cosmovisión ── */
+.guna-culture-page .section-cosmo {
+    background: linear-gradient(135deg, #1a0e05 0%, #2d1810 50%, #1a0e05 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.guna-culture-page .section-cosmo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(255, 179, 0, 0.06) 0, rgba(255, 179, 0, 0.06) 2px, transparent 2px, transparent 28px),
+        repeating-linear-gradient(0deg, rgba(255, 179, 0, 0.06) 0, rgba(255, 179, 0, 0.06) 2px, transparent 2px, transparent 28px);
+    pointer-events: none;
+}
+
+.guna-culture-page .section-cosmo .section-label {
+    color: var(--guna-gold);
+}
+
+.guna-culture-page .section-cosmo .section-title {
+    color: #f5edd8;
+}
+
+.guna-culture-page .section-cosmo .section-lead {
+    color: #c4b99a;
+}
+
+.guna-culture-page .cosmo-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.guna-culture-page .cosmo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 160, 23, 0.25);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.guna-culture-page .cosmo-card:hover {
+    border-color: rgba(212, 160, 23, 0.6);
+    background: rgba(255, 255, 255, 0.09);
+    transform: translateY(-3px);
+}
+
+.guna-culture-page .cosmo-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.guna-culture-page .cosmo-card h4 {
+    color: var(--guna-gold);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.guna-culture-page .cosmo-card p {
+    color: #a89278;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+/* ── Mola carousel ── */
+.guna-culture-page .section-mola {
+    background: var(--guna-cream);
+    padding-top: 80px;
+}
+
+.guna-culture-page .mola-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.guna-culture-page .mola-visual {
+    position: relative;
+    border: var(--mola-border);
+    border-radius: 12px;
+    overflow: visible;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(61, 31, 10, 0.12);
+}
+
+.guna-culture-page .mola-gallery-stage {
+    position: relative;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+}
+
+.guna-culture-page .mola-gallery-link {
+    display: block;
+    position: absolute;
+    inset: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.guna-culture-page .mola-gallery-link:hover .mola-museum-badge {
+    background: rgba(192, 57, 43, 0.95);
+}
+
+.guna-culture-page .mola-museum-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+    padding: 6px 10px;
+    background: rgba(26, 14, 5, 0.78);
+    color: #f5edd8;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    border-radius: 6px;
+    text-align: center;
+    pointer-events: none;
+    transition: background 0.2s;
+}
+
+.guna-culture-page .mola-gallery-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    background: var(--guna-cream);
+    border-top: 1px solid #e8e0d0;
+    border-radius: 0 0 12px 12px;
+}
+
+.guna-culture-page .mola-gallery-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.guna-culture-page .mola-gallery-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #d0c4a8;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.guna-culture-page .mola-gallery-dot.is-active,
+.guna-culture-page .mola-gallery-dot:hover {
+    background: var(--guna-red);
+    transform: scale(1.15);
+}
+
+.guna-culture-page .mola-info-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--guna-red);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--guna-red);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.guna-culture-page .mola-info-btn:hover,
+.guna-culture-page .mola-info-btn[aria-expanded="true"] {
+    background: var(--guna-red);
+    color: #fff;
+}
+
+.guna-culture-page .mola-info-panel {
+    margin-top: 0.75rem;
+    border: 1px solid #e8e0d0;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.guna-culture-page .mola-info-panel[hidden] {
+    display: none;
+}
+
+.guna-culture-page .mola-info-panel-inner {
+    padding: 1rem 1.1rem;
+}
+
+.guna-culture-page .mola-info-panel-inner h4 {
+    color: var(--guna-dark);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.guna-culture-page .mola-info-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--guna-red);
+    margin: 0.75rem 0 0.35rem;
+}
+
+.guna-culture-page .mola-info-panel-inner p {
+    font-size: 0.88rem;
+    color: #5a4030;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.guna-culture-page .mola-info-museum-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    color: var(--guna-red);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.guna-culture-page .mola-info-museum-link:hover {
+    text-decoration: underline;
+}
+
+.guna-culture-page .mola-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+}
+
+.guna-culture-page .mola-slide--active {
+    opacity: 1;
+}
+
+.guna-culture-page .mola-fact {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.guna-culture-page .mola-fact-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--guna-red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.guna-culture-page .mola-fact h5 {
+    font-size: 0.95rem;
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--guna-dark);
+    margin-bottom: 4px;
+}
+
+.guna-culture-page .mola-fact p {
+    font-size: 0.88rem;
+    color: #7a5c40;
+    line-height: 1.6;
+}
+
+/* ── Congreso ── */
+.guna-culture-page .section-congreso {
+    background: #fff;
+}
+
+.guna-culture-page .congreso-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 0;
+}
+
+.guna-culture-page .congreso-block {
+    border-left: 4px solid var(--guna-green);
+    padding: 16px 20px 16px 20px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 2px 12px rgba(61, 31, 10, 0.06);
+}
+
+.guna-culture-page .congreso-block h4 {
+    font-size: 1.1rem;
+    color: var(--guna-dark);
+    margin-bottom: 8px;
+}
+
+.guna-culture-page .congreso-block p {
+    color: #5a4030;
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+.guna-culture-page .tier-diagram {
+    background: var(--guna-cream);
+    border: 1px solid #d0c4a8;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(61, 31, 10, 0.08);
+}
+
+.guna-culture-page .tier-diagram-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a5c40;
+    margin-bottom: 16px;
+}
+
+.guna-culture-page .tier {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.guna-culture-page .tier-1 { background: var(--guna-red); }
+.guna-culture-page .tier-2 { background: var(--guna-gold); }
+.guna-culture-page .tier-3 { background: var(--guna-green); }
+.guna-culture-page .tier-4 { background: #5a4030; }
+
+.guna-culture-page .tier-dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.guna-culture-page .tier-text {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.guna-culture-page .tier-sub {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.78rem;
+}
+
+/* ── Traditions ── */
+.guna-culture-page .section-traditions {
+    background: linear-gradient(135deg, #1a0e05 0%, #2d1810 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.guna-culture-page .section-traditions::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(45deg, rgba(192, 57, 43, 0.06) 0, rgba(192, 57, 43, 0.06) 2px, transparent 2px, transparent 18px);
+    pointer-events: none;
+}
+
+.guna-culture-page .section-traditions .section-label {
+    color: var(--guna-gold);
+}
+
+.guna-culture-page .section-traditions .section-title {
+    color: #f5edd8;
+}
+
+.guna-culture-page .trad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.guna-culture-page .trad-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 28px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.guna-culture-page .trad-card:hover {
+    border-color: rgba(212, 160, 23, 0.35);
+    transform: translateY(-3px);
+}
+
+.guna-culture-page .trad-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--guna-gold);
+}
+
+.guna-culture-page .trad-card h4 {
+    color: #f5edd8;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.guna-culture-page .trad-card p {
+    color: #a89278;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.guna-culture-page .trad-tag {
+    display: inline-block;
+    margin-top: 14px;
+    background: rgba(212, 160, 23, 0.15);
+    color: var(--guna-gold);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+/* ── CTA ── */
+.guna-culture-page .section-cta {
+    position: relative;
+    padding: 64px 0;
+    background: var(--guna-red);
+    text-align: center;
+    overflow: hidden;
+}
+
+.guna-culture-page .section-cta__bg {
+    position: absolute;
+    inset: 0;
+    background-color: #0a0a0a;
+    background-image: url('../Images/guna-hero-mola-banner.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.guna-culture-page .section-cta__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 6, 4, 0.88) 0%,
+        rgba(17, 128, 43, 0.55) 50%,
+        rgba(8, 6, 4, 0.88) 100%
+    );
+}
+
+.guna-culture-page .section-cta__content {
+    position: relative;
+    z-index: 1;
+}
+
+.guna-culture-page .section-cta h2 {
+    color: #fff;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 12px;
+}
+
+.guna-culture-page .section-cta p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 28px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.guna-culture-page .btn-guna {
+    display: inline-block;
+    background: linear-gradient(135deg, #e8b923 0%, var(--guna-gold) 100%);
+    color: var(--guna-dark);
+    font-weight: var(--font-weight-semibold, 600);
+    padding: 13px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.guna-culture-page .btn-guna:hover {
+    transform: translateY(-2px);
+    color: var(--guna-dark);
+    opacity: 0.88;
+}
+
+/* ── Coming Soon Languages ── */
+.guna-culture-page .coming-soon-section {
+    padding: 72px 0;
+    background: var(--guna-cream);
+    border-top: 1px solid #e8e0d0;
+}
+
+.guna-culture-page .coming-soon-section .section-subtitle {
+    color: #7a5c40;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.guna-culture-page .coming-soon-card {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 1.5rem;
+    background: #fff;
+    border: 1px solid #e8e0d0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(61, 31, 10, 0.06);
+    transition: var(--transition, all 0.3s ease);
+}
+
+.guna-culture-page .coming-soon-card::after {
+    content: 'COMING SOON';
+    position: absolute;
+    top: 22px;
+    right: -38px;
+    width: 160px;
+    padding: 6px 0;
+    background: var(--guna-red);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    transform: rotate(45deg);
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(192, 57, 43, 0.35);
+}
+
+.guna-culture-page .coming-soon-card .language-title {
+    color: var(--guna-dark);
+    font-family: var(--font-primary, 'Fredoka', sans-serif);
+    margin-bottom: 0.75rem;
+}
+
+.guna-culture-page .coming-soon-card .language-description {
+    color: #7a5c40;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.guna-culture-page .coming-soon-card .stat-item {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 13px;
+    color: #7a5c40;
+}
+
+.guna-culture-page .coming-soon-card .stat-item i {
+    margin-right: 4px;
+    color: var(--guna-red);
+}
+
+.guna-culture-page .coming-soon-card .btn-coming-soon {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1px solid #d0c4a8;
+    border-radius: 8px;
+    background: var(--guna-cream);
+    color: #7a5c40;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: not-allowed;
+}
+
+.guna-culture-page .coming-soon-card.is-disabled {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] .guna-culture-page {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .guna-culture-page .section-map,
+[data-theme="dark"] .guna-culture-page .section-congreso {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .congreso-header__flag {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(212, 160, 23, 0.35);
+}
+
+[data-theme="dark"] .guna-culture-page .congreso-header__flag .flag-caption {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .learn-map-hand-icon {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .guna-culture-page .section-title,
+[data-theme="dark"] .guna-culture-page .coming-soon-card .language-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .guna-culture-page .section-lead,
+[data-theme="dark"] .guna-culture-page .stat-desc,
+[data-theme="dark"] .guna-culture-page .mola-fact p,
+[data-theme="dark"] .guna-culture-page .congreso-block p,
+[data-theme="dark"] .guna-culture-page .coming-soon-section .section-subtitle,
+[data-theme="dark"] .guna-culture-page .coming-soon-card .language-description,
+[data-theme="dark"] .guna-culture-page .coming-soon-card .stat-item {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .stat-box,
+[data-theme="dark"] .guna-culture-page .tier-diagram {
+    background: var(--card-bg);
+}
+
+[data-theme="dark"] .guna-culture-page .section-mola,
+[data-theme="dark"] .guna-culture-page .coming-soon-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .guna-culture-page .coming-soon-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .guna-culture-page .coming-soon-card .btn-coming-soon {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .map-wrapper,
+[data-theme="dark"] .guna-culture-page .mola-visual,
+[data-theme="dark"] .guna-culture-page .learn-map-stage {
+    border-color: var(--guna-gold);
+}
+
+[data-theme="dark"] .guna-culture-page .learn-map-panel,
+[data-theme="dark"] .guna-culture-page .learn-map-modal-panel,
+[data-theme="dark"] .guna-culture-page .mola-info-panel {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .mola-gallery-toolbar {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .guna-culture-page .mola-fact h5,
+[data-theme="dark"] .guna-culture-page .congreso-block h4 {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .guna-culture-page .mola-showcase,
+    .guna-culture-page .congreso-grid,
+    .guna-culture-page .congreso-header,
+    .guna-culture-page .map-interactive-wrap,
+    .guna-culture-page .learn-map-modal-body {
+        grid-template-columns: 1fr;
+    }
+
+    .guna-culture-page .congreso-header {
+        grid-template-columns: 1fr;
+    }
+
+    .guna-culture-page .congreso-header__flag {
+        margin: 0 auto;
+        max-width: 220px;
+    }
+
+    .guna-culture-page .learn-map-stage--featured {
+        aspect-ratio: 16 / 10;
+        min-height: 260px;
+    }
+
+    .guna-culture-page .stats-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .guna-culture-page .guna-hero {
+        min-height: 300px;
+        padding: 80px 0 40px;
+    }
+
+    .guna-culture-page .guna-hero__text-panel {
+        padding: 1.25rem 1.35rem;
+    }
+}
