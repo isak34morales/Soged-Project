@@ -575,6 +575,21 @@ body {
     transition: var(--transition);
 }
 
+.team-photo--initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.team-photo--initials span {
+    line-height: 1;
+}
+
 .team-slide:hover .team-photo {
     transform: scale(1.1);
     border-color: var(--accent-color);
@@ -1130,6 +1145,84 @@ body {
     position: relative;
 }
 
+.about-photo-carousel {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 16 / 9;
+    background: #0f172a;
+}
+
+.about-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.about-carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    margin: 0;
+}
+
+.about-carousel-slide.is-active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.about-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--primary-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.about-carousel-btn:hover {
+    transform: translateY(-50%) scale(1.06);
+    background: #fff;
+}
+
+.about-carousel-btn--prev { left: 14px; }
+.about-carousel-btn--next { right: 14px; }
+
+.about-carousel-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+}
+
+.about-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.about-carousel-dot.is-active {
+    background: #fff;
+    transform: scale(1.15);
+}
+
 .about-group-img {
     width: 100%;
     height: auto;
@@ -1139,8 +1232,8 @@ body {
 }
 
 .responsive-hero {
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
+    aspect-ratio: auto;
+    overflow: visible;
 }
 
 .responsive-hero .about-group-img {
@@ -1249,6 +1342,29 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.about-stat-card.is-active,
+.about-stat-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(40, 167, 69, 0.18);
+}
+
+.about-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 0.85rem;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: #fff;
+    font-size: 1.25rem;
 }
 
 .about-stat-number {
@@ -1259,11 +1375,12 @@ body {
 }
 
 .about-stat-label {
-    font-size: 1.1rem;
-    color: #a0aec0;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+    text-transform: none;
 }
 
 @media (max-width: 991px) {
