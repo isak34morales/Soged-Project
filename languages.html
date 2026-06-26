@@ -76,15 +76,7 @@
                     </div>
                 </div>
                 <div class="col-md-7" data-aos="fade-left">
-                    <div class="map-wrapper">
-                        <div class="map-tooltip"><i class="fas fa-map-pin"></i> Guna Yala, Panama</div>
-                        <img
-                            src="Images/Molas - Guna/Comarca-Guna-Yala.jpg"
-                            alt="Map of Panama highlighting the Guna Yala comarca along the Caribbean coast"
-                            class="map-image"
-                            loading="lazy"
-                        >
-                    </div>
+                    <div class="map-interactive-wrap" id="guna-learn-map" aria-label="Interactive map of Guna Yala"></div>
                 </div>
             </div>
         </div>
@@ -137,10 +129,7 @@
     <section class="gc-section section-mola" id="mola">
         <div class="container">
             <div class="mola-showcase">
-                <div class="mola-visual" id="mola-carousel" data-aos="fade-right" aria-label="Rotating gallery of Guna mola textiles">
-                    <img class="mola-slide" alt="Traditional Guna mola textile art" aria-hidden="true">
-                    <img class="mola-slide" alt="Traditional Guna mola textile art" aria-hidden="true">
-                </div>
+                <div class="mola-visual" id="mola-carousel" data-aos="fade-right"></div>
                 <div class="mola-facts" data-aos="fade-left">
                     <p class="section-label">Ancestral Textile Art</p>
                     <h2 class="section-title" style="margin-bottom:28px;">The Mola:<br>Identity Woven in Layers</h2>
@@ -355,6 +344,11 @@
 
     <div id="footer-component"></div>
 
+    <!-- Expanded map modal -->
+    <div id="learnMapModal" class="learn-map-modal" hidden role="dialog" aria-modal="true" aria-label="Expanded Guna Yala map">
+        <div class="learn-map-modal-body"></div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/components.js"></script>
@@ -362,6 +356,7 @@
     <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/mola-carousel.js"></script>
+    <script src="js/guna-learn-map.js"></script>
     <script>
         AOS.init({ duration: 600, offset: 90 });
     </script>

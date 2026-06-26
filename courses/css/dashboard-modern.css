@@ -3490,14 +3490,14 @@ body.dark-mode .sidebar { background: #1e2229; }
     overflow: hidden;
     box-shadow: var(--shadow-md);
     border: 1px solid var(--border-color, #e0e0e0);
-    background: #c5e3f0;
-    aspect-ratio: 1000 / 520;
+    background: #a9c9d9;
+    aspect-ratio: 734 / 370;
 }
 .panama-map-img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .map-hotspot {
     position: absolute;

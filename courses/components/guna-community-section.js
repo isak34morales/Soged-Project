@@ -27,7 +27,7 @@ class GunaCommunitySection extends HTMLElement {
                 population: '~34,000 habitantes',
                 traditions: 'Elaboración de molas, cantos ceremoniales, cayuco colectivo y gobierno por saglas.',
                 facts: 'Es una de las comarcas indígenas más conocidas de Panamá y un destino cultural único.',
-                image: '../Images/Molas - Guna/Comarca-Guna-Yala.jpg'
+                image: '../Images/panama-guna-map.png'
             },
             'madugandi': {
                 name: 'Madugandí',

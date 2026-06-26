@@ -16,8 +16,8 @@ class GunaTerritorySection extends HTMLElement {
             {
                 id: 'guna-yala',
                 label: 'Guna Yala',
-                top: '24%',
-                left: '68%',
+                top: '15%',
+                left: '56%',
                 name: 'Comarca Guna Yala',
                 molaImage: '../Images/Molas - Guna/Mola 1.jpg',
                 molaTitle: 'Molas of Guna Yala',
@@ -29,7 +29,7 @@ class GunaTerritorySection extends HTMLElement {
             {
                 id: 'ailigandi',
                 label: 'Ailigandí',
-                top: '22%',
+                top: '12%',
                 left: '78%',
                 name: 'Ailigandí Island',
                 molaImage: '../Images/Molas - Guna/Mola 2.jpg',
@@ -42,8 +42,8 @@ class GunaTerritorySection extends HTMLElement {
             {
                 id: 'carti',
                 label: 'Cartí',
-                top: '28%',
-                left: '63%',
+                top: '18%',
+                left: '54%',
                 name: 'Cartí Sugdup',
                 molaImage: '../Images/Molas - Guna/Mola 3.jpg',
                 molaTitle: 'Gateway Molas',
@@ -55,8 +55,8 @@ class GunaTerritorySection extends HTMLElement {
             {
                 id: 'nargana',
                 label: 'Narganá',
-                top: '26%',
-                left: '85%',
+                top: '14%',
+                left: '86%',
                 name: 'Narganá Island',
                 molaImage: '../Images/Molas - Guna/Mola 4.jpg',
                 molaTitle: 'Island Mola Art',
@@ -68,8 +68,8 @@ class GunaTerritorySection extends HTMLElement {
             {
                 id: 'mola-tradition',
                 label: 'Mola Art',
-                top: '32%',
-                left: '72%',
+                top: '20%',
+                left: '68%',
                 name: 'Mola — Sacred Textile',
                 molaImage: '../Images/Molas - Guna/Mola 5.jpg',
                 molaTitle: 'The Art of the Mola',
