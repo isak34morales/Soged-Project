@@ -26,9 +26,10 @@
 /* ── Hero ── */
 .guna-culture-page .guna-hero {
     position: relative;
-    min-height: 520px;
+    min-height: 480px;
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
     padding: 100px 0 64px;
 }
@@ -39,24 +40,26 @@
     background-image: url('../Images/guna-hero-mola-garment.png');
     background-size: cover;
     background-position: center 42%;
+    transform: scale(1.02);
 }
 
 .guna-culture-page .guna-hero__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        95deg,
-        rgba(8, 6, 4, 0.9) 0%,
-        rgba(8, 6, 4, 0.78) 38%,
-        rgba(8, 6, 4, 0.52) 62%,
-        rgba(8, 6, 4, 0.28) 100%
+        180deg,
+        rgba(8, 6, 4, 0.48) 0%,
+        rgba(8, 6, 4, 0.38) 45%,
+        rgba(8, 6, 4, 0.52) 100%
     );
 }
 
 .guna-culture-page .guna-hero__content {
     position: relative;
     z-index: 2;
-    max-width: 720px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 .guna-culture-page .guna-hero__text-panel {
@@ -68,6 +71,7 @@
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    margin: 0 auto;
 }
 
 .guna-culture-page .hero-eyebrow {
@@ -99,8 +103,8 @@
     font-size: clamp(1rem, 1.6vw, 1.1rem);
     line-height: 1.7;
     max-width: 520px;
+    margin: 0 auto 1rem;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
-    margin-bottom: 1rem;
 }
 
 .guna-culture-page .hero-museum-credit {
@@ -123,18 +127,62 @@
     transform: translateY(-1px);
 }
 
-.guna-culture-page .hero-flag {
-    position: absolute;
-    right: 6%;
-    top: 54%;
-    transform: translateY(-50%);
-    z-index: 2;
+/* ── Mola separator strip (single line, full width, 90–120px) ── */
+.guna-culture-page .mola-separator {
+    width: 100%;
+    height: clamp(90px, 9vw, 120px);
+    overflow: hidden;
+    line-height: 0;
+    flex-shrink: 0;
+}
+
+.guna-culture-page .mola-separator img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+}
+
+.guna-culture-page .congreso-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.guna-culture-page .congreso-header-text {
+    max-width: 640px;
+}
+
+.guna-culture-page .congreso-header-text .section-lead {
+    margin-bottom: 0;
+}
+
+.guna-culture-page .section-congreso-flag {
+    position: static;
     text-align: center;
-    padding: 0.75rem;
+    padding: 0.6rem 0.7rem;
     border-radius: 12px;
-    background: rgba(8, 6, 4, 0.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(212, 160, 23, 0.45);
+    box-shadow: 0 8px 28px rgba(61, 31, 10, 0.1);
+    justify-self: end;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+.guna-culture-page .section-congreso-flag .flag-frame {
+    width: 160px;
+    height: 102px;
+}
+
+.guna-culture-page .section-congreso-flag .flag-caption {
+    margin-top: 8px;
+    color: #5a4030;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
 }
 
 .guna-culture-page .flag-frame {
@@ -164,11 +212,22 @@
 
 /* ── Sections ── */
 .guna-culture-page .gc-section {
-    padding: 72px 0;
+    padding: 80px 0;
 }
 
 .guna-culture-page .section-map {
     background: #fff;
+    padding-bottom: 64px;
+}
+
+.guna-culture-page .map-full-wrap {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.guna-culture-page .map-interactive-wrap--full {
+    display: block;
+    width: 100%;
 }
 
 .guna-culture-page .section-label {
@@ -218,6 +277,17 @@
     box-shadow: 0 8px 24px rgba(61, 31, 10, 0.12);
     background: #a9c9d9;
     aspect-ratio: 734 / 370;
+}
+
+.guna-culture-page .learn-map-stage--featured {
+    aspect-ratio: 21 / 9;
+    min-height: 340px;
+    max-height: 520px;
+}
+
+.guna-culture-page .learn-map-stage--featured .learn-map-img {
+    object-fit: cover;
+    object-position: center top;
 }
 
 .guna-culture-page .learn-map-stage--expanded {
@@ -322,10 +392,17 @@
     padding: 1.5rem 0.5rem;
 }
 
-.guna-culture-page .learn-map-panel-placeholder i {
-    font-size: 1.5rem;
-    color: var(--guna-red);
-    margin-bottom: 0.5rem;
+.guna-culture-page .learn-map-panel-hand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    padding: 2rem 1rem;
+}
+
+.guna-culture-page .learn-map-hand-icon {
+    font-size: 2.75rem;
+    color: var(--guna-dark);
     display: block;
 }
 
@@ -527,29 +604,7 @@
 /* ── Mola carousel ── */
 .guna-culture-page .section-mola {
     background: var(--guna-cream);
-    padding-top: 0;
-}
-
-.guna-culture-page .mola-section-banner {
-    width: 100%;
-    max-height: 72px;
-    overflow: hidden;
-    margin-bottom: 2.5rem;
-    border-top: 3px solid var(--guna-red);
-    border-bottom: 3px solid var(--guna-red);
-    background: #0a0a0a;
-}
-
-.guna-culture-page .mola-section-banner img {
-    display: block;
-    width: 100%;
-    height: 72px;
-    object-fit: cover;
-    object-position: center;
-}
-
-.guna-culture-page .section-mola .container {
-    padding-top: 0;
+    padding-top: 80px;
 }
 
 .guna-culture-page .mola-showcase {
@@ -767,12 +822,15 @@
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: start;
-    margin-top: 40px;
+    margin-top: 0;
 }
 
 .guna-culture-page .congreso-block {
     border-left: 4px solid var(--guna-green);
-    padding-left: 20px;
+    padding: 16px 20px 16px 20px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 2px 12px rgba(61, 31, 10, 0.06);
 }
 
 .guna-culture-page .congreso-block h4 {
@@ -918,7 +976,7 @@
 
 /* ── CTA ── */
 .guna-culture-page .section-cta {
-    padding: 64px 0;
+    padding: 72px 0 80px;
     background: var(--guna-red);
     text-align: center;
 }
@@ -939,7 +997,7 @@
 
 .guna-culture-page .btn-guna {
     display: inline-block;
-    background: var(--guna-gold);
+    background: linear-gradient(135deg, #e8b923 0%, var(--guna-gold) 100%);
     color: var(--guna-dark);
     font-weight: var(--font-weight-semibold, 600);
     padding: 13px 36px;
@@ -1053,6 +1111,19 @@
     background: var(--bg-secondary);
 }
 
+[data-theme="dark"] .guna-culture-page .section-congreso-flag {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(212, 160, 23, 0.35);
+}
+
+[data-theme="dark"] .guna-culture-page .section-congreso-flag .flag-caption {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .guna-culture-page .learn-map-hand-icon {
+    color: var(--text-primary);
+}
+
 [data-theme="dark"] .guna-culture-page .section-title,
 [data-theme="dark"] .guna-culture-page .coming-soon-card .language-title {
     color: var(--text-primary);
@@ -1116,13 +1187,25 @@
 @media (max-width: 768px) {
     .guna-culture-page .mola-showcase,
     .guna-culture-page .congreso-grid,
+    .guna-culture-page .congreso-header,
     .guna-culture-page .map-interactive-wrap,
     .guna-culture-page .learn-map-modal-body {
         grid-template-columns: 1fr;
     }
 
-    .guna-culture-page .hero-flag {
-        display: none;
+    .guna-culture-page .congreso-header {
+        gap: 1.5rem;
+    }
+
+    .guna-culture-page .section-congreso-flag {
+        justify-self: center;
+        max-width: 190px;
+        margin: 0 auto;
+    }
+
+    .guna-culture-page .learn-map-stage--featured {
+        aspect-ratio: 16 / 10;
+        min-height: 260px;
     }
 
     .guna-culture-page .stats-strip {

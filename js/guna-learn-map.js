@@ -59,7 +59,7 @@
     }
 
     function mapStageHtml(expanded) {
-        var cls = expanded ? 'learn-map-stage learn-map-stage--expanded' : 'learn-map-stage';
+        var cls = expanded ? 'learn-map-stage learn-map-stage--expanded' : 'learn-map-stage learn-map-stage--featured';
         return '<div class="' + cls + '" id="learnMapStage">' +
             '<img src="Images/panama-guna-map.png" alt="Map of Panama highlighting Guna Yala" class="learn-map-img" ' +
                 'onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=\'Images/panama-guna-map.svg\';}">' +
@@ -73,9 +73,8 @@
 
     function panelHtml(point) {
         if (!point) {
-            return '<div class="learn-map-panel-placeholder">' +
-                '<i class="fas fa-hand-pointer" aria-hidden="true"></i>' +
-                '<p>Tap a point on the <strong>red zone</strong> or expand the map to explore the islands of Guna Yala.</p>' +
+            return '<div class="learn-map-panel-placeholder learn-map-panel-hand" aria-label="Select a point on the map">' +
+                '<i class="fas fa-hand-pointer learn-map-hand-icon" aria-hidden="true"></i>' +
             '</div>';
         }
         return '<h4>' + point.name + '</h4>' +
@@ -88,7 +87,6 @@
 
     function bindMap(root, isModal) {
         var panel = root.querySelector(isModal ? '#learnMapModalPanel' : '#learnMapPanel');
-        var stage = root.querySelector('#learnMapStage');
 
         function showPoint(id) {
             var point = MAP_POINTS.find(function (p) { return p.id === id; });
@@ -101,20 +99,18 @@
         root.querySelectorAll('.learn-map-hotspot').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
+                if (!isModal) {
+                    openModal(btn.dataset.point);
+                    return;
+                }
                 showPoint(btn.dataset.point);
             });
         });
 
-        if (!isModal && stage) {
-            stage.addEventListener('click', function (e) {
-                if (e.target.closest('.learn-map-hotspot') || e.target.closest('.learn-map-expand-btn')) return;
-            });
-        }
-
         return { showPoint: showPoint };
     }
 
-    function openModal() {
+    function openModal(pointId) {
         var overlay = document.getElementById('learnMapModal');
         if (!overlay) return;
         overlay.hidden = false;
@@ -128,8 +124,12 @@
                 mapStageHtml(true) +
                 '<aside class="learn-map-modal-panel" id="learnMapModalPanel">' + panelHtml(null) + '</aside>';
             inner.dataset.ready = '1';
-            bindMap(inner, true);
+            var modalMap = bindMap(inner, true);
+            inner._modalMap = modalMap;
             document.getElementById('learnMapCloseBtn').addEventListener('click', closeModal);
+        }
+        if (pointId && inner._modalMap) {
+            inner._modalMap.showPoint(pointId);
         }
     }
 
@@ -144,14 +144,11 @@
         var wrap = document.getElementById('guna-learn-map');
         if (!wrap) return;
 
-        wrap.innerHTML =
-            mapStageHtml(false) +
-            '<aside class="learn-map-panel" id="learnMapPanel">' + panelHtml(null) + '</aside>';
-
+        wrap.innerHTML = mapStageHtml(false);
         bindMap(wrap, false);
 
         var expandBtn = document.getElementById('learnMapExpandBtn');
-        if (expandBtn) expandBtn.addEventListener('click', openModal);
+        if (expandBtn) expandBtn.addEventListener('click', function () { openModal(null); });
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeModal();
