@@ -105,6 +105,7 @@ class LearningSection extends HTMLElement {
                     margin-bottom: 0.5rem;
                     position: relative;
                     z-index: 1;
+                    color: #000000;
                 }
 
                 .section-subtitle {
@@ -145,7 +146,7 @@ class LearningSection extends HTMLElement {
                     left: 50%;
                     width: 4px;
                     transform: translateX(-50%);
-                    background: linear-gradient(180deg, var(--success-color), var(--primary-color), var(--text-light));
+                    background: #22c55e;
                     border-radius: 4px;
                     z-index: 0;
                 }
@@ -297,7 +298,7 @@ class LearningSection extends HTMLElement {
                     font-size: 1.25rem;
                     font-weight: 600;
                     margin-bottom: 0.5rem;
-                    color: var(--text-primary);
+                    color: #000000;
                 }
 
                 .lesson-description {

@@ -859,6 +859,32 @@
     background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
 }
 
+.checkmark {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #28A745;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.memory-card-modern {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.memory-card-modern.flipped {
+    transform: rotateY(180deg);
+}
+
 .card-icon {
     font-size: 2.5rem;
 }

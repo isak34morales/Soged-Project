@@ -8,23 +8,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .soggy-chat-container {
-            max-width: 900px;
+            max-width: 600px;
             margin: 2rem auto;
-            background: linear-gradient(135deg, #FFF8E1 0%, #FFE0B2 100%);
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: #efeae2;
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: relative;
+            height: calc(100vh - 4rem);
+            display: flex;
+            flex-direction: column;
         }
 
         .soggy-header {
-            background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 50%, #FFA000 100%);
-            padding: 2rem;
+            background: #075e54;
+            padding: 0.75rem 1rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 0.75rem;
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid #128c7e;
         }
 
         .soggy-header::before {
@@ -39,15 +43,12 @@
         }
 
         .soggy-avatar {
-            width: 90px;
-            height: 90px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: 4px solid #FFD54F;
             object-fit: cover;
-            animation: float 3s ease-in-out infinite;
             position: relative;
             z-index: 1;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         @keyframes float {
@@ -64,16 +65,15 @@
         .soggy-info h3 {
             color: white;
             margin: 0;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         .soggy-info p {
-            color: rgba(255, 255, 255, 0.95);
-            margin: 0.5rem 0 0 0;
-            font-size: 1rem;
-            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0.1rem 0 0 0;
+            font-size: 0.75rem;
+            font-weight: 400;
         }
 
         .premium-badge {
@@ -89,19 +89,20 @@
         }
 
         .chat-messages {
-            height: 450px;
+            flex: 1;
             overflow-y: auto;
-            padding: 2rem;
-            background: linear-gradient(180deg, #FFFDE7 0%, #FFF8E1 100%);
+            padding: 1rem;
+            background: #efeae2;
             scroll-behavior: smooth;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="whatsapp" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(0,0,0,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23whatsapp)"/></svg>');
         }
 
         .message {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            animation: slideIn 0.3s ease-out;
+            align-items: flex-end;
+            gap: 0.5rem;
+            animation: slideIn 0.2s ease-out;
         }
 
         @keyframes slideIn {
@@ -117,52 +118,51 @@
 
         .message.user {
             flex-direction: row-reverse;
+            justify-content: flex-end;
         }
 
         .message-avatar {
-            width: 45px;
-            height: 45px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1rem;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .message.ai .message-avatar {
-            background: linear-gradient(135deg, #FF6F00, #FF8F00);
+            background: #075e54;
             color: white;
-            border: 3px solid #FFD54F;
         }
 
         .message.user .message-avatar {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            background: #128c7e;
             color: white;
-            border: 3px solid #81C784;
         }
 
         .message-content {
-            max-width: 75%;
-            padding: 1.25rem 1.5rem;
-            border-radius: 20px;
-            font-size: 1rem;
-            line-height: 1.6;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 70%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            word-wrap: break-word;
         }
 
         .message.ai .message-content {
-            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
-            border: 2px solid #FFD54F;
-            border-top-left-radius: 8px;
+            background: white;
+            border-top-left-radius: 0;
             color: #333;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .message.user .message-content {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
-            color: white;
-            border-top-right-radius: 8px;
+            background: #dcf8c6;
+            border-top-right-radius: 0;
+            color: #333;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .typing-indicator {
@@ -193,31 +193,34 @@
         }
 
         .chat-input-area {
-            padding: 2rem;
-            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
-            border-top: 3px solid #FFD54F;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .input-group {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
+            flex: 1;
+            align-items: center;
         }
 
         .chat-input {
             flex: 1;
-            padding: 1rem 1.5rem;
-            border: 2px solid #FFD54F;
-            border-radius: 30px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
             background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .chat-input:focus {
             outline: none;
-            border-color: #FF6F00;
-            box-shadow: 0 0 0 4px rgba(255, 111, 0, 0.15);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         .chat-input:disabled {
@@ -226,24 +229,22 @@
         }
 
         .send-btn {
-            width: 55px;
-            height: 55px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #FF6F00, #FF8F00);
+            background: #075e54;
             color: white;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
+            font-size: 1rem;
+            transition: all 0.2s ease;
         }
 
         .send-btn:hover:not(:disabled) {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(255, 111, 0, 0.4);
+            background: #128c7e;
         }
 
         .send-btn:disabled {
@@ -252,71 +253,12 @@
             transform: none;
         }
 
-        /* Premium Overlay */
-        .premium-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            border-radius: 24px;
-        }
-
-        .premium-modal {
-            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
-            padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            border: 3px solid #FFD54F;
-        }
-
-        .premium-modal img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #FFD54F;
-            margin-bottom: 1.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .premium-modal h3 {
-            color: #FF6F00;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .premium-modal p {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .premium-btn {
-            background: linear-gradient(135deg, #FF6F00, #FF8F00);
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
-        }
-
-        .premium-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 111, 0, 0.4);
+        /* Message timestamp */
+        .message-time {
+            font-size: 0.65rem;
+            color: rgba(0, 0, 0, 0.45);
+            margin-top: 0.25rem;
+            text-align: right;
         }
 
         @media (max-width: 768px) {
@@ -361,8 +303,7 @@
             <img src="../Images/Soged/Newturttle.png" alt="Soggy" class="soggy-avatar">
             <div class="soggy-info">
                 <h3>Soggy AI</h3>
-                <p>Tu tutor experto en lenguas indígenas de Panamá</p>
-                <span class="premium-badge" id="userTier">Free</span>
+                <p>En línea</p>
             </div>
         </div>
 
@@ -372,7 +313,8 @@
                     <i class="fas fa-turtle"></i>
                 </div>
                 <div class="message-content">
-                    ¡Hola! Soy Soggy, tu mascota y tutor en lenguas indígenas de Panamá. Estoy aquí para ayudarte a aprender Guna, Ngäbe y Naso. ¿En qué puedo ayudarte hoy?
+                    ¡Hola! Soy Soggy, tu asistente en lenguas indígenas de Panamá. ¿En qué puedo ayudarte hoy?
+                    <div class="message-time">Ahora</div>
                 </div>
             </div>
         </div>
@@ -382,22 +324,10 @@
                 <input type="text" 
                        class="chat-input" 
                        id="messageInput" 
-                       placeholder="Escribe tu mensaje aquí..." 
+                       placeholder="Escribe un mensaje..." 
                        autocomplete="off">
                 <button class="send-btn" id="sendBtn" disabled>
                     <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Premium Overlay for Free Users -->
-        <div class="premium-overlay" id="premiumOverlay" style="display: none;">
-            <div class="premium-modal">
-                <img src="../Images/Soged/Newturttle.png" alt="Soggy">
-                <h3>🔒 Desbloquea Soggy AI Premium</h3>
-                <p>Obtén acceso ilimitado a tutoría en tiempo real con Soggy, corrección gramatical avanzada y lecciones personalizadas.</p>
-                <button class="premium-btn" onclick="upgradeToPremium()">
-                    <i class="fas fa-crown"></i> Actualizar a Premium
                 </button>
             </div>
         </div>
@@ -407,38 +337,18 @@
         const chatMessages = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
         const sendBtn = document.getElementById('sendBtn');
-        const premiumOverlay = document.getElementById('premiumOverlay');
-        const userTier = document.getElementById('userTier');
         
         let isLoading = false;
         let userId = localStorage.getItem('userId') || generateUserId();
         localStorage.setItem('userId', userId);
-        let isPremium = localStorage.getItem('isPremium') === 'true';
 
         function generateUserId() {
             return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        function checkPremiumStatus() {
-            if (isPremium) {
-                userTier.textContent = 'Premium';
-                userTier.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
-                premiumOverlay.style.display = 'none';
-            } else {
-                userTier.textContent = 'Free';
-                userTier.style.background = 'linear-gradient(135deg, #9E9E9E, #757575)';
-                // Show premium overlay after first message
-                setTimeout(() => {
-                    if (!isPremium) {
-                        premiumOverlay.style.display = 'flex';
-                    }
-                }, 30000); // Show after 30 seconds
-            }
-        }
-
-        function upgradeToPremium() {
-            // Here you would integrate Stripe for actual payment
-            alert('¡Gracias por tu interés! El sistema de pago Premium se integrará próximamente con Stripe.');
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
         }
 
         function scrollToBottom() {
@@ -455,7 +365,7 @@
             
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
-            contentDiv.textContent = content;
+            contentDiv.innerHTML = `${content}<div class="message-time">${getCurrentTime()}</div>`;
             
             messageDiv.appendChild(avatarDiv);
             messageDiv.appendChild(contentDiv);
@@ -512,12 +422,6 @@
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
 
-            // Check premium status before sending
-            if (!isPremium) {
-                premiumOverlay.style.display = 'flex';
-                return;
-            }
-
             addMessage(message, true);
             messageInput.value = '';
             sendBtn.disabled = true;
@@ -564,7 +468,6 @@
         sendBtn.addEventListener('click', sendMessage);
 
         // Initialize
-        checkPremiumStatus();
         scrollToBottom();
     </script>
 </body>

@@ -124,8 +124,8 @@ class GunaMemorySection extends HTMLElement {
     }
 
     startGame() {
-        const pairCounts = { easy: 4, medium: 6, hard: 8 };
-        const count = Math.min(pairCounts[this.difficulty] || 6, this.getWords().length);
+        // Always use 4x4 grid (8 pairs)
+        const count = 8;
         const words = this.shuffle(this.getWords()).slice(0, count);
         const pairs = words.map((w, i) => ({
             id: `pair-${i}`, es: w.es, guna: w.guna, icon: w.icon
@@ -157,8 +157,8 @@ class GunaMemorySection extends HTMLElement {
         };
 
         const renderGrid = () => {
-            const gridClass = count <= 4 ? 'grid-3x4' : 'grid-4x4';
-            grid.className = `memory-grid-modern ${gridClass}`;
+            // Always use 4x4 grid
+            grid.className = 'memory-grid-modern grid-4x4';
             
             grid.innerHTML = state.cards.map((c, i) => `
                 <button type="button" 
@@ -173,6 +173,7 @@ class GunaMemorySection extends HTMLElement {
                         <div class="card-back">
                             <span class="card-language">${c.language}</span>
                             <span class="card-word">${c.label}</span>
+                            ${c.matched ? '<span class="checkmark">✓</span>' : ''}
                         </div>
                     </div>
                 </button>
@@ -236,7 +237,7 @@ class GunaMemorySection extends HTMLElement {
                     setTimeout(onWin, 500);
                 }
             } else {
-                // No match - show error then flip back
+                // No match - show error then flip back after 1 second
                 a.error = true;
                 b.error = true;
                 renderGrid();
@@ -249,7 +250,7 @@ class GunaMemorySection extends HTMLElement {
                     state.flipped = [];
                     state.lock = false;
                     renderGrid();
-                }, 1200);
+                }, 1000);
             }
         };
 
