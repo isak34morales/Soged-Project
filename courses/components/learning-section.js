@@ -396,6 +396,39 @@ class LearningSection extends HTMLElement {
                     box-shadow: var(--shadow-md);
                 }
 
+                .soggy-avatar-dynamic {
+                    position: absolute;
+                    top: -15px;
+                    right: -15px;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    border: 3px solid var(--success-color);
+                    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+                    animation: bounce 2s infinite;
+                    z-index: 10;
+                }
+
+                .soggy-avatar-img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-8px); }
+                }
+
+                .opacity-60 {
+                    opacity: 0.6;
+                }
+
+                .pointer-events-none {
+                    pointer-events: none;
+                }
+
                 /* Responsive Design */
                 @media (max-width: 768px) {
                     .learning-section {
@@ -459,11 +492,13 @@ class LearningSection extends HTMLElement {
 
     generateLessonsForCourse() {
         const lessons = this.getLessonsData();
+        const currentLevel = this.getCurrentLevel();
         return lessons.map((lesson, index) => `
             <div class="path-step">
-                <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''}" data-lesson="${lesson.id}">
+                <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''} ${lesson.status === 'locked' ? 'opacity-60 pointer-events-none' : ''}" data-lesson="${lesson.id}">
                     ${lesson.type === 'boss' ? '<div class="boss-badge">BOSS</div>' : ''}
                     <div class="lesson-level-num">${lesson.id}</div>
+                    ${lesson.id === currentLevel ? this.generateSoggyAvatar() : ''}
                     <div class="lesson-icon">
                         <i class="fas ${this.getLessonIcon(lesson.status, lesson.type)}"></i>
                     </div>
@@ -484,6 +519,20 @@ class LearningSection extends HTMLElement {
         `).join('');
     }
 
+    getCurrentLevel() {
+        const lessons = this.getLessonsData();
+        const currentLesson = lessons.find(l => l.status === 'current');
+        return currentLesson ? currentLesson.id : 1;
+    }
+
+    generateSoggyAvatar() {
+        return `
+            <div class="soggy-avatar-dynamic">
+                <img src="../Images/Soged/Newturttle.png" alt="Soggy" class="soggy-avatar-img">
+            </div>
+        `;
+    }
+
     getLessonsData() {
         // Data específica por curso
         const courseLessons = {
@@ -495,16 +544,19 @@ class LearningSection extends HTMLElement {
                 { id: 5, title: 'Level 1 Assessment', description: 'Test your knowledge with cultural scenarios', status: 'locked', xp: 200, duration: 45, exercises: 25, type: 'boss' }
             ],
             'guna': [
-                { id: 1, title: 'Greetings & Introductions', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
-                { id: 2, title: 'Family', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 3, title: 'Home Objects', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 4, title: 'Nature', description: 'Water, fire, wood and clay', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
-                { id: 5, title: 'Animals', description: 'Sea creatures, birds and forest animals', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 6, title: 'Plants & Food', description: 'Coconut, corn, yuca and traditional foods', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 7, title: 'Basic Conversations', description: 'Where, who, and everyday phrases', status: 'locked', xp: 100, duration: 25, exercises: 12, type: 'normal' },
-                { id: 8, title: 'Advanced Conversation', description: 'Real dialogues and comprehension', status: 'locked', xp: 175, duration: 35, exercises: 18, type: 'normal' },
-                { id: 9, title: 'Guna Culture', description: 'Molas, revolution and traditions', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
-                { id: 10, title: 'Basic Mastery', description: 'Final exam and certificate', status: 'locked', xp: 250, duration: 45, exercises: 25, type: 'boss' }
+                { id: 1, title: 'Saludos y presentaciones', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
+                { id: 2, title: 'Familia', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
+                { id: 3, title: 'Objetos del hogar', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
+                { id: 4, title: 'La Naturaleza y el Entorno', description: 'Ríos, mares, montañas y flora local', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
+                { id: 5, title: 'Animales Sagrados', description: 'Fauna de Panamá, aves, jaguares y animales marinos', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
+                { id: 6, title: 'Números y Conteo', description: 'Sistema numérico tradicional y cantidades', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
+                { id: 7, title: 'Alimentos y Cocina', description: 'Comidas tradicionales, cultivos y utensilios', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
+                { id: 8, title: 'El Tiempo y las Estaciones', description: 'Meses, días, clima y ciclos lunares', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
+                { id: 9, title: 'Vestimenta y Arte', description: 'Molas, chaquiras, tejidos y artesanías tradicionales', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
+                { id: 10, title: 'Medicina Tradicional', description: 'Plantas medicinales, cantos de sanación y botánica', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal' },
+                { id: 11, title: 'Historias y Leyendas', description: 'Mitos de creación y narraciones de los abuelos', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal' },
+                { id: 12, title: 'Organización Comunitaria', description: 'El Congreso, las comarcas y autoridades tradicionales', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'normal' },
+                { id: 13, title: 'Celebraciones y Rituales', description: 'Danzas tradicionales, ceremonias y música', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'boss' }
             ],
             'embera': [
                 { id: 1, title: 'River Greetings', description: 'Welcome expressions from the rainforest', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
