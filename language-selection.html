@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Language - Soged</title>
+    <link rel="icon" type="image/png" href="Images/Soged/Newturttle.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/theme-components.css">
+    <link rel="stylesheet" href="css/dark-mode-fixes.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .language-selection-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .selection-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .selection-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .selection-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .language-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .language-card.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .language-card.locked {
+            opacity: 0.6;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .language-card.locked::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .language-card.locked .coming-soon-badge {
+            display: flex;
+        }
+
+        .language-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--border-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        .language-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .language-card.selected .language-icon {
+            border-color: var(--primary-color);
+        }
+
+        .language-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .language-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
+        }
+
+        .language-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-badge {
+            background: var(--bg-tertiary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .language-card.selected .stat-badge {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .select-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .select-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+            z-index: 3;
+        }
+
+        .continue-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 3rem auto 0;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .selection-header h1 {
+                font-size: 2rem;
+            }
+
+            .selection-header p {
+                font-size: 1rem;
+            }
+
+            .languages-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .language-icon {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-selection-container">
+        <div class="selection-header" data-aos="fade-up">
+            <h1>Choose Your Language</h1>
+            <p>Select an indigenous language of Panama to begin your learning journey. More languages coming soon!</p>
+        </div>
+
+        <div class="languages-grid">
+            <!-- GUNA - First and Default -->
+            <div class="language-card selected" data-language="guna" data-aos="fade-up" data-aos-delay="100">
+                <div class="language-icon">
+                    <img src="Images/Languages/Guna.png" alt="Guna Language">
+                </div>
+                <h3 class="language-name">Guna</h3>
+                <p class="language-description">Master the language of the Guna people from the beautiful San Blas Islands.</p>
+                <div class="language-stats">
+                    <span class="stat-badge"><i class="fas fa-book"></i> 150 Lessons</span>
+                    <span class="stat-badge"><i class="fas fa-layer-group"></i> 10 Levels</span>
+                </div>
+                <button class="select-btn">
+                    <i class="fas fa-check me-2"></i>Selected
+                </button>
+            </div>
+
+            <!-- NGÄBE - Locked -->
+            <div class="language-card locked" data-language="ngabe" data-aos="fade-up" data-aos-delay="200">
+                <div class="coming-soon-badge">
+                    <i class="fas fa-clock"></i>
+                    Próximamente
+                </div>
+                <div class="language-icon">
+                    <img src="Images/Languages/Ngabe.png" alt="Ngäbe Language">
+                </div>
+                <h3 class="language-name">Ngäbe</h3>
+                <p class="language-description">Learn the language of the Ngäbe people, the largest indigenous group in Panama.</p>
+                <div class="language-stats">
+                    <span class="stat-badge"><i class="fas fa-book"></i> 120 Lessons</span>
+                    <span class="stat-badge"><i class="fas fa-layer-group"></i> 8 Levels</span>
+                </div>
+                <button class="select-btn" disabled>
+                    <i class="fas fa-lock me-2"></i>Coming Soon
+                </button>
+            </div>
+
+            <!-- NASO - Locked -->
+            <div class="language-card locked" data-language="naso" data-aos="fade-up" data-aos-delay="300">
+                <div class="coming-soon-badge">
+                    <i class="fas fa-clock"></i>
+                    Próximamente
+                </div>
+                <div class="language-icon">
+                    <img src="Images/Languages/Naso.gif" alt="Naso Language">
+                </div>
+                <h3 class="language-name">Naso</h3>
+                <p class="language-description">Discover the musical language of the Naso people with its unique rhythms.</p>
+                <div class="language-stats">
+                    <span class="stat-badge"><i class="fas fa-book"></i> 100 Lessons</span>
+                    <span class="stat-badge"><i class="fas fa-layer-group"></i> 6 Levels</span>
+                </div>
+                <button class="select-btn" disabled>
+                    <i class="fas fa-lock me-2"></i>Coming Soon
+                </button>
+            </div>
+
+            <!-- EMBERÁ - Locked -->
+            <div class="language-card locked" data-language="embera" data-aos="fade-up" data-aos-delay="400">
+                <div class="coming-soon-badge">
+                    <i class="fas fa-clock"></i>
+                    Próximamente
+                </div>
+                <div class="language-icon">
+                    <img src="Images/Languages/Embera.png" alt="Emberá Language">
+                </div>
+                <h3 class="language-name">Emberá</h3>
+                <p class="language-description">Explore the ancient language of the Emberá people and their rainforest traditions.</p>
+                <div class="language-stats">
+                    <span class="stat-badge"><i class="fas fa-book"></i> 130 Lessons</span>
+                    <span class="stat-badge"><i class="fas fa-layer-group"></i> 9 Levels</span>
+                </div>
+                <button class="select-btn" disabled>
+                    <i class="fas fa-lock me-2"></i>Coming Soon
+                </button>
+            </div>
+        </div>
+
+        <button class="continue-btn" id="continueBtn">
+            <i class="fas fa-arrow-right me-2"></i>Continue with Guna
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+
+        // Language selection logic
+        let selectedLanguage = 'guna';
+        const languageCards = document.querySelectorAll('.language-card:not(.locked)');
+        const continueBtn = document.getElementById('continueBtn');
+
+        languageCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                languageCards.forEach(c => {
+                    c.classList.remove('selected');
+                    c.querySelector('.select-btn').innerHTML = '<i class="fas fa-check me-2"></i>Select';
+                });
+
+                // Add selected class to clicked card
+                this.classList.add('selected');
+                this.querySelector('.select-btn').innerHTML = '<i class="fas fa-check me-2"></i>Selected';
+
+                // Update selected language
+                selectedLanguage = this.dataset.language;
+
+                // Update continue button
+                const languageName = this.querySelector('.language-name').textContent;
+                continueBtn.innerHTML = `<i class="fas fa-arrow-right me-2"></i>Continue with ${languageName}`;
+            });
+        });
+
+        // Continue button action
+        continueBtn.addEventListener('click', function() {
+            // Store selected language
+            localStorage.setItem('selectedLanguage', selectedLanguage);
+
+            // Redirect to learning hub
+            window.location.href = `courses/learning-hub.html?course=${selectedLanguage}`;
+        });
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+            // Redirect to register if not logged in
+            continueBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.setItem('selectedLanguage', selectedLanguage);
+                window.location.href = 'auth/register.html';
+            });
+        }
+    </script>
+</body>
+</html>

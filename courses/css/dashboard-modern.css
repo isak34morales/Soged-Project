@@ -3617,3 +3617,252 @@ body.dark-mode .sidebar { background: #1e2229; }
     .panama-map-panel { position: static; }
 }
 
+/* Mascot Customization Section Styles */
+.mascot-customization-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color, #eee);
+}
+
+.mascot-customization-section .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mascot-customization-section .section-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.mascot-preview {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--border-color, #eee);
+}
+
+.mascot-avatar-display {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.mascot-base {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+}
+
+.mascot-clothing-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.virtual-closet {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 2px solid var(--border-color, #eee);
+}
+
+.closet-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.closet-tabs {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.closet-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color, #eee);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.closet-tab:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.closet-tab.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.closet-tab img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.closet-tab span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.closet-tab.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.closet-tab.locked i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.closet-items {
+    min-height: 200px;
+}
+
+.closet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.clothing-item {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color, #eee);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.clothing-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.clothing-item.available {
+    border-color: var(--primary-color);
+}
+
+.clothing-item.available:hover {
+    background: var(--primary-light);
+}
+
+.clothing-item.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.item-preview {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.clothing-item.locked .item-preview {
+    color: var(--text-secondary);
+}
+
+.item-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.item-status {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.clothing-item.available .item-status {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.clothing-item.locked .item-status {
+    color: var(--text-secondary);
+}
+
+.clothing-item.locked .item-status i {
+    margin-right: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .mascot-preview {
+        padding: 1.5rem;
+    }
+
+    .mascot-avatar-display {
+        width: 150px;
+        height: 150px;
+    }
+
+    .closet-tabs {
+        gap: 0.5rem;
+    }
+
+    .closet-tab {
+        min-width: 70px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .closet-tab img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .closet-tab span {
+        font-size: 0.75rem;
+    }
+
+    .closet-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+}
+

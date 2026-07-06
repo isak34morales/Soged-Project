@@ -447,6 +447,143 @@
                         <p class="avatar-picker-label">Choose your avatar</p>
                         <div class="avatar-picker-grid" id="avatarPickerGrid"></div>
                     </div>
+
+                    <!-- Mascot Personalization Section -->
+                    <div class="mascot-customization-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-tshirt"></i>
+                            Personaliza a Soggy
+                        </h3>
+                        <p class="section-desc">Viste a tu mascota con ropa tradicional desbloqueada según tu progreso en los idiomas.</p>
+                        
+                        <div class="mascot-preview">
+                            <div class="mascot-avatar-display">
+                                <img src="../Images/Soged/Newturttle.png" alt="Soggy Mascot" class="mascot-base" id="mascotBase">
+                                <div class="mascot-clothing-layer" id="mascotClothing"></div>
+                            </div>
+                        </div>
+
+                        <div class="virtual-closet">
+                            <h4 class="closet-title">Clóset Virtual</h4>
+                            <div class="closet-tabs">
+                                <button class="closet-tab active" data-language="guna">
+                                    <img src="../Images/Languages/Guna.png" alt="Guna">
+                                    <span>Guna</span>
+                                </button>
+                                <button class="closet-tab locked" data-language="ngabe" disabled>
+                                    <img src="../Images/Languages/Ngabe.png" alt="Ngäbe">
+                                    <span>Ngäbe</span>
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                                <button class="closet-tab locked" data-language="naso" disabled>
+                                    <img src="../Images/Languages/Naso.gif" alt="Naso">
+                                    <span>Naso</span>
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                                <button class="closet-tab locked" data-language="embera" disabled>
+                                    <img src="../Images/Languages/Embera.png" alt="Emberá">
+                                    <span>Emberá</span>
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </div>
+
+                            <div class="closet-items" id="closetItems">
+                                <!-- Guna Traditional Clothing -->
+                                <div class="closet-grid" data-language="guna">
+                                    <div class="clothing-item available" data-item="mola-blouse">
+                                        <div class="item-preview">
+                                            <i class="fas fa-tshirt"></i>
+                                        </div>
+                                        <span class="item-name">Blusa Mola</span>
+                                        <span class="item-status">Desbloqueado</span>
+                                    </div>
+                                    <div class="clothing-item available" data-item="saburet">
+                                        <div class="item-preview">
+                                            <i class="fas fa-vest"></i>
+                                        </div>
+                                        <span class="item-name">Saburet</span>
+                                        <span class="item-status">Desbloqueado</span>
+                                    </div>
+                                    <div class="clothing-item available" data-item="headscarf">
+                                        <div class="item-preview">
+                                            <i class="fas fa-hat-cowboy"></i>
+                                        </div>
+                                        <span class="item-name">Pañuelo</span>
+                                        <span class="item-status">Desbloqueado</span>
+                                    </div>
+                                    <div class="clothing-item available" data-item="beads">
+                                        <div class="item-preview">
+                                            <i class="fas fa-ring"></i>
+                                        </div>
+                                        <span class="item-name">Chaquiras</span>
+                                        <span class="item-status">Desbloqueado</span>
+                                    </div>
+                                </div>
+
+                                <!-- Ngäbe Traditional Clothing (Locked) -->
+                                <div class="closet-grid" data-language="ngabe" hidden>
+                                    <div class="clothing-item locked" data-item="ngabe-dress">
+                                        <div class="item-preview">
+                                            <i class="fas fa-tshirt"></i>
+                                        </div>
+                                        <span class="item-name">Vestido Ngäbe</span>
+                                        <span class="item-status">
+                                            <i class="fas fa-lock"></i>
+                                            Requiere nivel 2 en Ngäbe
+                                        </span>
+                                    </div>
+                                    <div class="clothing-item locked" data-item="ngabe-bag">
+                                        <div class="item-preview">
+                                            <i class="fas fa-shopping-bag"></i>
+                                        </div>
+                                        <span class="item-name">Chácara</span>
+                                        <span class="item-status">
+                                            <i class="fas fa-lock"></i>
+                                            Requiere nivel 3 en Ngäbe
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Naso Traditional Clothing (Locked) -->
+                                <div class="closet-grid" data-language="naso" hidden>
+                                    <div class="clothing-item locked" data-item="naso-attire">
+                                        <div class="item-preview">
+                                            <i class="fas fa-tshirt"></i>
+                                        </div>
+                                        <span class="item-name">Atuendo Naso</span>
+                                        <span class="item-status">
+                                            <i class="fas fa-lock"></i>
+                                            Requiere nivel 2 en Naso
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Emberá Traditional Clothing (Locked) -->
+                                <div class="closet-grid" data-language="embera" hidden>
+                                    <div class="clothing-item locked" data-item="embera-skirt">
+                                        <div class="item-preview">
+                                            <i class="fas fa-tshirt"></i>
+                                        </div>
+                                        <span class="item-name">Falda Emberá</span>
+                                        <span class="item-status">
+                                            <i class="fas fa-lock"></i>
+                                            Requiere nivel 2 en Emberá
+                                        </span>
+                                    </div>
+                                    <div class="clothing-item locked" data-item="embera-necklace">
+                                        <div class="item-preview">
+                                            <i class="fas fa-gem"></i>
+                                        </div>
+                                        <span class="item-name">Collar Tradicional</span>
+                                        <span class="item-status">
+                                            <i class="fas fa-lock"></i>
+                                            Requiere nivel 3 en Emberá
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
