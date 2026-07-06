@@ -3,6 +3,1043 @@
    Professional Learning Platform
    ================================ */
 
+/* Virtual Closet Modern Styles */
+.virtual-closet-modern {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.closet-left-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.soggy-display-area {
+    background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.soggy-background-gradient {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #FF6F00, #FF8F00, #FFA000);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.soggy-background-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="closet-pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7.5" cy="7.5" r="5" fill="rgba(255,255,255,0.15)"/></pattern></defs><rect width="100" height="100" fill="url(%23closet-pattern)"/></svg>');
+    opacity: 0.5;
+}
+
+.soggy-full-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 6px solid #FFD54F;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.soggy-clothing-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.soggy-status-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.current-level-badge {
+    background: linear-gradient(135deg, #FF6F00, #FF8F00);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
+}
+
+.accessories-count {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.closet-right-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.closet-tabs-modern {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.closet-tab-modern {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.75rem 1rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.closet-tab-modern img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.closet-tab-modern.active {
+    border-color: #FF6F00;
+    background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+    color: #FF6F00;
+    font-weight: 600;
+}
+
+.closet-tab-modern.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.closet-tab-modern.locked i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.7rem;
+    color: #999;
+}
+
+.accessories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.accessories-grid-content {
+    display: contents;
+}
+
+.accessory-card {
+    background: white;
+    border: 2px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.accessory-card.available {
+    cursor: pointer;
+}
+
+.accessory-card.available:hover {
+    border-color: #FF6F00;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.accessory-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.accessory-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #FF6F00, #FF8F00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
+}
+
+.accessory-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.accessory-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.accessory-level {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.accessory-action {
+    margin-top: auto;
+}
+
+.equip-btn {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #28A745, #20C997);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.equip-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.equip-btn.equipped {
+    background: linear-gradient(135deg, #E74C3C, #C0392B);
+}
+
+.accessory-lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    gap: 0.5rem;
+    border-radius: 14px;
+}
+
+.accessory-lock-overlay i {
+    font-size: 1.5rem;
+}
+
+.accessory-lock-overlay span {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .virtual-closet-modern {
+        grid-template-columns: 1fr;
+    }
+    
+    .soggy-full-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .soggy-background-gradient {
+        height: 200px;
+    }
+    
+    .accessories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+/* Modern Soged Market Styles */
+.guna-store-modern {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.store-hero-modern {
+    background: linear-gradient(135deg, #FF6F00, #FF8F00, #FFA000);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(255, 111, 0, 0.3);
+}
+
+.store-hero-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="market-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="6" fill="rgba(255,255,255,0.15)"/></pattern></defs><rect width="100" height="100" fill="url(%23market-pattern)"/></svg>');
+    opacity: 0.4;
+}
+
+.store-hero-content-modern {
+    position: relative;
+    z-index: 1;
+}
+
+.store-title-modern {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.store-subtitle-modern {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.cocos-wallet-modern {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.wallet-icon-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-coco-icon {
+    width: 50px;
+    height: 50px;
+    animation: wallet-bounce 2s ease-in-out infinite;
+}
+
+@keyframes wallet-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.wallet-sparkle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #FFD54F, transparent);
+    border-radius: 50%;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.wallet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.wallet-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.wallet-balance {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-currency {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.store-categories-modern {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    background: white;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.store-category-tab {
+    flex: 1;
+    min-width: 120px;
+    padding: 1rem 1.5rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.store-category-tab:hover {
+    border-color: #FF6F00;
+    background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.2);
+}
+
+.store-category-tab.active {
+    border-color: #FF6F00;
+    background: linear-gradient(135deg, #FF6F00, #FF8F00);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
+}
+
+.tab-icon {
+    font-size: 1.5rem;
+}
+
+.weekly-timer-modern {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.timer-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.timer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.timer-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.store-items-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.store-item-card {
+    background: white;
+    border: 2px solid #E0E0E0;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.store-item-card:hover {
+    border-color: #FF6F00;
+    box-shadow: 0 8px 24px rgba(255, 111, 0, 0.2);
+    transform: translateY(-4px);
+}
+
+.store-item-image-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.store-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.store-item-card:hover .store-item-image {
+    transform: scale(1.05);
+}
+
+.store-item-body {
+    padding: 1.5rem;
+}
+
+.store-item-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 0.5rem 0;
+}
+
+.store-item-story {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+}
+
+.store-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.store-item-price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #FF6F00;
+    font-size: 1.1rem;
+}
+
+.store-coco-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.store-buy-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #28A745, #20C997);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.store-buy-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.store-buy-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.store-buy-btn.insufficient {
+    background: linear-gradient(135deg, #9E9E9E, #757575);
+}
+
+.store-buy-btn.owned {
+    background: linear-gradient(135deg, #2ECC71, #27AE60);
+}
+
+@media (max-width: 768px) {
+    .store-hero-modern {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .store-title-modern {
+        font-size: 2rem;
+    }
+
+    .cocos-wallet-modern {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .store-categories-modern {
+        flex-direction: column;
+    }
+
+    .store-category-tab {
+        min-width: auto;
+    }
+
+    .store-items-grid-modern {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modern Memory Game Styles */
+.memory-section-modern {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.memory-hero-modern {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
+}
+
+.memory-hero-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="memory-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="6" fill="rgba(255,255,255,0.15)"/></pattern></defs><rect width="100" height="100" fill="url(%23memory-pattern)"/></svg>');
+    opacity: 0.4;
+}
+
+.memory-header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.memory-title-modern {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.memory-subtitle-modern {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.memory-stats-modern {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.memory-controls-modern {
+    margin-bottom: 2rem;
+}
+
+.difficulty-selector {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.difficulty-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 1rem 1.5rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+}
+
+.difficulty-btn:hover {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff, #e8f0fe);
+    transform: translateY(-2px);
+}
+
+.difficulty-btn.active {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.memory-game-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.memory-grid-modern {
+    display: grid;
+    gap: 1rem;
+    perspective: 1000px;
+}
+
+.memory-grid-modern.grid-3x4 {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.memory-grid-modern.grid-4x4 {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.memory-card-modern {
+    aspect-ratio: 3/4;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.memory-card-modern.flipped {
+    transform: rotateY(180deg);
+}
+
+.memory-card-modern.matched {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.memory-card-modern.error {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotateY(180deg) translateX(0); }
+    25% { transform: rotateY(180deg) translateX(-5px); }
+    75% { transform: rotateY(180deg) translateX(5px); }
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.card-front {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+    transform: rotateY(180deg);
+    color: #333;
+    border: 3px solid #FF6F00;
+    padding: 0.5rem;
+}
+
+.memory-card-modern.matched .card-back {
+    border-color: #28A745;
+    background: linear-gradient(135deg, #D4F4DD, #C8E6C9);
+}
+
+.memory-card-modern.error .card-back {
+    border-color: #E74C3C;
+    background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+}
+
+.card-language {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+}
+
+.card-word {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.victory-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.victory-content {
+    background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+    border-radius: 24px;
+    padding: 3rem;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 3px solid #FFD54F;
+    animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.victory-soggy {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #FFD54F;
+    margin-bottom: 1.5rem;
+    animation: victory-bounce 1s ease-in-out infinite;
+}
+
+@keyframes victory-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.victory-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FF6F00;
+    margin: 0 0 0.5rem 0;
+}
+
+.victory-message {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 2rem 0;
+}
+
+.victory-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.victory-stat {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.victory-stat-label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.victory-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FF6F00;
+}
+
+.victory-reward {
+    background: linear-gradient(135deg, #28A745, #20C997);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.reward-icon {
+    font-size: 1.5rem;
+}
+
+.victory-btn {
+    background: linear-gradient(135deg, #FF6F00, #FF8F00);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3);
+}
+
+.victory-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 111, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .memory-hero-modern {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .memory-title-modern {
+        font-size: 2rem;
+    }
+
+    .memory-stats-modern {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .difficulty-selector {
+        flex-direction: column;
+    }
+
+    .memory-grid-modern.grid-3x4,
+    .memory-grid-modern.grid-4x4 {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 100%;
+    }
+
+    .victory-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .victory-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
 /* CSS Variables - SOGED Brand Colors */
 :root {
     /* SOGED Primary Brand Colors */

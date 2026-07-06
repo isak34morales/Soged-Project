@@ -429,6 +429,44 @@ class LearningSection extends HTMLElement {
                     pointer-events: none;
                 }
 
+                .module-header {
+                    text-align: center;
+                    margin: 2rem 0 1.5rem;
+                    padding: 1.5rem;
+                    background: linear-gradient(135deg, var(--gradient-primary));
+                    border-radius: var(--border-radius-lg);
+                    color: white;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .module-header::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="module-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="6" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23module-pattern)"/></svg>');
+                    opacity: 0.3;
+                }
+
+                .module-title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin: 0;
+                    position: relative;
+                    z-index: 1;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+                }
+
+                .module-divider {
+                    height: 3px;
+                    background: linear-gradient(90deg, transparent, white, transparent);
+                    margin-top: 1rem;
+                    border-radius: 2px;
+                }
+
                 /* Responsive Design */
                 @media (max-width: 768px) {
                     .learning-section {
@@ -493,7 +531,17 @@ class LearningSection extends HTMLElement {
     generateLessonsForCourse() {
         const lessons = this.getLessonsData();
         const currentLevel = this.getCurrentLevel();
-        return lessons.map((lesson, index) => `
+        let html = '';
+        let currentModule = 0;
+
+        lessons.forEach((lesson, index) => {
+            // Add module header when module changes
+            if (lesson.module && lesson.module !== currentModule) {
+                currentModule = lesson.module;
+                html += this.generateModuleHeader(currentModule);
+            }
+
+            html += `
             <div class="path-step">
                 <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''} ${lesson.status === 'locked' ? 'opacity-60 pointer-events-none' : ''}" data-lesson="${lesson.id}">
                     ${lesson.type === 'boss' ? '<div class="boss-badge">BOSS</div>' : ''}
@@ -516,7 +564,24 @@ class LearningSection extends HTMLElement {
                     </div>
                 </div>
             </div>
-        `).join('');
+            `;
+        });
+
+        return html;
+    }
+
+    generateModuleHeader(moduleNumber) {
+        const moduleTitles = {
+            1: 'MÓDULO 1: Raíces y Entorno Comunitario',
+            2: 'MÓDULO 2: Cosmovisión e Identidad Avanzada'
+        };
+
+        return `
+            <div class="module-header">
+                <h3 class="module-title">${moduleTitles[moduleNumber] || `MÓDULO ${moduleNumber}`}</h3>
+                <div class="module-divider"></div>
+            </div>
+        `;
     }
 
     getCurrentLevel() {
@@ -544,19 +609,28 @@ class LearningSection extends HTMLElement {
                 { id: 5, title: 'Level 1 Assessment', description: 'Test your knowledge with cultural scenarios', status: 'locked', xp: 200, duration: 45, exercises: 25, type: 'boss' }
             ],
             'guna': [
-                { id: 1, title: 'Saludos y presentaciones', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },
-                { id: 2, title: 'Familia', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 3, title: 'Objetos del hogar', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal' },
-                { id: 4, title: 'La Naturaleza y el Entorno', description: 'Ríos, mares, montañas y flora local', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal' },
-                { id: 5, title: 'Animales Sagrados', description: 'Fauna de Panamá, aves, jaguares y animales marinos', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 6, title: 'Números y Conteo', description: 'Sistema numérico tradicional y cantidades', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 7, title: 'Alimentos y Cocina', description: 'Comidas tradicionales, cultivos y utensilios', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal' },
-                { id: 8, title: 'El Tiempo y las Estaciones', description: 'Meses, días, clima y ciclos lunares', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
-                { id: 9, title: 'Vestimenta y Arte', description: 'Molas, chaquiras, tejidos y artesanías tradicionales', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal' },
-                { id: 10, title: 'Medicina Tradicional', description: 'Plantas medicinales, cantos de sanación y botánica', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal' },
-                { id: 11, title: 'Historias y Leyendas', description: 'Mitos de creación y narraciones de los abuelos', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal' },
-                { id: 12, title: 'Organización Comunitaria', description: 'El Congreso, las comarcas y autoridades tradicionales', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'normal' },
-                { id: 13, title: 'Celebraciones y Rituales', description: 'Danzas tradicionales, ceremonias y música', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'boss' }
+                // MÓDULO 1: "Raíces y Entorno Comunitario" (Niveles 1-10)
+                { id: 1, title: 'Saludos y presentaciones', description: 'Greetings, pronouns and introductions', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal', module: 1 },
+                { id: 2, title: 'Familia', description: 'Mother, father, siblings and grandparents', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal', module: 1 },
+                { id: 3, title: 'Objetos para el hogar', description: 'House, table, plate and daily objects', status: 'completed', xp: 75, duration: 20, exercises: 10, type: 'normal', module: 1 },
+                { id: 4, title: 'La Naturaleza', description: 'Ríos, mares, montañas y flora local', status: 'current', xp: 100, duration: 25, exercises: 12, type: 'normal', module: 1 },
+                { id: 5, title: 'Animales Sagrados', description: 'Fauna de Panamá, aves, jaguares y animales marinos', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal', module: 1 },
+                { id: 6, title: 'Números y Conteo', description: 'Sistema numérico tradicional y cantidades', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal', module: 1 },
+                { id: 7, title: 'Alimentos y Cocina', description: 'Comidas tradicionales, cultivos y utensilios', status: 'locked', xp: 125, duration: 30, exercises: 14, type: 'normal', module: 1 },
+                { id: 8, title: 'El Tiempo y Estaciones', description: 'Meses, días, clima y ciclos lunares', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal', module: 1 },
+                { id: 9, title: 'Vestimenta y Simbología', description: 'Molas, chaquiras, tejidos y artesanías tradicionales', status: 'locked', xp: 150, duration: 35, exercises: 16, type: 'normal', module: 1 },
+                { id: 10, title: 'Medicina Tradicional', description: 'Plantas medicinales, cantos de sanación y botánica', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal', module: 1 },
+                // MÓDULO 2: "Cosmovisión e Identidad Avanzada" (Niveles 11-20)
+                { id: 11, title: 'Historias y Leyendas', description: 'Mitos de creación y narraciones de los abuelos', status: 'locked', xp: 175, duration: 40, exercises: 18, type: 'normal', module: 2 },
+                { id: 12, title: 'Organización Comunitaria', description: 'El Congreso, las comarcas y autoridades tradicionales', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'normal', module: 2 },
+                { id: 13, title: 'Celebraciones y Música', description: 'Danzas tradicionales, ceremonias y música', status: 'locked', xp: 200, duration: 45, exercises: 20, type: 'normal', module: 2 },
+                { id: 14, title: 'Expresiones Idiomáticas', description: 'Frases hechas y dichos tradicionales', status: 'locked', xp: 225, duration: 50, exercises: 22, type: 'normal', module: 2 },
+                { id: 15, title: 'Geografía Comarcal', description: 'Territorios, ríos y lugares sagrados', status: 'locked', xp: 225, duration: 50, exercises: 22, type: 'normal', module: 2 },
+                { id: 16, title: 'Arte y Cestería', description: 'Tejidos, canastas y técnicas artesanales', status: 'locked', xp: 250, duration: 55, exercises: 24, type: 'normal', module: 2 },
+                { id: 17, title: 'Valores y Ley Comunitaria', description: 'Normas, justicia y valores tradicionales', status: 'locked', xp: 250, duration: 55, exercises: 24, type: 'normal', module: 2 },
+                { id: 18, title: 'Cantos de Sanación', description: 'Medicina espiritual y cantos tradicionales', status: 'locked', xp: 275, duration: 60, exercises: 26, type: 'normal', module: 2 },
+                { id: 19, title: 'Intercambio Tradicional', description: 'Comercio, trueque y economía local', status: 'locked', xp: 275, duration: 60, exercises: 26, type: 'normal', module: 2 },
+                { id: 20, title: 'Maestría Lingüística', description: 'Examen final y certificación de dominio', status: 'locked', xp: 300, duration: 90, exercises: 30, type: 'boss', module: 2 }
             ],
             'embera': [
                 { id: 1, title: 'River Greetings', description: 'Welcome expressions from the rainforest', status: 'completed', xp: 50, duration: 15, exercises: 8, type: 'normal' },

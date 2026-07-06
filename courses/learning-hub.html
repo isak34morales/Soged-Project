@@ -456,129 +456,186 @@
                         </h3>
                         <p class="section-desc">Viste a tu mascota con ropa tradicional desbloqueada según tu progreso en los idiomas.</p>
                         
-                        <div class="mascot-preview">
-                            <div class="mascot-avatar-display">
-                                <img src="../Images/Soged/Newturttle.png" alt="Soggy Mascot" class="mascot-base" id="mascotBase">
-                                <div class="mascot-clothing-layer" id="mascotClothing"></div>
-                            </div>
-                        </div>
-
-                        <div class="virtual-closet">
-                            <h4 class="closet-title">Clóset Virtual</h4>
-                            <div class="closet-tabs">
-                                <button class="closet-tab active" data-language="guna">
-                                    <img src="../Images/Languages/Guna.png" alt="Guna">
-                                    <span>Guna</span>
-                                </button>
-                                <button class="closet-tab locked" data-language="ngabe" disabled>
-                                    <img src="../Images/Languages/Ngabe.png" alt="Ngäbe">
-                                    <span>Ngäbe</span>
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                                <button class="closet-tab locked" data-language="naso" disabled>
-                                    <img src="../Images/Languages/Naso.gif" alt="Naso">
-                                    <span>Naso</span>
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                                <button class="closet-tab locked" data-language="embera" disabled>
-                                    <img src="../Images/Languages/Embera.png" alt="Emberá">
-                                    <span>Emberá</span>
-                                    <i class="fas fa-lock"></i>
-                                </button>
+                        <div class="virtual-closet-modern">
+                            <!-- Columna Izquierda: Soggy Preview -->
+                            <div class="closet-left-column">
+                                <div class="soggy-display-area">
+                                    <div class="soggy-background-gradient">
+                                        <img src="../Images/Soged/Newturttle.png" alt="Soggy" class="soggy-full-image" id="soggyFullImage">
+                                        <div class="soggy-clothing-overlay" id="soggyClothingOverlay"></div>
+                                    </div>
+                                    <div class="soggy-status-info">
+                                        <span class="current-level-badge">Nivel 3 en Guna</span>
+                                        <span class="accessories-count">3 accesorios equipados</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="closet-items" id="closetItems">
-                                <!-- Guna Traditional Clothing -->
-                                <div class="closet-grid" data-language="guna">
-                                    <div class="clothing-item available" data-item="mola-blouse">
-                                        <div class="item-preview">
-                                            <i class="fas fa-tshirt"></i>
-                                        </div>
-                                        <span class="item-name">Blusa Mola</span>
-                                        <span class="item-status">Desbloqueado</span>
-                                    </div>
-                                    <div class="clothing-item available" data-item="saburet">
-                                        <div class="item-preview">
-                                            <i class="fas fa-vest"></i>
-                                        </div>
-                                        <span class="item-name">Saburet</span>
-                                        <span class="item-status">Desbloqueado</span>
-                                    </div>
-                                    <div class="clothing-item available" data-item="headscarf">
-                                        <div class="item-preview">
-                                            <i class="fas fa-hat-cowboy"></i>
-                                        </div>
-                                        <span class="item-name">Pañuelo</span>
-                                        <span class="item-status">Desbloqueado</span>
-                                    </div>
-                                    <div class="clothing-item available" data-item="beads">
-                                        <div class="item-preview">
-                                            <i class="fas fa-ring"></i>
-                                        </div>
-                                        <span class="item-name">Chaquiras</span>
-                                        <span class="item-status">Desbloqueado</span>
-                                    </div>
+                            <!-- Columna Derecha: Accesorios Grid -->
+                            <div class="closet-right-column">
+                                <div class="closet-tabs-modern">
+                                    <button class="closet-tab-modern active" data-language="guna">
+                                        <img src="../Images/Languages/Guna.png" alt="Guna">
+                                        <span>Guna</span>
+                                    </button>
+                                    <button class="closet-tab-modern locked" data-language="ngabe" disabled>
+                                        <img src="../Images/Languages/Ngabe.png" alt="Ngäbe">
+                                        <span>Ngäbe</span>
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="closet-tab-modern locked" data-language="naso" disabled>
+                                        <img src="../Images/Languages/Naso.gif" alt="Naso">
+                                        <span>Naso</span>
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="closet-tab-modern locked" data-language="embera" disabled>
+                                        <img src="../Images/Languages/Embera.png" alt="Emberá">
+                                        <span>Emberá</span>
+                                        <i class="fas fa-lock"></i>
+                                    </button>
                                 </div>
 
-                                <!-- Ngäbe Traditional Clothing (Locked) -->
-                                <div class="closet-grid" data-language="ngabe" hidden>
-                                    <div class="clothing-item locked" data-item="ngabe-dress">
-                                        <div class="item-preview">
-                                            <i class="fas fa-tshirt"></i>
+                                <div class="accessories-grid" id="accessoriesGrid">
+                                    <!-- Guna Accessories -->
+                                    <div class="accessories-grid-content" data-language="guna">
+                                        <div class="accessory-card available" data-item="mola-blouse" data-level="1">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-tshirt"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Blusa Mola</span>
+                                                <span class="accessory-level">Nivel 1</span>
+                                            </div>
+                                            <div class="accessory-action">
+                                                <button class="equip-btn" onclick="equipAccessory('mola-blouse')">
+                                                    <i class="fas fa-check"></i> Equipar
+                                                </button>
+                                            </div>
                                         </div>
-                                        <span class="item-name">Vestido Ngäbe</span>
-                                        <span class="item-status">
-                                            <i class="fas fa-lock"></i>
-                                            Requiere nivel 2 en Ngäbe
-                                        </span>
-                                    </div>
-                                    <div class="clothing-item locked" data-item="ngabe-bag">
-                                        <div class="item-preview">
-                                            <i class="fas fa-shopping-bag"></i>
-                                        </div>
-                                        <span class="item-name">Chácara</span>
-                                        <span class="item-status">
-                                            <i class="fas fa-lock"></i>
-                                            Requiere nivel 3 en Ngäbe
-                                        </span>
-                                    </div>
-                                </div>
 
-                                <!-- Naso Traditional Clothing (Locked) -->
-                                <div class="closet-grid" data-language="naso" hidden>
-                                    <div class="clothing-item locked" data-item="naso-attire">
-                                        <div class="item-preview">
-                                            <i class="fas fa-tshirt"></i>
+                                        <div class="accessory-card available" data-item="saburet" data-level="2">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-vest"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Saburet</span>
+                                                <span class="accessory-level">Nivel 2</span>
+                                            </div>
+                                            <div class="accessory-action">
+                                                <button class="equip-btn" onclick="equipAccessory('saburet')">
+                                                    <i class="fas fa-check"></i> Equipar
+                                                </button>
+                                            </div>
                                         </div>
-                                        <span class="item-name">Atuendo Naso</span>
-                                        <span class="item-status">
-                                            <i class="fas fa-lock"></i>
-                                            Requiere nivel 2 en Naso
-                                        </span>
-                                    </div>
-                                </div>
 
-                                <!-- Emberá Traditional Clothing (Locked) -->
-                                <div class="closet-grid" data-language="embera" hidden>
-                                    <div class="clothing-item locked" data-item="embera-skirt">
-                                        <div class="item-preview">
-                                            <i class="fas fa-tshirt"></i>
+                                        <div class="accessory-card available" data-item="headscarf" data-level="3">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-hat-cowboy"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Pañuelo</span>
+                                                <span class="accessory-level">Nivel 3</span>
+                                            </div>
+                                            <div class="accessory-action">
+                                                <button class="equip-btn equipped" onclick="unequipAccessory('headscarf')">
+                                                    <i class="fas fa-times"></i> Quitar
+                                                </button>
+                                            </div>
                                         </div>
-                                        <span class="item-name">Falda Emberá</span>
-                                        <span class="item-status">
-                                            <i class="fas fa-lock"></i>
-                                            Requiere nivel 2 en Emberá
-                                        </span>
+
+                                        <div class="accessory-card available" data-item="beads" data-level="3">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-ring"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Chaquiras</span>
+                                                <span class="accessory-level">Nivel 3</span>
+                                            </div>
+                                            <div class="accessory-action">
+                                                <button class="equip-btn" onclick="equipAccessory('beads')">
+                                                    <i class="fas fa-check"></i> Equipar
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="accessory-card locked" data-item="traditional-hat" data-level="5">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-crown"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Sombrero Tradicional</span>
+                                                <span class="accessory-level">Nivel 5</span>
+                                            </div>
+                                            <div class="accessory-lock-overlay">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Requiere Nivel 5</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="accessory-card locked" data-item="mola-necklace" data-level="7">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-gem"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Collar Mola</span>
+                                                <span class="accessory-level">Nivel 7</span>
+                                            </div>
+                                            <div class="accessory-lock-overlay">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Requiere Nivel 7</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="clothing-item locked" data-item="embera-necklace">
-                                        <div class="item-preview">
-                                            <i class="fas fa-gem"></i>
+
+                                    <!-- Ngäbe Accessories (Locked) -->
+                                    <div class="accessories-grid-content" data-language="ngabe" hidden>
+                                        <div class="accessory-card locked" data-item="ngabe-dress" data-level="2">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-tshirt"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Vestido Ngäbe</span>
+                                                <span class="accessory-level">Nivel 2</span>
+                                            </div>
+                                            <div class="accessory-lock-overlay">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Requiere Nivel 2</span>
+                                            </div>
                                         </div>
-                                        <span class="item-name">Collar Tradicional</span>
-                                        <span class="item-status">
-                                            <i class="fas fa-lock"></i>
-                                            Requiere nivel 3 en Emberá
-                                        </span>
+                                    </div>
+
+                                    <!-- Naso Accessories (Locked) -->
+                                    <div class="accessories-grid-content" data-language="naso" hidden>
+                                        <div class="accessory-card locked" data-item="naso-attire" data-level="2">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-tshirt"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Atuendo Naso</span>
+                                                <span class="accessory-level">Nivel 2</span>
+                                            </div>
+                                            <div class="accessory-lock-overlay">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Requiere Nivel 2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Emberá Accessories (Locked) -->
+                                    <div class="accessories-grid-content" data-language="embera" hidden>
+                                        <div class="accessory-card locked" data-item="embera-skirt" data-level="2">
+                                            <div class="accessory-icon">
+                                                <i class="fas fa-tshirt"></i>
+                                            </div>
+                                            <div class="accessory-info">
+                                                <span class="accessory-name">Falda Emberá</span>
+                                                <span class="accessory-level">Nivel 2</span>
+                                            </div>
+                                            <div class="accessory-lock-overlay">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Requiere Nivel 2</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

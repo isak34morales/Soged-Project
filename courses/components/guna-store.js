@@ -182,42 +182,52 @@ class GunaStore extends HTMLElement {
         const categories = Object.entries(catalog);
         const active = catalog[this.activeCategory];
         const { days, hours } = this.weeklyCountdown;
+        const balance = CocosEconomy.getBalance();
 
         this.innerHTML = `
-            <div class="guna-store" role="region" aria-label="Tienda Guna">
-                <header class="store-hero" data-aos="fade-up">
-                    <div class="store-hero-content">
-                        <h1 class="store-title">🛒 Guna Store</h1>
-                        <p class="store-subtitle">Unlock molas, cultural art and rewards with cocos earned from learning.</p>
+            <div class="guna-store-modern" role="region" aria-label="Tienda Guna">
+                <header class="store-hero-modern" data-aos="fade-up">
+                    <div class="store-hero-content-modern">
+                        <h1 class="store-title-modern">🛒 Soged Market</h1>
+                        <p class="store-subtitle-modern">Canjea tus cocos por recompensas exclusivas</p>
                     </div>
-                    <div class="store-balance-card cocos-balance-display" title="Cocos ganados durante tu aprendizaje">
-                        <img src="${GUNA_STORE_ASSETS.coco}" alt="Coco" class="store-balance-coco">
-                        <div class="store-balance-info">
-                            <span class="store-balance-label">My Cocos</span>
-                            <span class="store-balance-value">🥥 <span data-cocos-balance>${CocosEconomy.formatCocos(CocosEconomy.getBalance())}</span></span>
+                    <div class="cocos-wallet-modern cocos-balance-display" title="Cocos ganados durante tu aprendizaje">
+                        <div class="wallet-icon-wrapper">
+                            <img src="${GUNA_STORE_ASSETS.coco}" alt="Coco" class="wallet-coco-icon">
+                            <div class="wallet-sparkle"></div>
+                        </div>
+                        <div class="wallet-info">
+                            <span class="wallet-label">Mi Monedero</span>
+                            <span class="wallet-balance" data-cocos-balance>${CocosEconomy.formatCocos(balance)}</span>
+                            <span class="wallet-currency">🥥 Cocos</span>
                         </div>
                     </div>
                 </header>
 
-                <nav class="store-categories" role="tablist" aria-label="Categorías de la tienda">
+                <nav class="store-categories-modern" role="tablist" aria-label="Categorías de la tienda">
                     ${categories.map(([key, cat]) => `
-                        <button class="store-category-btn ${key === this.activeCategory ? 'active' : ''}"
+                        <button class="store-category-tab ${key === this.activeCategory ? 'active' : ''}"
                                 role="tab" aria-selected="${key === this.activeCategory}"
                                 data-category="${key}">
-                            <span class="store-cat-icon">${cat.icon}</span>
-                            <span class="store-cat-name">${cat.title}</span>
+                            <span class="tab-icon">${cat.icon}</span>
+                            <span class="tab-name">${cat.title}</span>
                         </button>
                     `).join('')}
                 </nav>
 
                 ${this.activeCategory === 'semanal' ? `
-                    <div class="store-weekly-timer" data-aos="fade-up">
-                        <i class="fas fa-hourglass-half"></i>
-                        <span>Disponible por: <strong>${days} días ${hours} horas</strong></span>
+                    <div class="weekly-timer-modern" data-aos="fade-up">
+                        <div class="timer-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="timer-content">
+                            <span class="timer-label">Disponible por:</span>
+                            <span class="timer-value">${days} días ${hours} horas</span>
+                        </div>
                     </div>
                 ` : ''}
 
-                <div class="store-items-grid" role="tabpanel" data-aos="fade-up" data-aos-delay="100">
+                <div class="store-items-grid-modern" role="tabpanel" data-aos="fade-up" data-aos-delay="100">
                     ${active.items.map(item => this.renderItemCard(item)).join('')}
                 </div>
             </div>
@@ -225,7 +235,7 @@ class GunaStore extends HTMLElement {
     }
 
     bindEvents() {
-        this.querySelectorAll('.store-category-btn').forEach(btn => {
+        this.querySelectorAll('.store-category-tab').forEach(btn => {
             btn.addEventListener('click', () => {
                 this.activeCategory = btn.dataset.category;
                 this.render();
