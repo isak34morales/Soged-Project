@@ -192,7 +192,7 @@ class GunaMemorySection extends HTMLElement {
 
         // Reset game state
         this.isRevealedPhase = true;
-        this.isGameStarted = true;
+        this.isGameStarted = false;
         this.countdown = 5;
 
         // Create cards: English word and Indigenous translation
