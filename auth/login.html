@@ -554,14 +554,31 @@
             
             // Login with Supabase
             try {
+                console.log('Attempting login with:', email);
+                console.log('Supabase client available:', typeof supabaseClient !== 'undefined');
+                
                 const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
 
+                console.log('Login response:', { data, error });
+
                 if (error) {
                     loginBtn.classList.remove('btn-loading');
-                    showNotification('Correo o contraseña incorrectos', 'error');
+                    console.error('Login error:', error);
+                    
+                    // Show specific error message
+                    let errorMessage = 'Correo o contraseña incorrectos';
+                    if (error.message.includes('Email not confirmed')) {
+                        errorMessage = 'Por favor confirma tu correo electrónico antes de iniciar sesión';
+                    } else if (error.message.includes('Invalid login credentials')) {
+                        errorMessage = 'Correo o contraseña incorrectos';
+                    } else {
+                        errorMessage = 'Error: ' + error.message;
+                    }
+                    
+                    showNotification(errorMessage, 'error');
                     return;
                 }
 
@@ -578,6 +595,7 @@
                 }, 1500);
             } catch (error) {
                 loginBtn.classList.remove('btn-loading');
+                console.error('Login exception:', error);
                 showNotification('Error: ' + error.message, 'error');
             }
         });

@@ -841,15 +841,6 @@
             once: true,
             offset: 50
         });
-
-        // Verify session with Supabase
-        async function verificarSesion() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                window.location.href = '../auth/login.html';
-            }
-        }
-        verificarSesion();
     </script>
 </body>
 </html>
