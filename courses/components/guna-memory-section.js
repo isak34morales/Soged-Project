@@ -4,10 +4,22 @@
 class GunaMemorySection extends HTMLElement {
     connectedCallback() {
         this.difficulty = 'medium';
+        this.isRevealedPhase = false;
+        this.isGameStarted = false;
+        this.countdown = 5;
+        this.countdownInterval = null;
         this.render();
         this.startGame();
     }
 
+    getDifficultyConfig() {
+        const configs = {
+            easy: { pairs: 6, grid: 'grid-3x4', reward: 10, timeLimit: null },
+            medium: { pairs: 8, grid: 'grid-4x4', reward: 25, timeLimit: null },
+            hard: { pairs: 12, grid: 'grid-4x6', reward: 50, timeLimit: 120 } // 2 minutes
+        };
+        return configs[this.difficulty] || configs.medium;
+    }
     getWords() {
         // Educational vocabulary pairs: Spanish - Indigenous Language
         const educationalPairs = [
@@ -72,11 +84,22 @@ class GunaMemorySection extends HTMLElement {
                 <div class="memory-controls-modern" data-aos="fade-up" data-aos-delay="100">
                     <div class="difficulty-selector" role="group" aria-label="Dificultad">
                         ${['easy', 'medium', 'hard'].map(d => {
-                            const counts = { easy: 4, medium: 6, hard: 8 };
+                            const counts = { easy: 6, medium: 8, hard: 12 };
+                            const rewards = { easy: 10, medium: 25, hard: 50 };
                             return `<button type="button" class="difficulty-btn ${d === this.difficulty ? 'active' : ''}" data-diff="${d}">
-                                ${d.charAt(0).toUpperCase() + d.slice(1)} (${counts[d]} parejas)
+                                ${d.charAt(0).toUpperCase() + d.slice(1)} (${counts[d]} parejas) - 🥥${rewards[d]}
                             </button>`;
                         }).join('')}
+                    </div>
+                </div>
+
+                <div class="memorization-phase" id="memorizationPhase" hidden>
+                    <div class="countdown-container">
+                        <div class="countdown-text">Memoriza las palabras:</div>
+                        <div class="countdown-number" id="countdownNumber">5</div>
+                        <div class="countdown-bar">
+                            <div class="countdown-progress" id="countdownProgress"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -98,12 +121,18 @@ class GunaMemorySection extends HTMLElement {
                             </div>
                             <div class="victory-reward">
                                 <span class="reward-icon">🥥</span>
-                                <span class="reward-text">+50 Cocos</span>
+                                <span class="reward-count" id="rewardCount">+0</span>
+                                <span class="reward-text">COCOS</span>
                             </div>
                         </div>
-                        <button class="victory-btn" onclick="this.closest('.victory-screen').hidden = true; document.querySelector('.memory-section-modern').dispatchEvent(new Event('restart'))">
-                            <i class="fas fa-redo"></i> Jugar de nuevo
-                        </button>
+                        <div class="victory-actions">
+                            <button class="victory-btn primary" id="nextLevelBtn">
+                                <i class="fas fa-arrow-right"></i> Siguiente Nivel
+                            </button>
+                            <button class="victory-btn secondary" id="backToMapBtn">
+                                <i class="fas fa-map"></i> Volver al Mapa
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,6 +146,21 @@ class GunaMemorySection extends HTMLElement {
             });
         });
 
+        this.querySelector('#nextLevelBtn')?.addEventListener('click', () => {
+            // Increase difficulty if possible
+            const difficulties = ['easy', 'medium', 'hard'];
+            const currentIndex = difficulties.indexOf(this.difficulty);
+            if (currentIndex < difficulties.length - 1) {
+                this.difficulty = difficulties[currentIndex + 1];
+            }
+            this.render();
+            this.startGame();
+        });
+
+        this.querySelector('#backToMapBtn')?.addEventListener('click', () => {
+            window.location.href = '../courses/learning-hub.html';
+        });
+
         this.addEventListener('restart', () => {
             this.render();
             this.startGame();
@@ -124,8 +168,14 @@ class GunaMemorySection extends HTMLElement {
     }
 
     startGame() {
-        // Always use 4x4 grid (8 pairs)
-        const count = 8;
+        // Clear any existing countdown
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+        }
+
+        // Get difficulty configuration
+        const config = this.getDifficultyConfig();
+        const count = config.pairs;
         const words = this.shuffle(this.getWords()).slice(0, count);
         const pairs = words.map((w, i) => ({
             id: `pair-${i}`, es: w.es, guna: w.guna, icon: w.icon
@@ -134,16 +184,22 @@ class GunaMemorySection extends HTMLElement {
         const grid = this.querySelector('#memoryGrid');
         const totalEl = this.querySelector('#memoryTotal');
         const victoryScreen = this.querySelector('#victoryScreen');
+        const memorizationPhase = this.querySelector('#memorizationPhase');
         
         if (victoryScreen) victoryScreen.hidden = true;
         if (totalEl) totalEl.textContent = count;
         if (!grid) return;
 
+        // Reset game state
+        this.isRevealedPhase = true;
+        this.isGameStarted = false;
+        this.countdown = 5;
+
         // Create cards: Spanish word and Indigenous translation
         const cards = [];
         pairs.forEach(p => {
-            cards.push({ pairId: p.id, type: 'spanish', label: p.es, icon: p.icon, language: 'Español' });
-            cards.push({ pairId: p.id, type: 'indigenous', label: p.guna, icon: p.icon, language: 'Lengua Indígena' });
+            cards.push({ pairId: p.id, type: 'spanish', label: p.es, icon: p.icon, language: 'Español', revealed: true });
+            cards.push({ pairId: p.id, type: 'indigenous', label: p.guna, icon: p.icon, language: 'Lengua Indígena', revealed: true });
         });
 
         let state = {
@@ -151,26 +207,26 @@ class GunaMemorySection extends HTMLElement {
             flipped: [],
             moves: 0,
             matched: 0,
-            lock: false,
+            lock: true, // Lock during memorization phase
             totalPairs: count,
             errorCards: []
         };
 
         const renderGrid = () => {
-            // Always use 4x4 grid
-            grid.className = 'memory-grid-modern grid-4x4';
+            // Use difficulty-specific grid
+            grid.className = `memory-grid-modern ${config.grid}`;
             
             grid.innerHTML = state.cards.map((c, i) => `
                 <button type="button" 
                         class="memory-card-modern ${c.matched ? 'matched' : ''} ${c.error ? 'error' : ''} ${c.revealed ? 'flipped' : ''}" 
                         data-idx="${i}" 
                         aria-label="Memory card: ${c.label}" 
-                        ${c.matched ? 'disabled' : ''}>
+                        ${c.matched || !this.isGameStarted ? 'disabled' : ''}>
                     <div class="card-inner">
                         <div class="card-front">
-                            <span class="card-icon">${c.icon}</span>
+                            <div class="mola-pattern"></div>
                         </div>
-                        <div class="card-back">
+                        <div class="card-back ${c.type === 'spanish' ? 'spanish-card' : 'indigenous-card'}">
                             <span class="card-language">${c.language}</span>
                             <span class="card-word">${c.label}</span>
                             ${c.matched ? '<span class="checkmark">✓</span>' : ''}
@@ -185,23 +241,109 @@ class GunaMemorySection extends HTMLElement {
             if (pairsEl) pairsEl.textContent = state.matched;
         };
 
+        const startMemorizationPhase = () => {
+            memorizationPhase.hidden = false;
+            const countdownNumber = this.querySelector('#countdownNumber');
+            const countdownProgress = this.querySelector('#countdownProgress');
+            
+            // Show all cards revealed
+            state.cards.forEach(c => c.revealed = true);
+            renderGrid();
+
+            // Start countdown
+            this.countdown = 5;
+            countdownNumber.textContent = this.countdown;
+            countdownProgress.style.width = '100%';
+
+            this.countdownInterval = setInterval(() => {
+                this.countdown--;
+                countdownNumber.textContent = this.countdown;
+                countdownProgress.style.width = `${(this.countdown / 5) * 100}%`;
+
+                if (this.countdown <= 0) {
+                    clearInterval(this.countdownInterval);
+                    endMemorizationPhase();
+                }
+            }, 1000);
+        };
+
+        const endMemorizationPhase = () => {
+            memorizationPhase.hidden = true;
+            this.isRevealedPhase = false;
+            this.isGameStarted = true;
+            state.lock = false;
+
+            // Flip all cards simultaneously
+            state.cards.forEach(c => c.revealed = false);
+            renderGrid();
+
+            // Play sound if available
+            if (typeof playGameSound === 'function') {
+                playGameSound('start');
+            }
+        };
+
         const onWin = () => {
             const victoryScreen = this.querySelector('#victoryScreen');
             const victoryMoves = this.querySelector('#victoryMoves');
+            const rewardCount = this.querySelector('#rewardCount');
+            const config = this.getDifficultyConfig();
             
             if (victoryScreen) {
                 victoryScreen.hidden = false;
                 if (victoryMoves) victoryMoves.textContent = state.moves;
             }
 
-            // Award cocos
+            // Animate Cocos reward
+            if (rewardCount) {
+                let currentCount = 0;
+                const targetCount = config.reward;
+                const duration = 1500;
+                const increment = targetCount / (duration / 16);
+                
+                const animateCocos = () => {
+                    currentCount += increment;
+                    if (currentCount >= targetCount) {
+                        currentCount = targetCount;
+                        rewardCount.textContent = `+${currentCount}`;
+                    } else {
+                        rewardCount.textContent = `+${Math.floor(currentCount)}`;
+                        requestAnimationFrame(animateCocos);
+                    }
+                };
+                animateCocos();
+            }
+
+            // Award cocos via Supabase
+            this.updateCocosInSupabase(config.reward);
+
+            // Award cocos locally if economy system exists
             if (typeof CocosEconomy !== 'undefined') {
-                CocosEconomy.addCocos(50);
+                CocosEconomy.addCocos(config.reward);
                 CocosEconomy.triggerConfetti();
             }
 
             if (typeof GunaGamification !== 'undefined') {
                 GunaGamification.onMemoryGameComplete(state.moves <= state.totalPairs + 2);
+            }
+        };
+
+        const updateCocosInSupabase = async (amount) => {
+            try {
+                const userId = localStorage.getItem('userId');
+                if (!userId) return;
+
+                const response = await fetch('/api/update-cocos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: userId, amount })
+                });
+
+                if (response.ok) {
+                    console.log('Cocos updated successfully in Supabase');
+                }
+            } catch (error) {
+                console.error('Error updating Cocos:', error);
             }
         };
 
@@ -254,7 +396,8 @@ class GunaMemorySection extends HTMLElement {
             }
         };
 
-        renderGrid();
+        // Start the memorization phase
+        startMemorizationPhase();
     }
 }
 
