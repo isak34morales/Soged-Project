@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/dashboard-modern.css">
     <link rel="stylesheet" href="css/guna-lessons.css">
+    <link rel="stylesheet" href="css/mola-puzzle.css">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -447,14 +448,7 @@
                         <p class="avatar-picker-label">Choose your avatar</p>
                         <div class="avatar-picker-grid" id="avatarPickerGrid"></div>
                     </div>
-
-                    <!-- Mascot Personalization Section -->
-                    <div class="mascot-customization-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-tshirt"></i>
-                            Personaliza a Soggy
-                        </h3>
-                        <p class="section-desc">Viste a tu mascota con ropa tradicional desbloqueada según tu progreso en los idiomas.</p>
+                </div>
                         
                         <div class="virtual-closet-modern">
                             <!-- Columna Izquierda: Soggy Preview -->
@@ -798,6 +792,9 @@
         </div>
     </div>
 
+    <!-- Closet Quick Access Component -->
+    <div id="closetQuickAccess"></div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -824,6 +821,7 @@
     <script src="components/guna-memory-section.js"></script>
     <script src="components/guna-community-section.js"></script>
     <script src="components/guna-territory-section.js"></script>
+    <script src="components/mola-puzzle.js"></script>
     
     <!-- Guna Language Lessons -->
     <script src="components/guna-ai-tutor.js"></script>
@@ -832,6 +830,15 @@
     
     <!-- Main App Script -->
     <script src="js/learning-hub.js"></script>
+    
+    <!-- Load Closet Quick Access -->
+    <script>
+        fetch('../components/closet-quick-access.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('closetQuickAccess').innerHTML = html;
+            });
+    </script>
     
     <script>
         // Initialize AOS

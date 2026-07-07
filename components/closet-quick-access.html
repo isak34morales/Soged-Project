@@ -1,0 +1,423 @@
+<!-- Floating Closet Quick Access Button -->
+<style>
+    .closet-quick-access {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .closet-button {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 4px solid #FFD700;
+        background: linear-gradient(135deg, #C41E3A, #FF6B35);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .closet-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .closet-button img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .closet-button::after {
+        content: '👕';
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+        font-size: 1.5rem;
+        background: white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .closet-tooltip {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .closet-button:hover + .closet-tooltip {
+        opacity: 1;
+    }
+
+    /* Closet Modal Overlay */
+    .closet-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .closet-modal-overlay.active {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .closet-modal {
+        background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+        border-radius: 24px;
+        padding: 2rem;
+        max-width: 900px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        border: 4px solid #FFD700;
+        animation: slideUp 0.4s ease;
+        position: relative;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .closet-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #C41E3A;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .closet-close:hover {
+        background: #FF6B35;
+        transform: rotate(90deg);
+    }
+
+    .closet-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .closet-header h2 {
+        color: #C41E3A;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .closet-header p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+    .closet-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 2rem;
+    }
+
+    .closet-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .closet-preview img {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+        border: 4px solid #FFD700;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+    }
+
+    .closet-accessories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .accessory-item {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .accessory-item:hover {
+        transform: translateY(-5px);
+        border-color: #FFD700;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .accessory-item.selected {
+        border-color: #28A745;
+        background: linear-gradient(135deg, #D4F4DD, #C8E6C9);
+    }
+
+    .accessory-item img {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        object-fit: cover;
+    }
+
+    .accessory-item span {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .closet-actions {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .closet-btn {
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .closet-btn.primary {
+        background: linear-gradient(135deg, #28A745, #20C997);
+        color: white;
+    }
+
+    .closet-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .closet-btn.secondary {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+    }
+
+    .closet-btn.secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .closet-content {
+            grid-template-columns: 1fr;
+        }
+
+        .closet-accessories {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .closet-quick-access {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .closet-button {
+            width: 60px;
+            height: 60px;
+        }
+    }
+</style>
+
+<div class="closet-quick-access">
+    <button class="closet-button" id="closetButton" aria-label="Abrir Clóset Virtual">
+        <img src="../Images/Soged/Newturttle.png" alt="Avatar Soggy" id="closetAvatarPreview">
+    </button>
+    <div class="closet-tooltip">Clóset Virtual</div>
+</div>
+
+<!-- Closet Modal -->
+<div class="closet-modal-overlay" id="closetModal">
+    <div class="closet-modal">
+        <button class="closet-close" id="closetClose" aria-label="Cerrar">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="closet-header">
+            <h2>👕 Clóset Virtual de Soggy</h2>
+            <p>Personaliza tu avatar con accesorios culturales</p>
+        </div>
+
+        <div class="closet-content">
+            <div class="closet-preview">
+                <img src="../Images/Soged/Newturttle.png" alt="Avatar Preview" id="closetPreview">
+                <h3>Vista Previa</h3>
+            </div>
+
+            <div class="closet-accessories">
+                <div class="accessory-item selected" data-accessory="none">
+                    <img src="../Images/Soged/Newturttle.png" alt="Ninguno">
+                    <span>Ninguno</span>
+                </div>
+                <div class="accessory-item" data-accessory="hat">
+                    <img src="../Images/Soged/coco.png" alt="Sombrero">
+                    <span>Sombrero</span>
+                </div>
+                <div class="accessory-item" data-accessory="glasses">
+                    <img src="../Images/Soged/mola-icon.png" alt="Lentes">
+                    <span>Lentes</span>
+                </div>
+                <div class="accessory-item" data-accessory="necklace">
+                    <img src="../Images/Soged/turttleeee.png" alt="Collar">
+                    <span>Collar</span>
+                </div>
+                <div class="accessory-item" data-accessory="scarf">
+                    <img src="../Images/Soged/Turttle.png" alt="Bufanda">
+                    <span>Bufanda</span>
+                </div>
+                <div class="accessory-item" data-accessory="crown">
+                    <img src="../Images/Soged/Soged.jpg" alt="Corona">
+                    <span>Corona</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="closet-actions">
+            <button class="closet-btn secondary" id="closetCancel">Cancelar</button>
+            <button class="closet-btn primary" id="closetSave">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Closet Quick Access Functionality
+    const closetButton = document.getElementById('closetButton');
+    const closetModal = document.getElementById('closetModal');
+    const closetClose = document.getElementById('closetClose');
+    const closetCancel = document.getElementById('closetCancel');
+    const closetSave = document.getElementById('closetSave');
+    const closetAvatarPreview = document.getElementById('closetAvatarPreview');
+    const closetPreview = document.getElementById('closetPreview');
+    const accessoryItems = document.querySelectorAll('.accessory-item');
+
+    // Load saved avatar
+    function loadSavedAvatar() {
+        const savedAccessory = localStorage.getItem('soggyAccessory') || 'none';
+        accessoryItems.forEach(item => {
+            item.classList.remove('selected');
+            if (item.dataset.accessory === savedAccessory) {
+                item.classList.add('selected');
+                const img = item.querySelector('img');
+                closetAvatarPreview.src = img.src;
+                closetPreview.src = img.src;
+            }
+        });
+    }
+
+    // Open modal
+    closetButton.addEventListener('click', () => {
+        closetModal.classList.add('active');
+        loadSavedAvatar();
+    });
+
+    // Close modal
+    function closeModal() {
+        closetModal.classList.remove('active');
+    }
+
+    closetClose.addEventListener('click', closeModal);
+    closetCancel.addEventListener('click', closeModal);
+
+    closetModal.addEventListener('click', (e) => {
+        if (e.target === closetModal) {
+            closeModal();
+        }
+    });
+
+    // Select accessory
+    accessoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            accessoryItems.forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            const img = item.querySelector('img');
+            closetPreview.src = img.src;
+        });
+    });
+
+    // Save changes
+    closetSave.addEventListener('click', () => {
+        const selectedAccessory = document.querySelector('.accessory-item.selected');
+        if (selectedAccessory) {
+            const accessory = selectedAccessory.dataset.accessory;
+            const img = selectedAccessory.querySelector('img');
+            
+            localStorage.setItem('soggyAccessory', accessory);
+            localStorage.setItem('soggyAvatar', img.src);
+            
+            closetAvatarPreview.src = img.src;
+            
+            // Show success feedback
+            const btn = closetSave;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Guardado!';
+            btn.style.background = 'linear-gradient(135deg, #28A745, #20C997)';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                closeModal();
+            }, 1000);
+        }
+    });
+
+    // Initialize
+    loadSavedAvatar();
+</script>

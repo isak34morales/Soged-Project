@@ -37,11 +37,11 @@ class GunaStore extends HTMLElement {
         const I = GUNA_STORE_ASSETS.molaIcon;
 
         const livesItems = [
-            { id: 'lives-1', name: '❤️ 1 Vida', price: 75, image: C, story: 'Recupera una vida para seguir practicando.', rarity: 'comun', lives: 1 },
-            { id: 'lives-2', name: '❤️❤️ 2 Vidas', price: 150, image: C, story: 'Paquete de 2 vidas para tu ruta de aprendizaje.', rarity: 'comun', lives: 2 },
-            { id: 'lives-3', name: '❤️❤️❤️ 3 Vidas', price: 250, image: C, story: 'Tres vidas para seguir aprendiendo sin parar.', rarity: 'raro', lives: 3 },
-            { id: 'lives-4', name: '❤️❤️❤️❤️ 4 Vidas', price: 350, image: C, story: 'Cuatro vidas — casi una recarga completa.', rarity: 'raro', lives: 4 },
-            { id: 'lives-5', name: '❤️❤️❤️❤️❤️ Recarga Completa', price: 400, image: C, story: 'Recarga completa de 5 vidas.', rarity: 'epico', lives: 5 }
+            { id: 'lives-1', name: '❤️ 1 Vida', price: 175, image: C, story: 'Recupera una vida para seguir practicando.', rarity: 'comun', lives: 1 },
+            { id: 'lives-2', name: '❤️❤️ 2 Vidas', price: 250, image: C, story: 'Paquete de 2 vidas para tu ruta de aprendizaje.', rarity: 'comun', lives: 2 },
+            { id: 'lives-3', name: '❤️❤️❤️ 3 Vidas', price: 350, image: C, story: 'Tres vidas para seguir aprendiendo sin parar.', rarity: 'raro', lives: 3 },
+            { id: 'lives-4', name: '❤️❤️❤️❤️ 4 Vidas', price: 450, image: C, story: 'Cuatro vidas — casi una recarga completa.', rarity: 'raro', lives: 4 },
+            { id: 'lives-5', name: '❤️❤️❤️❤️❤️ Recarga Completa', price: 500, image: C, story: 'Recarga completa de 5 vidas.', rarity: 'epico', lives: 5 }
         ];
 
         if (typeof GunaLives !== 'undefined' && !GunaLives.isSpecialOfferUsed()) {
@@ -67,61 +67,61 @@ class GunaStore extends HTMLElement {
                 title: 'Molas Guna',
                 icon: '🧵',
                 items: [
-                    { id: 'mola-colibri', name: 'Mola del Colibrí', price: 500, image: `${M}/Mola 1.jpg`, story: 'El colibrí representa la agilidad y la conexión entre el mundo terrenal y espiritual en la tradición Guna.', rarity: 'comun' },
-                    { id: 'mola-coco', name: 'Mola del Coco', price: 450, image: `${M}/Mola 2.jpg`, story: 'El coco es símbolo de sustento y prosperidad en las islas Guna.', rarity: 'comun' },
-                    { id: 'mola-tortuga', name: 'Mola de la Tortuga', price: 600, image: `${M}/Mola 3.jpg`, story: 'La tortuga encarna la longevidad y la sabiduría ancestral del mar.', rarity: 'raro' },
-                    { id: 'mola-sol', name: 'Mola del Sol', price: 550, image: `${M}/Mola 4.jpg`, story: 'El sol guía a los pescadores y marca los ciclos de la vida comunitaria.', rarity: 'raro' },
-                    { id: 'mola-mar', name: 'Mola del Mar', price: 700, image: `${M}/Mola 5.jpg`, story: 'El mar es el hogar espiritual del pueblo Guna y fuente de identidad cultural.', rarity: 'epico' }
+                    { id: 'mola-colibri', name: 'Mola del Colibrí', price: 650, image: `${M}/Mola 1.jpg`, story: 'El colibrí representa la agilidad y la conexión entre el mundo terrenal y espiritual en la tradición Guna.', rarity: 'comun' },
+                    { id: 'mola-coco', name: 'Mola del Coco', price: 585, image: `${M}/Mola 2.jpg`, story: 'El coco es símbolo de sustento y prosperidad en las islas Guna.', rarity: 'comun' },
+                    { id: 'mola-tortuga', name: 'Mola de la Tortuga', price: 780, image: `${M}/Mola 3.jpg`, story: 'La tortuga encarna la longevidad y la sabiduría ancestral del mar.', rarity: 'raro' },
+                    { id: 'mola-sol', name: 'Mola del Sol', price: 715, image: `${M}/Mola 4.jpg`, story: 'El sol guía a los pescadores y marca los ciclos de la vida comunitaria.', rarity: 'raro' },
+                    { id: 'mola-mar', name: 'Mola del Mar', price: 910, image: `${M}/Mola 5.jpg`, story: 'El mar es el hogar espiritual del pueblo Guna y fuente de identidad cultural.', rarity: 'epico' }
                 ]
             },
             galeria: {
                 title: 'Galería Cultural',
                 icon: '🎨',
                 items: [
-                    { id: 'arte-guna', name: 'Arte Guna', price: 300, image: `${M}/Mola 6.webp`, story: 'Colección de arte tradicional Guna con explicaciones culturales.', rarity: 'comun' },
-                    { id: 'patrones', name: 'Patrones Tradicionales', price: 350, image: `${M}/Mola 7.jpg`, story: 'Descubre los significados detrás de cada patrón sagrado.', rarity: 'comun' },
-                    { id: 'ilustraciones', name: 'Ilustraciones Históricas', price: 400, image: `${M}/Comarca-Guna-Yala.jpg`, story: 'Imágenes que narran la historia del pueblo Guna.', rarity: 'raro' },
-                    { id: 'disenos', name: 'Diseños Exclusivos', price: 650, image: I, story: 'Diseños únicos creados por artesanas certificadas.', rarity: 'epico' }
+                    { id: 'arte-guna', name: 'Arte Guna', price: 390, image: `${M}/Mola 6.webp`, story: 'Colección de arte tradicional Guna con explicaciones culturales.', rarity: 'comun' },
+                    { id: 'patrones', name: 'Patrones Tradicionales', price: 455, image: `${M}/Mola 7.jpg`, story: 'Descubre los significados detrás de cada patrón sagrado.', rarity: 'comun' },
+                    { id: 'ilustraciones', name: 'Ilustraciones Históricas', price: 520, image: `${M}/Comarca-Guna-Yala.jpg`, story: 'Imágenes que narran la historia del pueblo Guna.', rarity: 'raro' },
+                    { id: 'disenos', name: 'Diseños Exclusivos', price: 845, image: I, story: 'Diseños únicos creados por artesanas certificadas.', rarity: 'epico' }
                 ]
             },
             perfil: {
                 title: 'Personalización del Perfil',
                 icon: '👤',
                 items: [
-                    { id: 'marco-islas', name: 'Marco Guardián de las Islas', price: 800, image: `${M}/Mola 1.jpg`, story: 'Marco exclusivo inspirado en las islas del archipiélago.', rarity: 'raro' },
-                    { id: 'titulo-guardian', name: 'Guardián de las Islas', price: 800, image: C, story: 'Título honorífico que muestra tu compromiso con la cultura Guna.', rarity: 'raro' },
-                    { id: 'fondo-perfil', name: 'Fondo de Perfil Ceremonial', price: 600, image: `${M}/Mola 5.jpg`, story: 'Fondo inspirado en ceremonias tradicionales.', rarity: 'raro' },
-                    { id: 'titulo-protector', name: 'Protector de la Tradición', price: 1200, image: '../Images/Soged/Newturttle.png', story: 'Título épico para estudiantes dedicados a preservar la lengua.', rarity: 'epico' },
-                    { id: 'insignia-especial', name: 'Insignia Especial Guna', price: 500, image: '../Images/Soged/LOGO SOGED.png', story: 'Insignia que destaca tu progreso en el Learning Hub.', rarity: 'comun' }
+                    { id: 'marco-islas', name: 'Marco Guardián de las Islas', price: 1040, image: `${M}/Mola 1.jpg`, story: 'Marco exclusivo inspirado en las islas del archipiélago.', rarity: 'raro' },
+                    { id: 'titulo-guardian', name: 'Guardián de las Islas', price: 1040, image: C, story: 'Título honorífico que muestra tu compromiso con la cultura Guna.', rarity: 'raro' },
+                    { id: 'fondo-perfil', name: 'Fondo de Perfil Ceremonial', price: 780, image: `${M}/Mola 5.jpg`, story: 'Fondo inspirado en ceremonias tradicionales.', rarity: 'raro' },
+                    { id: 'titulo-protector', name: 'Protector de la Tradición', price: 1560, image: '../Images/Soged/Newturttle.png', story: 'Título épico para estudiantes dedicados a preservar la lengua.', rarity: 'epico' },
+                    { id: 'insignia-especial', name: 'Insignia Especial Guna', price: 650, image: '../Images/Soged/LOGO SOGED.png', story: 'Insignia que destaca tu progreso en el Learning Hub.', rarity: 'comun' }
                 ]
             },
             especiales: {
                 title: 'Recompensas Especiales',
                 icon: '🏆',
                 items: [
-                    { id: 'mola-legendaria', name: 'Mola Legendaria', price: 2000, image: I, story: 'La mola más codiciada, tejida con técnicas ancestrales.', rarity: 'legendario' },
-                    { id: 'fondo-ceremonial', name: 'Fondo Ceremonial', price: 1500, image: `${M}/Mola 3.jpg`, story: 'Fondo raro usado en celebraciones comunitarias.', rarity: 'epico' },
-                    { id: 'avatar-ancestral', name: 'Avatar Ancestral', price: 1800, image: '../Images/Soged/Newturttle.png', story: 'Avatar inspirado en los sabios ancestrales Guna.', rarity: 'legendario' },
-                    { id: 'trofeo-cultural', name: 'Trofeo Cultural', price: 2500, image: C, story: 'Trofeo máximo por dominar la cultura y lengua Guna.', rarity: 'legendario' }
+                    { id: 'mola-legendaria', name: 'Mola Legendaria', price: 2600, image: I, story: 'La mola más codiciada, tejida con técnicas ancestrales.', rarity: 'legendario' },
+                    { id: 'fondo-ceremonial', name: 'Fondo Ceremonial', price: 1950, image: `${M}/Mola 3.jpg`, story: 'Fondo raro usado en celebraciones comunitarias.', rarity: 'epico' },
+                    { id: 'avatar-ancestral', name: 'Avatar Ancestral', price: 2340, image: '../Images/Soged/Newturttle.png', story: 'Avatar inspirado en los sabios ancestrales Guna.', rarity: 'legendario' },
+                    { id: 'trofeo-cultural', name: 'Trofeo Cultural', price: 3250, image: C, story: 'Trofeo máximo por dominar la cultura y lengua Guna.', rarity: 'legendario' }
                 ]
             },
             educativo: {
                 title: 'Contenido Educativo',
                 icon: '📚',
                 items: [
-                    { id: 'historias-guna', name: 'Historias Guna', price: 250, image: `${M}/Mola 2.jpg`, story: 'Relatos tradicionales narrados por ancianos de la comunidad.', rarity: 'comun' },
-                    { id: 'leyendas', name: 'Leyendas Tradicionales', price: 300, image: `${M}/Mola 4.jpg`, story: 'Leyendas que transmiten valores y conocimiento ancestral.', rarity: 'comun' },
-                    { id: 'videos-culturales', name: 'Videos Culturales', price: 400, image: `${M}/Mola 6.webp`, story: 'Documentales sobre la vida en las comarcas Guna.', rarity: 'raro' },
-                    { id: 'curiosidades', name: 'Curiosidades Históricas', price: 200, image: `${M}/Mola 7.jpg`, story: 'Datos fascinantes sobre la historia del pueblo Guna.', rarity: 'comun' }
+                    { id: 'historias-guna', name: 'Historias Guna', price: 325, image: `${M}/Mola 2.jpg`, story: 'Relatos tradicionales narrados por ancianos de la comunidad.', rarity: 'comun' },
+                    { id: 'leyendas', name: 'Leyendas Tradicionales', price: 390, image: `${M}/Mola 4.jpg`, story: 'Leyendas que transmiten valores y conocimiento ancestral.', rarity: 'comun' },
+                    { id: 'videos-culturales', name: 'Videos Culturales', price: 520, image: `${M}/Mola 6.webp`, story: 'Documentales sobre la vida en las comarcas Guna.', rarity: 'raro' },
+                    { id: 'curiosidades', name: 'Curiosidades Históricas', price: 260, image: `${M}/Mola 7.jpg`, story: 'Datos fascinantes sobre la historia del pueblo Guna.', rarity: 'comun' }
                 ]
             },
             semanal: {
                 title: 'Tienda Semanal',
                 icon: '🎁',
                 items: [
-                    { id: 'semanal-mola', name: 'Mola Semanal Exclusiva', price: 350, image: I, story: 'Oferta rotativa — disponible solo esta semana.', rarity: 'raro', weekly: true },
-                    { id: 'semanal-avatar', name: 'Avatar de la Semana', price: 450, image: '../Images/Soged/Newturttle.png', story: 'Avatar limitado que cambia cada semana.', rarity: 'epico', weekly: true },
-                    { id: 'semanal-pack', name: 'Pack Cultural Semanal', price: 600, image: `${M}/Mola 5.jpg`, story: 'Paquete con contenido educativo y decoración.', rarity: 'epico', weekly: true }
+                    { id: 'semanal-mola', name: 'Mola Semanal Exclusiva', price: 455, image: I, story: 'Oferta rotativa — disponible solo esta semana.', rarity: 'raro', weekly: true },
+                    { id: 'semanal-avatar', name: 'Avatar de la Semana', price: 585, image: '../Images/Soged/Newturttle.png', story: 'Avatar limitado que cambia cada semana.', rarity: 'epico', weekly: true },
+                    { id: 'semanal-pack', name: 'Pack Cultural Semanal', price: 780, image: `${M}/Mola 5.jpg`, story: 'Paquete con contenido educativo y decoración.', rarity: 'epico', weekly: true }
                 ]
             }
         };

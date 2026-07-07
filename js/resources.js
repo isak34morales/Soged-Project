@@ -1,24 +1,80 @@
-// Resources Page JavaScript
+// Resources Page JavaScript - Dynamic Rendering
 
 class ResourcesManager {
     constructor() {
         this.searchInput = document.getElementById('searchInput');
         this.categoryButtons = document.querySelectorAll('.category-btn');
-        this.resourceCards = document.querySelectorAll('.resource-card');
         this.resourcesGrid = document.getElementById('resourcesGrid');
         this.loadMoreBtn = document.getElementById('loadMoreBtn');
 
         this.currentCategory = 'all';
         this.currentSearch = '';
         this.showAllResources = false;
+        this.resources = RESOURCES_DATA || [];
 
         this.init();
     }
 
     init() {
+        this.renderResources();
         this.setupEventListeners();
         this.setupSearch();
         this.filterResources();
+    }
+
+    renderResources() {
+        if (!this.resourcesGrid) return;
+
+        this.resourcesGrid.innerHTML = this.resources.map(resource => 
+            this.renderResourceCard(resource)
+        ).join('');
+
+        this.resourceCards = document.querySelectorAll('.resource-card');
+    }
+
+    renderResourceCard(resource) {
+        const statusClass = resource.active ? 'resource-card--active' : 'resource-card--coming-soon';
+        const featuredAttr = resource.featured ? 'data-featured="true"' : 'data-featured="false"';
+        const categoryAttr = `data-category="${resource.category}"`;
+        const searchAttr = `data-search="${resource.search}"`;
+        const comingSoonBadge = !resource.active ? '<span class="coming-soon-badge">Coming Soon</span>' : '';
+        const disabledAttr = !resource.active ? 'disabled' : '';
+        const onClickAttr = resource.actions[0]?.onClick ? `onclick="${resource.actions[0].onClick}"` : '';
+
+        const actionsHtml = resource.actions.map(action => {
+            const btnClass = action.primary ? 'btn-primary' : 'btn-outline-primary';
+            const icon = action.icon;
+            const label = action.label;
+            return `<button class="btn ${btnClass} btn-sm" ${disabledAttr} ${onClickAttr}>
+                <i class="fas fa-${icon}"></i>
+                ${label}
+            </button>`;
+        }).join('');
+
+        return `
+            <div class="resource-card ${statusClass} ${resource.theme}" ${featuredAttr} ${categoryAttr} ${searchAttr}>
+                ${comingSoonBadge}
+                <div class="resource-image">
+                    <i class="fas fa-${resource.icon}"></i>
+                </div>
+                <div class="resource-content">
+                    <div class="resource-category">${this.capitalizeFirst(resource.category)}</div>
+                    <h3 class="resource-title">${resource.title}</h3>
+                    <p class="resource-description">${resource.description}</p>
+                    <div class="resource-meta">
+                        <span class="resource-level">${resource.level}</span>
+                        <span class="resource-time">${resource.time}</span>
+                    </div>
+                    <div class="resource-actions">
+                        ${actionsHtml}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
     setupEventListeners() {
