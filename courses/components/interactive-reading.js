@@ -347,6 +347,13 @@ class InteractiveReading extends HTMLElement {
     }
 
     startQuiz() {
+        // Check if user is guest - block quiz access
+        const isGuest = localStorage.getItem('isGuest') === 'true';
+        if (isGuest) {
+            alert('Quiz access is restricted for guest users. Please register to take quizzes and earn Cocos.');
+            return;
+        }
+
         const readingContent = this.querySelector('#readingContent');
         const quizContainer = this.querySelector('#quizContainer');
 

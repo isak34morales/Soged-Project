@@ -532,10 +532,19 @@ class LearningSection extends HTMLElement {
     generateLessonsForCourse() {
         const lessons = this.getLessonsData();
         const currentLevel = this.getCurrentLevel();
+        const isGuest = localStorage.getItem('isGuest') === 'true';
+        const guestAccessLevel = parseInt(localStorage.getItem('guestAccessLevel') || '2', 10);
+        
         let html = '';
         let currentModule = 0;
 
         lessons.forEach((lesson, index) => {
+            // Check if guest mode and level is beyond access
+            if (isGuest && lesson.id > guestAccessLevel) {
+                lesson.status = 'locked';
+                lesson.isLockedForGuest = true;
+            }
+
             // Add module header when module changes
             if (lesson.module && lesson.module !== currentModule) {
                 currentModule = lesson.module;
@@ -546,6 +555,7 @@ class LearningSection extends HTMLElement {
             <div class="path-step">
                 <div class="lesson-node ${lesson.status} ${lesson.type === 'boss' ? 'boss-node' : ''} ${lesson.status === 'locked' ? 'opacity-60 pointer-events-none' : ''}" data-lesson="${lesson.id}">
                     ${lesson.type === 'boss' ? '<div class="boss-badge">BOSS</div>' : ''}
+                    ${lesson.isLockedForGuest ? '<div class="lock-overlay"><i class="fas fa-lock"></i><span>Register to unlock</span></div>' : ''}
                     <div class="lesson-level-num">${lesson.id}</div>
                     ${lesson.id === currentLevel ? this.generateSoggyAvatar() : ''}
                     <div class="lesson-icon">
@@ -573,13 +583,13 @@ class LearningSection extends HTMLElement {
 
     generateModuleHeader(moduleNumber) {
         const moduleTitles = {
-            1: 'MÓDULO 1: Raíces y Entorno Comunitario',
-            2: 'MÓDULO 2: Cosmovisión e Identidad Avanzada'
+            1: 'MODULE 1: Roots and Community Environment',
+            2: 'MODULE 2: Cosmovision and Advanced Identity'
         };
 
         return `
             <div class="module-header">
-                <h3 class="module-title">${moduleTitles[moduleNumber] || `MÓDULO ${moduleNumber}`}</h3>
+                <h3 class="module-title" style="color: #000000;">${moduleTitles[moduleNumber] || `MODULE ${moduleNumber}`}</h3>
                 <div class="module-divider"></div>
             </div>
         `;
