@@ -347,7 +347,14 @@ class SimpleLearningHub {
                     content = `<guna-vocabulary-section></guna-vocabulary-section>`;
                     break;
                 case 'memory':
-                    content = `<guna-memory-section></guna-memory-section>`;
+                    content = `
+                        <div class="games-container">
+                            <guna-memory-section></guna-memory-section>
+                            <div class="mola-puzzle-section" style="margin-top: 3rem;">
+                                <mola-puzzle></mola-puzzle>
+                            </div>
+                        </div>
+                    `;
                     break;
                 case 'community':
                     content = `<guna-community-section></guna-community-section>`;

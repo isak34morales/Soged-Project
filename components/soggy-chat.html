@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soggy AI - Chat Interactivo</title>
+    <title>Soggy AI - Interactive Chat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .soggy-chat-container {
-            max-width: 600px;
+            max-width: 700px;
             margin: 2rem auto;
-            background: #efeae2;
-            border-radius: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFE0B2 100%);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(196, 30, 58, 0.2);
             overflow: hidden;
             position: relative;
             height: calc(100vh - 4rem);
             display: flex;
             flex-direction: column;
+            border: 4px solid #FFD700;
         }
 
         .soggy-header {
-            background: linear-gradient(135deg, #C41E3A 0%, #FF6B35 25%, #FFD700 50%, #1a1a1a 75%, #C41E3A 100%);
-            background-size: 200% 200%;
-            animation: mola-gradient 8s ease infinite;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #C41E3A 0%, #FF6B35 30%, #FFD700 60%, #1a1a1a 80%, #C41E3A 100%);
+            background-size: 300% 300%;
+            animation: mola-gradient 10s ease infinite;
+            padding: 2rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             position: relative;
             overflow: hidden;
-            border-bottom: 3px solid #FFD700;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom: 4px solid #FFD700;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
 
         @keyframes mola-gradient {
@@ -47,85 +48,120 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mola-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="none"/><circle cx="10" cy="10" r="8" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="10" r="4" fill="rgba(255,255,255,0.2)"/></pattern></defs><rect width="100" height="100" fill="url(%23mola-pattern)"/></svg>');
-            opacity: 0.3;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mola-pattern" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse"><rect width="25" height="25" fill="none"/><circle cx="12.5" cy="12.5" r="10" fill="rgba(255,255,255,0.15)"/><circle cx="12.5" cy="12.5" r="5" fill="rgba(255,255,255,0.25)"/><path d="M12.5 2.5 L12.5 22.5 M2.5 12.5 L22.5 12.5" stroke="rgba(255,255,255,0.2)" stroke-width="2"/></pattern></defs><rect width="100" height="100" fill="url(%23mola-pattern)"/></svg>');
+            opacity: 0.4;
+        }
+
+        .soggy-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         .soggy-avatar {
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            border: 3px solid #FFD700;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 5px solid #FFD700;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4), 0 0 30px rgba(255,215,0,0.5);
             object-fit: cover;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             background: white;
+            animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(-2deg); }
         }
 
         .soggy-info {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             flex: 1;
         }
 
         .soggy-info h3 {
             color: white;
             margin: 0;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
         }
 
         .soggy-info p {
             color: #FFD700;
-            margin: 0.25rem 0 0 0;
-            font-size: 0.9rem;
+            margin: 0.5rem 0 0 0;
+            font-size: 1rem;
             font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .premium-badge {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #333;
-            padding: 0.3rem 0.8rem;
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(40, 167, 69, 0.9);
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #28A745;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem;
-            background: #efeae2;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, #FFF8E1 0%, #FFE0B2 100%);
             scroll-behavior: smooth;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="whatsapp" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(0,0,0,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23whatsapp)"/></svg>');
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="chat-bg" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="2" fill="rgba(196,30,58,0.08)"/><circle cx="0" cy="0" r="1.5" fill="rgba(255,107,53,0.06)"/></pattern></defs><rect width="100" height="100" fill="url(%23chat-bg)"/></svg>');
         }
 
         .message {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: flex-end;
-            gap: 0.5rem;
-            animation: slideIn 0.2s ease-out;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease-out;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(25px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -135,72 +171,75 @@
         }
 
         .message-avatar {
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .message.ai .message-avatar {
-            background: #075e54;
+            background: linear-gradient(135deg, #C41E3A, #FF6B35);
             color: white;
+            border: 3px solid #FFD700;
         }
 
         .message.user .message-avatar {
-            background: #128c7e;
+            background: linear-gradient(135deg, #28A745, #20C997);
             color: white;
+            border: 3px solid #FFD700;
         }
 
         .message-content {
-            max-width: 70%;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            max-width: 75%;
+            padding: 1rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
             word-wrap: break-word;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .message.ai .message-content {
-            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mola-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="6" fill="rgba(255,107,53,0.1)"/><circle cx="10" cy="10" r="3" fill="rgba(196,30,58,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23mola-pattern)"/></svg>');
+            background: white;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="ai-bg" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="rgba(255,107,53,0.08)"/><circle cx="10" cy="10" r="2.5" fill="rgba(196,30,58,0.08)"/></pattern></defs><rect width="100" height="100" fill="url(%23ai-bg)"/></svg>');
             border-top-left-radius: 0;
             color: #333;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            border: 2px solid #FF6B35;
+            border: 3px solid #FF6B35;
         }
 
         .message.user .message-content {
             background: linear-gradient(135deg, #28A745, #20C997);
             border-top-right-radius: 0;
             color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            border: 2px solid #FFD700;
+            border: 3px solid #FFD700;
         }
 
         .typing-indicator {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
-            border-radius: 18px;
-            border: 2px solid #FF6B35;
-            max-width: 100px;
-            margin-left: 3rem;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: white;
+            border-radius: 20px;
+            border: 3px solid #FF6B35;
+            max-width: 120px;
+            margin-left: 3.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .typing-dots {
             display: flex;
-            gap: 0.3rem;
+            gap: 0.4rem;
         }
 
         .typing-dots span {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #FF6B35;
             border-radius: 50%;
             animation: typing-bounce 1.4s infinite ease-in-out;
@@ -221,8 +260,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -232,90 +271,97 @@
 
         .premium-modal {
             background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
-            border: 3px solid #FFD700;
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 400px;
+            border: 4px solid #FFD700;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 450px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
             animation: modal-appear 0.5s ease;
         }
 
         @keyframes modal-appear {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         .premium-modal img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 3px solid #FFD700;
+            border: 4px solid #FFD700;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            animation: float 4s ease-in-out infinite;
         }
 
         .premium-modal h3 {
             color: #C41E3A;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .premium-modal p {
             color: #333;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
         .premium-btn {
             background: linear-gradient(135deg, #FF6B35, #C41E3A);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.15rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .premium-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,107,53,0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.6);
         }
 
         .chat-input-area {
-            padding: 0.5rem 1rem;
-            background: #f0f0f0;
-            border-top: 1px solid #ddd;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+            border-top: 3px solid #FFD700;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
         .input-group {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             flex: 1;
             align-items: center;
         }
 
         .chat-input {
             flex: 1;
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            padding: 1rem 1.5rem;
+            border: 3px solid #FFD700;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .chat-input:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 4px rgba(255,107,53,0.2), 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .chat-input:disabled {
@@ -324,22 +370,24 @@
         }
 
         .send-btn {
-            width: 40px;
-            height: 40px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            background: #075e54;
+            background: linear-gradient(135deg, #28A745, #20C997);
             color: white;
-            border: none;
+            border: 3px solid #FFD700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: all 0.2s ease;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
         }
 
         .send-btn:hover:not(:disabled) {
-            background: #128c7e;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
         }
 
         .send-btn:disabled {
@@ -348,18 +396,18 @@
             transform: none;
         }
 
-        /* Message timestamp */
         .message-time {
-            font-size: 0.65rem;
-            color: rgba(0, 0, 0, 0.45);
-            margin-top: 0.25rem;
+            font-size: 0.7rem;
+            color: rgba(0, 0, 0, 0.5);
+            margin-top: 0.5rem;
             text-align: right;
         }
 
         @media (max-width: 768px) {
             .soggy-chat-container {
-                margin: 1rem;
+                margin: 0.5rem;
                 border-radius: 20px;
+                height: calc(100vh - 1rem);
             }
 
             .soggy-avatar {
@@ -368,12 +416,11 @@
             }
 
             .soggy-info h3 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
 
             .chat-messages {
-                height: 350px;
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .message-content {
@@ -386,8 +433,12 @@
             }
 
             .premium-modal img {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
+            }
+
+            .chat-input-area {
+                padding: 0.75rem 1rem;
             }
         }
     </style>
@@ -398,7 +449,10 @@
             <img src="../Images/Soged/Newturttle.png" alt="Soggy" class="soggy-avatar">
             <div class="soggy-info">
                 <h3>Soggy AI</h3>
-                <p>En línea</p>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    Online
+                </div>
             </div>
         </div>
 
@@ -408,8 +462,8 @@
                     <i class="fas fa-turtle"></i>
                 </div>
                 <div class="message-content">
-                    ¡Hola! Soy Soggy, tu asistente en lenguas indígenas de Panamá. ¿En qué puedo ayudarte hoy?
-                    <div class="message-time">Ahora</div>
+                    Hello! I'm Soggy, your assistant for indigenous languages of Panama. How can I help you today?
+                    <div class="message-time">Now</div>
                 </div>
             </div>
         </div>
@@ -419,7 +473,7 @@
                 <input type="text" 
                        class="chat-input" 
                        id="messageInput" 
-                       placeholder="Escribe un mensaje..." 
+                       placeholder="Type a message..." 
                        autocomplete="off">
                 <button class="send-btn" id="sendBtn" disabled>
                     <i class="fas fa-paper-plane"></i>
@@ -431,10 +485,10 @@
         <div class="premium-overlay" id="premiumOverlay" style="display: none;">
             <div class="premium-modal">
                 <img src="../Images/Soged/Newturttle.png" alt="Soggy">
-                <h3>¡Desbloquea el conocimiento ancestral de Soggy AI!</h3>
-                <p>Pásate a Premium para chatear en tiempo real, perfeccionar tu gramática y explorar la cosmovisión indígena.</p>
+                <h3>Unlock Soggy AI's Ancestral Knowledge!</h3>
+                <p>Upgrade to Premium to chat in real-time, perfect your grammar, and explore the indigenous worldview.</p>
                 <button class="premium-btn" onclick="openPremiumModal()">
-                    <i class="fas fa-crown"></i> Actualizar a Premium
+                    <i class="fas fa-crown"></i> Upgrade to Premium
                 </button>
             </div>
         </div>
@@ -457,29 +511,27 @@
         function checkPremiumStatus() {
             const premiumOverlay = document.getElementById('premiumOverlay');
             if (!isPremium) {
-                // Show premium overlay after first message
                 setTimeout(() => {
                     if (!isPremium) {
                         premiumOverlay.style.display = 'flex';
                     }
-                }, 30000); // Show after 30 seconds
+                }, 30000);
             } else {
                 premiumOverlay.style.display = 'none';
             }
         }
 
         function openPremiumModal() {
-            // Call the premium modal from index.html
             if (window.openPremiumModal) {
                 window.openPremiumModal();
             } else {
-                alert('¡Gracias por tu interés! El sistema de pago Premium se integrará próximamente.');
+                alert('Thank you for your interest! The Premium payment system will be integrated soon.');
             }
         }
 
         function getCurrentTime() {
             const now = new Date();
-            return now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            return now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         }
 
         function scrollToBottom() {
@@ -553,7 +605,6 @@
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
 
-            // Check premium status before sending
             if (!isPremium) {
                 const premiumOverlay = document.getElementById('premiumOverlay');
                 premiumOverlay.style.display = 'flex';
@@ -582,11 +633,11 @@
                 if (data.success) {
                     addMessage(data.response, false);
                 } else {
-                    addMessage('Lo siento, hubo un error al procesar tu mensaje. Por favor, intenta nuevamente.', false);
+                    addMessage('Sorry, there was an error processing your message. Please try again.', false);
                 }
             } catch (error) {
                 console.error('Error sending message:', error);
-                addMessage('Lo siento, hubo un error de conexión. Por favor, verifica tu conexión a internet e intenta nuevamente.', false);
+                addMessage('Sorry, there was a connection error. Please check your internet connection and try again.', false);
             } finally {
                 setLoading(false);
             }
@@ -605,7 +656,6 @@
 
         sendBtn.addEventListener('click', sendMessage);
 
-        // Initialize
         scrollToBottom();
     </script>
 </body>

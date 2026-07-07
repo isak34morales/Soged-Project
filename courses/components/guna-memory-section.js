@@ -5,7 +5,7 @@ class GunaMemorySection extends HTMLElement {
     connectedCallback() {
         this.difficulty = 'medium';
         this.isRevealedPhase = false;
-        this.isGameStarted = false;
+        this.isGameStarted = true;
         this.countdown = 5;
         this.countdownInterval = null;
         this.render();
@@ -23,22 +23,22 @@ class GunaMemorySection extends HTMLElement {
     getWords() {
         // Educational vocabulary pairs: Spanish - Indigenous Language
         const educationalPairs = [
-            { es: 'Hola', guna: 'Na', icon: '👋' },
-            { es: 'Tortuga', guna: 'Yarbi', icon: '🐢' },
-            { es: 'Familia', guna: 'Dummad', icon: '👨‍👩‍👧‍👦' },
-            { es: 'Agua', guna: 'Ubb', icon: '💧' },
-            { es: 'Sol', guna: 'Baba', icon: '☀️' },
-            { es: 'Luna', guna: 'Olo', icon: '🌙' },
-            { es: 'Coco', guna: 'Ogob', icon: '🥥' },
-            { es: 'Mar', guna: 'Naggwa', icon: '🌊' },
-            { es: 'Montaña', guna: 'Nargga', icon: '⛰️' },
-            { es: 'Pescado', guna: 'Mai', icon: '🐟' },
-            { es: 'Casa', guna: 'Dummag', icon: '🏠' },
-            { es: 'Comida', guna: 'Naggwe', icon: '🍽️' },
-            { es: 'Amigo', guna: 'Suggwa', icon: '🤝' },
-            { es: 'Gracias', guna: 'Diaba', icon: '🙏' },
-            { es: 'Buenos días', guna: 'Bai naggwe', icon: '🌅' },
-            { es: 'Buenas noches', guna: 'Bai olo', icon: '🌙' }
+            { es: 'Hello', guna: 'Na', icon: '👋' },
+            { es: 'Turtle', guna: 'Yarbi', icon: '🐢' },
+            { es: 'Family', guna: 'Dummad', icon: '👨‍👩‍👧‍👦' },
+            { es: 'Water', guna: 'Ubb', icon: '💧' },
+            { es: 'Sun', guna: 'Baba', icon: '☀️' },
+            { es: 'Moon', guna: 'Olo', icon: '🌙' },
+            { es: 'Coconut', guna: 'Ogob', icon: '🥥' },
+            { es: 'Sea', guna: 'Naggwa', icon: '🌊' },
+            { es: 'Mountain', guna: 'Nargga', icon: '⛰️' },
+            { es: 'Fish', guna: 'Mai', icon: '🐟' },
+            { es: 'House', guna: 'Dummag', icon: '🏠' },
+            { es: 'Food', guna: 'Naggwe', icon: '🍽️' },
+            { es: 'Friend', guna: 'Suggwa', icon: '🤝' },
+            { es: 'Thank you', guna: 'Diaba', icon: '🙏' },
+            { es: 'Good morning', guna: 'Bai naggwe', icon: '🌅' },
+            { es: 'Good night', guna: 'Bai olo', icon: '🌙' }
         ];
         return educationalPairs;
     }
@@ -47,7 +47,7 @@ class GunaMemorySection extends HTMLElement {
         if (!text || !window.speechSynthesis) return;
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'es-ES';
+        u.lang = 'en-US';
         u.rate = 0.85;
         window.speechSynthesis.speak(u);
     }
@@ -66,28 +66,28 @@ class GunaMemorySection extends HTMLElement {
             <div class="memory-section-modern">
                 <header class="memory-hero-modern" data-aos="fade-up">
                     <div class="memory-header-content">
-                        <h1 class="memory-title-modern">🧠 Juego de Memoria Educativo</h1>
-                        <p class="memory-subtitle-modern">Empareja palabras en español con su traducción en lengua indígena</p>
+                        <h1 class="memory-title-modern">🧠 Educational Memory Game</h1>
+                        <p class="memory-subtitle-modern">Match words in English with their translation in indigenous language</p>
                     </div>
                     <div class="memory-stats-modern">
                         <div class="stat-box">
-                            <span class="stat-label">Movimientos</span>
+                            <span class="stat-label">Moves</span>
                             <span class="stat-value" id="memoryMoves">0</span>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">Parejas</span>
+                            <span class="stat-label">Pairs</span>
                             <span class="stat-value"><span id="memoryPairs">0</span> / <span id="memoryTotal">0</span></span>
                         </div>
                     </div>
                 </header>
 
                 <div class="memory-controls-modern" data-aos="fade-up" data-aos-delay="100">
-                    <div class="difficulty-selector" role="group" aria-label="Dificultad">
+                    <div class="difficulty-selector" role="group" aria-label="Difficulty">
                         ${['easy', 'medium', 'hard'].map(d => {
                             const counts = { easy: 6, medium: 8, hard: 12 };
                             const rewards = { easy: 10, medium: 25, hard: 50 };
                             return `<button type="button" class="difficulty-btn ${d === this.difficulty ? 'active' : ''}" data-diff="${d}">
-                                ${d.charAt(0).toUpperCase() + d.slice(1)} (${counts[d]} parejas) - 🥥${rewards[d]}
+                                ${d.charAt(0).toUpperCase() + d.slice(1)} (${counts[d]} pairs) - 🥥${rewards[d]}
                             </button>`;
                         }).join('')}
                     </div>
@@ -95,7 +95,7 @@ class GunaMemorySection extends HTMLElement {
 
                 <div class="memorization-phase" id="memorizationPhase" hidden>
                     <div class="countdown-container">
-                        <div class="countdown-text">Memoriza las palabras:</div>
+                        <div class="countdown-text">Memorize the words:</div>
                         <div class="countdown-number" id="countdownNumber">5</div>
                         <div class="countdown-bar">
                             <div class="countdown-progress" id="countdownProgress"></div>
@@ -112,11 +112,11 @@ class GunaMemorySection extends HTMLElement {
                 <div class="victory-screen" id="victoryScreen" hidden>
                     <div class="victory-content">
                         <img src="../Images/Soged/Newturttle.png" alt="Soggy" class="victory-soggy">
-                        <h2 class="victory-title">¡Excelente trabajo!</h2>
-                        <p class="victory-message">Has completado el juego de memoria</p>
+                        <h2 class="victory-title">Excellent work!</h2>
+                        <p class="victory-message">You have completed the memory game</p>
                         <div class="victory-stats">
                             <div class="victory-stat">
-                                <span class="victory-stat-label">Movimientos</span>
+                                <span class="victory-stat-label">Moves</span>
                                 <span class="victory-stat-value" id="victoryMoves">0</span>
                             </div>
                             <div class="victory-reward">
@@ -127,10 +127,10 @@ class GunaMemorySection extends HTMLElement {
                         </div>
                         <div class="victory-actions">
                             <button class="victory-btn primary" id="nextLevelBtn">
-                                <i class="fas fa-arrow-right"></i> Siguiente Nivel
+                                <i class="fas fa-arrow-right"></i> Next Level
                             </button>
                             <button class="victory-btn secondary" id="backToMapBtn">
-                                <i class="fas fa-map"></i> Volver al Mapa
+                                <i class="fas fa-map"></i> Back to Map
                             </button>
                         </div>
                     </div>
@@ -192,14 +192,14 @@ class GunaMemorySection extends HTMLElement {
 
         // Reset game state
         this.isRevealedPhase = true;
-        this.isGameStarted = false;
+        this.isGameStarted = true;
         this.countdown = 5;
 
-        // Create cards: Spanish word and Indigenous translation
+        // Create cards: English word and Indigenous translation
         const cards = [];
         pairs.forEach(p => {
-            cards.push({ pairId: p.id, type: 'spanish', label: p.es, icon: p.icon, language: 'Español', revealed: true });
-            cards.push({ pairId: p.id, type: 'indigenous', label: p.guna, icon: p.icon, language: 'Lengua Indígena', revealed: true });
+            cards.push({ pairId: p.id, type: 'english', label: p.es, icon: p.icon, language: 'English', revealed: true });
+            cards.push({ pairId: p.id, type: 'indigenous', label: p.guna, icon: p.icon, language: 'Indigenous Language', revealed: true });
         });
 
         let state = {
@@ -226,7 +226,7 @@ class GunaMemorySection extends HTMLElement {
                         <div class="card-front">
                             <div class="mola-pattern"></div>
                         </div>
-                        <div class="card-back ${c.type === 'spanish' ? 'spanish-card' : 'indigenous-card'}">
+                        <div class="card-back ${c.type === 'english' ? 'english-card' : 'indigenous-card'}">
                             <span class="card-language">${c.language}</span>
                             <span class="card-word">${c.label}</span>
                             ${c.matched ? '<span class="checkmark">✓</span>' : ''}
