@@ -801,6 +801,8 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
     <script src="js/cocos-economy.js"></script>
     <script src="js/mola-attribution.js"></script>
     <script src="js/guna-lives.js"></script>
@@ -839,6 +841,15 @@
             once: true,
             offset: 50
         });
+
+        // Verify session with Supabase
+        async function verificarSesion() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = '../auth/login.html';
+            }
+        }
+        verificarSesion();
     </script>
 </body>
 </html>

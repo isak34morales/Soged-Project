@@ -1376,7 +1376,12 @@ class SimpleLearningHub {
         }
     }
 
-    logout() {
+    async logout() {
+        // Sign out from Supabase
+        if (typeof supabaseClient !== 'undefined') {
+            await supabaseClient.auth.signOut();
+        }
+        
         // Clear user data
         localStorage.removeItem('currentCourse');
         localStorage.removeItem('sidebarCollapsed');
