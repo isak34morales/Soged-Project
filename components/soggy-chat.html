@@ -21,14 +21,23 @@
         }
 
         .soggy-header {
-            background: #075e54;
-            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #C41E3A 0%, #FF6B35 25%, #FFD700 50%, #1a1a1a 75%, #C41E3A 100%);
+            background-size: 200% 200%;
+            animation: mola-gradient 8s ease infinite;
+            padding: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid #128c7e;
+            border-bottom: 3px solid #FFD700;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes mola-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .soggy-header::before {
@@ -43,12 +52,15 @@
         }
 
         .soggy-avatar {
-            width: 40px;
-            height: 40px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
+            border: 3px solid #FFD700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             object-fit: cover;
             position: relative;
             z-index: 1;
+            background: white;
         }
 
         @keyframes float {
@@ -65,15 +77,16 @@
         .soggy-info h3 {
             color: white;
             margin: 0;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .soggy-info p {
-            color: rgba(255, 255, 255, 0.8);
-            margin: 0.1rem 0 0 0;
-            font-size: 0.75rem;
-            font-weight: 400;
+            color: #FFD700;
+            margin: 0.25rem 0 0 0;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .premium-badge {
@@ -152,44 +165,126 @@
         }
 
         .message.ai .message-content {
-            background: white;
+            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mola-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="6" fill="rgba(255,107,53,0.1)"/><circle cx="10" cy="10" r="3" fill="rgba(196,30,58,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23mola-pattern)"/></svg>');
             border-top-left-radius: 0;
             color: #333;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border: 2px solid #FF6B35;
         }
 
         .message.user .message-content {
-            background: #dcf8c6;
+            background: linear-gradient(135deg, #28A745, #20C997);
             border-top-right-radius: 0;
-            color: #333;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border: 2px solid #FFD700;
         }
 
         .typing-indicator {
             display: flex;
-            gap: 0.4rem;
-            padding: 0.8rem;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+            border-radius: 18px;
+            border: 2px solid #FF6B35;
+            max-width: 100px;
+            margin-left: 3rem;
         }
 
-        .typing-dot {
-            width: 10px;
-            height: 10px;
-            background: #FF6F00;
+        .typing-dots {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #FF6B35;
             border-radius: 50%;
-            animation: typing 1.4s infinite;
+            animation: typing-bounce 1.4s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing-bounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
         }
 
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
+        .premium-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border-radius: 20px;
         }
 
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-8px); opacity: 1; }
+        .premium-modal {
+            background: linear-gradient(135deg, #FFF8E1, #FFE0B2);
+            border: 3px solid #FFD700;
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: modal-appear 0.5s ease;
+        }
+
+        @keyframes modal-appear {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .premium-modal img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #FFD700;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .premium-modal h3 {
+            color: #C41E3A;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .premium-modal p {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-btn {
+            background: linear-gradient(135deg, #FF6B35, #C41E3A);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,53,0.5);
         }
 
         .chat-input-area {
@@ -331,6 +426,18 @@
                 </button>
             </div>
         </div>
+
+        <!-- Premium Overlay for Free Users -->
+        <div class="premium-overlay" id="premiumOverlay" style="display: none;">
+            <div class="premium-modal">
+                <img src="../Images/Soged/Newturttle.png" alt="Soggy">
+                <h3>¡Desbloquea el conocimiento ancestral de Soggy AI!</h3>
+                <p>Pásate a Premium para chatear en tiempo real, perfeccionar tu gramática y explorar la cosmovisión indígena.</p>
+                <button class="premium-btn" onclick="openPremiumModal()">
+                    <i class="fas fa-crown"></i> Actualizar a Premium
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -341,9 +448,33 @@
         let isLoading = false;
         let userId = localStorage.getItem('userId') || generateUserId();
         localStorage.setItem('userId', userId);
+        let isPremium = localStorage.getItem('isPremium') === 'true';
 
         function generateUserId() {
             return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function checkPremiumStatus() {
+            const premiumOverlay = document.getElementById('premiumOverlay');
+            if (!isPremium) {
+                // Show premium overlay after first message
+                setTimeout(() => {
+                    if (!isPremium) {
+                        premiumOverlay.style.display = 'flex';
+                    }
+                }, 30000); // Show after 30 seconds
+            } else {
+                premiumOverlay.style.display = 'none';
+            }
+        }
+
+        function openPremiumModal() {
+            // Call the premium modal from index.html
+            if (window.openPremiumModal) {
+                window.openPremiumModal();
+            } else {
+                alert('¡Gracias por tu interés! El sistema de pago Premium se integrará próximamente.');
+            }
         }
 
         function getCurrentTime() {
@@ -384,12 +515,12 @@
             avatarDiv.innerHTML = '<i class="fas fa-turtle"></i>';
             
             const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content';
+            contentDiv.className = 'typing-indicator';
             contentDiv.innerHTML = `
-                <div class="typing-indicator">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             `;
             
@@ -421,6 +552,13 @@
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
+
+            // Check premium status before sending
+            if (!isPremium) {
+                const premiumOverlay = document.getElementById('premiumOverlay');
+                premiumOverlay.style.display = 'flex';
+                return;
+            }
 
             addMessage(message, true);
             messageInput.value = '';
