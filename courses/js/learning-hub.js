@@ -13,9 +13,10 @@ class SimpleLearningHub {
         this.init();
     }
 
-    init() {
+    async init() {
         // Check authentication first
-        if (!this.checkAuthentication()) {
+        const isAuthenticated = await this.checkAuthentication();
+        if (!isAuthenticated) {
             return;
         }
         
@@ -1081,14 +1082,28 @@ class SimpleLearningHub {
         return null;
     }
 
-    checkAuthentication() {
-        if (!this.currentUser) {
-            // User not authenticated, redirect to login
+    async checkAuthentication() {
+        // Check Supabase session instead of currentUser
+        if (typeof supabaseClient !== 'undefined') {
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (!session) {
+                    alert('Por favor inicia sesión para acceder al dashboard.');
+                    window.location.href = '../auth/login.html';
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error('Error checking authentication:', error);
+                alert('Por favor inicia sesión para acceder al dashboard.');
+                window.location.href = '../auth/login.html';
+                return false;
+            }
+        } else {
             alert('Por favor inicia sesión para acceder al dashboard.');
             window.location.href = '../auth/login.html';
             return false;
         }
-        return true;
     }
 
     updateUserInfo() {
@@ -1376,7 +1391,22 @@ class SimpleLearningHub {
         }
     }
 
-    logout() {
+    async logout() {
+        // Show confirmation first
+        if (!confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+            return;
+        }
+        
+        // Sign out from Supabase
+        if (typeof supabaseClient !== 'undefined') {
+            try {
+                await supabaseClient.auth.signOut();
+                console.log('Successfully signed out from Supabase');
+            } catch (error) {
+                console.error('Error signing out from Supabase:', error);
+            }
+        }
+        
         // Clear user data
         localStorage.removeItem('currentCourse');
         localStorage.removeItem('sidebarCollapsed');
@@ -1386,11 +1416,11 @@ class SimpleLearningHub {
         localStorage.removeItem('soged_token');
         localStorage.removeItem('soged_user');
         
-        // Show confirmation
-        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-            // Redirect to main page
-            window.location.href = '../index.html';
-        }
+        // Clear any remaining Supabase session data
+        localStorage.removeItem('sb-ocmxpaxhcdwrfycsojyc-auth-token');
+        
+        // Redirect to login page instead of main page
+        window.location.href = '../auth/login.html';
     }
 
     loadInitialSection() {
