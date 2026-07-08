@@ -3,7 +3,7 @@
  */
 const GUNA_STORE_ASSETS = {
     mola: '../Images/Molas - Guna',
-    coco: '../Images/Soged/coco.png',
+    coco: '../Images/Soged/oggob.png',
     molaIcon: '../Images/Soged/mola-icon.png'
 };
 

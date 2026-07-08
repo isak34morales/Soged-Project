@@ -888,7 +888,7 @@ class SimpleLearningHub {
                         <span class="mini-stat-label">Total XP</span>
                     </div>
                     <div class="mini-stat-card cocos-earned cocos-counter">
-                        <img src="../Images/Soged/coco.png" alt="" class="mini-stat-coco-img" aria-hidden="true">
+                        <img src="../Images/Soged/oggob.png" alt="" class="mini-stat-coco-img" aria-hidden="true">
                         <span class="mini-stat-number" data-cocos-balance>${stats.cocos.toLocaleString('en-US')}</span>
                         <span class="mini-stat-label">Cocos earned</span>
                     </div>
